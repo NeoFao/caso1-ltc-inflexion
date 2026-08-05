@@ -2,7 +2,7 @@
 name = "caso1-ltc-inflexion"
 version = "0.1.0"
 description = "Pronostico de puntos de inflexion en el precio de Litecoin mediante analisis multivariante de series temporales"
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.13,<3.15"
 dependencies = [
     "pandas>=2.2",
     "numpy>=1.26",
@@ -33,7 +33,7 @@ pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py313"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

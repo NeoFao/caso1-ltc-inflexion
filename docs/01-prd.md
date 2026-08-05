@@ -231,7 +231,7 @@ Numerados para poder rastrearlos después. Cada tarea del backlog va a apuntar a
 
 | Capa | Elección | Por qué |
 |---|---|---|
-| Lenguaje | Python 3.11 | Es donde vive todo el ecosistema de series temporales y Hugging Face |
+| Lenguaje | Python 3.14 | Ultima estable. Se midio que resuelve identico a 3.13 con torch 2.13 y transformers 5.14; 3.15 se descarta porque ningun torch tiene ruedas para esa version |
 | Entorno | `uv` con archivo de bloqueo | Un solo comando instala todo, incluido el intérprete. Elimina los cuatro puntos de falla habituales del setup |
 | Datos | pandas + parquet | El dataset son miles de filas, no millones. pandas es lo que van a encontrar en cualquier tutorial cuando se traben |
 | Modelos | PyTorch (CPU) + transformers | Requisito del enunciado |

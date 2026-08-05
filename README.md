@@ -114,6 +114,13 @@ uv run uvicorn src.api.main:app --reload --port 8000
 | | |
 |---|---|
 | [PRD](docs/01-prd.md) · [versión Word](docs/) | Qué construimos, alcance, requisitos, riesgos, plan |
-| [Definición del punto de inflexión](docs/00-definicion-punto-inflexion.md) | Qué son `w` y `h`, por qué importan, y la consulta al profesor |
+| [Definición del punto de inflexión](docs/00-definicion-punto-inflexion.md) | Qué son `w` y `h` y por qué de ellos depende todo lo demás |
+| [Consulta al profesor](docs/02-consulta-profesor.md) | Guion de la reunión del equipo y el texto listo para enviar |
 | [`docs/evidencias/`](docs/evidencias/) | Mediciones y figuras, todas regenerables |
 | [`docs/entregas/`](docs/entregas/) | Los cinco entregables semanales |
+
+El PRD en Word se regenera con:
+
+```bash
+node scripts/build_prd.js "docs/PRD - Pronostico de Puntos de Inflexion LTC v1.0.docx"
+```

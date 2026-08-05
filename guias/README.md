@@ -29,6 +29,14 @@ uv run pytest -q
 
 Si las 44 pruebas pasan, tu entorno está bien. Si no, escribilo en el grupo antes de seguir: no es tu culpa y no lo arregles a mano, porque un entorno distinto al de los demás produce resultados distintos.
 
+**Un error conocido en Windows.** Si `uv sync` falla con `Missing expected target directory for Python minor version link`, borrá el enlace y volvé a intentar:
+
+```bash
+rm -rf "$APPDATA/uv/python/cpython-3.14-windows-x86_64-none" && uv sync --group dev
+```
+
+Es un fallo de `uv`, no tuyo. Pasó en la máquina donde se montó el proyecto y la segunda corrida funcionó.
+
 ### Cómo se trabaja
 
 1. **Nunca trabajás en `main`.** Tu rama se llama `feat/<tu-modulo>-<lo-que-hacés>`, por ejemplo `feat/m1-adf-estacionariedad`.

@@ -38,11 +38,11 @@ Esto es el riesgo R1 materializándose en la semana 1 en vez de la semana 4, que
 
 ### 1. Enviar la consulta al profesor
 
-Está redactada y lista en la sección 9 de [`docs/00-definicion-punto-inflexion.md`](../docs/00-definicion-punto-inflexion.md). Cuatro preguntas: si `w` y `h` son decisión nuestra, qué granularidad espera, qué entiende por "tiempo real", y cómo interpretar la Precisión Direccional en tres clases.
+Todo está en [`docs/02-consulta-profesor.md`](../docs/02-consulta-profesor.md). La Parte A es el guion de la reunión con el equipo, con las tablas medidas; la Parte B es el texto listo para copiar y enviar, sin retocar nada.
+
+Cuatro preguntas: si `w` y `h` son decisión nuestra, qué granularidad espera —con el argumento medido de por qué proponemos 4 horas—, qué entiende por "tiempo real", y cómo interpretar la Precisión Direccional en tres clases.
 
 **Es lo primero porque tiene latencia.** Todo lo demás depende de vos; esto depende de otro.
-
-Agregale una quinta pregunta que salió de la medición: que ahora tenés el argumento medido para justificar velas de 4 horas, y conviene confirmarlo antes de construir cinco semanas encima.
 
 ### 2. Preguntar qué máquina tiene cada uno
 
@@ -100,4 +100,10 @@ Cosas que están montadas pero incompletas, para que no las descubras tarde:
 - **`src/features/base.py` tiene cuatro familias de características de las que pide RF-F1**; faltan indicadores técnicos y ventana deslizante. Son de Alejandro.
 - **No hay escalado todavía** (RF-F3).
 - **El frontend está montado pero vacío**: compila y levanta, no muestra datos. Es de Jose Pablo desde la semana 2.
-- **`uv python install` falló en Windows** con un error de enlace de versión, pero `uv sync` funcionó igual. Si a alguien le pasa, que corra `uv sync` directamente y siga.
+- **`uv` puede fallar al instalar Python en Windows** con `Missing expected target directory for Python minor version link`. Pasó en esta máquina con 3.11, 3.14 y 3.15. Se arregla borrando el enlace corto y volviendo a sincronizar:
+
+  ```bash
+  rm -rf "$APPDATA/uv/python/cpython-3.14-windows-x86_64-none" && uv sync --group dev
+  ```
+
+  Está en el README de las guías porque les va a pasar a ellos también.
