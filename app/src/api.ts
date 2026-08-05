@@ -1,13 +1,24 @@
-// Cliente del backend. Es el unico archivo que sabe que existe una API.
+// Cliente de datos. Es el unico archivo que sabe de donde vienen los numeros.
 //
-// Los tipos reflejan lo que devuelve src/api/main.py. Si el backend cambia su
-// forma, TypeScript rompe aqui y no en cinco componentes distintos.
+// Dos origenes, en este orden:
+//   1. El backend de FastAPI, si esta levantado (desarrollo y exposicion en vivo).
+//   2. Un snapshot estatico congelado por scripts/exportar_estatico.py.
+//
+// El respaldo no es un atajo: es RF-U5, que exige que la aplicacion arranque y
+// sea usable sin conexion mostrando la antiguedad del dato. Ademas es lo que
+// permite publicarla en GitHub Pages, que solo sirve archivos estaticos, y lo
+// que evita depender del wifi del aula el dia de la presentacion.
+//
+// Los dos origenes los produce el mismo codigo Python con los mismos contratos.
+// Aqui no se calcula nada (RF-U6).
 
 export const CLASE = {
   MAXIMO: 1,
   MINIMO: 2,
   CONTINUIDAD: 3,
 } as const;
+
+export type Origen = "backend" | "snapshot";
 
 export interface Punto {
   fecha: string;
@@ -32,32 +43,72 @@ export interface Configuracion {
   latencia_real: number;
   provisional: boolean;
   panel_disponible: boolean;
+  modelo?: string;
+  generado_utc?: string;
+  panel?: {
+    filas_totales: number;
+    desde: string;
+    hasta: string;
+    velas_exportadas_por_activo: number;
+  };
 }
 
 export interface Respuesta {
   fuente: string;
   activo?: string;
+  modelo?: string;
+  generado_utc?: string;
   serie: Punto[];
   metricas: Metricas;
 }
 
-async function pedir<T>(ruta: string): Promise<T> {
-  const respuesta = await fetch(ruta);
-  if (!respuesta.ok) {
-    const detalle = await respuesta.text();
-    throw new Error(`${respuesta.status} en ${ruta}: ${detalle}`);
-  }
+export interface ConOrigen<T> {
+  datos: T;
+  origen: Origen;
+}
+
+const BASE = import.meta.env.BASE_URL;
+const TIEMPO_LIMITE_BACKEND = 1500;
+
+async function traer<T>(url: string, limiteMs?: number): Promise<T> {
+  const control = limiteMs ? AbortSignal.timeout(limiteMs) : undefined;
+  const respuesta = await fetch(url, { signal: control });
+  if (!respuesta.ok) throw new Error(`${respuesta.status} en ${url}`);
   return respuesta.json() as Promise<T>;
 }
 
-export const obtenerConfiguracion = () => pedir<Configuracion>("/api/config");
+/**
+ * Intenta el backend y, si no responde pronto, cae al snapshot.
+ *
+ * El limite de tiempo es corto a proposito: si el backend no esta levantado, el
+ * navegador tarda en fallar por su cuenta y la pagina se veria colgada. Mejor
+ * mostrar datos congelados en un segundo y medio que una pantalla en blanco.
+ */
+async function conRespaldo<T>(rutaBackend: string, rutaSnapshot: string): Promise<ConOrigen<T>> {
+  try {
+    return { datos: await traer<T>(rutaBackend, TIEMPO_LIMITE_BACKEND), origen: "backend" };
+  } catch {
+    return { datos: await traer<T>(`${BASE}datos/${rutaSnapshot}`), origen: "snapshot" };
+  }
+}
+
+export const obtenerConfiguracion = () =>
+  conRespaldo<Configuracion>("/api/config", "config.json");
 
 export const obtenerSintetico = (n = 300, semilla = 0, ruido = 0) =>
-  pedir<Respuesta>(`/api/sintetico?n=${n}&semilla=${semilla}&ruido=${ruido}`);
+  conRespaldo<Respuesta>(
+    `/api/sintetico?n=${n}&semilla=${semilla}&ruido=${ruido}`,
+    "sintetico.json",
+  );
 
-export const obtenerHistorico = (activo = "LTC", desde?: string, hasta?: string) => {
-  const parametros = new URLSearchParams({ activo });
-  if (desde) parametros.set("desde", desde);
-  if (hasta) parametros.set("hasta", hasta);
-  return pedir<Respuesta>(`/api/historico?${parametros}`);
-};
+export const obtenerHistorico = (activo = "LTC") =>
+  conRespaldo<Respuesta>(`/api/historico?activo=${activo}`, `historico-${activo}.json`);
+
+/** Antiguedad legible de un snapshot, para no presentar datos viejos como frescos. */
+export function antiguedad(iso?: string): string | null {
+  if (!iso) return null;
+  const dias = Math.floor((Date.now() - Date.parse(iso)) / 86_400_000);
+  if (dias <= 0) return "hoy";
+  if (dias === 1) return "ayer";
+  return `hace ${dias} días`;
+}

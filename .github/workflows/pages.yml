@@ -1,0 +1,58 @@
+name: Pages
+
+# Publica la aplicacion en GitHub Pages en cada push a main.
+#
+# Pages solo sirve archivos estaticos, asi que la app publicada corre contra el
+# snapshot congelado por scripts/exportar_estatico.py, no contra el backend. El
+# snapshot va versionado en app/public/datos/ para que este despliegue no
+# dependa de descargar precios desde el runner: si Binance estuviera caido, la
+# pagina se publicaria igual con los ultimos datos conocidos.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez; no se cancela el que este corriendo para no dejar la
+# pagina a medio publicar.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci --prefix app
+
+      - name: Construir
+        run: npm run build --prefix app
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/dist
+
+  desplegar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4

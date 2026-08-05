@@ -3,6 +3,10 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // Base relativa para que el mismo build funcione en localhost y bajo el
+  // subdirectorio de GitHub Pages (/caso1-ltc-inflexion/) sin configurar nada
+  // distinto por entorno.
+  base: "./",
   plugins: [react(), tailwindcss()],
   server: {
     port: 5173,

@@ -1,0 +1,24 @@
+{
+  "activos": [
+    "LTC",
+    "BTC",
+    "ETH",
+    "SOL",
+    "XRP",
+    "ADA"
+  ],
+  "granularidad": "1d",
+  "w": 5,
+  "h": 3,
+  "latencia_real": 8,
+  "provisional": true,
+  "panel_disponible": true,
+  "modelo": "baseline_trivial",
+  "generado_utc": "2026-08-05T22:58:33+00:00",
+  "panel": {
+    "filas_totales": 2185,
+    "desde": "2020-08-11T00:00:00+00:00",
+    "hasta": "2026-08-04T00:00:00+00:00",
+    "velas_exportadas_por_activo": 1200
+  }
+}
