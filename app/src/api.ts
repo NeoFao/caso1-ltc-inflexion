@@ -68,6 +68,12 @@ export interface ConOrigen<T> {
 }
 
 const BASE = import.meta.env.BASE_URL;
+
+// Donde vive el backend. En desarrollo queda vacio y se usa /api, que el proxy
+// de Vite redirige a localhost:8000. En el build de Pages se inyecta la URL
+// absoluta del Space de Hugging Face mediante la variable de repositorio
+// API_BASE, para no tener que tocar codigo cuando cambie de sitio.
+const API = import.meta.env.VITE_API_BASE?.replace(/\/$/, "") ?? "";
 const TIEMPO_LIMITE_BACKEND = 1500;
 
 async function traer<T>(url: string, limiteMs?: number): Promise<T> {
@@ -86,7 +92,7 @@ async function traer<T>(url: string, limiteMs?: number): Promise<T> {
  */
 async function conRespaldo<T>(rutaBackend: string, rutaSnapshot: string): Promise<ConOrigen<T>> {
   try {
-    return { datos: await traer<T>(rutaBackend, TIEMPO_LIMITE_BACKEND), origen: "backend" };
+    return { datos: await traer<T>(`${API}${rutaBackend}`, TIEMPO_LIMITE_BACKEND), origen: "backend" };
   } catch {
     return { datos: await traer<T>(`${BASE}datos/${rutaSnapshot}`), origen: "snapshot" };
   }

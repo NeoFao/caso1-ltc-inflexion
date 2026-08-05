@@ -10,6 +10,7 @@ Correr en desarrollo:
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -29,11 +30,18 @@ RUTA_PANEL = Path(f"data/processed/panel_{GRANULARIDAD}_v1.parquet")
 
 app = FastAPI(title="Pronostico de puntos de inflexion en LTC", version="0.1.0")
 
-# El frontend de Vite corre en otro puerto durante el desarrollo.
+# El frontend vive en otro origen: en desarrollo otro puerto, en produccion el
+# dominio de GitHub Pages. Se lee de entorno para que desplegar en otro sitio no
+# obligue a tocar codigo.
+ORIGENES = os.getenv(
+    "ORIGENES_PERMITIDOS",
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173",
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
-    allow_methods=["*"],
+    allow_origins=[o.strip() for o in ORIGENES if o.strip()],
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 
@@ -61,6 +69,7 @@ def configuracion() -> dict:
         "latencia_real": latencia_real(VENTANA_W, HORIZONTE_H),
         "provisional": PROVISIONAL,
         "panel_disponible": RUTA_PANEL.exists(),
+        "modelo": BaselineTrivial.nombre,
     }
 
 
@@ -73,6 +82,7 @@ def modo_sintetico(n: int = 300, semilla: int = 0, ruido: float = 0.0) -> dict:
     predichas = pd.Series(modelo.predecir(serie.to_frame()), index=serie.index)
     return {
         "fuente": "sintetico",
+        "modelo": modelo.nombre,
         "serie": _serializar(serie, etiquetas, predichas),
         "metricas": evaluar(objetivo(etiquetas, HORIZONTE_H), predichas),
     }
@@ -99,6 +109,7 @@ def modo_historico(activo: str = "LTC", desde: str | None = None, hasta: str | N
     return {
         "fuente": "historico",
         "activo": activo,
+        "modelo": modelo.nombre,
         "serie": _serializar(serie, etiquetas, predichas),
         "metricas": evaluar(objetivo(etiquetas, HORIZONTE_H), predichas),
         "balance": resumen_clases(etiquetas).to_dict(orient="records"),

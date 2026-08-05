@@ -39,6 +39,11 @@ jobs:
         run: npm ci --prefix app
 
       - name: Construir
+        # API_BASE es una variable de repositorio. Si no esta definida, el build
+        # queda apuntando a /api, que en Pages no existe, y la pagina cae sola al
+        # snapshot. Definirla cuando el Space de Hugging Face este arriba.
+        env:
+          VITE_API_BASE: ${{ vars.API_BASE }}
         run: npm run build --prefix app
 
       - uses: actions/configure-pages@v5
