@@ -1,0 +1,55 @@
+{
+  "fuente": "https://api.binance.com/api/v3/klines",
+  "descargado_utc": "2026-08-05T22:25:21+00:00",
+  "intervalo": "4h",
+  "activos": {
+    "LTC": {
+      "simbolo": "LTCUSDT",
+      "archivo": "LTC_4h.parquet",
+      "n": 18931,
+      "desde": "2017-12-13T00:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00",
+      "sha256": "3efffe6e16251795"
+    },
+    "BTC": {
+      "simbolo": "BTCUSDT",
+      "archivo": "BTC_4h.parquet",
+      "n": 19638,
+      "desde": "2017-08-17T04:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00",
+      "sha256": "9c4b54491d5f6d2c"
+    },
+    "ETH": {
+      "simbolo": "ETHUSDT",
+      "archivo": "ETH_4h.parquet",
+      "n": 19638,
+      "desde": "2017-08-17T04:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00",
+      "sha256": "d092d73e2454da49"
+    },
+    "SOL": {
+      "simbolo": "SOLUSDT",
+      "archivo": "SOL_4h.parquet",
+      "n": 13114,
+      "desde": "2020-08-11T04:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00",
+      "sha256": "37d9ea560ebb871f"
+    },
+    "XRP": {
+      "simbolo": "XRPUSDT",
+      "archivo": "XRP_4h.parquet",
+      "n": 18084,
+      "desde": "2018-05-04T08:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00",
+      "sha256": "f05784af63f36ea9"
+    },
+    "ADA": {
+      "simbolo": "ADAUSDT",
+      "archivo": "ADA_4h.parquet",
+      "n": 18187,
+      "desde": "2018-04-17T04:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00",
+      "sha256": "03ecc4307219e0cd"
+    }
+  }
+}

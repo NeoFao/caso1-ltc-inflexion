@@ -1,0 +1,29 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+node_modules/
+app/dist/
+
+# El panel procesado SI se versiona: es el artefacto congelado que garantiza que
+# los cuatro trabajemos sobre exactamente los mismos numeros (RF-D4).
+# Lo crudo no, porque se reconstruye con scripts/descargar.py.
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/MANIFEST.json
+
+data/cache/
+
+# Salidas de modelo: pesan y se regeneran entrenando.
+modelos_entrenados/
+*.pt
+*.ckpt
+*.safetensors
+
+.DS_Store
+Thumbs.db
+~$*.docx
+~$*.xlsx

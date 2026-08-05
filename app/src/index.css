@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Misma paleta que src/visual/estilo.py y que el PRD. El demo y el documento
+   tienen que parecer el mismo proyecto. */
+@theme {
+  --color-navy: #1b2a4a;
+  --color-acento: #345d9d;
+  --color-maximo: #c0392b;
+  --color-minimo: #1e8449;
+  --color-gris: #5a6675;
+  --color-rejilla: #e3e8ef;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}

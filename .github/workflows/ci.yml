@@ -1,0 +1,29 @@
+name: CI
+
+# Corre en cada push y en cada PR. La suite no descarga datos ni modelos: usa
+# paneles falsos y series sinteticas, para que un fallo de CI signifique siempre
+# "alguien rompio algo" y nunca "la API de Binance estaba caida".
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Instalar dependencias
+        run: uv sync --group dev
+
+      - name: Estilo
+        run: uv run ruff check .
+
+      - name: Pruebas
+        run: uv run pytest -q

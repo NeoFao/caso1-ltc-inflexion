@@ -1,0 +1,42 @@
+[project]
+name = "caso1-ltc-inflexion"
+version = "0.1.0"
+description = "Pronostico de puntos de inflexion en el precio de Litecoin mediante analisis multivariante de series temporales"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "pyarrow>=16.0",
+    "requests>=2.32",
+    "matplotlib>=3.9",
+    "statsmodels>=0.14",
+    "scikit-learn>=1.5",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+]
+
+# torch y transformers pesan varios GB. Separarlos evita que las cuatro maquinas
+# los descarguen el primer dia cuando solo M3 los necesita.
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+modelos = [
+    "torch>=2.4",
+    "transformers>=4.45",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.uv]
+package = false
