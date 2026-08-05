@@ -122,5 +122,7 @@ uv run uvicorn src.api.main:app --reload --port 8000
 El PRD en Word se regenera con:
 
 ```bash
-node scripts/build_prd.js "docs/PRD - Pronostico de Puntos de Inflexion LTC v1.0.docx"
+npm install --prefix scripts && npm run prd --prefix scripts
 ```
+
+La primera vez instala `docx`; después basta la segunda mitad. Si falla con `EBUSY`, hay un proceso reteniendo el archivo — normalmente Word abierto, o una instancia sin ventana que quedó de una conversión previa.

@@ -1,0 +1,12 @@
+{
+  "name": "caso1-generadores-docx",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Generadores de entregables en Word. Separado de app/ porque no comparte nada con el frontend.",
+  "scripts": {
+    "prd": "node build_prd.js \"../docs/PRD - Pronostico de Puntos de Inflexion LTC v1.0.docx\""
+  },
+  "dependencies": {
+    "docx": "^9.0.0"
+  }
+}
