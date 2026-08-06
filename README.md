@@ -77,6 +77,29 @@ El detalle completo — alcance, requisitos numerados, riesgos y plan semanal �
 
 ---
 
+## Cómo se organiza el trabajo
+
+| | |
+|---|---|
+| [Issues](https://github.com/NeoFao/caso1-ltc-inflexion/issues) | El backlog. Cada uno lleva por qué existe, qué hacer y su criterio de aceptación |
+| [Milestones](https://github.com/NeoFao/caso1-ltc-inflexion/milestones) | Un hito por sprint, con la fecha de la entrega semanal |
+| Etiquetas `M0`–`M3` | De quién es. Filtrá por la tuya y ese es tu trabajo |
+| Etiqueta `bloquea` | Alguien más no puede avanzar hasta que cierre. Tienen prioridad sobre todo lo demás |
+| Etiqueta `contrato` | Toca `contracts/`. Requiere revisión explícita de quien lo consume |
+
+Filtrá lo tuyo así:
+
+```bash
+gh issue list --label M2-features --milestone "Sprint 1 — Marco teorico y datos"
+```
+
+Las tareas se escriben con criterios **INVEST**: independiente de las demás, negociable en el
+cómo, valiosa por sí sola, estimable, pequeña para caber en una semana, y testeable con un
+criterio escrito antes de empezar.
+
+Una tarea está terminada cuando existen las cuatro cosas: código con pruebas, un número
+obtenido ejecutando, la sección del documento, y el slide. Las cuatro.
+
 ## Comandos que vas a usar
 
 ```bash

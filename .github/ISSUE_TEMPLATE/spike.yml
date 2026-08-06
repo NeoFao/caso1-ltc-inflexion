@@ -1,0 +1,44 @@
+name: Spike
+description: Investigación acotada para responder una pregunta antes de construir sobre ella
+title: "[Mx] Spike: "
+labels: ["tipo:spike"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Un spike no produce producto: produce una **respuesta**. Existe porque construir sobre un supuesto sin verificar es la forma más cara de perder tiempo en este proyecto.
+
+  - type: textarea
+    id: pregunta
+    attributes:
+      label: La pregunta
+      description: Una sola, y que se pueda contestar con sí, no o un número.
+      placeholder: ¿Se puede instalar CryptoMamba sin CUDA en las máquinas del equipo?
+    validations:
+      required: true
+
+  - type: textarea
+    id: riesgo
+    attributes:
+      label: Qué se rompe si la respuesta llega tarde
+      description: Un spike sin esto es curiosidad, no trabajo.
+    validations:
+      required: true
+
+  - type: input
+    id: caja
+    attributes:
+      label: Tiempo máximo
+      description: Un spike tiene techo. Si se pasa, se corta y se reporta lo que se sepa.
+      placeholder: 2 horas
+    validations:
+      required: true
+
+  - type: textarea
+    id: entregable
+    attributes:
+      label: Qué queda escrito
+      description: Dónde se anota la respuesta y su evidencia.
+      placeholder: Un comentario en este issue con la respuesta, el comando que la produjo y su salida.
+    validations:
+      required: true

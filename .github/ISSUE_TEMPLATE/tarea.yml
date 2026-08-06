@@ -1,0 +1,58 @@
+name: Tarea
+description: Trabajo con entregable, dentro de un módulo
+title: "[Mx] "
+labels: ["tipo:feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Una tarea cumple INVEST. Si no podés llenar el criterio de aceptación, todavía no está lista para abrirse.
+
+  - type: textarea
+    id: valor
+    attributes:
+      label: Por qué
+      description: Qué se pierde el proyecto si esto no se hace. No "porque toca".
+      placeholder: El enunciado pide X, y sin la medición esa sección es copiar una definición de un libro.
+    validations:
+      required: true
+
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Qué hacer
+      description: El qué está fijo; el cómo lo decide quien la toma.
+    validations:
+      required: true
+
+  - type: textarea
+    id: aceptacion
+    attributes:
+      label: Criterio de aceptación
+      description: Cómo sabemos que quedó bien. Escrito ANTES de empezar. Tiene que ser verificable por alguien más.
+      placeholder: Existe una tabla con los seis activos y un párrafo que interpreta el resultado con el número medido.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: modulo
+    attributes:
+      label: Módulo
+      options:
+        - M0 · Infraestructura, contratos, evaluación (Fabrizio)
+        - M1 · Datos, diagnóstico y aplicación (Jose Pablo)
+        - M2 · Etiquetado, sintéticos y características (Alejandro)
+        - M3 · Modelos (Isaac)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: hecho
+    attributes:
+      label: Definición de hecho
+      description: Las cuatro. Una tarea con código y sin documento no cuenta como avance.
+      options:
+        - label: Código en la rama, con sus pruebas pasando
+        - label: Un número obtenido ejecutando, no estimando
+        - label: Sección del documento, con figuras numeradas y referenciadas
+        - label: Slide con lo esencial
