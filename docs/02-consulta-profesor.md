@@ -111,6 +111,15 @@ Por eso el informe no reporta exactitud como métrica principal. Reporta F1 macr
 | D2 | Ventana `w` | 7 |
 | D3 | Horizonte `h` | 5 |
 | D6 | Qué máquina tiene cada uno | Que cada quien diga procesador, RAM y si tiene GPU NVIDIA |
+| D9 | Arquitectura del segundo modelo | iTransformer o Informer, salvo que el profesor acepte CryptoMamba |
+
+### Sobre D9: hay una contradicción en el enunciado
+
+El apartado de entregables pide que el segundo modelo sea **«un Transformer»**. La lista del procedimiento ofrece iTransformer, CryptoMamba, Informer, VTA y FinLSPM.
+
+**CryptoMamba no es un Transformer**: es un modelo de espacio de estados basado en Mamba. Elegirlo cumpliría con la lista y no con el entregable. iTransformer e Informer cumplen con las dos cosas.
+
+Esto reduce el riesgo de la Semana 4 antes de gastar tiempo: si el profesor no responde, la opción segura es un Transformer de verdad.
 
 Si alguien tiene un argumento para cambiar el piso de 300, es el momento — **antes** de volver a mirar las tablas. Cambiarlo después de ver los resultados es justificar lo que ya queríamos.
 
@@ -160,6 +169,12 @@ Para determinar si una vela fue un máximo local hay que observar las `w` velas 
 El enunciado solicita Precisión Direccional y F1-Score. Las clases están fuertemente desbalanceadas por construcción: con `w=7` medimos 4,63 % de máximos y 4,66 % de mínimos, de modo que un clasificador que responda siempre "Zona de Continuidad" alcanza más del 90 % de exactitud sin detectar un solo punto de inflexión.
 
 Quisiéramos confirmar dos cosas: si el F1-Score debe reportarse como macro, que da igual peso a las tres clases, o ponderado; y cómo debe entenderse la Precisión Direccional en un problema de clasificación multiclase y no de regresión. Provisionalmente la definimos como la fracción de los puntos de inflexión reales cuyo tipo fue predicho correctamente.
+
+**5. Sobre el segundo modelo.**
+
+El apartado de entregables indica que el segundo modelo debe ser «un Transformer». La lista de opciones del procedimiento incluye iTransformer, CryptoMamba, Informer, VTA y FinLSPM.
+
+Entendemos que CryptoMamba no es una arquitectura Transformer, sino un modelo de espacio de estados basado en Mamba, de modo que elegirlo cumpliría con la lista pero no con el requisito literal del entregable. ¿Debemos restringirnos a una arquitectura Transformer —iTransformer o Informer—, o cualquiera de las cinco opciones es aceptable?
 
 Quedamos atentos a su respuesta. Muchas gracias por su tiempo.
 

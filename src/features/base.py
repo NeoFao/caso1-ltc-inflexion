@@ -87,16 +87,22 @@ def construir(panel: pd.DataFrame) -> pd.DataFrame:
     M3 y la aplicacion llaman a esta funcion y no a las de arriba, para que M2
     pueda reorganizar el interior sin romper a nadie.
 
+    Los rezagos van para los SEIS activos, no solo para LTC. El enunciado define
+    las variables de apoyo como "los precios historicos (rezagados) de las cinco
+    criptomonedas": es la entrada especificada de forma mas literal en todo el
+    documento, y sin ella el modelo no recibe lo que el enunciado dice que debe
+    recibir.
+
     PENDIENTE M2: faltan las familias de indicadores tecnicos y de ventana
     deslizante que exige RF-F1, y el escalado de RF-F3. Ver guias/alejandro.md.
     """
     piezas = [
-        rezagos(panel, ACTIVO_OBJETIVO),
         retornos(panel, ACTIVO_OBJETIVO),
         volatilidad(panel, ACTIVO_OBJETIVO),
         correlacion_cruzada(panel),
     ]
     for activo in ACTIVOS:
+        piezas.append(rezagos(panel, activo))
         if activo != ACTIVO_OBJETIVO:
             piezas.append(retornos(panel, activo, periodos=(1, 3)))
 

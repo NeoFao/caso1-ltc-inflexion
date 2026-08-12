@@ -381,7 +381,90 @@ y escribir despues significa leerlos dos veces.
 `docs/entregas/semana-1/m3-modelos.md`, con citas en APA. Es un criterio entero de la rubrica
 y vale lo mismo que todo el contenido tecnico.""",
     ),
+    (
+        "[M0] Seccion teorica: metricas de evaluacion para puntos de inflexion",
+        1, ["M0-infra", "tipo:doc", "entregable"],
+        """### Por que
+El enunciado la lista como entregable de la **Semana 1**, junto con el resto del marco
+teorico. Se me quedo fuera del backlog al crearlo; es un entregable calificado.
+
+### Que hacer
+Que metricas sirven para evaluar deteccion de puntos de inflexion y por que. En particular:
+por que la exactitud no sirve con clases desbalanceadas, que mide F1 macro frente a F1
+ponderado, y como se interpreta la Precision Direccional en un problema de tres clases.
+
+Hay material propio: `contracts/metrics.py` documenta cada decision, y la aplicacion
+publicada muestra el caso concreto (baseline trivial con exactitud 0.866 y F1 macro 0.309).
+
+### Criterio de aceptacion
+`docs/entregas/semana-1/m0-metricas.md`, con el ejemplo numerico medido y citas en APA.""",
+    ),
+    (
+        "[M2] Elegir los ordenes de rezago con medicion",
+        1, ["M2-features", "tipo:feature"],
+        """### Contexto
+El enunciado define las variables de apoyo como "los precios historicos **(rezagados)** de
+las cinco criptomonedas". Es la entrada especificada de forma mas literal del documento.
+
+El andamiaje ya genera rezagos para los seis activos, pero con ordenes `(1, 2, 3, 5)`
+elegidos por defecto, sin medir nada.
+
+### Que hacer
+Medir hasta que rezago aporta informacion. La funcion de autocorrelacion que produce M1 da
+la pista para LTC; para las de apoyo hace falta correlacion cruzada con desfase.
+
+### Criterio de aceptacion
+Los ordenes elegidos quedan justificados con un numero medido, no con una convencion. Si
+resulta que `(1, 2, 3, 5)` esta bien, tambien vale: pero entonces hay una medicion detras.""",
+    ),
     # ---------------------------------------------------------------- Sprint 2
+    (
+        "[M2] Feature engineering con herramientas posteriores a 2025",
+        2, ["M2-features", "tipo:spike", "entregable"],
+        """### Por que
+El enunciado lo exige textualmente: *"Utilizar herramientas State of the Art, mayores a
+2025"*. Todo lo que tenemos hoy es clasico (rezagos, retornos, volatilidad, correlacion
+movil, indicadores tecnicos). Ninguna de esas familias es posterior a 2025, asi que el
+requisito esta sin atender y cuenta en el criterio de Contenido.
+
+### La pregunta
+Que tecnica de representacion posterior a 2025 aporta sobre las caracteristicas clasicas,
+**medido**, no supuesto?
+
+### Que hacer
+El camino mas prometedor y coherente con el resto del proyecto: usar un modelo fundacional
+de series de tiempo congelado como **extractor de representaciones**, y comparar el F1 macro
+con y sin esas columnas. Coordinar con M3, que ya estara evaluando candidatos.
+
+### Cuidado
+El requisito no es "usar la libreria mas nueva". Es justificar una eleccion moderna con
+evidencia. Agregar una dependencia de 2026 que no mejora nada es peor que no agregarla, y
+contradice la regla de no sumar dependencias sin necesidad demostrada.
+
+### Criterio de aceptacion
+Tabla comparativa con y sin la representacion nueva, y una decision escrita. **Si no aporta,
+se dice y se descarta**, dejando escrito que se probo: eso tambien responde al requisito.""",
+    ),
+    (
+        "[M3] Seccion teorica: modelos estadisticos clasicos y de machine learning",
+        2, ["M3-modelos", "tipo:doc", "entregable"],
+        """### Por que
+La Semana 2 pide *"Marco teorico Modelos Estadisticos **y** de Machine Learning para Series
+Temporales"*, que es mas amplio que los TSFMs. Falta la parte clasica, y la contextualizacion
+del enunciado nombra ARIMA y GARCH explicitamente.
+
+### Que hacer
+ARIMA, GARCH y modelos de machine learning clasicos para series temporales: que asumen y por
+que esos supuestos fallan con criptomonedas.
+
+Es el argumento que sostiene todo el planteo del proyecto: si ARIMA funcionara bien, no
+haria falta aprendizaje profundo. M1 va a tener las pruebas de estacionariedad y
+heterocedasticidad que lo respaldan con datos nuestros.
+
+### Criterio de aceptacion
+`docs/entregas/semana-2/m3-modelos-clasicos.md` con citas APA, conectado a las mediciones de
+M1 y no solo a definiciones de manual.""",
+    ),
     (
         "[M0] Ensamblador del documento semanal",
         2, ["M0-infra", "tipo:chore"],
@@ -550,6 +633,29 @@ de quien mire la tabla.
 
 ### Criterio de aceptacion
 Tabla comparativa, matrices de confusion de ambos, y la decision escrita en la bitacora.""",
+    ),
+    (
+        "[M3] Optimizacion de hiperparametros de ambos modelos",
+        4, ["M3-modelos", "tipo:feature", "entregable"],
+        """### Por que
+Es un paso explicito del pipeline del enunciado y no estaba en el backlog.
+
+### Que hacer
+Buscar la combinacion que maximice el rendimiento, de los dos modelos, con el mismo
+procedimiento para que la comparacion siga siendo valida.
+
+### La regla que no se puede romper
+**La busqueda se hace contra validacion, nunca contra prueba.** Si se ajustan
+hiperparametros mirando el conjunto de prueba, ese conjunto deja de ser datos no vistos y el
+numero del informe queda inflado sin que se note.
+
+`contracts/splits.py` ya separa los tres bloques con embargo entre ellos; usar la mascara de
+validacion de ahi.
+
+### Criterio de aceptacion
+La rejilla explorada queda registrada, no solo el ganador. Los resultados van a
+`docs/evidencias/resultados.csv` con su fecha, y el informe reporta el rendimiento final
+sobre prueba, medido **una sola vez**, despues de fijar los hiperparametros.""",
     ),
     # ---------------------------------------------------------------- Sprint 5
     (
