@@ -322,15 +322,20 @@ La aplicación web usa la misma paleta que las figuras del informe. El demo y el
 
 ## 9. Plan por semanas
 
-Las fechas de cierre están **por confirmar con el profesor**.
+La fecha de la Semana 1 la confirmó el profesor. Las demás están por confirmar.
 
 | Semana | Cierre estimado | Entregable del enunciado | Qué se construye en paralelo |
 |---|---|---|---|
-| **1** | ~11/08 | Marco teórico: series temporales y criptoactivos | Repo, entorno, dataset canónico, contratos congelados |
-| **2** | ~18/08 | Marco teórico: modelos y definición del pipeline | Características, entorno de entrenamiento, esqueleto de la app contra datos falsos |
-| **3** | ~25/08 | Modelo fundacional + pruebas de detección | App conectada al modelo real, modos sintético e histórico |
-| **4** | ~01/09 | Modelo avanzado + pruebas de detección | Modo tiempo real, comparación de modelos |
-| **5** | 08/09 | Reporte final y presentación | Cierre, ensayo, evidencias |
+| **1** | **18/08** | Marco teórico: series temporales y criptoactivos — **documento, sin presentación** | Repo, entorno, dataset canónico, contratos congelados |
+| **2** | ~25/08 | Marco teórico: modelos y definición del pipeline — documento | Características, entorno de entrenamiento, esqueleto de la app contra datos falsos |
+| **3** | ~01/09 | Modelo fundacional + pruebas de detección — **documento y presentación** | App conectada al modelo real, modos sintético e histórico |
+| **4** | ~08/09 | Modelo avanzado + pruebas de detección — documento y presentación | Modo tiempo real, comparación de modelos |
+| **5** | ~15/09 | Reporte final — documento y presentación | Cierre, ensayo, evidencias |
+
+**Solo la fecha de la Semana 1 está confirmada.** El profesor dijo que la primera entrega es el
+martes 18 de agosto. Las demás son cadencia semanal supuesta, y hay un conflicto: si la entrega
+final fuera el 8 de septiembre, no caben cinco entregas semanales empezando el 18 de agosto.
+Está como consulta 6 al profesor.
 
 **Decisión clave del plan:** el enunciado pide que las semanas 1 y 2 sean solo teoría. No lo hacemos así. Escribimos la teoría **y** construimos el pipeline en paralelo desde la primera semana. Si esperamos a la semana 3 para tocar código, las semanas 4 y 5 se convierten en una carrera y no queda margen para probar de verdad ni para ensayar la presentación.
 

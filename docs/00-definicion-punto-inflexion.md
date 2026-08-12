@@ -219,7 +219,7 @@ Fabrizio Espinoza Arce — por el equipo (Alejandro Zamora, Jose Pablo Monestel,
 - Como mucho 1 de cada `w+1` velas puede ser un máximo, así que las clases van a estar desbalanceadas sí o sí. Por eso medimos con F1 y no con exactitud.
 - La etiqueta de la vela `t` recién se conoce en `t+w`. Eso abre dos riesgos: fuga de información al construir features, y ambigüedad sobre qué significa "tiempo real".
 - Se congelan esta semana, viven en un solo archivo, y no se cambian sin acuerdo de los cuatro.
-- Al profesor le consultamos cuatro cosas: si `w` y `h` son decisión nuestra, qué granularidad espera, qué entiende por tiempo real, y cómo interpretar las métricas.
+- Al profesor le consultamos seis cosas, y el texto vive en [`02-consulta-profesor.md`](02-consulta-profesor.md): si `w` y `h` son decisión nuestra, qué granularidad espera, qué entiende por tiempo real, cómo interpretar las métricas, si el segundo modelo debe ser un Transformer de verdad, y cómo queda el calendario de entregas.
 
 ---
 

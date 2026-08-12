@@ -47,12 +47,13 @@ Es un fallo de `uv`, no tuyo. Pasó en la máquina donde se montó el proyecto y
 
 ### Cuándo terminaste una tarea
 
-Las cuatro cosas, no la primera:
-
 - [ ] Código en tu rama, con sus pruebas pasando
 - [ ] Un número que salió de ejecutar algo, no de estimarlo
 - [ ] Tu sección del documento, con las figuras numeradas y referenciadas en el texto
-- [ ] Un slide con lo esencial
+- [ ] Slide con lo esencial — **solo desde la Semana 3**
+
+**Semanas 1 y 2: documento, sin presentación.** El profesor fue explícito: *"Presentación no,
+tiene que ser documento"*. Las exposiciones empiezan con el modelo fundacional.
 
 ### Si te trabás
 

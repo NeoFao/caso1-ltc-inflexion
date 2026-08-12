@@ -92,6 +92,92 @@ def etiquetas_esperadas(n: int, giros: np.ndarray, valores: np.ndarray, w: int) 
     return pd.Series(pd.array(esperadas, dtype="Int64"), name="etiqueta")
 
 
+def panel_correlacionado(
+    n: int,
+    correlacion: float = 0.7,
+    volatilidad: float | dict[str, float] = 0.02,
+    semilla: int = 0,
+    regimenes: bool = False,
+    duracion_regimen: int = 120,
+    multiplicador_regimen: float = 4.0,
+    nivel: float = 100.0,
+) -> pd.DataFrame:
+    """Panel de las seis criptomonedas con correlacion y volatilidad que fijamos nosotros.
+
+    Es el complemento del zigzag: alli conocemos los giros, aqui conocemos la
+    estructura de dependencia. Sirve para el marco teorico, porque permite ilustrar
+    correlacion cruzada, volatilidad y heterocedasticidad sobre series donde la
+    respuesta correcta no esta en discusion, y recien despues mostrar la real.
+
+    Los retornos se generan con la descomposicion de Cholesky de la matriz de
+    correlacion objetivo: si R = L L', entonces Z L' con Z normal independiente
+    tiene correlacion R. Es exacto en poblacion; en una muestra finita la
+    correlacion medida difiere un poco, y esa diferencia es justamente lo que las
+    pruebas acotan.
+
+    `regimenes=True` multiplica la volatilidad por tramos alternos, que es como se
+    construye heterocedasticidad a proposito.
+
+    Devuelve un panel que cumple el contrato de contracts/schema.py, asi que se
+    puede pasar a cualquier funcion del proyecto igual que el panel real.
+
+    ESTO NO ES LITECOIN. Es un banco de pruebas construido por nosotros; cualquier
+    numero que salga de aqui se presenta como tal.
+    """
+    from contracts.config import ACTIVOS
+    from contracts.schema import CAMPOS_OHLCV, INDICE
+
+    if not -1.0 < correlacion < 1.0:
+        raise ValueError(f"correlacion debe estar en (-1, 1), se recibio {correlacion}")
+
+    k = len(ACTIVOS)
+    generador = np.random.default_rng(semilla)
+
+    objetivo_corr = np.full((k, k), float(correlacion))
+    np.fill_diagonal(objetivo_corr, 1.0)
+    try:
+        factor = np.linalg.cholesky(objetivo_corr)
+    except np.linalg.LinAlgError as error:  # correlacion negativa muy fuerte entre 6 series
+        raise ValueError(
+            f"correlacion={correlacion} no produce una matriz valida para {k} activos. "
+            f"Con equicorrelacion el minimo posible es -1/({k}-1) = {-1 / (k - 1):.3f}"
+        ) from error
+
+    if isinstance(volatilidad, dict):
+        faltantes = [a for a in ACTIVOS if a not in volatilidad]
+        if faltantes:
+            raise ValueError(f"falta volatilidad para: {faltantes}")
+        sigmas = np.array([volatilidad[a] for a in ACTIVOS])
+    else:
+        sigmas = np.full(k, float(volatilidad))
+
+    independientes = generador.standard_normal((n, k))
+    retornos = independientes @ factor.T
+
+    if regimenes:
+        agitado = (np.arange(n) // duracion_regimen) % 2 == 1
+        escala = np.where(agitado, multiplicador_regimen, 1.0)[:, None]
+        retornos = retornos * escala
+
+    retornos = retornos * sigmas
+
+    indice = pd.date_range("2020-08-11", periods=n, freq="D", tz="UTC", name=INDICE)
+    columnas: dict[str, np.ndarray] = {}
+    for j, activo in enumerate(ACTIVOS):
+        cierre = nivel * (j + 1) * np.exp(np.cumsum(retornos[:, j]))
+        # Los otros campos OHLCV se derivan del cierre porque el proyecto solo usa
+        # cierre; existen para que el panel cumpla el contrato sin fingir realismo.
+        ruido = np.abs(generador.normal(0.0, sigmas[j] / 2, size=n))
+        columnas[f"{activo}_cierre"] = cierre
+        columnas[f"{activo}_apertura"] = cierre * (1 - ruido)
+        columnas[f"{activo}_maximo"] = cierre * (1 + ruido)
+        columnas[f"{activo}_minimo"] = cierre * (1 - ruido)
+        columnas[f"{activo}_volumen"] = np.abs(generador.normal(1e5, 2e4, size=n))
+
+    orden = [f"{a}_{c}" for a in ACTIVOS for c in CAMPOS_OHLCV]
+    return pd.DataFrame(columnas, index=indice)[orden]
+
+
 def serie_con_regimen(
     n: int,
     semilla: int = 0,

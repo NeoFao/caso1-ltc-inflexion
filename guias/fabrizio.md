@@ -14,11 +14,18 @@ docs/                ensamblaje de los cinco documentos y los cinco decks
 
 ## Tu papel
 
-Sos el que hace que los otros tres nunca estén bloqueados, y el que une todo. Tu trabajo no se mide por líneas de código sino por cuántas veces alguien te tuvo que esperar.
+**Vos no escribís contenido técnico.** Juntás lo que escribió cada uno, lo unificás en un solo
+documento, armás el guion de exposición y entregás.
+
+La infraestructura ya está montada; de aquí en adelante tu trabajo es integración y
+documentación. Cada semana tenés un issue propio de ensamblaje con su lista de verificación.
+
+Tu trabajo no se mide por líneas de código sino por cuántas veces alguien te tuvo que esperar,
+y por si el documento entregado se lee como escrito por una sola persona.
 
 ---
 
-## Estado actual, medido el 5 de agosto de 2026
+## Estado actual, medido el 5 de agosto de 2026 (revisado el 11)
 
 | | |
 |---|---|
@@ -26,7 +33,8 @@ Sos el que hace que los otros tres nunca estén bloqueados, y el que une todo. T
 | Panel de 4 horas | 13 114 filas, 2020-08-11 → 2026-08-05 |
 | Activo que limita la ventana | SOL, listado el 2020-08-11 |
 | Recomendación del criterio | `w=7`, `h=5`, intervalo 4h — 420 ejemplos de la clase minoritaria |
-| Suite de pruebas | 44 pruebas pasando |
+| Suite de pruebas | 57 pruebas pasando |
+| Entrega 1 | **martes 18 de agosto**, documento sin presentacion |
 
 **El resultado que importa:** con velas diarias **ninguna** combinación de `(w, h)` alcanza el piso de 300 ejemplos que fijamos antes de medir. El mejor caso es `w=3` con 149. Por eso el panel de trabajo es el de 4 horas.
 
@@ -36,34 +44,35 @@ Esto es el riesgo R1 materializándose en la semana 1 en vez de la semana 4, que
 
 ## Esta semana — en orden
 
-### 1. Enviar la consulta al profesor
+Quedan siete días para la primera entrega y el equipo todavía no arrancó: 0 de 43 issues cerrados.
 
-Todo está en [`docs/02-consulta-profesor.md`](../docs/02-consulta-profesor.md). La Parte A es el guion de la reunión con el equipo, con las tablas medidas; la Parte B es el texto listo para copiar y enviar, sin retocar nada.
+### 1. Congelar `w`, `h` y granularidad — hoy
 
-Cuatro preguntas: si `w` y `h` son decisión nuestra, qué granularidad espera —con el argumento medido de por qué proponemos 4 horas—, qué entiende por "tiempo real", y cómo interpretar la Precisión Direccional en tres clases.
+Es lo único que **no depende de nadie más**. Mientras `PROVISIONAL = True`, M2 y M3 están bloqueados por igual.
 
-**Es lo primero porque tiene latencia.** Todo lo demás depende de vos; esto depende de otro.
+La medición recomienda `w=7`, `h=5`, velas de 4 horas, con el criterio fijado antes de mirar los resultados. La Parte A de [`docs/02-consulta-profesor.md`](../docs/02-consulta-profesor.md) es el guion de esa reunión, con las tablas.
 
-### 2. Preguntar qué máquina tiene cada uno
+Después: cambiás `contracts/config.py`, quitás `PROVISIONAL`, corrés `uv run python scripts/exportar_estatico.py` y avisás por escrito.
 
-Riesgo R3. Una línea en el grupo: procesador, RAM, y si tienen GPU NVIDIA. Sin eso, la elección de modelo avanzado de Isaac es a ciegas.
+### 2. Enviar la consulta al profesor
 
-### 3. Publicar el repo y repartir las guías
+La Parte B se copia y se manda. Seis preguntas, no cuatro: se sumaron la del Transformer contra CryptoMamba, y la del calendario.
+
+### 3. Repartir el trabajo
+
+A cada uno el enlace directo a `guias/<su-nombre>.md` y a sus issues:
 
 ```bash
-git init
-git add .
-git commit -m "Estructura del proyecto, contratos y primera medicion de datos"
-gh repo create caso1-ltc-inflexion --public --source=. --push
+gh issue list --label M1-datos-app --milestone "Sprint 1 — Marco teorico y datos"
 ```
 
-Después, a cada uno su guía. No mandes el repo entero y que se arreglen: mandá el enlace directo a `guias/<su-nombre>.md`.
+Pediles el usuario de GitHub para asignarlos, y las especificaciones de su máquina.
 
-### 4. Reunión para congelar `w`, `h` y granularidad
+### 4. Ensamblar la Semana 1
 
-Con la tabla de `docs/evidencias/spike-datos-4h.json` proyectada. La medición recomienda `w=7`, pero la decisión es del equipo y el criterio ya estaba fijado de antemano, así que la discusión es corta.
+Tu issue propio, con la lista de verificación. El corte con los demás es el jueves 13; entrega el martes 18.
 
-Cuando se decida, cambiás `contracts/config.py`, quitás `PROVISIONAL = True`, y avisás por escrito.
+**Documento, no presentación.** El profesor lo dijo explícitamente.
 
 ---
 

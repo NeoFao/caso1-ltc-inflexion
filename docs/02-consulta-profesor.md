@@ -2,7 +2,7 @@
 
 **Documento para la reunión del equipo y texto listo para enviar**
 
-Fecha: 5 de agosto de 2026
+Fecha: 5 de agosto de 2026 · revisado el 11 de agosto
 Preparado por: Fabrizio Espinoza Arce
 Para: Alejandro Zamora, Jose Pablo Monestel, Isaac Morun
 Destinatario final: Roberto Calvo Arias
@@ -22,7 +22,7 @@ Léanse la Parte A antes de la reunión. Son cinco minutos y la reunión sale en
 
 ## A.1 Por qué existe esta consulta
 
-El enunciado deja abiertos cuatro puntos que admiten más de una lectura. Ninguno es un detalle: cada uno cambia qué datos usamos, qué aprende el modelo y qué números van al informe.
+El enunciado deja abiertos seis puntos que admiten más de una lectura. Ninguno es un detalle: cada uno cambia qué datos usamos, qué aprende el modelo y qué números van al informe.
 
 Podríamos decidirlos nosotros y justificarlos. De hecho vamos a hacerlo. Pero preguntar primero cuesta un correo y evita construir cinco semanas sobre un supuesto equivocado.
 
@@ -133,13 +133,13 @@ Cuando se decida, se cambia `contracts/config.py`, se quita la marca `PROVISIONA
 
 ---
 
-**Asunto:** Caso N.º 1 (pronóstico de puntos de inflexión en LTC) — consulta sobre cuatro puntos del enunciado
+**Asunto:** Caso N.º 1 (pronóstico de puntos de inflexión en LTC) — consulta sobre seis puntos del enunciado
 
 Estimado profesor Roberto Calvo,
 
 Somos el equipo del Caso N.º 1: Alejandro Zamora, Jose Pablo Monestel, Isaac Morun y Fabrizio Espinoza Arce.
 
-Antes de fijar el diseño del modelo queremos consultarle cuatro puntos del enunciado que admiten más de una lectura, para no avanzar cinco semanas sobre un supuesto equivocado. Ya descargamos y caracterizamos los datos, así que las preguntas vienen con las mediciones que las motivan.
+Antes de fijar el diseño del modelo queremos consultarle seis puntos del enunciado que admiten más de una lectura, para no avanzar cinco semanas sobre un supuesto equivocado. Ya descargamos y caracterizamos los datos, así que las preguntas vienen con las mediciones que las motivan.
 
 **1. Sobre la ventana `w` y el horizonte `h`.**
 
@@ -175,6 +175,14 @@ Quisiéramos confirmar dos cosas: si el F1-Score debe reportarse como macro, que
 El apartado de entregables indica que el segundo modelo debe ser «un Transformer». La lista de opciones del procedimiento incluye iTransformer, CryptoMamba, Informer, VTA y FinLSPM.
 
 Entendemos que CryptoMamba no es una arquitectura Transformer, sino un modelo de espacio de estados basado en Mamba, de modo que elegirlo cumpliría con la lista pero no con el requisito literal del entregable. ¿Debemos restringirnos a una arquitectura Transformer —iTransformer o Informer—, o cualquiera de las cinco opciones es aceptable?
+
+**6. Sobre el calendario de entregas.**
+
+Entendemos que la primera entrega, correspondiente al marco teórico, es el martes 18 de agosto, en formato de documento.
+
+Nos queda una duda sobre las restantes: si las cinco entregas mantienen cadencia semanal a partir de esa fecha, la última caería el 15 de septiembre. ¿Es correcto, o las semanas 4 y 5 se agrupan para cerrar antes?
+
+Lo consultamos porque de ello depende cuánto margen tenemos para las pruebas del modelo avanzado.
 
 Quedamos atentos a su respuesta. Muchas gracias por su tiempo.
 
