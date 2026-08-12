@@ -1,0 +1,161 @@
+{
+  "serie": {
+    "n": 2185,
+    "desde": "2020-08-11T00:00:00+00:00",
+    "hasta": "2026-08-04T00:00:00+00:00",
+    "minimo": 40.92,
+    "maximo": 387.8
+  },
+  "componentes": {
+    "amplitud_estacional": 0.5659,
+    "desviacion_residuo": 4.6369,
+    "peso_estacional_relativo_pct": 0.426
+  },
+  "estacionariedad": {
+    "nivel": {
+      "LTC": {
+        "p_valor": 0.179001,
+        "rechaza": false
+      },
+      "BTC": {
+        "p_valor": 0.4831,
+        "rechaza": false
+      },
+      "ETH": {
+        "p_valor": 0.059099,
+        "rechaza": false
+      },
+      "SOL": {
+        "p_valor": 0.273855,
+        "rechaza": false
+      },
+      "XRP": {
+        "p_valor": 0.285302,
+        "rechaza": false
+      },
+      "ADA": {
+        "p_valor": 0.159471,
+        "rechaza": false
+      }
+    },
+    "retornos": {
+      "LTC": {
+        "p_valor": 0.0,
+        "rechaza": true
+      },
+      "BTC": {
+        "p_valor": 0.0,
+        "rechaza": true
+      },
+      "ETH": {
+        "p_valor": 0.0,
+        "rechaza": true
+      },
+      "SOL": {
+        "p_valor": 0.0,
+        "rechaza": true
+      },
+      "XRP": {
+        "p_valor": 0.0,
+        "rechaza": true
+      },
+      "ADA": {
+        "p_valor": 0.0,
+        "rechaza": true
+      }
+    },
+    "control_sintetico_rechaza_todos": true
+  },
+  "volatilidad": {
+    "maxima": 0.122,
+    "minima": 0.01384,
+    "cociente_agitado_tranquilo": 8.8,
+    "ventana": 30
+  },
+  "heterocedasticidad_construida": {
+    "cociente_sin_regimenes": 1.28,
+    "cociente_con_regimenes": 6.41
+  },
+  "autocorrelacion": {
+    "acf_nivel_rezago_1": 0.9912,
+    "acf_retornos_rezago_1": -0.0364,
+    "rezagos_significativos_en_retornos": [
+      8,
+      14,
+      31
+    ],
+    "cuantos_significativos": 3
+  },
+  "correlacion": {
+    "mayor_con_ltc": {
+      "activo": "ETH",
+      "valor": 0.7395
+    },
+    "menor_con_ltc": {
+      "activo": "SOL",
+      "valor": 0.5238
+    },
+    "media_fuera_diagonal_retornos": 0.6249,
+    "media_fuera_diagonal_en_nivel_espuria": 0.497,
+    "control_construido_baja": 0.0945,
+    "control_construido_alta": 0.9033,
+    "inestabilidad_en_nivel": {
+      "LTC_BTC_nivel": 0.1261,
+      "LTC_BTC_retornos": 0.7153,
+      "LTC_ADA_nivel": 0.7962,
+      "LTC_ADA_retornos": 0.6409,
+      "rango_nivel": [
+        0.1261,
+        0.8878
+      ],
+      "rango_retornos": [
+        0.4746,
+        0.8057
+      ]
+    }
+  },
+  "puntos_inflexion": {
+    "w": 5,
+    "construida_giros_puestos": 18,
+    "construida_giros_detectados": 18,
+    "construida_deteccion_exacta": true
+  },
+  "metricas": {
+    "balance": [
+      {
+        "clase": "Maximo",
+        "codigo": 1,
+        "n": 143,
+        "porcentaje": 6.575
+      },
+      {
+        "clase": "Minimo",
+        "codigo": 2,
+        "n": 141,
+        "porcentaje": 6.483
+      },
+      {
+        "clase": "Continuidad",
+        "codigo": 3,
+        "n": 1891,
+        "porcentaje": 86.943
+      }
+    ],
+    "baseline_trivial": {
+      "n": 2175,
+      "f1_macro": 0.3101,
+      "precision_direccional": 0.0,
+      "exactitud": 0.8694,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9302
+    }
+  },
+  "_meta": {
+    "generado_utc": "2026-08-12T14:23:38+00:00",
+    "granularidad": "1d",
+    "w": 5,
+    "panel_filas": 2185,
+    "advertencia": "Las series descritas como 'construida' las genero este script. No son Litecoin y no dicen nada sobre el mercado."
+  }
+}
