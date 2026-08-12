@@ -42,6 +42,38 @@ PALETA_ACTIVOS = {
 
 DIRECTORIO_EVIDENCIAS = Path("docs/evidencias")
 
+# Mapa de color para matrices. Cambia en modo impresion.
+MAPA = "Blues"
+
+# Marcadores por clase. Existen para que la distincion no dependa solo del color:
+# APA 7 desaconseja transmitir informacion unicamente por color, y el documento
+# entregado es monocromo.
+MARCADOR_MAXIMO = "v"
+MARCADOR_MINIMO = "^"
+
+
+def modo_impresion() -> None:
+    """Cambia la paleta a escala de grises, para el documento entregable.
+
+    Llamar ANTES de aplicar(). La aplicacion web mantiene su color propio; estas
+    figuras solo alimentan el Word, que va en blanco y negro.
+
+    Al quitar el color, la distincion entre series pasa a depender de la forma del
+    marcador y del relleno, que es lo que exige una figura legible impresa.
+    """
+    global MAXIMO, MINIMO, CONTINUIDAD, NAVY, ACENTO, GRIS, REJILLA, MAPA
+    global PALETA_CLASES, PALETA_ACTIVOS
+    NAVY = "#000000"
+    ACENTO = "#4D4D4D"
+    MAXIMO = "#1A1A1A"
+    MINIMO = "#7F7F7F"
+    CONTINUIDAD = "#BFBFBF"
+    GRIS = "#4D4D4D"
+    REJILLA = "#D9D9D9"
+    MAPA = "Greys"
+    PALETA_CLASES = {"Maximo": MAXIMO, "Minimo": MINIMO, "Continuidad": CONTINUIDAD}
+    PALETA_ACTIVOS = dict.fromkeys(PALETA_ACTIVOS, NAVY)
+
 
 def aplicar() -> None:
     """Instala el estilo. Llamar una vez al inicio de cada script o notebook."""
@@ -109,36 +141,40 @@ def grafico_serie_con_giros(
 
     if etiquetas is not None:
         alineadas = etiquetas.reindex(cierre.index)
-        for clase, color, etiqueta in (
-            (Clase.MAXIMO, MAXIMO, "Maximo real"),
-            (Clase.MINIMO, MINIMO, "Minimo real"),
+        for clase, color, marcador, etiqueta in (
+            (Clase.MAXIMO, MAXIMO, MARCADOR_MAXIMO, "Maximo real"),
+            (Clase.MINIMO, MINIMO, MARCADOR_MINIMO, "Minimo real"),
         ):
             mascara = (alineadas == int(clase)).fillna(False).to_numpy()
             if mascara.any():
                 eje.scatter(
                     cierre.index[mascara],
                     cierre.to_numpy()[mascara],
-                    color=color, s=34, zorder=3, label=etiqueta,
+                    color=color, marker=marcador, s=42, zorder=3, label=etiqueta,
                 )
 
     if predichas is not None:
         alineadas = predichas.reindex(cierre.index)
-        for clase, color, etiqueta in (
-            (Clase.MAXIMO, MAXIMO, "Maximo predicho"),
-            (Clase.MINIMO, MINIMO, "Minimo predicho"),
+        for clase, color, marcador, etiqueta in (
+            (Clase.MAXIMO, MAXIMO, MARCADOR_MAXIMO, "Maximo predicho"),
+            (Clase.MINIMO, MINIMO, MARCADOR_MINIMO, "Minimo predicho"),
         ):
             mascara = (alineadas == int(clase)).fillna(False).to_numpy()
             if mascara.any():
                 eje.scatter(
                     cierre.index[mascara],
                     cierre.to_numpy()[mascara],
-                    facecolors="none", edgecolors=color, s=86, linewidths=1.3,
-                    zorder=4, label=etiqueta,
+                    facecolors="none", edgecolors=color, marker=marcador,
+                    s=110, linewidths=1.3, zorder=4, label=etiqueta,
                 )
 
     eje.set_title(titulo)
     eje.set_ylabel("Precio de cierre")
-    eje.legend(loc="upper left", ncols=2)
+    # Fuera del area de datos: dentro pisaba la serie en los tramos altos.
+    eje.legend(
+        loc="lower center", bbox_to_anchor=(0.5, 1.02), ncols=4,
+        borderaxespad=0, fontsize=9,
+    )
     fig.autofmt_xdate(rotation=30, ha="right")
     fig.tight_layout()
     return fig
@@ -148,7 +184,7 @@ def grafico_matriz_confusion(
     matriz: pd.DataFrame, titulo: str = "Matriz de confusion"
 ) -> plt.Figure:
     fig, eje = plt.subplots(figsize=(5.2, 4.4))
-    imagen = eje.imshow(matriz.to_numpy(), cmap="Blues")
+    imagen = eje.imshow(matriz.to_numpy(), cmap=MAPA)
     eje.set_xticks(range(len(matriz.columns)), matriz.columns)
     eje.set_yticks(range(len(matriz.index)), matriz.index)
     eje.set_xlabel("Predicho")
@@ -174,7 +210,12 @@ def grafico_distribucion_clases(
 ) -> plt.Figure:
     fig, eje = plt.subplots(figsize=(6.4, 3.6))
     colores = [PALETA_CLASES.get(c, ACENTO) for c in resumen["clase"]]
-    barras = eje.bar(resumen["clase"], resumen["porcentaje"], color=colores)
+    tramas = ["//", "\\\\", ""]
+    barras = eje.bar(
+        resumen["clase"], resumen["porcentaje"], color=colores,
+        edgecolor="black", linewidth=0.8,
+        hatch=[tramas[i % len(tramas)] for i in range(len(resumen))],
+    )
     eje.set_ylabel("% de observaciones")
     eje.set_title(titulo)
     for barra, (_, fila) in zip(barras, resumen.iterrows(), strict=True):

@@ -125,9 +125,11 @@ def figura_03_estacionariedad(panel: pd.DataFrame, sintetico: pd.DataFrame) -> N
     fig, eje = plt.subplots(figsize=(8, 4.2))
     x = np.arange(len(ACTIVOS))
     eje.bar(x - 0.2, nivel["p_valor"].clip(lower=PISO), 0.4,
-            label="Precio en nivel", color=estilo.MAXIMO)
+            label="Precio en nivel", color=estilo.MAXIMO,
+            edgecolor="black", linewidth=0.7)
     eje.bar(x + 0.2, retornos["p_valor"].clip(lower=PISO), 0.4,
-            label=f"Retornos (p < {PISO:g} en las seis)", color=estilo.MINIMO)
+            label=f"Retornos (p < {PISO:g} en las seis)", color=estilo.MINIMO,
+            edgecolor="black", linewidth=0.7, hatch="//")
     eje.set_yscale("log")
     eje.set_ylim(PISO / 2, 2)
     eje.axhline(0.05, color=estilo.GRIS, linestyle="--", linewidth=1.2)
@@ -199,7 +201,7 @@ def figura_05_heterocedasticidad() -> None:
         (abajo, con_reg, "Heterocedastica (construida)"),
     ):
         retorno = cierre(panel, "LTC").pct_change()
-        eje.plot(range(len(retorno)), retorno.to_numpy(), color=estilo.NAVY, linewidth=0.7)
+        eje.plot(range(len(retorno)), retorno.to_numpy(), color=estilo.NAVY, linewidth=0.6)
         eje.set_ylabel(titulo, fontsize=9)
     fig.suptitle(
         "Heterocedasticidad: volatilidad constante contra volatilidad por tramos",
@@ -371,6 +373,9 @@ def main() -> None:
         raise SystemExit(f"falta {ruta}. Correr antes: uv run python scripts/spike_datos.py")
 
     EVIDENCIAS.mkdir(parents=True, exist_ok=True)
+    # El documento entregable va en blanco y negro, y APA 7 desaconseja transmitir
+    # informacion solo por color. Las figuras se distinguen por forma y trama.
+    estilo.modo_impresion()
     estilo.aplicar()
 
     panel = pd.read_parquet(ruta)
