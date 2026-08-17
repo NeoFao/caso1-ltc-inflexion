@@ -277,7 +277,9 @@ function portada() {
     centrado('Alejandro Zamora, Fabrizio Espinoza Arce, Isaac Morun'),
     centrado('y Jose Pablo Monestel'),
     vacio(),
-    centrado('[COMPLETAR — Escuela o Departamento, Universidad]', false, true),
+    // APA 7 pide la afiliacion como "programa o departamento, institucion".
+    centrado('Tecnologías de la Información y Comunicación Empresarial,'),
+    centrado('Universidad Invenio'),
     centrado('Señales y Sistemas'),
     centrado('Prof. Roberto Calvo Arias'),
     centrado('18 de agosto de 2026'),

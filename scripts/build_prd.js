@@ -239,6 +239,8 @@ function cover() {
     ['Equipo', 'Alejandro Zamora · Jose Pablo Monestel · Isaac Morun · Fabrizio Espinoza Arce'],
     ['Dirigido a', 'Roberto Calvo Arias'],
     ['Curso', 'Señales y Sistemas — 3.er Trimestre 2026'],
+    ['Programa', 'Tecnologías de la Información y Comunicación Empresarial'],
+    ['Institución', 'Universidad Invenio'],
     ['Entrega final', '8 de septiembre de 2026'],
     ['Estado', 'Borrador para revisión del equipo'],
   ];
