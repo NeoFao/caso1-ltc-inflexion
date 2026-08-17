@@ -26,6 +26,18 @@ def _limpiar(y_real, y_pred) -> tuple[np.ndarray, np.ndarray]:
     pred = pd.Series(y_pred)
     if len(real) != len(pred):
         raise ValueError(f"longitudes distintas: real={len(real)}, pred={len(pred)}")
+
+    # La comparacion es posicional: la fila i de las etiquetas contra la fila i de
+    # las predicciones. El indice es metadato y no debe participar.
+    #
+    # Sin descartarlo, pandas alinea por indice al combinar las mascaras. El arnes
+    # entrega las etiquetas como Series con DatetimeIndex y las predicciones como
+    # ndarray, que recibe RangeIndex: dos indices disjuntos, interseccion vacia, y
+    # todas las metricas se calculaban sobre cero filas. Reportado por M2 en el
+    # issue #46.
+    real = real.reset_index(drop=True)
+    pred = pred.reset_index(drop=True)
+
     validas = real.notna() & pred.notna()
     return (
         real[validas].to_numpy(dtype=int),

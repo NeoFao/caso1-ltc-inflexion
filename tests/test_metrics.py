@@ -81,6 +81,46 @@ def test_matriz_confusion_conserva_el_total():
     assert matriz_confusion(y, pred).to_numpy().sum() == len(y)
 
 
+def test_las_metricas_no_dependen_del_indice_de_la_serie():
+    """Regresion del issue #46.
+
+    El arnes entrega las etiquetas como Series con DatetimeIndex y las predicciones
+    como ndarray, que al envolverse recibe RangeIndex. Con indices disjuntos pandas
+    alineaba por indice y la interseccion quedaba vacia: todas las metricas se
+    calculaban sobre cero filas y evaluar() reventaba.
+
+    Las pruebas anteriores no lo detectaban porque pasan listas y arrays, que
+    reciben RangeIndex en ambos lados y se alinean bien por casualidad.
+    """
+    indice = pd.date_range("2024-01-01", periods=200, freq="D", tz="UTC")
+    y = _serie_desbalanceada(n=200, extremos=20, semilla=8)
+    y.index = indice
+    pred = y.to_numpy()
+
+    resultado = evaluar(y, pred)
+
+    assert resultado["n"] == 200
+    assert resultado["f1_macro"] == 1.0
+
+
+def test_el_indice_no_cambia_el_resultado():
+    """La misma comparacion, con y sin indice, tiene que dar identico.
+
+    Verifica la propiedad general, no solo el caso que fallo: el indice es
+    metadato y no puede influir en una metrica.
+    """
+    y = _serie_desbalanceada(n=300, extremos=30, semilla=9)
+    generador = np.random.default_rng(4)
+    pred = generador.choice([1, 2, 3], size=len(y))
+
+    sin_indice = evaluar(y, pred)
+    con_indice = evaluar(
+        y.set_axis(pd.date_range("2030-01-01", periods=len(y), freq="D", tz="UTC")), pred
+    )
+
+    assert sin_indice == con_indice
+
+
 def test_evaluar_expone_las_metricas_del_enunciado():
     """El enunciado pide Precision Direccional y F1. Si alguien renombra una clave,
     los scripts que escriben el CSV de resultados se rompen aqui y no en el informe."""
