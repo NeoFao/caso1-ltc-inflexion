@@ -333,7 +333,12 @@ function main() {
   const conteo = renumerar(documentos);
 
   const cuerpo = [];
-  cuerpo.push(apa.titulo(1, 'Tabla de Contenido'));
+  // El rotulo del indice se emite como parrafo centrado en negrita y no como
+  // encabezado: con estilo Heading el propio indice se listaria a si mismo en
+  // su primera entrada. Visualmente es identico a un titulo de nivel 1.
+  cuerpo.push(apa.parrafo('**Tabla de Contenido**', {
+    sinSangria: true, alineacion: AlignmentType.CENTER, keepNext: true,
+  }));
   // 1-3 porque las secciones bajaron a nivel 2 y las subsecciones a nivel 3;
   // con el rango anterior la tabla de contenido habria perdido las subsecciones.
   cuerpo.push(new TableOfContents('Contenido', { hyperlink: true, headingStyleRange: '1-3' }));
@@ -409,6 +414,11 @@ function main() {
     } else {
       console.log('  sin bloques pendientes: el documento esta completo');
     }
+    // El indice se escribe como campo TOC sin resultado cacheado, asi que sale
+    // vacio hasta que Word lo calcule. Quien entregue tiene que hacer este paso
+    // o el evaluador abre un indice en blanco.
+    console.log('\n  antes de entregar: abrir en Word, seleccionar el indice y F9');
+    console.log('  (el campo TOC no trae las paginas hasta que Word las calcula)');
   });
 }
 

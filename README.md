@@ -153,4 +153,6 @@ npm install --prefix scripts && npm run ensamblar --prefix scripts
 
 `ensamblar` une las secciones de la Semana 1, renumera figuras y tablas de corrido y avisa qué bloques quedan sin redactar. `npm run prd --prefix scripts` regenera el PRD.
 
+**Un paso manual que no se puede automatizar desde el generador:** la tabla de contenido se escribe como campo de Word sin resultado calculado, así que abre en blanco. Antes de entregar hay que abrir el `.docx`, seleccionar el índice y pulsar F9. El propio comando lo recuerda al terminar.
+
 La primera vez instala `docx`; después basta la segunda mitad. Si falla con `EBUSY`, hay un proceso reteniendo el archivo — normalmente Word abierto, o una instancia sin ventana que quedó de una conversión previa.
