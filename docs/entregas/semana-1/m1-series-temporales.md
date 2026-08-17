@@ -85,7 +85,7 @@ Mismo material que la sección anterior, leído al revés.
 
 **Figura 6.** Precio de cierre de LTC y su volatilidad móvil de 30 velas.
 
-**Medido:** la volatilidad del tramo más agitado es **8,8 veces** la del más tranquilo (máxima 0,0774; mínima 0,0088).
+**Medido:** la volatilidad del tramo más agitado es **8,8 veces** la del más tranquilo (máxima **0,1220**; mínima **0,0138**), con ventana móvil de 30 velas sobre retornos diarios.
 
 > **ESCRIBÍ ACÁ.** Qué es la volatilidad y cómo se estima con desviación estándar móvil de los retornos. El número que sostiene toda la sección es el 8,8×: es evidencia directa de heterocedasticidad en datos reales, no una afirmación de manual. Señalá en la Figura 6 que los picos de volatilidad coinciden con los movimientos bruscos del precio.
 
@@ -137,7 +137,7 @@ Casos concretos:
 
 Mayor correlación con LTC: **ETH, 0,740**. Menor: **SOL, 0,524**.
 
-**Control:** las construidas se pidieron con correlación 0,1 y 0,9; salieron medidas en **0,094** y **0,903**.
+**Control:** las construidas se pidieron con correlación 0,1 y 0,9; salieron medidas en **0,0945** y **0,9033**.
 
 > **ESCRIBÍ ACÁ.** Definí correlación cruzada y su diferencia con la autocorrelación.
 >
