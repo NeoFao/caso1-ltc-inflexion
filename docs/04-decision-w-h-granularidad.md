@@ -112,5 +112,5 @@ Por el enunciado, la **extracción de datos y la definición del pipeline son en
 **Para aplicarla:** editar `contracts/config.py` con `GRANULARIDAD = "4h"`, `VENTANA_W = 7`, `HORIZONTE_H = 1`, `PROVISIONAL = False`, y regenerar:
 
 ```bash
-uv run python scripts/figuras_marco_teorico.py && npm run semana1 --prefix scripts
+uv run python scripts/figuras_marco_teorico.py && npm run ensamblar --prefix scripts
 ```

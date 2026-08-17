@@ -44,7 +44,10 @@ const SECCIONES = [
 const NOTA_INTERNA = /Nota para el ensamblaje|Este archivo es un esqueleto/i;
 // Los bloques sin redactar si se avisan y se emiten en gris, porque su presencia
 // significa que el documento no esta listo.
-const SIN_REDACTAR = /ESCRIB[IÍ] AC[AÁ]|PENDIENTE/i;
+// El limite de palabra en PENDIENTE evita que "independiente" o "codependiente"
+// —terminos que aparecen de forma natural en el texto— marquen como incompleta
+// una cita que si esta redactada.
+const SIN_REDACTAR = /ESCRIB[IÍ] AC[AÁ]|\bPENDIENTE\b/i;
 
 // ---------------------------------------------------------------------------
 // Analisis del markdown
@@ -200,9 +203,16 @@ function emitir(doc, carpeta, avisos) {
   for (const bloque of doc.cuerpo) {
     switch (bloque.tipo) {
       case 'titulo':
-        // El titulo de nivel 1 de cada archivo se descarta: el documento tiene el
-        // suyo y repetirlo partiria la jerarquia APA.
-        if (bloque.nivel > 1) salida.push(apa.titulo(Math.min(bloque.nivel - 1, 3), bloque.texto));
+        // El titulo de nivel 1 de cada archivo se descarta: el documento emite el
+        // suyo desde TITULOS y repetirlo partiria la jerarquia APA.
+        //
+        // Los niveles se conservan tal cual en vez de subirlos uno: si `##` se
+        // emitiera como nivel 1, cada seccion quedaria centrada y en negrita igual
+        // que el titulo del capitulo que la contiene, y el lector no tendria como
+        // saber que "la seccion 3" se refiere a la de este capitulo y no a la
+        // homonima de otro. APA 7 distingue nivel 1 centrado, nivel 2 al margen y
+        // nivel 3 al margen en cursiva, y esa jerarquia es la que hay que mostrar.
+        if (bloque.nivel > 1) salida.push(apa.titulo(Math.min(bloque.nivel, 3), bloque.texto));
         break;
 
       case 'imagen':
@@ -287,11 +297,28 @@ function portada() {
   ];
 }
 
+/**
+ * Introduccion y conclusiones: no llevan figuras, tablas ni referencias, asi que
+ * no pasan por `partir` ni por la renumeracion. Se descarta su titulo de nivel 1
+ * porque quien llama decide con que encabezado entran.
+ */
 function seccionSuelta(nombre) {
   const ruta = path.join(ENTREGA, nombre);
   if (!fs.existsSync(ruta)) return [];
   const bloques = tokenizar(fs.readFileSync(ruta, 'utf8'));
   return bloques.filter((b) => !(b.tipo === 'titulo' && b.nivel === 1));
+}
+
+function emitirSuelta(nombre, cuerpo) {
+  for (const bloque of seccionSuelta(nombre)) {
+    if (bloque.tipo === 'titulo') cuerpo.push(apa.titulo(Math.min(bloque.nivel, 3), bloque.texto));
+    else if (bloque.tipo === 'parrafo') cuerpo.push(apa.parrafo(bloque.texto));
+    else if (bloque.tipo === 'lista') {
+      for (const p of bloque.puntos) {
+        cuerpo.push(apa.parrafo(`• ${p}`, { sinSangria: true, indent: { left: apa.SANGRIA } }));
+      }
+    }
+  }
 }
 
 function main() {
@@ -307,21 +334,15 @@ function main() {
 
   const cuerpo = [];
   cuerpo.push(apa.titulo(1, 'Tabla de Contenido'));
-  cuerpo.push(new TableOfContents('Contenido', { hyperlink: true, headingStyleRange: '1-2' }));
+  // 1-3 porque las secciones bajaron a nivel 2 y las subsecciones a nivel 3;
+  // con el rango anterior la tabla de contenido habria perdido las subsecciones.
+  cuerpo.push(new TableOfContents('Contenido', { hyperlink: true, headingStyleRange: '1-3' }));
   cuerpo.push(new Paragraph({ children: [new apa.PageBreak()] }));
 
   // APA 7: la primera pagina del cuerpo repite el titulo y la introduccion no
   // lleva encabezado propio.
   cuerpo.push(apa.titulo(1, 'Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin'));
-  for (const bloque of seccionSuelta('m0-introduccion.md')) {
-    if (bloque.tipo === 'titulo') cuerpo.push(apa.titulo(Math.min(bloque.nivel - 1, 3) || 1, bloque.texto));
-    else if (bloque.tipo === 'parrafo') cuerpo.push(apa.parrafo(bloque.texto));
-    else if (bloque.tipo === 'lista') {
-      for (const p of bloque.puntos) {
-        cuerpo.push(apa.parrafo(`• ${p}`, { sinSangria: true, indent: { left: apa.SANGRIA } }));
-      }
-    }
-  }
+  emitirSuelta('m0-introduccion.md', cuerpo);
 
   const TITULOS = {
     'm1-series-temporales.md': 'Marco Teórico: Series de Tiempo',
@@ -333,15 +354,11 @@ function main() {
     cuerpo.push(...emitir(doc, ENTREGA, avisos));
   }
 
-  for (const bloque of seccionSuelta('m0-conclusion.md')) {
-    if (bloque.tipo === 'titulo') cuerpo.push(apa.titulo(Math.min(bloque.nivel - 1, 3) || 1, bloque.texto));
-    else if (bloque.tipo === 'parrafo') cuerpo.push(apa.parrafo(bloque.texto));
-    else if (bloque.tipo === 'lista') {
-      for (const p of bloque.puntos) {
-        cuerpo.push(apa.parrafo(`• ${p}`, { sinSangria: true, indent: { left: apa.SANGRIA } }));
-      }
-    }
-  }
+  // A diferencia de la introduccion, que en APA 7 va bajo el titulo del trabajo,
+  // las conclusiones si llevan encabezado propio. Sin el, los cuatro parrafos
+  // quedaban colgando de la ultima seccion de metricas.
+  cuerpo.push(apa.titulo(1, 'Conclusiones'));
+  emitirSuelta('m0-conclusion.md', cuerpo);
 
   // Referencias de los tres archivos, sin duplicados y ordenadas por apellido.
   const vistas = new Map();

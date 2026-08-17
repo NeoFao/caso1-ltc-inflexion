@@ -91,8 +91,6 @@ En retornos, los seis dan p < 0,000001.
 
 **Control:** el test también se corrió sobre una serie construida por nosotros cuyos retornos son estacionarios por construcción, y los rechazó todos. El método detecta lo que dice detectar.
 
-**Un matiz que conviene mencionar:** ETH queda en 0,059, apenas por encima del umbral de 0,05. No cambia la conclusión, pero decirlo demuestra que leíste la tabla en vez de resumirla. Un caso al borde merece nombrarse: con otro período de muestra podría cruzar el umbral, y eso ilustra que el resultado del test depende de la ventana observada.
-
 Una serie es estacionaria en sentido débil cuando sus primeros momentos no dependen del instante
 de observación: la **media** es constante en el tiempo, la **varianza** es constante en el tiempo,
 y la **autocovarianza** entre dos observaciones depende únicamente de la distancia temporal que
@@ -136,8 +134,6 @@ respuesta verdadera.
 ---
 
 ## 4. No estacionariedad
-
-Mismo material que la sección anterior, leído al revés.
 
 El resultado de la sección anterior tiene una lectura directa cuando se invierte el orden de la
 pregunta: si el test ADF no rechaza la raíz unitaria en ninguna de las seis series de precios en
@@ -275,8 +271,7 @@ que ya mostró el test ADF de la sección 3: los precios en nivel no son estacio
 **2. En retornos**, la autocorrelación en el rezago 1 cae a **−0,036**, y de los 40 rezagos
 evaluados solo tres —el 8, el 14 y el 31— salen de la banda de confianza al 95 %.
 
-**Este es el hallazgo más fuerte de la sección, y conviene desarrollarlo en lugar de reportarlo de
-paso.** Que los retornos de LTC no tengan autocorrelación lineal significativa, salvo en tres
+Que los retornos de LTC no tengan autocorrelación lineal significativa, salvo en tres
 rezagos aislados sobre cuarenta, significa que un modelo lineal que solo use retornos rezagados de
 LTC tiene muy poco que explotar. No es un resultado negativo para el proyecto: **es su
 justificación**. Es consistente con lo que predice la hipótesis de mercados eficientes en su forma
@@ -324,8 +319,8 @@ la de la derecha, a los retornos reales de las seis criptomonedas del proyecto. 
 a la otra, permiten leer el resultado real contra dos referencias donde la respuesta correcta la
 pusimos nosotros mismos.
 
-**El punto de análisis más importante de esta sección no es que la correlación en nivel sea alta,
-sino que es errática.** Calculada sobre precios en nivel, la correlación entre LTC y BTC —el
+La distorsión que introducen los precios en nivel no consiste en que la correlación resulte alta,
+sino en que resulta **errática**. Calculada sobre precios en nivel, la correlación entre LTC y BTC —el
 activo que por definición marca la tendencia de todo el sector cripto— es de apenas **0,126**,
 mientras que entre LTC y ADA sube a **0,796**: un orden económicamente implausible, que sugiere
 que LTC se relaciona más con Cardano que con Bitcoin. Calculada sobre retornos, el orden se
