@@ -1,0 +1,276 @@
+{
+ "caracteristicas": {
+  "n_columnas": 63,
+  "columnas": [
+   "LTC_retorno_1",
+   "LTC_retorno_3",
+   "LTC_retorno_7",
+   "LTC_volatilidad_7",
+   "LTC_volatilidad_14",
+   "LTC_volatilidad_30",
+   "corr_LTC_BTC_30",
+   "corr_LTC_ETH_30",
+   "corr_LTC_SOL_30",
+   "corr_LTC_XRP_30",
+   "corr_LTC_ADA_30",
+   "LTC_dist_sma_7",
+   "LTC_dist_sma_25",
+   "LTC_dist_ema_12",
+   "LTC_dist_ema_26",
+   "LTC_rsi_14",
+   "LTC_macd",
+   "LTC_macd_senal",
+   "LTC_macd_histograma",
+   "LTC_bollinger_pctb_20",
+   "LTC_bollinger_ancho_20",
+   "LTC_rango_rel_7",
+   "LTC_posicion_rango_7",
+   "LTC_asimetria_retornos_7",
+   "LTC_curtosis_retornos_7",
+   "LTC_rango_rel_20",
+   "LTC_posicion_rango_20",
+   "LTC_asimetria_retornos_20",
+   "LTC_curtosis_retornos_20",
+   "LTC_cierre_rezago_1",
+   "LTC_cierre_rezago_5",
+   "LTC_cierre_rezago_6",
+   "LTC_cierre_rezago_7",
+   "BTC_cierre_rezago_1",
+   "BTC_cierre_rezago_5",
+   "BTC_cierre_rezago_6",
+   "BTC_cierre_rezago_7",
+   "BTC_retorno_1",
+   "BTC_retorno_3",
+   "ETH_cierre_rezago_1",
+   "ETH_cierre_rezago_5",
+   "ETH_cierre_rezago_6",
+   "ETH_cierre_rezago_7",
+   "ETH_retorno_1",
+   "ETH_retorno_3",
+   "SOL_cierre_rezago_1",
+   "SOL_cierre_rezago_5",
+   "SOL_cierre_rezago_6",
+   "SOL_cierre_rezago_7",
+   "SOL_retorno_1",
+   "SOL_retorno_3",
+   "XRP_cierre_rezago_1",
+   "XRP_cierre_rezago_5",
+   "XRP_cierre_rezago_6",
+   "XRP_cierre_rezago_7",
+   "XRP_retorno_1",
+   "XRP_retorno_3",
+   "ADA_cierre_rezago_1",
+   "ADA_cierre_rezago_5",
+   "ADA_cierre_rezago_6",
+   "ADA_cierre_rezago_7",
+   "ADA_retorno_1",
+   "ADA_retorno_3"
+  ],
+  "filas_sin_ningun_nan": 13084,
+  "filas_totales": 13114
+ },
+ "posicion_rango": {
+  "panel_4h_w7": {
+   "tasas_base": {
+    "maximo": 0.046259541984732824,
+    "minimo": 0.046641221374045805,
+    "continuidad": 0.9070992366412214
+   },
+   "tramos": [
+    {
+     "ventana": 7,
+     "tramo": "[0,00 – 0,25)",
+     "n": 4484,
+     "tasa_maximo": 0.0,
+     "levantamiento_maximo": 0.0,
+     "tasa_minimo": 0.136262,
+     "levantamiento_minimo": 2.921499,
+     "tasa_continuidad": 0.863738,
+     "levantamiento_continuidad": 0.952198
+    },
+    {
+     "ventana": 7,
+     "tramo": "[0,25 – 0,75)",
+     "n": 3678,
+     "tasa_maximo": 0.0,
+     "levantamiento_maximo": 0.0,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 1.0,
+     "levantamiento_continuidad": 1.102415
+    },
+    {
+     "ventana": 7,
+     "tramo": "[0,75 – 1,00)",
+     "n": 1985,
+     "tasa_maximo": 0.0,
+     "levantamiento_maximo": 0.0,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 1.0,
+     "levantamiento_continuidad": 1.102415
+    },
+    {
+     "ventana": 7,
+     "tramo": "= 1,00 (maximo de la ventana)",
+     "n": 2953,
+     "tasa_maximo": 0.205215,
+     "levantamiento_maximo": 4.436167,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 0.794785,
+     "levantamiento_continuidad": 0.876183
+    },
+    {
+     "ventana": 20,
+     "tramo": "[0,00 – 0,25)",
+     "n": 4006,
+     "tasa_maximo": 0.003245,
+     "levantamiento_maximo": 0.070151,
+     "tasa_minimo": 0.111333,
+     "levantamiento_minimo": 2.387009,
+     "tasa_continuidad": 0.885422,
+     "levantamiento_continuidad": 0.976103
+    },
+    {
+     "ventana": 20,
+     "tramo": "[0,25 – 0,75)",
+     "n": 4793,
+     "tasa_maximo": 0.028375,
+     "levantamiento_maximo": 0.613381,
+     "tasa_minimo": 0.032547,
+     "levantamiento_minimo": 0.697826,
+     "tasa_continuidad": 0.939078,
+     "levantamiento_continuidad": 1.035254
+    },
+    {
+     "ventana": 20,
+     "tramo": "[0,75 – 1,00)",
+     "n": 2752,
+     "tasa_maximo": 0.028706,
+     "levantamiento_maximo": 0.620551,
+     "tasa_minimo": 0.00327,
+     "levantamiento_minimo": 0.070117,
+     "tasa_continuidad": 0.968023,
+     "levantamiento_continuidad": 1.067164
+    },
+    {
+     "ventana": 20,
+     "tramo": "= 1,00 (maximo de la ventana)",
+     "n": 1537,
+     "tasa_maximo": 0.245934,
+     "levantamiento_maximo": 5.316387,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 0.754066,
+     "levantamiento_continuidad": 0.831294
+    }
+   ]
+  },
+  "panel_1d_w5_contrato": {
+   "tasas_base": {
+    "maximo": 0.06574712643678161,
+    "minimo": 0.06482758620689655,
+    "continuidad": 0.8694252873563219
+   },
+   "tramos": [
+    {
+     "ventana": 7,
+     "tramo": "[0,00 – 0,25)",
+     "n": 783,
+     "tasa_maximo": 0.0,
+     "levantamiento_maximo": 0.0,
+     "tasa_minimo": 0.171137,
+     "levantamiento_minimo": 2.639874,
+     "tasa_continuidad": 0.828863,
+     "levantamiento_continuidad": 0.953346
+    },
+    {
+     "ventana": 7,
+     "tramo": "[0,25 – 0,75)",
+     "n": 634,
+     "tasa_maximo": 0.009464,
+     "levantamiento_maximo": 0.143941,
+     "tasa_minimo": 0.011041,
+     "levantamiento_minimo": 0.170313,
+     "tasa_continuidad": 0.979495,
+     "levantamiento_continuidad": 1.126601
+    },
+    {
+     "ventana": 7,
+     "tramo": "[0,75 – 1,00)",
+     "n": 297,
+     "tasa_maximo": 0.020202,
+     "levantamiento_maximo": 0.307268,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 0.979798,
+     "levantamiento_continuidad": 1.126949
+    },
+    {
+     "ventana": 7,
+     "tramo": "= 1,00 (maximo de la ventana)",
+     "n": 460,
+     "tasa_maximo": 0.284783,
+     "levantamiento_maximo": 4.331484,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 0.715217,
+     "levantamiento_continuidad": 0.822632
+    },
+    {
+     "ventana": 20,
+     "tramo": "[0,00 – 0,25)",
+     "n": 735,
+     "tasa_maximo": 0.013605,
+     "levantamiento_maximo": 0.206936,
+     "tasa_minimo": 0.130612,
+     "levantamiento_minimo": 2.014763,
+     "tasa_continuidad": 0.855782,
+     "levantamiento_continuidad": 0.984308
+    },
+    {
+     "ventana": 20,
+     "tramo": "[0,25 – 0,75)",
+     "n": 821,
+     "tasa_maximo": 0.053593,
+     "levantamiento_maximo": 0.815141,
+     "tasa_minimo": 0.046285,
+     "levantamiento_minimo": 0.713971,
+     "tasa_continuidad": 0.900122,
+     "levantamiento_continuidad": 1.035307
+    },
+    {
+     "ventana": 20,
+     "tramo": "[0,75 – 1,00)",
+     "n": 380,
+     "tasa_maximo": 0.042105,
+     "levantamiento_maximo": 0.640412,
+     "tasa_minimo": 0.015789,
+     "levantamiento_minimo": 0.243561,
+     "tasa_continuidad": 0.942105,
+     "levantamiento_continuidad": 1.083595
+    },
+    {
+     "ventana": 20,
+     "tramo": "= 1,00 (maximo de la ventana)",
+     "n": 225,
+     "tasa_maximo": 0.32,
+     "levantamiento_maximo": 4.867133,
+     "tasa_minimo": 0.0,
+     "levantamiento_minimo": 0.0,
+     "tasa_continuidad": 0.68,
+     "levantamiento_continuidad": 0.782126
+    }
+   ]
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-17T08:41:17+00:00",
+  "issues": [
+   "S1-M2-02",
+   "S1-M2-03"
+  ],
+  "advertencia": "El levantamiento alto de posicion_rango sobre la clase Maximo es esperable: la caracteristica contiene la mitad hacia atras de la definicion de la etiqueta. No es fuga y no es un hallazgo sobre el mercado."
+ }
+}

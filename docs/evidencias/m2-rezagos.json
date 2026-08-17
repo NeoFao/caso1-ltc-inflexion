@@ -1,0 +1,1286 @@
+{
+ "resultados": {
+  "1d": {
+   "panel": "1d",
+   "n_filas": 2185,
+   "acf_ltc": [
+    {
+     "rezago": 1,
+     "acf": -0.036413,
+     "inferior": -0.078353,
+     "superior": 0.005526,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 2,
+     "acf": -0.014713,
+     "inferior": -0.056708,
+     "superior": 0.027282,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 3,
+     "acf": -0.029295,
+     "inferior": -0.071299,
+     "superior": 0.012709,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 4,
+     "acf": 0.008288,
+     "inferior": -0.033752,
+     "superior": 0.050328,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 5,
+     "acf": -0.030013,
+     "inferior": -0.072055,
+     "superior": 0.01203,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 6,
+     "acf": 0.028113,
+     "inferior": -0.013967,
+     "superior": 0.070194,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 7,
+     "acf": -0.01521,
+     "inferior": -0.057323,
+     "superior": 0.026904,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 8,
+     "acf": -0.04706,
+     "inferior": -0.089183,
+     "superior": -0.004937,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 9,
+     "acf": 0.017889,
+     "inferior": -0.024327,
+     "superior": 0.060104,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 10,
+     "acf": -0.02034,
+     "inferior": -0.062569,
+     "superior": 0.021889,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 11,
+     "acf": 0.023498,
+     "inferior": -0.018748,
+     "superior": 0.065744,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 12,
+     "acf": -0.034967,
+     "inferior": -0.077236,
+     "superior": 0.007303,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 13,
+     "acf": 0.018583,
+     "inferior": -0.023737,
+     "superior": 0.060903,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 14,
+     "acf": -0.047011,
+     "inferior": -0.089345,
+     "superior": -0.004676,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 15,
+     "acf": 0.016168,
+     "inferior": -0.026258,
+     "superior": 0.058594,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 16,
+     "acf": 0.008497,
+     "inferior": -0.03394,
+     "superior": 0.050934,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 17,
+     "acf": -0.021502,
+     "inferior": -0.063942,
+     "superior": 0.020938,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 18,
+     "acf": -0.017892,
+     "inferior": -0.060351,
+     "superior": 0.024567,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 19,
+     "acf": 0.016534,
+     "inferior": -0.025938,
+     "superior": 0.059006,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 20,
+     "acf": 0.036629,
+     "inferior": -0.005855,
+     "superior": 0.079113,
+     "significativo": false,
+     "activo": "LTC"
+    }
+   ],
+   "correlacion_cruzada": [
+    {
+     "activo": "BTC",
+     "rezago": 0,
+     "n": 2184,
+     "correlacion": 0.715302,
+     "banda_95": 0.041939,
+     "significativo": true
+    },
+    {
+     "activo": "BTC",
+     "rezago": 1,
+     "n": 2183,
+     "correlacion": -0.011558,
+     "banda_95": 0.041949,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 2,
+     "n": 2182,
+     "correlacion": -0.013166,
+     "banda_95": 0.041959,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 3,
+     "n": 2181,
+     "correlacion": 0.02394,
+     "banda_95": 0.041968,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 4,
+     "n": 2180,
+     "correlacion": 0.016281,
+     "banda_95": 0.041978,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 5,
+     "n": 2179,
+     "correlacion": -0.008871,
+     "banda_95": 0.041987,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 6,
+     "n": 2178,
+     "correlacion": 0.012731,
+     "banda_95": 0.041997,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 7,
+     "n": 2177,
+     "correlacion": 0.004639,
+     "banda_95": 0.042007,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 8,
+     "n": 2176,
+     "correlacion": -0.035982,
+     "banda_95": 0.042016,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 9,
+     "n": 2175,
+     "correlacion": 0.032976,
+     "banda_95": 0.042026,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 10,
+     "n": 2174,
+     "correlacion": -0.002035,
+     "banda_95": 0.042036,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 0,
+     "n": 2184,
+     "correlacion": 0.739543,
+     "banda_95": 0.041939,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 1,
+     "n": 2183,
+     "correlacion": -0.035143,
+     "banda_95": 0.041949,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 2,
+     "n": 2182,
+     "correlacion": -0.016316,
+     "banda_95": 0.041959,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 3,
+     "n": 2181,
+     "correlacion": -0.00065,
+     "banda_95": 0.041968,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 4,
+     "n": 2180,
+     "correlacion": 0.011637,
+     "banda_95": 0.041978,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 5,
+     "n": 2179,
+     "correlacion": -0.059394,
+     "banda_95": 0.041987,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 6,
+     "n": 2178,
+     "correlacion": 0.075253,
+     "banda_95": 0.041997,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 7,
+     "n": 2177,
+     "correlacion": -0.02336,
+     "banda_95": 0.042007,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 8,
+     "n": 2176,
+     "correlacion": -0.038863,
+     "banda_95": 0.042016,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 9,
+     "n": 2175,
+     "correlacion": 0.000396,
+     "banda_95": 0.042026,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 10,
+     "n": 2174,
+     "correlacion": 0.030679,
+     "banda_95": 0.042036,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 0,
+     "n": 2184,
+     "correlacion": 0.523797,
+     "banda_95": 0.041939,
+     "significativo": true
+    },
+    {
+     "activo": "SOL",
+     "rezago": 1,
+     "n": 2183,
+     "correlacion": -0.056518,
+     "banda_95": 0.041949,
+     "significativo": true
+    },
+    {
+     "activo": "SOL",
+     "rezago": 2,
+     "n": 2182,
+     "correlacion": -0.017017,
+     "banda_95": 0.041959,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 3,
+     "n": 2181,
+     "correlacion": -0.03895,
+     "banda_95": 0.041968,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 4,
+     "n": 2180,
+     "correlacion": -0.003151,
+     "banda_95": 0.041978,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 5,
+     "n": 2179,
+     "correlacion": -0.011814,
+     "banda_95": 0.041987,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 6,
+     "n": 2178,
+     "correlacion": 0.077636,
+     "banda_95": 0.041997,
+     "significativo": true
+    },
+    {
+     "activo": "SOL",
+     "rezago": 7,
+     "n": 2177,
+     "correlacion": -7.7e-05,
+     "banda_95": 0.042007,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 8,
+     "n": 2176,
+     "correlacion": -0.037666,
+     "banda_95": 0.042016,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 9,
+     "n": 2175,
+     "correlacion": 0.031821,
+     "banda_95": 0.042026,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 10,
+     "n": 2174,
+     "correlacion": 0.006543,
+     "banda_95": 0.042036,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 0,
+     "n": 2184,
+     "correlacion": 0.600047,
+     "banda_95": 0.041939,
+     "significativo": true
+    },
+    {
+     "activo": "XRP",
+     "rezago": 1,
+     "n": 2183,
+     "correlacion": -0.040423,
+     "banda_95": 0.041949,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 2,
+     "n": 2182,
+     "correlacion": -0.014818,
+     "banda_95": 0.041959,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 3,
+     "n": 2181,
+     "correlacion": 0.003933,
+     "banda_95": 0.041968,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 4,
+     "n": 2180,
+     "correlacion": -0.007169,
+     "banda_95": 0.041978,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 5,
+     "n": 2179,
+     "correlacion": -0.032604,
+     "banda_95": 0.041987,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 6,
+     "n": 2178,
+     "correlacion": 0.040954,
+     "banda_95": 0.041997,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 7,
+     "n": 2177,
+     "correlacion": 0.004774,
+     "banda_95": 0.042007,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 8,
+     "n": 2176,
+     "correlacion": -0.038797,
+     "banda_95": 0.042016,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 9,
+     "n": 2175,
+     "correlacion": 0.092487,
+     "banda_95": 0.042026,
+     "significativo": true
+    },
+    {
+     "activo": "XRP",
+     "rezago": 10,
+     "n": 2174,
+     "correlacion": -0.006092,
+     "banda_95": 0.042036,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 0,
+     "n": 2184,
+     "correlacion": 0.640889,
+     "banda_95": 0.041939,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 1,
+     "n": 2183,
+     "correlacion": -0.024912,
+     "banda_95": 0.041949,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 2,
+     "n": 2182,
+     "correlacion": -0.017607,
+     "banda_95": 0.041959,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 3,
+     "n": 2181,
+     "correlacion": -0.009508,
+     "banda_95": 0.041968,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 4,
+     "n": 2180,
+     "correlacion": 0.005932,
+     "banda_95": 0.041978,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 5,
+     "n": 2179,
+     "correlacion": -0.055426,
+     "banda_95": 0.041987,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 6,
+     "n": 2178,
+     "correlacion": 0.004814,
+     "banda_95": 0.041997,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 7,
+     "n": 2177,
+     "correlacion": 0.016282,
+     "banda_95": 0.042007,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 8,
+     "n": 2176,
+     "correlacion": -0.054342,
+     "banda_95": 0.042016,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 9,
+     "n": 2175,
+     "correlacion": 0.051661,
+     "banda_95": 0.042026,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 10,
+     "n": 2174,
+     "correlacion": -0.011172,
+     "banda_95": 0.042036,
+     "significativo": false
+    }
+   ],
+   "recomendacion": {
+    "significativos_acf_ltc": [
+     8,
+     14
+    ],
+    "significativos_cruzada_2_o_mas_activos": [
+     5,
+     6,
+     9
+    ],
+    "candidatos": [
+     1,
+     5,
+     6,
+     8,
+     9,
+     14
+    ],
+    "ordenes": [
+     1,
+     5,
+     6,
+     8
+    ],
+    "criterio": "significativo en la ACF de LTC, o en la correlacion cruzada de >= 2 activos de apoyo; el rezago 1 entra siempre; corte en 4 ordenes"
+   }
+  },
+  "4h": {
+   "panel": "4h",
+   "n_filas": 13114,
+   "acf_ltc": [
+    {
+     "rezago": 1,
+     "acf": -0.019452,
+     "inferior": -0.036568,
+     "superior": -0.002336,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 2,
+     "acf": -0.003869,
+     "inferior": -0.020991,
+     "superior": 0.013254,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 3,
+     "acf": 0.007515,
+     "inferior": -0.009608,
+     "superior": 0.024637,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 4,
+     "acf": 0.016303,
+     "inferior": -0.00082,
+     "superior": 0.033427,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 5,
+     "acf": -0.030713,
+     "inferior": -0.047841,
+     "superior": -0.013585,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 6,
+     "acf": -0.043588,
+     "inferior": -0.060732,
+     "superior": -0.026444,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 7,
+     "acf": 0.022281,
+     "inferior": 0.005104,
+     "superior": 0.039458,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 8,
+     "acf": -0.00033,
+     "inferior": -0.017515,
+     "superior": 0.016855,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 9,
+     "acf": -0.00935,
+     "inferior": -0.026535,
+     "superior": 0.007835,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 10,
+     "acf": -1.5e-05,
+     "inferior": -0.017201,
+     "superior": 0.017172,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 11,
+     "acf": 0.024179,
+     "inferior": 0.006992,
+     "superior": 0.041365,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 12,
+     "acf": -0.022152,
+     "inferior": -0.039348,
+     "superior": -0.004955,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 13,
+     "acf": 0.017705,
+     "inferior": 0.0005,
+     "superior": 0.034909,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 14,
+     "acf": -0.011766,
+     "inferior": -0.028976,
+     "superior": 0.005444,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 15,
+     "acf": 0.006819,
+     "inferior": -0.010393,
+     "superior": 0.024032,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 16,
+     "acf": -0.011816,
+     "inferior": -0.029029,
+     "superior": 0.005397,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 17,
+     "acf": 0.005791,
+     "inferior": -0.011425,
+     "superior": 0.023006,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 18,
+     "acf": -0.001484,
+     "inferior": -0.018701,
+     "superior": 0.015732,
+     "significativo": false,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 19,
+     "acf": -0.038101,
+     "inferior": -0.055317,
+     "superior": -0.020885,
+     "significativo": true,
+     "activo": "LTC"
+    },
+    {
+     "rezago": 20,
+     "acf": -0.00864,
+     "inferior": -0.025882,
+     "superior": 0.008601,
+     "significativo": false,
+     "activo": "LTC"
+    }
+   ],
+   "correlacion_cruzada": [
+    {
+     "activo": "BTC",
+     "rezago": 0,
+     "n": 13113,
+     "correlacion": 0.729199,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "BTC",
+     "rezago": 1,
+     "n": 13112,
+     "correlacion": -0.022541,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "BTC",
+     "rezago": 2,
+     "n": 13111,
+     "correlacion": 0.011156,
+     "banda_95": 0.017117,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 3,
+     "n": 13110,
+     "correlacion": 0.012532,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 4,
+     "n": 13109,
+     "correlacion": -0.004706,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 5,
+     "n": 13108,
+     "correlacion": -0.01604,
+     "banda_95": 0.017119,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 6,
+     "n": 13107,
+     "correlacion": -0.036805,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "BTC",
+     "rezago": 7,
+     "n": 13106,
+     "correlacion": 0.019178,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "BTC",
+     "rezago": 8,
+     "n": 13105,
+     "correlacion": 0.011434,
+     "banda_95": 0.017121,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 9,
+     "n": 13104,
+     "correlacion": 0.006965,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "BTC",
+     "rezago": 10,
+     "n": 13103,
+     "correlacion": 0.001847,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 0,
+     "n": 13113,
+     "correlacion": 0.752794,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 1,
+     "n": 13112,
+     "correlacion": -0.019183,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 2,
+     "n": 13111,
+     "correlacion": 0.008015,
+     "banda_95": 0.017117,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 3,
+     "n": 13110,
+     "correlacion": -0.001262,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 4,
+     "n": 13109,
+     "correlacion": -0.000322,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 5,
+     "n": 13108,
+     "correlacion": -0.019811,
+     "banda_95": 0.017119,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 6,
+     "n": 13107,
+     "correlacion": -0.048003,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 7,
+     "n": 13106,
+     "correlacion": 0.024635,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "ETH",
+     "rezago": 8,
+     "n": 13105,
+     "correlacion": 0.002586,
+     "banda_95": 0.017121,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 9,
+     "n": 13104,
+     "correlacion": 0.007855,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "ETH",
+     "rezago": 10,
+     "n": 13103,
+     "correlacion": 0.003153,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 0,
+     "n": 13113,
+     "correlacion": 0.583096,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "SOL",
+     "rezago": 1,
+     "n": 13112,
+     "correlacion": -0.013809,
+     "banda_95": 0.017116,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 2,
+     "n": 13111,
+     "correlacion": 0.009088,
+     "banda_95": 0.017117,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 3,
+     "n": 13110,
+     "correlacion": -0.007555,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 4,
+     "n": 13109,
+     "correlacion": -0.003042,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 5,
+     "n": 13108,
+     "correlacion": -0.014015,
+     "banda_95": 0.017119,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 6,
+     "n": 13107,
+     "correlacion": -0.049803,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "SOL",
+     "rezago": 7,
+     "n": 13106,
+     "correlacion": 0.021521,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "SOL",
+     "rezago": 8,
+     "n": 13105,
+     "correlacion": -0.008181,
+     "banda_95": 0.017121,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 9,
+     "n": 13104,
+     "correlacion": 0.005676,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "SOL",
+     "rezago": 10,
+     "n": 13103,
+     "correlacion": 0.001661,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 0,
+     "n": 13113,
+     "correlacion": 0.63322,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "XRP",
+     "rezago": 1,
+     "n": 13112,
+     "correlacion": -0.006556,
+     "banda_95": 0.017116,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 2,
+     "n": 13111,
+     "correlacion": 0.001121,
+     "banda_95": 0.017117,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 3,
+     "n": 13110,
+     "correlacion": 0.003805,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 4,
+     "n": 13109,
+     "correlacion": 0.003621,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 5,
+     "n": 13108,
+     "correlacion": -0.026502,
+     "banda_95": 0.017119,
+     "significativo": true
+    },
+    {
+     "activo": "XRP",
+     "rezago": 6,
+     "n": 13107,
+     "correlacion": -0.045454,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "XRP",
+     "rezago": 7,
+     "n": 13106,
+     "correlacion": 0.015594,
+     "banda_95": 0.01712,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 8,
+     "n": 13105,
+     "correlacion": 0.007641,
+     "banda_95": 0.017121,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 9,
+     "n": 13104,
+     "correlacion": -0.006125,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "XRP",
+     "rezago": 10,
+     "n": 13103,
+     "correlacion": 0.014842,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 0,
+     "n": 13113,
+     "correlacion": 0.69775,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 1,
+     "n": 13112,
+     "correlacion": -0.019213,
+     "banda_95": 0.017116,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 2,
+     "n": 13111,
+     "correlacion": 0.006785,
+     "banda_95": 0.017117,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 3,
+     "n": 13110,
+     "correlacion": 0.008441,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 4,
+     "n": 13109,
+     "correlacion": 0.012178,
+     "banda_95": 0.017118,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 5,
+     "n": 13108,
+     "correlacion": -0.025538,
+     "banda_95": 0.017119,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 6,
+     "n": 13107,
+     "correlacion": -0.034799,
+     "banda_95": 0.01712,
+     "significativo": true
+    },
+    {
+     "activo": "ADA",
+     "rezago": 7,
+     "n": 13106,
+     "correlacion": 0.012079,
+     "banda_95": 0.01712,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 8,
+     "n": 13105,
+     "correlacion": -6.5e-05,
+     "banda_95": 0.017121,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 9,
+     "n": 13104,
+     "correlacion": -0.010625,
+     "banda_95": 0.017122,
+     "significativo": false
+    },
+    {
+     "activo": "ADA",
+     "rezago": 10,
+     "n": 13103,
+     "correlacion": 0.001064,
+     "banda_95": 0.017122,
+     "significativo": false
+    }
+   ],
+   "recomendacion": {
+    "significativos_acf_ltc": [
+     1,
+     5,
+     6,
+     7,
+     11,
+     12,
+     13,
+     19
+    ],
+    "significativos_cruzada_2_o_mas_activos": [
+     1,
+     5,
+     6,
+     7
+    ],
+    "candidatos": [
+     1,
+     5,
+     6,
+     7,
+     11,
+     12,
+     13,
+     19
+    ],
+    "ordenes": [
+     1,
+     5,
+     6,
+     7
+    ],
+    "criterio": "significativo en la ACF de LTC, o en la correlacion cruzada de >= 2 activos de apoyo; el rezago 1 entra siempre; corte en 4 ordenes"
+   }
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-17T08:41:14+00:00",
+  "issue": "S1-M2-04",
+  "nota": "La banda al 95 % es aproximada (+-1,96/raiz(n)) y supone independencia. Con retornos financieros esa suposicion no es exacta, asi que un cruce apenas por encima de la banda no es evidencia fuerte."
+ }
+}
