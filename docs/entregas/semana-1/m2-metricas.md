@@ -156,6 +156,19 @@ Reportarlo **por clase** y no solo agregado es indispensable aquí, porque las t
 dificultades muy distintas: Continuidad es fácil por abundancia, y Máximo y Mínimo son el objetivo
 real del trabajo. En la Tabla 2 se ve que el número agregado esconde dos ceros.
 
+Que el par precisión-exhaustividad sea el adecuado para este problema no es una preferencia:
+Saito y Rehmsmeier (2015) muestran que, con clases fuertemente desbalanceadas, las medidas
+construidas sobre precisión y exhaustividad reflejan el rendimiento sobre la clase rara mucho
+mejor que las basadas en la tasa de falsos positivos, porque esta última se diluye contra una
+clase mayoritaria muy grande. Con un 90,7 % de Continuidad, ese es exactamente nuestro caso.
+
+**Una limitación del F1 que conviene declarar nosotros.** El F1 ignora los verdaderos negativos y
+no es simétrico entre las clases, y por eso hay literatura que propone el coeficiente de
+correlación de Matthews como alternativa más informativa (Chicco & Jurman, 2020). No lo adoptamos
+como métrica principal porque el enunciado pide F1-Score explícitamente y cambiar la métrica de
+decisión por cuenta propia rompería la comparabilidad con lo que se nos solicitó; queda anotado
+como limitación conocida y no como algo que se nos haya pasado.
+
 ### 3.2 F1 macro, y por qué no ponderado
 
 El **F1 macro** es el promedio simple de los tres F1 por clase. El **F1 ponderado** promedia
@@ -171,6 +184,14 @@ El macro tiene el efecto contrario y es el que corresponde: al dar igual peso a 
 un modelo solo puede obtener un buen valor si aprende algo sobre las clases raras. Es la
 recomendación estándar cuando las clases minoritarias son las de interés (Sokolova & Lapalme,
 2009; He & Garcia, 2009).
+
+Hay además un argumento formal contra los promedios ponderados por prevalencia. Farhadpour et al.
+(2024) muestran que, en clasificación multiclase de etiqueta única, el F1 micro-promediado es
+**matemáticamente idéntico a la exactitud global**, de modo que reportarlo no agrega ninguna
+información sobre lo que la exactitud ya dice; y advierten que los promedios ponderados por la
+frecuencia de cada clase quedan dominados por las mayoritarias. Aplicado a este proyecto: el
+promedio ponderado hereda el mismo defecto que la Tabla 2 le demuestra a la exactitud. El macro
+es la única de las tres variantes que puede ordenar los modelos por lo que nos importa.
 
 **Lo que hay que declarar como costo:** el macro tiene mayor varianza. Con 24 máximos en el bloque
 de prueba, unos pocos aciertos o fallos mueven el F1 de esa clase de forma apreciable, y como el
@@ -278,21 +299,24 @@ macro de 0,31 habría superado al baseline trivial y no habría demostrado nada.
 
 ## Referencias
 
-> **Pendiente de verificación.** Redactadas en APA 7 a partir de fuentes conocidas del área;
-> **hay que comprobar volumen, páginas y DOI contra el original antes de la entrega definitiva.**
+> **Verificadas.** Comprobadas una por una contra el registro de Crossref el 17 de agosto de 2026
+> —autores, título, revista, volumen, número, páginas, año y DOI—, incluida la comprobación de
+> que ninguna esté retractada.
 
 Blaskowitz, O., & Herwartz, H. (2011). On economic evaluation of directional forecasts.
 *International Journal of Forecasting, 27*(4), 1058–1065.
 https://doi.org/10.1016/j.ijforecast.2010.07.002
 
 Chicco, D., & Jurman, G. (2020). The advantages of the Matthews correlation coefficient (MCC)
-over F1 score and accuracy in binary classification evaluation. *BMC Genomics, 21*, 6.
+over F1 score and accuracy in binary classification evaluation. *BMC Genomics, 21*(1), Artículo 6.
 https://doi.org/10.1186/s12864-019-6413-7
+
+Farhadpour, S., Warner, T. A., & Maxwell, A. E. (2024). Selecting and interpreting multiclass
+loss and accuracy assessment metrics for classifications with class imbalance: Guidance and best
+practices. *Remote Sensing, 16*(3), Artículo 533. https://doi.org/10.3390/rs16030533
 
 He, H., & Garcia, E. A. (2009). Learning from imbalanced data. *IEEE Transactions on Knowledge
 and Data Engineering, 21*(9), 1263–1284. https://doi.org/10.1109/TKDE.2008.239
-
-López de Prado, M. (2018). *Advances in financial machine learning*. John Wiley & Sons.
 
 Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC
 plot when evaluating binary classifiers on imbalanced datasets. *PLOS ONE, 10*(3), e0118432.

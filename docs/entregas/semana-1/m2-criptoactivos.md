@@ -17,7 +17,8 @@ Un criptoactivo es una representación digital de valor que se registra, se tran
 almacena mediante criptografía sobre un registro distribuido, y cuya validez no depende de que
 una entidad central certifique cada operación. El Grupo de Acción Financiera Internacional lo
 define de forma funcional, como una representación digital de valor susceptible de ser negociada
-o transferida electrónicamente y utilizable para pago o inversión (FATF, 2021). Esa definición
+o transferida electrónicamente y utilizable para pago o inversión (Financial Action Task Force
+[FATF], 2021). Esa definición
 —qué hace el activo, no quién lo emite— es la que conviene adoptar en un trabajo cuantitativo.
 
 Lo que distingue a un criptoactivo de un activo financiero tradicional no es que sea digital: un
@@ -86,8 +87,11 @@ deja disponibles— y no por respeto a una convención que no significa nada.
 **Volatilidad elevada y variable en el tiempo.** Sobre los datos del proyecto, la desviación
 estándar móvil de los retornos de LTC en ventanas de 30 días recorre un rango de **0,0138 a
 0,122**: el período más agitado de la muestra fue **8,8 veces** más volátil que el más tranquilo.
-La literatura documenta este comportamiento de forma sistemática (Katsiampa, 2017; Corbet et al.,
-2019), y nuestro dato es consistente con ella y, sobre todo, es propio y medido. La implicación
+La literatura documenta este comportamiento de forma sistemática. Katsiampa (2017) compara
+modelos GARCH sobre Bitcoin, y Caporale y Zekokh (2019) muestran, mediante modelos GARCH con
+cambio de régimen markoviano, que la volatilidad de los criptoactivos no es solamente alta sino
+que **conmuta entre estados** de alta y baja intensidad. Nuestro dato es consistente con esa
+literatura y, sobre todo, es propio y medido. La implicación
 metodológica es directa: la varianza de la serie no es constante, así que cualquier
 característica construida sobre magnitudes absolutas de precio será inestable entre períodos. Por
 eso el pipeline trabaja sobre retornos y sobre estadísticos normalizados por ventana.
@@ -187,8 +191,14 @@ histórico de precios puede anticiparlos, y conviene decirlo antes de que lo pre
 fracción irreducible de los puntos de inflexión que el modelo no puede predecir por construcción.
 
 **Sentimiento y atención.** La ausencia de anclaje fundamental deja más espacio al componente de
-expectativa. Corbet et al. (2019) revisan la evidencia sobre el papel de la atención y el
-sentimiento en la formación de precios de criptoactivos.
+expectativa, y hay evidencia cuantitativa de ello. Liu y Tsyvinski (2021) muestran que los
+rendimientos de los criptoactivos no están expuestos a los factores de riesgo de acciones,
+divisas ni materias primas, ni a las variables macroeconómicas habituales —es decir, que no se
+les encuentra el anclaje fundamental por ningún lado—, y que en cambio sí resultan predichos de
+forma robusta por el momento del precio y por medidas de atención del inversor, como el volumen
+de búsquedas y de publicaciones en redes. Es la confirmación empírica del argumento de la
+sección 1, y refuerza el planteamiento del proyecto: si los fundamentales no explican el precio,
+lo que queda por explotar es la dinámica de la propia serie.
 
 **Flujos institucionales y liquidez.** La entrada de vehículos de inversión regulados modificó la
 base de participantes y, con ella, el régimen de volatilidad. Esto es coherente con la
@@ -244,8 +254,9 @@ lugar de dejarla como conjetura.
 
 1. **La diversificación dentro del sector es limitada.** Una cartera de las seis criptomonedas no
    es una cartera de seis activos: se comporta aproximadamente como una posición sobre un factor
-   común. Corbet et al. (2019) llegan a una conclusión equivalente al examinar la integración
-   interna del mercado cripto frente a su relación con activos tradicionales.
+   común. Yi et al. (2018) llegan a una conclusión equivalente sobre una muestra de 52
+   criptomonedas: la red de transmisión de volatilidad entre ellas es densa, de manera que el
+   riesgo no se reparte al añadir más activos del mismo sector.
 2. **El contagio es rápido.** Con correlaciones de esa magnitud sobre retornos diarios, un choque
    en un activo se refleja en los demás dentro de la misma vela.
 3. **Hay información compartida, pero no toda la información lo es.** Una correlación media de
@@ -508,9 +519,19 @@ invierte el tipo.
 
 ## Referencias
 
-> **Pendiente de verificación.** Las referencias siguientes están redactadas en APA 7 a partir de
-> fuentes conocidas del área, pero **hay que comprobar volumen, páginas y DOI contra el original
-> antes de la entrega definitiva**. Ninguna cita del texto debería sobrevivir sin esa comprobación.
+> **Verificadas.** Cada referencia se comprobó contra el registro de Crossref el 17 de agosto de
+> 2026 —autores, título, revista, volumen, número, páginas, año y DOI—, y además se comprobó que
+> ninguna esté retractada, revisando el campo `update-to` de Crossref y que el título no lleve el
+> prefijo `RETRACTED`.
+>
+> **Esa revisión cambió el texto, y vale la pena dejarlo dicho.** Corbet, Lucey, Urquhart y
+> Yarovaya (2019), *Cryptocurrencies as a financial asset: A systematic analysis*, es de los
+> artículos más citados sobre criptoactivos y estaba respaldando tres afirmaciones de este
+> documento. Crossref lo devuelve hoy como `RETRACTED: Cryptocurrencies as a financial asset...`,
+> retractado por Elsevier. Se retiró, y sus tres afirmaciones se reasignaron a fuentes vigentes y
+> verificadas: Caporale y Zekokh (2019) para el cambio de régimen de la volatilidad, Liu y
+> Tsyvinski (2021) para el papel de la atención del inversor, y Yi et al. (2018) para la
+> integración interna del mercado.
 
 Auer, R., & Claessens, S. (2018). Regulating cryptocurrencies: Assessing market reactions. *BIS
 Quarterly Review*, septiembre, 51–65.
@@ -526,9 +547,9 @@ Böhme, R., Christin, N., Edelman, B., & Moore, T. (2015). Bitcoin: Economics, t
 governance. *Journal of Economic Perspectives, 29*(2), 213–238.
 https://doi.org/10.1257/jep.29.2.213
 
-Corbet, S., Lucey, B., Urquhart, A., & Yarovaya, L. (2019). Cryptocurrencies as a financial asset:
-A systematic analysis. *International Review of Financial Analysis, 62*, 182–199.
-https://doi.org/10.1016/j.irfa.2018.09.003
+Caporale, G. M., & Zekokh, T. (2019). Modelling volatility of cryptocurrencies using
+Markov-Switching GARCH models. *Research in International Business and Finance, 48*, 143–155.
+https://doi.org/10.1016/j.ribaf.2018.12.009
 
 Financial Action Task Force. (2021). *Updated guidance for a risk-based approach to virtual assets
 and virtual asset service providers*. FATF.
@@ -542,6 +563,9 @@ https://doi.org/10.1016/j.irfa.2018.12.002
 
 Katsiampa, P. (2017). Volatility estimation for Bitcoin: A comparison of GARCH models. *Economics
 Letters, 158*, 3–6. https://doi.org/10.1016/j.econlet.2017.06.023
+
+Liu, Y., & Tsyvinski, A. (2021). Risks and returns of cryptocurrency. *The Review of Financial
+Studies, 34*(6), 2689–2727. https://doi.org/10.1093/rfs/hhaa113
 
 López de Prado, M. (2018). *Advances in financial machine learning*. John Wiley & Sons.
 
