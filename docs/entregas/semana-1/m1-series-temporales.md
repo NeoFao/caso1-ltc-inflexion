@@ -318,6 +318,12 @@ Es el instrumento que permite responder si el planteamiento multivariante del en
 sustento en los datos: si LTC no se moviera de forma relacionada con las otras cinco
 criptomonedas, incorporarlas como variables de apoyo no aportaría información adicional.
 
+La Figura 8 muestra tres matrices de correlación 6×6 lado a lado. Las dos de la izquierda
+corresponden a paneles construidos por nosotros, con correlación baja y alta fijadas de antemano;
+la de la derecha, a los retornos reales de las seis criptomonedas del proyecto. Puestas una junto
+a la otra, permiten leer el resultado real contra dos referencias donde la respuesta correcta la
+pusimos nosotros mismos.
+
 **El punto de análisis más importante de esta sección no es que la correlación en nivel sea alta,
 sino que es errática.** Calculada sobre precios en nivel, la correlación entre LTC y BTC —el
 activo que por definición marca la tendencia de todo el sector cripto— es de apenas **0,126**,
