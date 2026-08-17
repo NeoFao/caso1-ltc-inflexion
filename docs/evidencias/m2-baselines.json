@@ -1,0 +1,168 @@
+{
+ "parametros": {
+  "granularidad": "1d",
+  "w": 5,
+  "h": 3,
+  "conjunto": "prueba",
+  "panel_filas": 2185,
+  "n_prueba_con_etiqueta": 320,
+  "advertencia": "w, h y granularidad siguen marcados PROVISIONAL en contracts/config.py"
+ },
+ "balance_serie_completa": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 143,
+   "porcentaje": 6.575
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 141,
+   "porcentaje": 6.483
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 1891,
+   "porcentaje": 86.943
+  }
+ ],
+ "balance_bloque_prueba": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 24,
+   "porcentaje": 7.5
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 22,
+   "porcentaje": 6.875
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 274,
+   "porcentaje": 85.625
+  }
+ ],
+ "cota_superior_extremos_pct": 16.667,
+ "baselines": [
+  {
+   "modelo": "baseline_trivial",
+   "n": 320,
+   "f1_macro": 0.3075196408529742,
+   "precision_direccional": 0.0,
+   "exactitud": 0.85625,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.9225589225589226
+  },
+  {
+   "modelo": "baseline_mayoritario",
+   "n": 320,
+   "f1_macro": 0.3075196408529742,
+   "precision_direccional": 0.0,
+   "exactitud": 0.85625,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.9225589225589226
+  },
+  {
+   "modelo": "baseline_aleatorio",
+   "n": 320,
+   "f1_macro": 0.3201632778804683,
+   "precision_direccional": 0.06521739130434782,
+   "exactitud": 0.715625,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.125,
+   "f1_continuidad": 0.8354898336414048
+  }
+ ],
+ "matrices_confusion": {
+  "baseline_trivial": {
+   "Maximo": {
+    "Maximo": 0,
+    "Minimo": 0,
+    "Continuidad": 0
+   },
+   "Minimo": {
+    "Maximo": 0,
+    "Minimo": 0,
+    "Continuidad": 0
+   },
+   "Continuidad": {
+    "Maximo": 24,
+    "Minimo": 22,
+    "Continuidad": 274
+   }
+  },
+  "baseline_mayoritario": {
+   "Maximo": {
+    "Maximo": 0,
+    "Minimo": 0,
+    "Continuidad": 0
+   },
+   "Minimo": {
+    "Maximo": 0,
+    "Minimo": 0,
+    "Continuidad": 0
+   },
+   "Continuidad": {
+    "Maximo": 24,
+    "Minimo": 22,
+    "Continuidad": 274
+   }
+  },
+  "baseline_aleatorio": {
+   "Maximo": {
+    "Maximo": 0,
+    "Minimo": 0,
+    "Continuidad": 27
+   },
+   "Minimo": {
+    "Maximo": 2,
+    "Minimo": 3,
+    "Continuidad": 21
+   },
+   "Continuidad": {
+    "Maximo": 22,
+    "Minimo": 19,
+    "Continuidad": 226
+   }
+  }
+ },
+ "particion": [
+  {
+   "conjunto": "entrenamiento",
+   "n": 1521,
+   "desde": "2020-08-11 00:00:00+00:00",
+   "hasta": "2024-10-09 00:00:00+00:00"
+  },
+  {
+   "conjunto": "validacion",
+   "n": 320,
+   "desde": "2024-10-18 00:00:00+00:00",
+   "hasta": "2025-09-02 00:00:00+00:00"
+  },
+  {
+   "conjunto": "prueba",
+   "n": 328,
+   "desde": "2025-09-11 00:00:00+00:00",
+   "hasta": "2026-08-04 00:00:00+00:00"
+  },
+  {
+   "conjunto": "embargo (descartado)",
+   "n": 16,
+   "desde": "2024-10-10 00:00:00+00:00",
+   "hasta": "2025-09-10 00:00:00+00:00"
+  }
+ ],
+ "_meta": {
+  "generado_utc": "2026-08-17T08:19:33+00:00",
+  "issue": "S1-M2-06",
+  "nota": "Medicion propia de M2 para la seccion de metricas. La version definitiva deberia salir de src/evaluacion/arnes.py una vez que M0 corrija el defecto de alineacion de indices en contracts/metrics.py::_limpiar y se congelen w y h."
+ }
+}
