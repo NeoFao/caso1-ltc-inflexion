@@ -2,10 +2,11 @@
 
 **Autor:** Jose Pablo Monestel · **Issue:** [S1-M1-06](https://github.com/NeoFao/caso1-ltc-inflexion/issues/9)
 
-> **Este archivo es un esqueleto.** Cada sección trae la figura y los números ya medidos.
-> Lo que falta es tu texto. Borrá los bloques `> ESCRIBÍ ACÁ` a medida que los completes.
-> Todos los valores citados salen de `docs/evidencias/marco-teorico.json`, medidos el
-> 12/08/2026 sobre 2 185 velas diarias de 2020-08-11 a 2026-08-04.
+> **Nota de verificación.** Todos los valores citados salen de `docs/evidencias/marco-teorico.json`,
+> medidos el 12/08/2026 sobre 2 185 velas diarias de 2020-08-11 a 2026-08-04, y se comprobaron con
+> `scripts/verificar_numeros.py`. Las referencias bibliográficas se comprobaron contra el registro
+> de Crossref el 17 de agosto de 2026 con `scripts/verificar_referencias.py` —incluida la
+> retractación de Corbet et al. (2019), que por eso no aparece citada aquí.
 
 ---
 
@@ -15,7 +16,27 @@
 
 **Figura 1.** Precio de cierre diario de Litecoin, 2 185 observaciones entre el 11 de agosto de 2020 y el 4 de agosto de 2026.
 
-> **ESCRIBÍ ACÁ.** Qué es una serie temporal y qué la distingue de un conjunto de datos cualquiera: el orden importa, y las observaciones no son independientes entre sí. Conectá con la Figura 1: nuestro caso son 2 185 observaciones equiespaciadas de una sola variable, el precio de cierre.
+Una serie temporal es una secuencia de observaciones de una misma variable, indexadas por el
+momento en que fueron registradas y ordenadas de forma estricta en el tiempo (Box et al., 2015).
+Esa propiedad —el orden como parte constitutiva del dato, no como un atributo accesorio— es lo que
+la separa de un conjunto de datos transversal cualquiera: en una muestra de clientes o de
+transacciones el orden de las filas puede alterarse sin perder información, porque cada
+observación es, por diseño, independiente de las demás. En una serie temporal no: la observación
+en `t` está relacionada con la observación en `t-1`, y esa dependencia es precisamente lo que hay
+que modelar. Reordenar una serie temporal no produce el mismo conjunto de datos con las filas
+mezcladas; produce un objeto distinto, porque destruye la estructura de dependencia que la
+definía.
+
+La Figura 1 muestra el objeto concreto de este trabajo: **2 185 observaciones** del precio de
+cierre diario de Litecoin, registradas en instantes equiespaciados entre el 11 de agosto de 2020 y
+el 4 de agosto de 2026. Es una serie univariante —una sola variable, el precio de cierre— y
+regular, en el sentido de que el espaciado temporal entre observaciones consecutivas es constante.
+Esa regularidad no es un accidente del mercado: es una decisión de muestreo (velas diarias) sobre
+un proceso que, a diferencia de una bolsa de valores tradicional, cotiza de forma continua las
+veinticuatro horas. Cualquier análisis posterior de este documento —estacionariedad,
+autocorrelación, volatilidad— presupone justamente esto: que el orden de las 2 185 observaciones
+es información, y que tratarlas como si fueran intercambiables descartaría la parte más
+informativa del dato.
 
 ---
 
@@ -27,7 +48,28 @@
 
 **Medido:** el componente estacional representa el **0,426 %** de la desviación total de la serie.
 
-> **ESCRIBÍ ACÁ.** Tendencia, estacionalidad, ciclo y componente irregular. El dato interesante para analizar: la estacionalidad semanal es prácticamente inexistente (0,426 %), a diferencia de lo que pasa en series financieras de mercados con horario y días hábiles. Explicá por qué: el mercado cripto opera 24/7, así que no hay efecto fin de semana. Casi toda la variación es tendencia y residuo.
+Una serie temporal puede descomponerse, al menos de forma conceptual, en cuatro componentes que
+capturan distintos tipos de estructura (Box et al., 2015). La **tendencia** es el movimiento de
+largo plazo, sostenido en el tiempo, que no se revierte dentro del horizonte de la muestra. La
+**estacionalidad** es un patrón que se repite con periodicidad fija y conocida —semanal, mensual,
+anual— y que suele responder a convenciones institucionales o de calendario: en un mercado
+bursátil tradicional, por ejemplo, existe un efecto de fin de semana documentado desde hace
+décadas, con rendimientos sistemáticamente distintos según el día de la semana en que cierra la
+operación (French, 1980). El **ciclo** es un movimiento de duración variable y no fija, asociado
+típicamente a factores macroeconómicos de mediano plazo. El **componente irregular o residuo** es
+lo que queda después de retirar los tres anteriores: la parte de la serie que no responde a
+ninguna estructura repetible.
+
+La Figura 2 aplica una descomposición aditiva con período semanal a la serie diaria de LTC. El
+resultado medido es que la estacionalidad representa apenas el **0,426 %** de la desviación total
+de la serie: una fracción marginal, con casi toda la variación repartida entre tendencia y
+residuo. La explicación se conecta directamente con la naturaleza del activo: el mercado de
+criptoactivos opera de forma continua, sin sesión de apertura ni de cierre y sin distinción entre
+día hábil y fin de semana, a diferencia del mercado que documenta French (1980), donde el
+calendario de negociación sí introduce una estacionalidad medible. No existe, en LTC, un mecanismo
+institucional que induzca un patrón semanal en el precio, y el dato medido es consistente con esa
+ausencia. La consecuencia práctica para el proyecto es que no tiene sentido dedicar variables del
+modelo a codificar el día de la semana: la evidencia dice que esa componente no aporta señal.
 
 ---
 
@@ -49,19 +91,78 @@ En retornos, los seis dan p < 0,000001.
 
 **Control:** el test también se corrió sobre una serie construida por nosotros cuyos retornos son estacionarios por construcción, y los rechazó todos. El método detecta lo que dice detectar.
 
-**Un matiz que conviene mencionar:** ETH queda en 0,059, apenas por encima del umbral de 0,05. No cambia la conclusión, pero decirlo demuestra que leíste la tabla en vez de resumirla. Un caso al borde merece nombrarse: con otro período de muestra podría cruzar el umbral, y eso ilustra que el resultado del test depende de la ventana observada.
+Una serie es estacionaria en sentido débil cuando sus primeros momentos no dependen del instante
+de observación: la **media** es constante en el tiempo, la **varianza** es constante en el tiempo,
+y la **autocovarianza** entre dos observaciones depende únicamente de la distancia temporal que
+las separa —el rezago—, no del punto del tiempo en el que se midan (Box et al., 2015). Es una
+propiedad estadística, no una descripción visual de "que no tenga tendencia a simple vista": una
+serie puede parecer estable en un gráfico y no serlo, o al revés, y por eso se prueba de forma
+formal en lugar de decidirse por inspección.
 
-> **ESCRIBÍ ACÁ.** Qué significa que una serie sea estacionaria: media, varianza y autocovarianza que no dependen del tiempo. Explicá el test ADF y su hipótesis nula.
->
-> **Cuidado con la redacción, esto es lo que separa un 3 de un 4:** no rechazar la hipótesis nula **no demuestra** que la serie no sea estacionaria; demuestra que no hay evidencia suficiente en contra. Es la diferencia entre "no hay evidencia en contra" y "hay evidencia a favor".
+El **test de Dickey-Fuller aumentado (ADF)** es el instrumento estándar para esa prueba formal
+(Dickey & Fuller, 1979; Said & Dickey, 1984). Su hipótesis nula es que la serie tiene una raíz
+unitaria, es decir, que **no** es estacionaria; la alternativa es que sí lo es. Un p-valor bajo
+—convencionalmente, menor a 0,05— permite rechazar la nula y concluir que hay evidencia
+estadística de estacionariedad. La Figura 3 y la tabla anterior resumen ese resultado sobre las
+seis criptomonedas del panel, en precios en nivel y en retornos, con el mismo procedimiento
+(`adfuller`, con selección automática de rezagos por criterio de información de Akaike) aplicado
+por igual a las seis series.
+
+Aquí conviene ser preciso con lo que el resultado permite afirmar. Sobre precios en nivel, el test
+no rechaza la hipótesis nula en ninguna de las seis series (**0 de 6**, con p-valores entre 0,059
+y 0,483). Eso **no demuestra** que las seis series sean no estacionarias: demuestra que, con estos
+datos y este nivel de significancia, no hay evidencia suficiente en contra de la hipótesis de raíz
+unitaria. Es la diferencia entre "no hay evidencia en contra" y "hay evidencia a favor", y no es un
+matiz retórico: un test de hipótesis nunca prueba la nula, solo puede fallar en rechazarla. Sobre
+retornos, en cambio, el resultado es contundente en el sentido opuesto: las seis series rechazan la
+raíz unitaria con p < 0,000001, lo que sí constituye evidencia estadística fuerte a favor de la
+estacionariedad de los retornos.
+
+Vale la pena nombrar el caso al borde: **ETH**, en nivel, da un p-valor de **0,059**, apenas por
+encima del umbral convencional de 0,05. No cambia ninguna conclusión de la tabla —sigue sin
+rechazar la nula—, pero es un recordatorio de que el resultado de un test de hipótesis depende de
+la ventana muestral observada: con un período de muestra ligeramente distinto, ese caso particular
+podría cruzar el umbral en cualquiera de los dos sentidos. Reportar el número exacto, en lugar de
+resumirlo como un simple "no rechaza", es lo que permite esa lectura.
+
+Como control de que el procedimiento mide lo que dice medir, el mismo test se corrió sobre una
+serie construida por nosotros cuyos retornos son estacionarios por diseño —media y varianza fijadas
+de antemano, sin tendencia—, y el test rechazó la raíz unitaria en el 100 % de los casos. El método
+detecta lo que se supone que debe detectar, antes de aplicarlo sobre datos donde nadie conoce la
+respuesta verdadera.
 
 ---
 
 ## 4. No estacionariedad
 
-Mismo material que la sección anterior, leído al revés.
+El resultado de la sección anterior tiene una lectura directa cuando se invierte el orden de la
+pregunta: si el test ADF no rechaza la raíz unitaria en ninguna de las seis series de precios en
+nivel, la evidencia disponible es compatible con que los precios de las seis criptomonedas sigan
+un proceso con tendencia estocástica —un paseo aleatorio con deriva, en el caso más simple— y no
+un proceso que oscile alrededor de una media fija (Nelson & Plosser, 1982). Dos síntomas lo
+delatan sin necesidad de correr el test: la media de la serie no es estable en ninguna ventana
+razonable, porque el precio de LTC pasó de un mínimo medido de **40,92** a un máximo medido de
+**387,80** dentro de la propia muestra; y la varianza tampoco lo es, porque un movimiento
+porcentual constante produce un movimiento absoluto de precio proporcional al nivel, de modo que
+la dispersión de la serie en unidades absolutas crece junto con el propio precio.
 
-> **ESCRIBÍ ACÁ.** Por qué los precios no son estacionarios: tienen tendencia y su varianza crece con el nivel. Qué consecuencias tiene para el modelado, y por qué la transformación a retornos resuelve el problema. Cerrá con la consecuencia práctica: **las características del modelo se construyen sobre retornos, no sobre precios en nivel**, y eso está decidido por esta medición y no por costumbre.
+Para el modelado esto tiene una consecuencia que no es cosmética. Un modelo estadístico clásico
+—una regresión, un ARIMA sin diferenciar, un cálculo de correlación— asume, explícita o
+implícitamente, que la relación entre variables es estable en el tiempo. Sobre una serie no
+estacionaria esa relación no es estable por construcción: cualquier estadístico calculado sobre
+precios en nivel (media, varianza, correlación con otro activo) queda contaminado por la tendencia
+común, y el resultado termina describiendo la dirección compartida de dos series más que su
+codependencia real. La sección 8 mide exactamente esa distorsión.
+
+La transformación a retornos —tomar la variación porcentual entre una observación y la anterior,
+`r_t = (p_t − p_{t-1}) / p_{t-1}`— resuelve el problema porque cambia la pregunta: en vez de
+"¿cuánto vale el precio?", que depende del nivel acumulado desde el origen de la serie, pasa a
+"¿cuánto cambió el precio en esta vela?", que no acumula nivel. La medición de la sección 3
+confirma que esa transformación logra su objetivo sobre estos datos: los retornos de las seis
+criptomonedas rechazan la raíz unitaria con p < 0,000001 en los seis casos, sin excepción. Por
+eso —y no por costumbre de la disciplina— **las características del modelo de este proyecto se
+construyen sobre retornos y no sobre precios en nivel**: es una decisión respaldada por una
+medición propia, hecha antes de escribir una línea de código de características.
 
 ---
 
@@ -73,9 +174,33 @@ Mismo material que la sección anterior, leído al revés.
 
 **Medido en las series construidas:** cociente entre la volatilidad del tramo agitado y la del tranquilo — **1,28×** sin regímenes, **6,41×** con regímenes.
 
-> **ESCRIBÍ ACÁ.** Definí homocedasticidad y heterocedasticidad. Usá la Figura 5 para mostrar el contraste con la respuesta conocida: en el panel de arriba pusimos volatilidad constante y el cociente sale 1,28, cerca de 1 como corresponde; en el de abajo la multiplicamos por 5 en tramos alternos y el cociente sale 6,41. Recién después pasá a LTC en la sección siguiente.
->
-> Cerrá explicando por qué esto rompe a ARIMA: asume varianza constante en los errores.
+Un proceso es **homocedástico** cuando la varianza de sus errores —o, de forma más laxa, la
+dispersión de sus incrementos— es constante en el tiempo; es **heterocedástico** cuando esa
+varianza cambia, típicamente concentrándose en episodios o regímenes (Engle, 1982). Engle (1982)
+formalizó esta idea para series financieras con el modelo ARCH, mostrando que la varianza
+condicional de un proceso puede depender de su propio historial reciente incluso cuando la media
+no muestra ningún patrón predecible: puede haber estructura en la varianza aunque no la haya en el
+nivel.
+
+La Figura 5 ilustra el contraste con una respuesta conocida, construida por nosotros y no
+observada en el mercado. En el panel superior se generó una serie con volatilidad constante en
+toda su longitud; en el inferior, la misma serie pero multiplicando la volatilidad por cinco en
+tramos alternos. Medido el cociente entre la desviación estándar del tramo más agitado y la del
+más tranquilo, el resultado es **1,28** en la serie sin regímenes —cercano a 1, como corresponde a
+una volatilidad efectivamente constante, con la desviación residual propia de estimar sobre una
+muestra finita— y **6,41** en la serie con regímenes, capturando con holgura el factor 5
+introducido por construcción. El procedimiento de medición detecta la heterocedasticidad cuando
+existe y no la inventa cuando no existe, que es la comprobación que hay que hacer antes de aplicar
+el mismo cociente sobre LTC en la sección siguiente.
+
+Esto importa para el proyecto porque rompe uno de los supuestos centrales de los modelos clásicos
+de series temporales. Un ARIMA asume errores con varianza constante; cuando ese supuesto no se
+cumple, los intervalos de confianza del modelo dejan de ser válidos, y sus pronósticos subestiman
+sistemáticamente el riesgo en los períodos de alta volatilidad y lo sobrestiman en los de baja. La
+literatura sobre criptoactivos documenta precisamente este patrón de conmutación entre regímenes
+de volatilidad, con modelos GARCH de cambio markoviano ajustando mejor que un GARCH de régimen
+único (Caporale & Zekokh, 2019). La sección 6 muestra que LTC se comporta de esta forma, y no de
+la forma que ARIMA supone.
 
 ---
 
@@ -87,7 +212,30 @@ Mismo material que la sección anterior, leído al revés.
 
 **Medido:** la volatilidad del tramo más agitado es **8,8 veces** la del más tranquilo (máxima **0,1220**; mínima **0,0138**), con ventana móvil de 30 velas sobre retornos diarios.
 
-> **ESCRIBÍ ACÁ.** Qué es la volatilidad y cómo se estima con desviación estándar móvil de los retornos. El número que sostiene toda la sección es el 8,8×: es evidencia directa de heterocedasticidad en datos reales, no una afirmación de manual. Señalá en la Figura 6 que los picos de volatilidad coinciden con los movimientos bruscos del precio.
+La volatilidad de una serie financiera se estima habitualmente con la desviación estándar de sus
+retornos, calculada sobre una ventana móvil que se desliza a lo largo de la serie (Katsiampa,
+2017). A diferencia de un único número global, la volatilidad móvil deja ver cómo cambia la
+dispersión de los retornos en el tiempo, que es exactamente lo que hace falta para diagnosticar
+heterocedasticidad sobre datos reales, en lugar de sobre una construcción con respuesta conocida
+como la de la sección anterior.
+
+La Figura 6 aplica ese procedimiento —desviación estándar móvil con ventana de 30 velas sobre los
+retornos diarios de LTC— a la serie real del proyecto. El resultado es que la volatilidad no es
+constante: el tramo más agitado de la muestra alcanza una desviación estándar móvil de **0,1220**,
+y el más tranquilo, de **0,0138**, lo que arroja un cociente de **8,8** veces entre ambos extremos.
+Es un número considerablemente mayor que el 1,28 medido en la sección anterior sobre la serie
+construida sin regímenes, y del mismo orden de magnitud que el 6,41 medido sobre la serie
+construida con regímenes deliberadamente introducidos. La lectura es directa: LTC no exhibe el
+comportamiento de una serie con volatilidad estable, sino el de una serie que conmuta entre
+regímenes de intensidad muy distinta, consistente con lo que reporta la literatura sobre
+volatilidad de criptoactivos con modelos GARCH (Katsiampa, 2017).
+
+En la Figura 6, los picos de la volatilidad móvil coinciden visualmente con los tramos donde el
+precio de cierre muestra los movimientos más pronunciados, en cualquiera de las dos direcciones:
+la volatilidad no distingue entre una subida y una caída bruscas, mide la magnitud del cambio, no
+su signo. Este **8,8×** es, junto con el resultado de la sección 3, la segunda pieza de evidencia
+directa —medida sobre datos reales, no sobre una construcción— de que los métodos que asumen
+varianza constante no son la herramienta adecuada para este problema.
 
 ---
 
@@ -106,12 +254,32 @@ Mismo material que la sección anterior, leído al revés.
 
 En los retornos solo **3 rezagos** salen de la banda de confianza: los rezagos **8, 14 y 31**.
 
-> **ESCRIBÍ ACÁ.** Definí la ACF y para qué sirve. La lectura de la Figura 7 tiene dos partes:
->
-> 1. En nivel, la autocorrelación es 0,991 y decae lentísimo. Eso **es** la firma de una serie no estacionaria, y confirma la sección 3 desde otro ángulo.
-> 2. En retornos cae a −0,036 y casi ningún rezago es significativo.
->
-> **Este es el hallazgo más fuerte de tu sección y conviene que lo desarrolles.** Que los retornos no tengan autocorrelación lineal significativa quiere decir que un modelo lineal sobre rezagos no va a poder predecir mucho. Es un argumento medido a favor de necesitar modelos no lineales y multivariantes, que es exactamente lo que plantea el proyecto. No es un resultado negativo: es la justificación del enfoque.
+La función de autocorrelación (ACF) mide la correlación lineal entre una serie y su propio
+pasado, para cada rezago `k`: qué tan relacionado está el valor en `t` con el valor en `t-k` (Box &
+Pierce, 1970). Es la herramienta natural para responder si el pasado de una serie, por sí solo,
+contiene información lineal sobre su futuro inmediato, lo que en este proyecto equivale a
+preguntar si tiene sentido usar precios rezagados como variable de entrada, y con cuántos rezagos.
+
+La lectura de la Figura 7 tiene dos partes que conviene separar.
+
+**1. En nivel**, la autocorrelación en el rezago 1 es de **0,991** y decae muy lentamente a medida
+que aumenta el rezago: es la firma característica de una serie no estacionaria, donde cada
+observación es prácticamente idéntica a la anterior porque comparten la mayor parte de su nivel
+acumulado. Este resultado confirma, desde un ángulo distinto y con una herramienta distinta, lo
+que ya mostró el test ADF de la sección 3: los precios en nivel no son estacionarios.
+
+**2. En retornos**, la autocorrelación en el rezago 1 cae a **−0,036**, y de los 40 rezagos
+evaluados solo tres —el 8, el 14 y el 31— salen de la banda de confianza al 95 %.
+
+Que los retornos de LTC no tengan autocorrelación lineal significativa, salvo en tres
+rezagos aislados sobre cuarenta, significa que un modelo lineal que solo use retornos rezagados de
+LTC tiene muy poco que explotar. No es un resultado negativo para el proyecto: **es su
+justificación**. Es consistente con lo que predice la hipótesis de mercados eficientes en su forma
+débil —que los precios pasados no permiten anticipar rendimientos futuros de forma sistemática
+mediante reglas lineales simples (Fama, 1970)— y es, medido sobre nuestros propios datos, el
+argumento a favor de recurrir a modelos no lineales y multivariantes: si tres rezagos aislados de
+cuarenta bastaran para predecir, un modelo lineal univariante alcanzaría, y no haría falta ni
+aprendizaje profundo ni las cinco variables de apoyo del enunciado.
 
 ---
 
@@ -139,16 +307,86 @@ Mayor correlación con LTC: **ETH, 0,740**. Menor: **SOL, 0,524**.
 
 **Control:** las construidas se pidieron con correlación 0,1 y 0,9; salieron medidas en **0,0945** y **0,9033**.
 
-> **ESCRIBÍ ACÁ.** Definí correlación cruzada y su diferencia con la autocorrelación.
->
-> **El punto de análisis fuerte es el contraste nivel/retornos, y hay que contarlo bien.** El problema de la correlación en nivel acá no es que infle los valores: es que es **errática**. Ordena los activos de forma económicamente implausible — atribuye a LTC una relación casi nula con Bitcoin, que es el activo que marca la tendencia de todo el mercado, y fuerte con Cardano. Sobre retornos el rango se estrecha a la mitad y el orden tiene sentido.
->
-> Cerrá con la consecuencia: esto es lo que justifica que el problema sea multivariante. Si LTC se moviera solo, las cinco variables de apoyo del enunciado sobrarían; con correlaciones de 0,47 a 0,81 en retornos, no sobran.
+La correlación cruzada mide la asociación lineal entre dos series distintas, a diferencia de la
+autocorrelación de la sección 7, que la mide entre una serie y sí misma desplazada en el tiempo.
+Es el instrumento que permite responder si el planteamiento multivariante del enunciado tiene
+sustento en los datos: si LTC no se moviera de forma relacionada con las otras cinco
+criptomonedas, incorporarlas como variables de apoyo no aportaría información adicional.
+
+La Figura 8 muestra tres matrices de correlación 6×6 lado a lado. Las dos de la izquierda
+corresponden a paneles construidos por nosotros, con correlación baja y alta fijadas de antemano;
+la de la derecha, a los retornos reales de las seis criptomonedas del proyecto. Puestas una junto
+a la otra, permiten leer el resultado real contra dos referencias donde la respuesta correcta la
+pusimos nosotros mismos.
+
+La distorsión que introducen los precios en nivel no consiste en que la correlación resulte alta,
+sino en que resulta **errática**. Calculada sobre precios en nivel, la correlación entre LTC y BTC —el
+activo que por definición marca la tendencia de todo el sector cripto— es de apenas **0,126**,
+mientras que entre LTC y ADA sube a **0,796**: un orden económicamente implausible, que sugiere
+que LTC se relaciona más con Cardano que con Bitcoin. Calculada sobre retornos, el orden se
+corrige y el rango se estrecha a la mitad: LTC–BTC sube a **0,715** y LTC–ADA baja a **0,641**,
+quedando ambos dentro del rango general de **0,475 a 0,806** que muestran las seis criptomonedas
+entre sí sobre retornos, frente a un rango de **0,126 a 0,888** en nivel.
+
+La explicación no es que la correlación en nivel "infle" los valores: es que mide algo distinto de
+lo que se busca medir. Dos series con tendencia comparten tendencia, y la correlación entre ellas
+captura en buena medida esa coincidencia de dirección de largo plazo, no la codependencia real de
+sus movimientos período a período. Es el fenómeno de la **correlación espuria**, descrito
+clásicamente por Granger y Newbold (1974): dado que la sección 3 midió que los precios en nivel de
+las seis criptomonedas no son estacionarios, cualquier correlación calculada sobre ellos hereda ese
+defecto. Por eso la correlación cruzada de este proyecto se calcula sobre retornos y no sobre
+precios, con el mismo argumento —y el mismo respaldo medido— que sostiene la sección 4.
+
+Como control de que el procedimiento de medición hace lo que dice hacer, se corrió también sobre
+dos paneles construidos por nosotros con correlación objetivo conocida: pedida en 0,1, se midió en
+**0,0945**; pedida en 0,9, se midió en **0,9033**. El método recupera el parámetro que se le pidió
+construir, lo que da confianza para leer el resultado sobre datos reales, donde nadie fija de
+antemano la respuesta correcta.
+
+Sobre retornos, el activo de apoyo con mayor correlación con LTC es **ETH, con 0,740**; el de
+menor correlación es **SOL, con 0,524**. Ambos valores están lejos de los extremos —ni cerca de 0,
+que dejaría a las variables de apoyo sin aportar nada, ni cerca de 1, que las volvería redundantes
+entre sí—, y esa es, en última instancia, la consecuencia que sostiene el planteamiento
+multivariante del enunciado: si LTC se moviera de forma aislada, las cinco variables de apoyo
+sobrarían; con correlaciones de entre 0,475 y 0,806 sobre retornos, no sobran.
 
 ---
 
 ## Referencias
 
-> **ESCRIBÍ ACÁ.** Formato APA. Mínimo una fuente académica por concepto principal: series temporales, estacionariedad, test ADF, heterocedasticidad, autocorrelación.
->
-> Es un criterio entero de la rúbrica y vale lo mismo que todo el contenido técnico.
+Box, G. E. P., & Pierce, D. A. (1970). Distribution of residual autocorrelations in
+autoregressive-integrated moving average time series models. *Journal of the American Statistical
+Association, 65*(332), 1509–1526. https://doi.org/10.1080/01621459.1970.10481180
+
+Box, G. E. P., Jenkins, G. M., Reinsel, G. C., & Ljung, G. M. (2015). *Time series analysis:
+Forecasting and control* (5th ed.). John Wiley & Sons.
+
+Caporale, G. M., & Zekokh, T. (2019). Modelling volatility of cryptocurrencies using
+Markov-Switching GARCH models. *Research in International Business and Finance, 48*, 143–155.
+https://doi.org/10.1016/j.ribaf.2018.12.009
+
+Dickey, D. A., & Fuller, W. A. (1979). Distribution of the estimators for autoregressive time
+series with a unit root. *Journal of the American Statistical Association, 74*(366a), 427–431.
+https://doi.org/10.1080/01621459.1979.10482531
+
+Engle, R. F. (1982). Autoregressive conditional heteroscedasticity with estimates of the variance
+of United Kingdom inflation. *Econometrica, 50*(4), 987–1007. https://doi.org/10.2307/1912773
+
+Fama, E. F. (1970). Efficient capital markets: A review of theory and empirical work. *The Journal
+of Finance, 25*(2), 383–417. https://doi.org/10.2307/2325486
+
+French, K. R. (1980). Stock returns and the weekend effect. *Journal of Financial Economics,
+8*(1), 55–69. https://doi.org/10.1016/0304-405X(80)90021-5
+
+Granger, C. W. J., & Newbold, P. (1974). Spurious regressions in econometrics. *Journal of
+Econometrics, 2*(2), 111–120. https://doi.org/10.1016/0304-4076(74)90034-7
+
+Katsiampa, P. (2017). Volatility estimation for Bitcoin: A comparison of GARCH models. *Economics
+Letters, 158*, 3–6. https://doi.org/10.1016/j.econlet.2017.06.023
+
+Nelson, C. R., & Plosser, C. I. (1982). Trends and random walks in macroeconomic time series: Some
+evidence and implications. *Journal of Monetary Economics, 10*(2), 139–162.
+https://doi.org/10.1016/0304-3932(82)90012-5
+
+Said, S. E., & Dickey, D. A. (1984). Testing for unit roots in autoregressive-moving average
+models of unknown order. *Biometrika, 71*(3), 599–607. https://doi.org/10.1093/biomet/71.3.599

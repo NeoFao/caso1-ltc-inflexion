@@ -9,6 +9,7 @@ Caso N°1 — Señales y Sistemas — 3er Trimestre 2026
 | **Fecha** | 5 de agosto de 2026 |
 | **Autor** | Fabrizio Espinoza Arce (Project Manager) |
 | **Equipo** | Alejandro Zamora, Jose Pablo Monestel, Isaac Morun, Fabrizio Espinoza Arce |
+| **Programa** | Tecnologías de la Información y Comunicación Empresarial, Universidad Invenio |
 | **Entrega a** | Roberto Calvo Arias |
 | **Entrega final** | 8 de septiembre de 2026 |
 | **Estado** | Borrador para revisión del equipo |

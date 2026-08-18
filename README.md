@@ -1,6 +1,7 @@
 # Pronóstico de puntos de inflexión en el precio de Litecoin
 
 Caso N.º 1 — Señales y Sistemas — 3.er Trimestre 2026
+Tecnologías de la Información y Comunicación Empresarial · Universidad Invenio
 Entrega final: 8 de septiembre de 2026
 
 Clasificación multiclase de puntos de inflexión (Máximo / Mínimo / Continuidad) en el precio de LTC, usando como variables de apoyo BTC, ETH, SOL, XRP y ADA.
@@ -140,13 +141,18 @@ uv run uvicorn src.api.main:app --reload --port 8000
 | [Definición del punto de inflexión](docs/00-definicion-punto-inflexion.md) | Qué son `w` y `h` y por qué de ellos depende todo lo demás |
 | [Consulta al profesor](docs/02-consulta-profesor.md) | Guion de la reunión del equipo y el texto listo para enviar |
 | [Backlog](docs/03-backlog.md) | Quién hace qué, en qué orden. Generado desde los issues |
+| [Decisión de `w`, `h` y granularidad](docs/04-decision-w-h-granularidad.md) | El estudio medido que sustenta los tres valores |
 | [`docs/evidencias/`](docs/evidencias/) | Mediciones y figuras, todas regenerables |
 | [`docs/entregas/`](docs/entregas/) | Los cinco entregables semanales |
 
-El PRD en Word se regenera con:
+Los entregables en Word se generan con:
 
 ```bash
-npm install --prefix scripts && npm run prd --prefix scripts
+npm install --prefix scripts && npm run ensamblar --prefix scripts
 ```
+
+`ensamblar` une las secciones de la Semana 1, renumera figuras y tablas de corrido y avisa qué bloques quedan sin redactar. `npm run prd --prefix scripts` regenera el PRD.
+
+**Un paso manual que no se puede automatizar desde el generador:** la tabla de contenido se escribe como campo de Word sin resultado calculado, así que abre en blanco. Antes de entregar hay que abrir el `.docx`, seleccionar el índice y pulsar F9. El propio comando lo recuerda al terminar.
 
 La primera vez instala `docx`; después basta la segunda mitad. Si falla con `EBUSY`, hay un proceso reteniendo el archivo — normalmente Word abierto, o una instancia sin ventana que quedó de una conversión previa.

@@ -30,9 +30,19 @@ EVIDENCIAS = RAIZ / "docs" / "evidencias"
 # Numeros que aparecen en el texto sin ser mediciones: umbrales acordados,
 # porcentajes de la rubrica, versiones. Ampliar cuando aparezca un falso positivo
 # recurrente, nunca para silenciar uno legitimo.
-CONOCIDOS = {"0,05", "0,02", "16,66", "16,7", "0,5", "1,96", "0,000001"}
+# 0,51 / 0,039 / 1,00 / 0,02 son un ejemplo aritmetico del texto sobre por que el
+# F1 usa media armonica, no afirmaciones sobre los datos. Comprobados a mano.
+CONOCIDOS = {
+    "0,05", "0,02", "16,66", "16,7", "0,5", "1,96", "0,000001",
+    "0,51", "0,039", "1,00",
+}
 
 PATRON = re.compile(r"\b(\d+[.,]\d{2,6})\b")
+
+# Un DOI o una URL estan llenos de digitos con puntos que no son mediciones:
+# 10.1016/j.irfa.2018.09.003 aporta cuatro falsos positivos el solo. Se recortan
+# antes de buscar, en vez de ir anadiendolos a CONOCIDOS uno por uno.
+RUIDO = re.compile(r"https?://\S+|\b10\.\d{4,9}/\S+", re.IGNORECASE)
 
 
 def _variantes(valor: float) -> set[str]:
@@ -90,7 +100,7 @@ def main() -> None:
         for numero_linea, linea in enumerate(
             archivo.read_text(encoding="utf-8").splitlines(), 1
         ):
-            for encontrado in PATRON.finditer(linea):
+            for encontrado in PATRON.finditer(RUIDO.sub(" ", linea)):
                 texto = encontrado.group(1)
                 revisados += 1
                 if texto in CONOCIDOS or texto in validos:

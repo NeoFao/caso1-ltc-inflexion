@@ -1,0 +1,341 @@
+{
+  "_meta": {
+    "generado_utc": "2026-08-17T17:36:37+00:00",
+    "piso_clase_minoritaria": 300
+  },
+  "paneles": {
+    "1d": {
+      "filas": 2185,
+      "desde": "2020-08-11T00:00:00+00:00",
+      "hasta": "2026-08-04T00:00:00+00:00"
+    },
+    "4h": {
+      "filas": 13114,
+      "desde": "2020-08-11T04:00:00+00:00",
+      "hasta": "2026-08-05T16:00:00+00:00"
+    }
+  },
+  "disponibilidad": [
+    {
+      "intervalo": "1d",
+      "w": 3,
+      "n_entrenamiento": 1523,
+      "n_maximo": 149,
+      "n_minimo": 154,
+      "n_continuidad": 1220,
+      "n_clase_minoritaria": 149,
+      "cumple_piso": false
+    },
+    {
+      "intervalo": "1d",
+      "w": 5,
+      "n_entrenamiento": 1519,
+      "n_maximo": 98,
+      "n_minimo": 97,
+      "n_continuidad": 1324,
+      "n_clase_minoritaria": 97,
+      "cumple_piso": false
+    },
+    {
+      "intervalo": "1d",
+      "w": 7,
+      "n_entrenamiento": 1515,
+      "n_maximo": 67,
+      "n_minimo": 69,
+      "n_continuidad": 1379,
+      "n_clase_minoritaria": 67,
+      "cumple_piso": false
+    },
+    {
+      "intervalo": "1d",
+      "w": 10,
+      "n_entrenamiento": 1509,
+      "n_maximo": 53,
+      "n_minimo": 53,
+      "n_continuidad": 1403,
+      "n_clase_minoritaria": 53,
+      "cumple_piso": false
+    },
+    {
+      "intervalo": "1d",
+      "w": 15,
+      "n_entrenamiento": 1499,
+      "n_maximo": 32,
+      "n_minimo": 34,
+      "n_continuidad": 1433,
+      "n_clase_minoritaria": 32,
+      "cumple_piso": false
+    },
+    {
+      "intervalo": "4h",
+      "w": 3,
+      "n_entrenamiento": 9173,
+      "n_maximo": 884,
+      "n_minimo": 925,
+      "n_continuidad": 7364,
+      "n_clase_minoritaria": 884,
+      "cumple_piso": true
+    },
+    {
+      "intervalo": "4h",
+      "w": 5,
+      "n_entrenamiento": 9169,
+      "n_maximo": 557,
+      "n_minimo": 587,
+      "n_continuidad": 8025,
+      "n_clase_minoritaria": 557,
+      "cumple_piso": true
+    },
+    {
+      "intervalo": "4h",
+      "w": 7,
+      "n_entrenamiento": 9165,
+      "n_maximo": 420,
+      "n_minimo": 431,
+      "n_continuidad": 8314,
+      "n_clase_minoritaria": 420,
+      "cumple_piso": true
+    },
+    {
+      "intervalo": "4h",
+      "w": 10,
+      "n_entrenamiento": 9159,
+      "n_maximo": 300,
+      "n_minimo": 299,
+      "n_continuidad": 8560,
+      "n_clase_minoritaria": 299,
+      "cumple_piso": false
+    },
+    {
+      "intervalo": "4h",
+      "w": 15,
+      "n_entrenamiento": 9149,
+      "n_maximo": 189,
+      "n_minimo": 199,
+      "n_continuidad": 8761,
+      "n_clase_minoritaria": 189,
+      "cumple_piso": false
+    }
+  ],
+  "predictibilidad": [
+    {
+      "intervalo": "1d",
+      "w": 5,
+      "h": 1,
+      "informacion_mutua_media": 0.005898,
+      "informacion_mutua_maxima": 0.037057,
+      "latencia_velas": 6,
+      "latencia_horas": 144,
+      "n": 1493
+    },
+    {
+      "intervalo": "1d",
+      "w": 5,
+      "h": 3,
+      "informacion_mutua_media": 0.001111,
+      "informacion_mutua_maxima": 0.011378,
+      "latencia_velas": 8,
+      "latencia_horas": 192,
+      "n": 1491
+    },
+    {
+      "intervalo": "1d",
+      "w": 5,
+      "h": 5,
+      "informacion_mutua_media": 0.001227,
+      "informacion_mutua_maxima": 0.014021,
+      "latencia_velas": 10,
+      "latencia_horas": 240,
+      "n": 1489
+    },
+    {
+      "intervalo": "1d",
+      "w": 5,
+      "h": 8,
+      "informacion_mutua_media": 0.001085,
+      "informacion_mutua_maxima": 0.01054,
+      "latencia_velas": 13,
+      "latencia_horas": 312,
+      "n": 1486
+    },
+    {
+      "intervalo": "1d",
+      "w": 5,
+      "h": 12,
+      "informacion_mutua_media": 0.001376,
+      "informacion_mutua_maxima": 0.016152,
+      "latencia_velas": 17,
+      "latencia_horas": 408,
+      "n": 1482
+    },
+    {
+      "intervalo": "1d",
+      "w": 7,
+      "h": 1,
+      "informacion_mutua_media": 0.005625,
+      "informacion_mutua_maxima": 0.041024,
+      "latencia_velas": 8,
+      "latencia_horas": 192,
+      "n": 1491
+    },
+    {
+      "intervalo": "1d",
+      "w": 7,
+      "h": 3,
+      "informacion_mutua_media": 0.001398,
+      "informacion_mutua_maxima": 0.017756,
+      "latencia_velas": 10,
+      "latencia_horas": 240,
+      "n": 1489
+    },
+    {
+      "intervalo": "1d",
+      "w": 7,
+      "h": 5,
+      "informacion_mutua_media": 0.001449,
+      "informacion_mutua_maxima": 0.013112,
+      "latencia_velas": 12,
+      "latencia_horas": 288,
+      "n": 1487
+    },
+    {
+      "intervalo": "1d",
+      "w": 7,
+      "h": 8,
+      "informacion_mutua_media": 0.001089,
+      "informacion_mutua_maxima": 0.009952,
+      "latencia_velas": 15,
+      "latencia_horas": 360,
+      "n": 1484
+    },
+    {
+      "intervalo": "1d",
+      "w": 7,
+      "h": 12,
+      "informacion_mutua_media": 0.001161,
+      "informacion_mutua_maxima": 0.009683,
+      "latencia_velas": 19,
+      "latencia_horas": 456,
+      "n": 1480
+    },
+    {
+      "intervalo": "4h",
+      "w": 5,
+      "h": 1,
+      "informacion_mutua_media": 0.003534,
+      "informacion_mutua_maxima": 0.03371,
+      "latencia_velas": 6,
+      "latencia_horas": 24,
+      "n": 9143
+    },
+    {
+      "intervalo": "4h",
+      "w": 5,
+      "h": 3,
+      "informacion_mutua_media": 0.000822,
+      "informacion_mutua_maxima": 0.006119,
+      "latencia_velas": 8,
+      "latencia_horas": 32,
+      "n": 9141
+    },
+    {
+      "intervalo": "4h",
+      "w": 5,
+      "h": 5,
+      "informacion_mutua_media": 0.000394,
+      "informacion_mutua_maxima": 0.003339,
+      "latencia_velas": 10,
+      "latencia_horas": 40,
+      "n": 9139
+    },
+    {
+      "intervalo": "4h",
+      "w": 5,
+      "h": 8,
+      "informacion_mutua_media": 0.000961,
+      "informacion_mutua_maxima": 0.007992,
+      "latencia_velas": 13,
+      "latencia_horas": 52,
+      "n": 9136
+    },
+    {
+      "intervalo": "4h",
+      "w": 5,
+      "h": 12,
+      "informacion_mutua_media": 0.000768,
+      "informacion_mutua_maxima": 0.006836,
+      "latencia_velas": 17,
+      "latencia_horas": 68,
+      "n": 9132
+    },
+    {
+      "intervalo": "4h",
+      "w": 7,
+      "h": 1,
+      "informacion_mutua_media": 0.003368,
+      "informacion_mutua_maxima": 0.02812,
+      "latencia_velas": 8,
+      "latencia_horas": 32,
+      "n": 9141
+    },
+    {
+      "intervalo": "4h",
+      "w": 7,
+      "h": 3,
+      "informacion_mutua_media": 0.001046,
+      "informacion_mutua_maxima": 0.006052,
+      "latencia_velas": 10,
+      "latencia_horas": 40,
+      "n": 9139
+    },
+    {
+      "intervalo": "4h",
+      "w": 7,
+      "h": 5,
+      "informacion_mutua_media": 0.000213,
+      "informacion_mutua_maxima": 0.002403,
+      "latencia_velas": 12,
+      "latencia_horas": 48,
+      "n": 9137
+    },
+    {
+      "intervalo": "4h",
+      "w": 7,
+      "h": 8,
+      "informacion_mutua_media": 0.000661,
+      "informacion_mutua_maxima": 0.006516,
+      "latencia_velas": 15,
+      "latencia_horas": 60,
+      "n": 9134
+    },
+    {
+      "intervalo": "4h",
+      "w": 7,
+      "h": 12,
+      "informacion_mutua_media": 0.0006,
+      "informacion_mutua_maxima": 0.00516,
+      "latencia_velas": 19,
+      "latencia_horas": 76,
+      "n": 9130
+    }
+  ],
+  "informacion_mutua_promedio_por_h": {
+    "1": 0.004606,
+    "3": 0.001094,
+    "5": 0.000821,
+    "8": 0.000949,
+    "12": 0.000976
+  },
+  "decision_granularidad_y_w": {
+    "intervalo": "4h",
+    "w": 7,
+    "n_clase_minoritaria": 420,
+    "razon": "es el mayor w que deja al menos 300 ejemplos de la clase minoritaria en entrenamiento"
+  },
+  "decision_h": {
+    "h": 1,
+    "caida_hasta_h3": 4.21,
+    "razon": "la informacion mutua entre las caracteristicas en t y la etiqueta en t+h cae 4.2 veces al pasar de h=1 a h=3, y despues se aplana. El patron es consistente en las cuatro configuraciones medidas.",
+    "advertencia": "El nivel absoluto de informacion mutua es bajo para todo h. Se interpreta la forma de la curva, no su magnitud, y eso ya indica que el problema es dificil con las caracteristicas actuales."
+  }
+}

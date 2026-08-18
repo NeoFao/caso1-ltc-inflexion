@@ -5,7 +5,7 @@
   "description": "Generadores de entregables en Word. Separado de app/ porque no comparte nada con el frontend.",
   "scripts": {
     "prd": "node build_prd.js \"../docs/PRD - Pronostico de Puntos de Inflexion LTC v1.0.docx\"",
-    "semana1": "node build_semana1.js"
+    "ensamblar": "node ensamblar_semana1.js"
   },
   "dependencies": {
     "docx": "^9.0.0"
