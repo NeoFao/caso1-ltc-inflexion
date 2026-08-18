@@ -1,0 +1,15 @@
+# Introducción
+
+**Autor:** Fabrizio Espinoza Arce · Ensamblaje
+
+El presente documento constituye el marco teórico del Caso N.º 1 y corresponde a la primera de las cinco entregas del proyecto. Su objeto es establecer los fundamentos conceptuales sobre series de tiempo y sobre criptoactivos que sustentan el desarrollo posterior de un modelo de aprendizaje automático supervisado para el pronóstico de puntos de inflexión en el precio de Litecoin.
+
+El problema puede enunciarse con precisión: clasificar cada instante de la serie de precios de LTC en una de tres categorías —máximo local, mínimo local o zona de continuidad— utilizando como variables de apoyo las cinco criptomonedas de mayor capitalización con función sistémica en el mercado: Bitcoin, Ethereum, Solana, XRP y Cardano. La dificultad no reside en la formulación, que es un problema de clasificación multiclase, sino en las propiedades de las series involucradas: ausencia de estacionariedad, volatilidad elevada y variable en el tiempo, y ausencia de un anclaje de valoración fundamental que permita anticipar reversiones por argumentos económicos.
+
+El documento adopta un criterio metodológico que conviene declarar desde el inicio, porque condiciona la forma de todas las secciones. **Ningún concepto se expone únicamente como definición.** Cada propiedad enunciada se acompaña de su verificación sobre los datos del proyecto, y el valor obtenido se reporta explícitamente. Cuando una afirmación no ha sido comprobada, se indica que no lo ha sido en lugar de omitirse.
+
+A ese criterio se añade un segundo, sugerido por el profesor durante la sesión de trabajo. Varios conceptos se ilustran mediante **series construidas sintéticamente por los autores**, en las cuales la volatilidad y la correlación se fijan de antemano. El propósito es verificar que los procedimientos empleados detectan aquello que declaran detectar antes de aplicarlos sobre datos reales, donde la respuesta correcta se desconoce. Las series construidas se identifican como tales en cada figura, y ninguna afirmación sobre el mercado se apoya en ellas.
+
+La exposición se organiza en tres bloques: los fundamentos de series de tiempo —definición, componentes, estacionariedad y su ausencia, heterocedasticidad, volatilidad, autocorrelación y correlación cruzada—; los criptoactivos —definición, características, tipos, estructura del mercado, factores del precio, dependencia entre activos y definición operativa del punto de inflexión—; y las métricas de evaluación, que exigen tratamiento propio debido al desbalance estructural de las clases.
+
+Los datos provienen de la interfaz pública de programación de Binance y comprenden 2 185 observaciones diarias del precio de cierre de las seis criptomonedas, entre el 11 de agosto de 2020 y el 4 de agosto de 2026. La ventana se encuentra acotada por Solana, cuya cotización se inicia en la primera de esas fechas: un panel multivariante exige que las seis series existan simultáneamente en cada instante, de modo que los períodos anteriores se descartan por incompletos.

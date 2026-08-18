@@ -27,7 +27,10 @@ const path = require('path');
 const apa = require('./apa');
 
 const RAIZ = path.resolve(__dirname, '..');
-const ENTREGA = path.join(RAIZ, 'docs', 'entregas', 'semana-1');
+// La carpeta de origen es un parametro para poder construir una variante del
+// entregable sin tocar la vigente. Sin esto, comparar dos redacciones obliga a
+// sobrescribir la version buena, y a las horas de entregar eso no se hace.
+const ENTREGA = path.join(RAIZ, 'docs', 'entregas', process.env.CARPETA_ENTREGA || 'semana-1');
 
 // El orden importa: es el del enunciado. Series de tiempo primero, criptoactivos
 // despues, y metricas al final como noveno punto de ese bloque.
