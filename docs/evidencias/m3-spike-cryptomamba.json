@@ -1,0 +1,44 @@
+{
+  "ejecutado_utc": "2026-08-18T00:57:34+00:00",
+  "pregunta": "Es viable CryptoMamba sin CUDA, en las maquinas del equipo?",
+  "maquina": {
+    "python": "3.14.7",
+    "plataforma": "win32",
+    "torch": "2.13.0+cpu",
+    "cuda_disponible": false
+  },
+  "cryptomamba": {
+    "repo": "https://github.com/MShahabSepehri/CryptoMamba",
+    "requirements": [
+      "torch",
+      "torchvision",
+      "torchaudio",
+      "setuptools",
+      "pyaml",
+      "lightning",
+      "matplotlib",
+      "seaborn",
+      "pandas",
+      "einops",
+      "tensorboard",
+      "mamba-ssm[causal-conv1d]"
+    ],
+    "declara_mamba_ssm": true
+  },
+  "mamba_ssm_en_pypi": {
+    "version": "2.3.2.post1",
+    "archivos": [
+      "mamba_ssm-2.3.2.post1.tar.gz"
+    ],
+    "n_ruedas": 0,
+    "n_ruedas_windows": 0,
+    "solo_codigo_fuente": true
+  },
+  "intento_de_instalacion": {
+    "resultado": "fallo",
+    "comando": "uv pip install --python <venv-desechable> mamba-ssm[causal-conv1d]",
+    "error": "Failed to build causal-conv1d==1.6.2.post1 | UserWarning: causal_conv1d was requested, but nvcc was not found. Are you sure your environment has nvcc available? | File <string>, line 185, in <module> -> NameError: name 'bare_metal_version' is not defined | hint: causal-conv1d fue incluido porque mamba-ssm[causal-conv1d] (v2.2.4) depende de el.",
+    "nota": "Se intenta en un entorno desechable, nunca en el del proyecto. No se reproduce por comando a proposito: compilar mamba-ssm baja torch entero y no tiene lugar en CI."
+  },
+  "nota_arquitectura": "CryptoMamba es un modelo de espacio de estados basado en Mamba, no un Transformer. El apartado de entregables del enunciado pide un Transformer, asi que aunque se pudiera instalar quedaria abierto si califica. Consulta 5 al profesor. iTransformer e Informer cumplen las dos lineas a la vez."
+}
