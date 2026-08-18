@@ -1,9 +1,9 @@
 {
-  "ejecutado_utc": "2026-08-17T22:41:58+00:00",
+  "ejecutado_utc": "2026-08-18T01:09:03+00:00",
   "intervalo": "4h",
   "w": 7,
-  "h": 5,
-  "latencia_real": 12,
+  "h": 1,
+  "latencia_real": 8,
   "conjunto": "validacion",
   "config_provisional": true,
   "origen_parametros": "docs/evidencias/spike-datos-4h.json",
@@ -14,15 +14,15 @@
     "hasta": "2026-08-05 16:00:00+00:00"
   },
   "caracteristicas": {
-    "n_columnas": 45,
+    "n_columnas": 63,
     "n_columnas_en_nivel": 24,
     "filas_con_algun_nulo": 30
   },
   "particion": {
-    "n_entrenamiento": 9167,
-    "n_validacion": 1955,
+    "n_entrenamiento": 9171,
+    "n_validacion": 1959,
     "n_prueba": 1968,
-    "n_embargo": 24,
+    "n_embargo": 16,
     "filas_entrenables": 9165
   },
   "balance_entrenamiento": [
@@ -63,96 +63,96 @@
   },
   "resultados": [
     {
-      "n": 1955,
-      "f1_macro": 0.31611977765823923,
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
       "precision_direccional": 0.0,
-      "exactitud": 0.9017902813299232,
+      "exactitud": 0.9014803471158754,
       "f1_maximo": 0.0,
       "f1_minimo": 0.0,
-      "f1_continuidad": 0.9483593329747176,
+      "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_trivial",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-17T22:41:52+00:00"
+      "ejecutado_utc": "2026-08-18T01:08:56+00:00"
     },
     {
-      "n": 1955,
-      "f1_macro": 0.31611977765823923,
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
       "precision_direccional": 0.0,
-      "exactitud": 0.9017902813299232,
+      "exactitud": 0.9014803471158754,
       "f1_maximo": 0.0,
       "f1_minimo": 0.0,
-      "f1_continuidad": 0.9483593329747176,
+      "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_mayoritario",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-17T22:41:52+00:00"
+      "ejecutado_utc": "2026-08-18T01:08:56+00:00"
     },
     {
-      "n": 1955,
-      "f1_macro": 0.32528581489464475,
-      "precision_direccional": 0.036458333333333336,
-      "exactitud": 0.818925831202046,
-      "f1_maximo": 0.0625,
-      "f1_minimo": 0.010752688172043012,
-      "f1_continuidad": 0.9026047565118913,
+      "n": 1959,
+      "f1_macro": 0.3367840908780229,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.8223583460949464,
+      "f1_maximo": 0.05181347150259067,
+      "f1_minimo": 0.053763440860215055,
+      "f1_continuidad": 0.904775360271263,
       "modelo": "baseline_aleatorio",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-17T22:41:52+00:00"
+      "ejecutado_utc": "2026-08-18T01:08:56+00:00"
     },
     {
-      "n": 1955,
-      "f1_macro": 0.32087586100015175,
-      "precision_direccional": 0.005208333333333333,
-      "exactitud": 0.8946291560102302,
-      "f1_maximo": 0.0,
-      "f1_minimo": 0.018018018018018018,
-      "f1_continuidad": 0.9446095649824372,
+      "n": 1959,
+      "f1_macro": 0.3443065490077563,
+      "precision_direccional": 0.031088082901554404,
+      "exactitud": 0.885145482388974,
+      "f1_maximo": 0.07462686567164178,
+      "f1_minimo": 0.019417475728155338,
+      "f1_continuidad": 0.9388753056234719,
       "modelo": "bosque_aleatorio",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-17T22:41:53+00:00"
+      "ejecutado_utc": "2026-08-18T01:08:58+00:00"
     },
     {
-      "n": 1955,
-      "f1_macro": 0.32079585109786674,
-      "precision_direccional": 0.005208333333333333,
-      "exactitud": 0.8936061381074168,
-      "f1_maximo": 0.0,
-      "f1_minimo": 0.01834862385321101,
-      "f1_continuidad": 0.9440389294403893,
+      "n": 1959,
+      "f1_macro": 0.3672006511532457,
+      "precision_direccional": 0.08808290155440414,
+      "exactitud": 0.8386932108218479,
+      "f1_maximo": 0.07792207792207792,
+      "f1_minimo": 0.11224489795918367,
+      "f1_continuidad": 0.9114349775784754,
       "modelo": "bosque_aleatorio_sin_niveles",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-17T22:41:55+00:00"
+      "ejecutado_utc": "2026-08-18T01:09:00+00:00"
     },
     {
-      "n": 1955,
-      "f1_macro": 0.31611977765823923,
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
       "precision_direccional": 0.0,
-      "exactitud": 0.9017902813299232,
+      "exactitud": 0.9014803471158754,
       "f1_maximo": 0.0,
       "f1_minimo": 0.0,
-      "f1_continuidad": 0.9483593329747176,
+      "f1_continuidad": 0.9481879194630872,
       "modelo": "bosque_aleatorio_sin_pesos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-17T22:41:57+00:00"
+      "ejecutado_utc": "2026-08-18T01:09:03+00:00"
     }
   ],
   "veredicto": {
     "supera_al_trivial": true,
-    "delta_f1_macro": 0.00475608334191252,
-    "detecta_ambos_extremos": false,
-    "f1_maximo": 0.0,
-    "f1_minimo": 0.018018018018018018,
-    "precision_direccional": 0.005208333333333333
+    "delta_f1_macro": 0.028243909186727256,
+    "detecta_ambos_extremos": true,
+    "f1_maximo": 0.07462686567164178,
+    "f1_minimo": 0.019417475728155338,
+    "precision_direccional": 0.031088082901554404
   },
   "importancias_top10": {
-    "LTC_retorno_3": 0.03806,
-    "LTC_retorno_1": 0.033541,
-    "SOL_retorno_3": 0.033446,
-    "SOL_retorno_1": 0.032891,
-    "XRP_retorno_3": 0.03212,
-    "BTC_retorno_3": 0.032027,
-    "XRP_retorno_1": 0.031861,
-    "LTC_retorno_7": 0.031719,
-    "BTC_retorno_1": 0.031317,
-    "ETH_retorno_1": 0.030238
+    "LTC_posicion_rango_7": 0.084991,
+    "LTC_dist_sma_7": 0.070571,
+    "LTC_retorno_7": 0.044209,
+    "LTC_retorno_3": 0.041436,
+    "LTC_dist_ema_12": 0.040476,
+    "LTC_bollinger_pctb_20": 0.025387,
+    "LTC_retorno_1": 0.023365,
+    "LTC_posicion_rango_20": 0.02333,
+    "XRP_retorno_3": 0.020646,
+    "ADA_retorno_3": 0.020557
   }
 }

@@ -88,7 +88,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--intervalo", default="4h", help="4h o 1d")
     parser.add_argument("--w", type=int, default=7, help="ventana del etiquetado")
-    parser.add_argument("--h", type=int, default=5, help="horizonte del pronostico")
+    # h=1 y no 5: docs/04-decision-w-h-granularidad.md midio la informacion mutua
+    # entre las caracteristicas en t y la etiqueta en t+h, y cae 4,2 veces de h=1 a
+    # h=3 para despues aplanarse. Lo observable informa sobre la vela siguiente y
+    # casi nada mas alla.
+    parser.add_argument("--h", type=int, default=1, help="horizonte del pronostico")
     parser.add_argument("--conjunto", default="validacion", choices=["validacion", "prueba"])
     parser.add_argument(
         "--gastar-prueba",
@@ -255,7 +259,9 @@ def main() -> None:
         },
         "importancias_top10": importancias.head(10).round(6).to_dict(),
     }
-    ruta_json = EVIDENCIAS / f"modelo-clasico-{argumentos.intervalo}.json"
+    # w y h van en el nombre: si no, dos configuraciones distintas se sobrescriben y
+    # el informe termina citando numeros de una corrida que ya no es la vigente.
+    ruta_json = EVIDENCIAS / f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}.json"
     guardar_json(_limpiar_json(medido), ruta_json)
 
     print("\n[6/6] Evidencia")
