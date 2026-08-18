@@ -168,9 +168,9 @@ medición propia, hecha antes de escribir una línea de código de característi
 
 ## 5. Heterocedasticidad
 
-![Figura 5](../../evidencias/mt-05-heterocedasticidad.png)
+![Figura 4](../../evidencias/mt-05-heterocedasticidad.png)
 
-**Figura 5.** Serie construida con volatilidad constante (arriba) y con volatilidad por tramos (abajo). Ambas generadas por nosotros; no son datos de mercado.
+**Figura 4.** Serie construida con volatilidad constante (arriba) y con volatilidad por tramos (abajo). Ambas generadas por nosotros; no son datos de mercado.
 
 **Medido en las series construidas:** cociente entre la volatilidad del tramo agitado y la del tranquilo — **1,28×** sin regímenes, **6,41×** con regímenes.
 
@@ -182,7 +182,7 @@ condicional de un proceso puede depender de su propio historial reciente incluso
 no muestra ningún patrón predecible: puede haber estructura en la varianza aunque no la haya en el
 nivel.
 
-La Figura 5 ilustra el contraste con una respuesta conocida, construida por nosotros y no
+La Figura 4 ilustra el contraste con una respuesta conocida, construida por nosotros y no
 observada en el mercado. En el panel superior se generó una serie con volatilidad constante en
 toda su longitud; en el inferior, la misma serie pero multiplicando la volatilidad por cinco en
 tramos alternos. Medido el cociente entre la desviación estándar del tramo más agitado y la del
@@ -205,6 +205,14 @@ la forma que ARIMA supone.
 ---
 
 ## 6. Volatilidad
+
+![Figura 5](../../evidencias/mt-04b-volatilidad-construida.png)
+
+**Figura 5.** Dos series construidas por nosotros con la volatilidad fijada de antemano, en los mismos ejes. Arriba, la volatilidad más baja medida en LTC; abajo, la más alta. **Ninguna de las dos es Litecoin.** Fuente: elaboración propia.
+
+**Medido sobre las series construidas:** pedimos una volatilidad de **0,01384** y medimos **0,01395**; pedimos **0,122** y medimos **0,12349**. El cociente pedido entre ambas era de **8,8** y el medido resultó **8,9**.
+
+Antes de medir la volatilidad de LTC conviene comprobar que el procedimiento recupera lo que se le pide, sobre series donde el valor correcto lo fijamos nosotros. Se generaron dos series con idéntica construcción y semilla, cambiando únicamente un parámetro: la desviación estándar de los retornos. Los dos niveles no se eligieron al azar, sino que corresponden a los extremos de la volatilidad móvil que se mide más adelante sobre Litecoin, de manera que el rango construido cubre exactamente el que se observa en el mercado. La medición devuelve **0,01395** frente a **0,01384** pedido y **0,12349** frente a **0,122**, con una discrepancia atribuible al muestreo finito. El procedimiento recupera el parámetro que se le fijó, y en consecuencia lo que mida sobre datos reales puede leerse como una propiedad de esos datos y no como un artefacto del método.
 
 ![Figura 6](../../evidencias/mt-04-volatilidad.png)
 

@@ -188,6 +188,52 @@ def figura_04_volatilidad(ltc: pd.Series) -> None:
     }
 
 
+def figura_04b_volatilidad_construida() -> None:
+    """Volatilidad baja y alta fijadas por nosotros antes de generar la serie.
+
+    Es el mismo control que ya se aplica a la correlacion: se fija el parametro, se
+    genera la serie, se mide, y se comprueba que la medicion recupera lo que se
+    pidio. Sin este par, el documento afirma en la introduccion que la volatilidad
+    se fija de antemano y luego nunca reporta que valor se fijo.
+
+    Los dos niveles no son arbitrarios. Son los extremos de la volatilidad movil
+    medida sobre LTC, de modo que la serie construida acota el rango que de verdad
+    se observa en el mercado en lugar de ilustrar una escala inventada. Por eso
+    esta funcion corre despues de figura_04_volatilidad, que es la que los mide.
+    """
+    baja = medido["volatilidad"]["minima"]
+    alta = medido["volatilidad"]["maxima"]
+
+    series = {}
+    for etiqueta, objetivo in (("baja", baja), ("alta", alta)):
+        panel = panel_correlacionado(n=1200, semilla=1, volatilidad=objetivo)
+        series[etiqueta] = cierre(panel, "LTC").pct_change().dropna()
+
+    # Un eje compartido es lo que hace visible la diferencia: con escalas
+    # independientes las dos series se verian igual de agitadas.
+    tope = float(max(s.abs().max() for s in series.values())) * 1.05
+    fig, ejes = plt.subplots(2, 1, sharex=True, sharey=True, figsize=(9, 5.5))
+    for eje, (etiqueta, retorno) in zip(ejes, series.items(), strict=True):
+        eje.plot(range(len(retorno)), retorno.to_numpy(), color=estilo.NAVY, linewidth=0.6)
+        eje.set_ylabel(f"Volatilidad {etiqueta}\n(construida)", fontsize=9)
+        eje.set_ylim(-tope, tope)
+    fig.suptitle(
+        "Volatilidad fijada por nosotros: baja contra alta",
+        color=estilo.NAVY, fontweight="bold",
+    )
+    estilo.guardar(fig, "mt-04b-volatilidad-construida", EVIDENCIAS)
+    plt.close(fig)
+
+    medida_baja = float(series["baja"].std())
+    medida_alta = float(series["alta"].std())
+    medido["volatilidad_construida"] = {
+        "baja": {"pedida": baja, "medida": round(medida_baja, 5)},
+        "alta": {"pedida": alta, "medida": round(medida_alta, 5)},
+        "cociente_pedido": round(alta / baja, 1),
+        "cociente_medido": round(medida_alta / medida_baja, 1),
+    }
+
+
 def figura_05_heterocedasticidad() -> None:
     """Contraste construido: misma generacion, con y sin regimenes de volatilidad."""
     sin_reg = panel_correlacionado(n=1200, semilla=1, regimenes=False)
@@ -389,6 +435,7 @@ def main() -> None:
             ("componentes", lambda: figura_02_componentes(ltc)),
             ("estacionariedad", lambda: figura_03_estacionariedad(panel, sintetico)),
             ("volatilidad", lambda: figura_04_volatilidad(ltc)),
+            ("volatilidad construida", figura_04b_volatilidad_construida),
             ("heterocedasticidad", figura_05_heterocedasticidad),
             ("autocorrelacion", lambda: figura_06_autocorrelacion(ltc)),
             ("correlacion cruzada", lambda: figura_07_correlacion(panel)),
@@ -398,7 +445,7 @@ def main() -> None:
         start=1,
     ):
         funcion()
-        print(f"  [{numero}/9] {nombre}")
+        print(f"  [{numero}/10] {nombre}")
 
     medido["_meta"] = {
         "generado_utc": datetime.now(UTC).isoformat(timespec="seconds"),

@@ -72,6 +72,18 @@
     "cociente_agitado_tranquilo": 8.8,
     "ventana": 30
   },
+  "volatilidad_construida": {
+    "baja": {
+      "pedida": 0.01384,
+      "medida": 0.01395
+    },
+    "alta": {
+      "pedida": 0.122,
+      "medida": 0.12349
+    },
+    "cociente_pedido": 8.8,
+    "cociente_medido": 8.9
+  },
   "heterocedasticidad_construida": {
     "cociente_sin_regimenes": 1.28,
     "cociente_con_regimenes": 6.41
@@ -152,7 +164,7 @@
     }
   },
   "_meta": {
-    "generado_utc": "2026-08-12T15:28:51+00:00",
+    "generado_utc": "2026-08-18T02:11:58+00:00",
     "granularidad": "1d",
     "w": 5,
     "panel_filas": 2185,
