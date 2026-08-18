@@ -1,0 +1,158 @@
+{
+  "ejecutado_utc": "2026-08-17T22:41:58+00:00",
+  "intervalo": "4h",
+  "w": 7,
+  "h": 5,
+  "latencia_real": 12,
+  "conjunto": "validacion",
+  "config_provisional": true,
+  "origen_parametros": "docs/evidencias/spike-datos-4h.json",
+  "panel": {
+    "filas": 13114,
+    "columnas": 30,
+    "desde": "2020-08-11 04:00:00+00:00",
+    "hasta": "2026-08-05 16:00:00+00:00"
+  },
+  "caracteristicas": {
+    "n_columnas": 45,
+    "n_columnas_en_nivel": 24,
+    "filas_con_algun_nulo": 30
+  },
+  "particion": {
+    "n_entrenamiento": 9167,
+    "n_validacion": 1955,
+    "n_prueba": 1968,
+    "n_embargo": 24,
+    "filas_entrenables": 9165
+  },
+  "balance_entrenamiento": [
+    {
+      "clase": "Maximo",
+      "codigo": 1,
+      "n": 420,
+      "porcentaje": 4.583
+    },
+    {
+      "clase": "Minimo",
+      "codigo": 2,
+      "n": 431,
+      "porcentaje": 4.703
+    },
+    {
+      "clase": "Continuidad",
+      "codigo": 3,
+      "n": 8314,
+      "porcentaje": 90.715
+    }
+  ],
+  "hiperparametros": {
+    "n_estimators": 300,
+    "min_samples_leaf": 5,
+    "max_depth": null,
+    "class_weight": "balanced",
+    "random_state": 0
+  },
+  "criterio_preregistrado": {
+    "class_weight": "balanced. Gini sobre la distribucion empirica (~91 % Continuidad) optimiza un criterio que no es el que reportamos, asi que se decidio de antemano reponderar las clases para alinear el entrenamiento con el F1 macro.",
+    "class_weight_correccion": "CAMBIO DECLARADO. La primera corrida uso balanced_subsample, elegido a priori por coherencia con el bootstrap. Medido: colapsa a la mayoritaria en validacion y empata exactamente con BaselineTrivial (F1 macro 0.316120), aunque si produce predicciones minoritarias en entrenamiento. balanced, que implementa la misma intencion declarada, si produce minoritarias fuera de muestra. El cambio se hizo DESPUES de ver ese resultado y por eso queda escrito aqui: es una correccion de la variante, no una busqueda de hiperparametros, que es la tarea S4-M3-02.",
+    "n_estimators": "300. El F1 macro sobre una clase con pocos cientos de ejemplos es ruidoso con 100 arboles, y 300 sigue siendo barato a esta escala.",
+    "min_samples_leaf": "5. Con cientos de ejemplos minoritarios y decenas de variables, las hojas unitarias memorizan ruido.",
+    "max_depth": "None, deliberadamente sin ajustar. Buscar hiperparametros ahora gastaria el conjunto de validacion antes de que exista el modelo fundacional. Eso es la tarea S4-M3-02.",
+    "metrica_que_decide": "F1 macro, no exactitud (RF-V1 y seccion 3.3 del PRD).",
+    "conjunto_de_prueba": "No se toca. Se mide sobre validacion; prueba se gasta una sola vez, al final."
+  },
+  "resultados": [
+    {
+      "n": 1955,
+      "f1_macro": 0.31611977765823923,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9017902813299232,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9483593329747176,
+      "modelo": "baseline_trivial",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-17T22:41:52+00:00"
+    },
+    {
+      "n": 1955,
+      "f1_macro": 0.31611977765823923,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9017902813299232,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9483593329747176,
+      "modelo": "baseline_mayoritario",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-17T22:41:52+00:00"
+    },
+    {
+      "n": 1955,
+      "f1_macro": 0.32528581489464475,
+      "precision_direccional": 0.036458333333333336,
+      "exactitud": 0.818925831202046,
+      "f1_maximo": 0.0625,
+      "f1_minimo": 0.010752688172043012,
+      "f1_continuidad": 0.9026047565118913,
+      "modelo": "baseline_aleatorio",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-17T22:41:52+00:00"
+    },
+    {
+      "n": 1955,
+      "f1_macro": 0.32087586100015175,
+      "precision_direccional": 0.005208333333333333,
+      "exactitud": 0.8946291560102302,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.018018018018018018,
+      "f1_continuidad": 0.9446095649824372,
+      "modelo": "bosque_aleatorio",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-17T22:41:53+00:00"
+    },
+    {
+      "n": 1955,
+      "f1_macro": 0.32079585109786674,
+      "precision_direccional": 0.005208333333333333,
+      "exactitud": 0.8936061381074168,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.01834862385321101,
+      "f1_continuidad": 0.9440389294403893,
+      "modelo": "bosque_aleatorio_sin_niveles",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-17T22:41:55+00:00"
+    },
+    {
+      "n": 1955,
+      "f1_macro": 0.31611977765823923,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9017902813299232,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9483593329747176,
+      "modelo": "bosque_aleatorio_sin_pesos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-17T22:41:57+00:00"
+    }
+  ],
+  "veredicto": {
+    "supera_al_trivial": true,
+    "delta_f1_macro": 0.00475608334191252,
+    "detecta_ambos_extremos": false,
+    "f1_maximo": 0.0,
+    "f1_minimo": 0.018018018018018018,
+    "precision_direccional": 0.005208333333333333
+  },
+  "importancias_top10": {
+    "LTC_retorno_3": 0.03806,
+    "LTC_retorno_1": 0.033541,
+    "SOL_retorno_3": 0.033446,
+    "SOL_retorno_1": 0.032891,
+    "XRP_retorno_3": 0.03212,
+    "BTC_retorno_3": 0.032027,
+    "XRP_retorno_1": 0.031861,
+    "LTC_retorno_7": 0.031719,
+    "BTC_retorno_1": 0.031317,
+    "ETH_retorno_1": 0.030238
+  }
+}
