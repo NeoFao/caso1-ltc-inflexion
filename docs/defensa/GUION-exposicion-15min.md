@@ -6,314 +6,196 @@
 **Cada persona habla una sola vez, de corrido.** Nadie vuelve a tomar la palabra
 después. El orden está pensado para que cada bloque prepare el siguiente.
 
-**Todo está escrito para que lo entienda alguien que no sabe nada del tema.** Si
-una palabra técnica aparece, se explica en la misma frase.
-
 | Quién | Reloj | Duración | De qué habla |
 |---|---|---|---|
-| **Fabrizio Espinoza Arce** | 0:00 – 3:15 | 3 min 15 s | Qué problema resolvemos y cómo trabajamos |
-| **Jose Pablo Monestel** | 3:15 – 7:20 | 4 min 05 s | Cómo se comporta el precio en el tiempo |
-| **Alejandro Josué Rodríguez Zamora** | 7:20 – 11:10 | 3 min 50 s | Qué son las criptomonedas y qué es un giro |
-| **Isaac Felipe Morún Moreira** | 11:10 – 15:00 | 3 min 50 s | Cómo sabremos si el modelo sirve, y qué sigue |
+| **Fabrizio Espinoza Arce** | 0:00 – 3:20 | 3 min 20 s | El problema y el criterio de trabajo |
+| **Jose Pablo Monestel** | 3:20 – 7:25 | 4 min 05 s | Series de tiempo: qué medimos y qué salió |
+| **Alejandro Josué Rodríguez Zamora** | 7:25 – 11:30 | 4 min 05 s | Criptoactivos y definición del punto de inflexión |
+| **Isaac Felipe Morún Moreira** | 11:30 – 15:30 | 4 min 05 s | Métricas de evaluación y plan del proyecto |
 
-**Instrucciones para todos:**
+**Instrucciones:**
 
-- Hablá **despacio**. Los tiempos están medidos a 140 palabras por minuto, que es ritmo de exposición tranquila. El total da **14 minutos 59 segundos** contando las pausas.
-- Donde dice **[FIGURA n]**, cambiá la lámina y **quedate callado dos segundos** antes de seguir.
+- Los tiempos están contados a **140 palabras por minuto**, que es ritmo pausado, e incluyen las pausas y los cambios de lámina. Así da **15 minutos 31 segundos**. A 150, que sigue siendo un ritmo cómodo, baja a **14 minutos 30**. Cronometrate en el ensayo y ajustá con los recortes del anexo.
+- Donde dice **[FIGURA n]**, cambiá la lámina y esperá dos segundos antes de seguir.
 - Donde dice **(pausa)**, contá hasta dos en silencio.
-- Los números en **negrita** son los que hay que decir con claridad. Son medidos por nosotros.
-- Si te trabás, no vuelvas atrás: seguí. Nadie nota lo que faltó, todos notan la corrección.
+- Los números en **negrita** decilos con claridad. Todos son medidos por nosotros.
+- Si te trabás, seguí. No vuelvas atrás a corregir.
 
 ---
 ---
 
-# 1. FABRIZIO ESPINOZA ARCE — 0:00 a 3:15
+# 1. FABRIZIO ESPINOZA ARCE — 0:00 a 3:20
 
-## Qué problema resolvemos y cómo trabajamos
+## El problema y el criterio de trabajo
 
-Buenas tardes. Somos el equipo del Caso número uno y les presentamos el marco
-teórico, que es la primera de cinco entregas.
+Buenas tardes. Somos el equipo del Caso número uno y presentamos el marco teórico, que es la primera de las cinco entregas.
 
 **[FIGURA 1 — el precio de Litecoin]**
 
-Imagínense que miran una montaña rusa desde lejos, y alguien les pide una sola
-cosa: *avisame cuándo el carrito está en una cima, y cuándo está en un valle*.
+El problema que tenemos que resolver se enuncia en una frase: **clasificar cada momento del precio de Litecoin en una de tres categorías**. Máximo local, cuando el precio deja de subir y empieza a bajar. Mínimo local, cuando deja de bajar y empieza a subir. Y zona de continuidad, que es todo lo demás.
 
-Eso es exactamente nuestro proyecto. El carrito es **el precio de Litecoin**, que
-es una criptomoneda. Las cimas son lo que llamamos **máximos**, los valles son los
-**mínimos**, y todo el camino entre unos y otros lo llamamos **zona de
-continuidad**.
+A lo largo del trimestre tenemos que construir un modelo que aprenda a hacer esa clasificación. Esta primera entrega es el sustento teórico de ese modelo. (pausa)
 
-Nuestro trabajo del trimestre es construir un programa que aprenda a avisar cuál
-de esas tres cosas está pasando. (pausa)
+Es difícil por tres razones concretas, y las tres las verificamos hoy con datos nuestros.
 
-¿Por qué es difícil? Por tres razones que hoy demostramos con datos.
+La primera: **el precio no tiene un valor de referencia al que regrese**. Litecoin llegó a valer **cuarenta dólares** y también **trescientos ochenta y siete**. Eso invalida buena parte de las herramientas estadísticas clásicas, que asumen que los datos oscilan alrededor de un valor estable.
 
-La primera: **el precio no tiene un valor normal al que volver**. Litecoin llegó a
-valer **cuarenta dólares** y también **trescientos ochenta y siete**. Eso rompe
-casi todas las herramientas clásicas, que dan por sentado que las cosas se mueven
-alrededor de un valor estable.
+La segunda: **la intensidad del movimiento cambia con el tiempo**. Hay períodos largos de calma y períodos de movimientos muy bruscos, y no hay aviso previo de cuándo se pasa de uno al otro.
 
-La segunda: **hay épocas tranquilas y épocas de locura**, y no avisan cuándo
-cambian.
+La tercera es la más incómoda del caso: **para confirmar que un punto fue un máximo hay que observar lo que viene después**. Si el precio sigue subiendo, no era máximo. La respuesta correcta solo se conoce con retraso, y eso condiciona todo el diseño. (pausa)
 
-Y la tercera, la más incómoda: **para saber que estás en una cima, tenés que ver
-lo que viene después**. Si el carrito sigue subiendo, no era cima. La respuesta
-correcta llega tarde, siempre. (pausa)
+Litecoin además no se mueve de forma aislada, y por eso el enunciado pide incorporar las cinco criptomonedas de mayor capitalización: **Bitcoin, Ethereum, Solana, XRP y Cardano**.
 
-Litecoin además no se mueve solo, y por eso el caso pide acompañarlo con las cinco
-criptomonedas más grandes: **Bitcoin, Ethereum, Solana, XRP y Cardano**.
+Sobre cómo trabajamos, dos criterios que le dan forma a todo el documento.
 
-Sobre cómo trabajamos, declaro dos criterios que le dan forma a todo el
-documento.
+**El primero: ningún concepto se expone solo como definición.** Cada propiedad que afirmamos la verificamos sobre nuestros datos y reportamos el valor obtenido. Y cuando algo no lo medimos, lo decimos en vez de omitirlo. Son **dos mil ciento ochenta y cinco días** de precios de las seis criptomonedas, entre agosto de dos mil veinte y agosto de este año.
 
-**El primero: ningún concepto se expone solamente como definición.** Cada vez que
-afirmamos algo, lo comprobamos sobre nuestros propios datos y reportamos el
-número. Y cuando algo no lo medimos, lo decimos, en vez de omitirlo. Son **dos mil
-ciento ochenta y cinco días** de precios de las seis criptomonedas, desde agosto
-de dos mil veinte hasta agosto de este año.
+**El segundo criterio lo sugirió usted en la sesión de trabajo: construir nosotros mismos series artificiales**, fijando de antemano la volatilidad y la correlación.
 
-**El segundo criterio nos lo sugirió usted, profesor, en la sesión de trabajo:
-construir nosotros mismos series artificiales**, con la agitación y la relación
-entre monedas puestas a mano por nosotros.
+La razón es directa. Si aplico un procedimiento a los datos reales y obtengo un número, no puedo distinguir si describe el mercado o si es un artefacto del procedimiento. Si antes lo aplico a una serie donde el valor correcto lo fijamos nosotros y lo recupera, entonces sí puedo interpretar lo que mida sobre datos reales. (pausa)
 
-Y no es un adorno. (pausa) Si aplico una fórmula a los datos reales y me da un
-número, no tengo forma de saber si describe el mercado o si es un invento de mi
-fórmula. En cambio, si primero fabrico una serie donde **yo puse la respuesta
-correcta** y mi fórmula la encuentra, recién ahí puedo confiar en lo que me diga
-sobre los datos de verdad.
-
-Lo hicimos en las cuatro condiciones que usted mencionó, y mis compañeros les
-muestran los resultados.
-
-Le dejo la palabra a Jose Pablo.
+Lo hicimos en las cuatro condiciones que usted mencionó, y mis compañeros les muestran los resultados. Le dejo la palabra a Jose Pablo.
 
 ---
 ---
 
-# 2. JOSE PABLO MONESTEL — 3:15 a 7:20
+# 2. JOSE PABLO MONESTEL — 3:20 a 7:25
 
-## Cómo se comporta el precio en el tiempo
+## Series de tiempo: qué medimos y qué salió
 
-Gracias. Yo trabajé la parte de **series de tiempo**.
+Gracias. Yo desarrollé la parte de series de tiempo.
 
-Empiezo por lo básico: **una serie de tiempo es una lista de números en orden**.
-La temperatura de cada día del año lo es. El precio de Litecoin cada día, también.
+Una **serie de tiempo** es una secuencia de observaciones de una misma variable, ordenadas por el momento en que se registraron.
 
-Lo que la hace especial: **si uno cambia el orden, destruye la información**. En
-una tabla de clientes uno puede barajar las filas y no pierde nada. Acá no, porque
-el número de hoy depende del de ayer, y ese vínculo es lo que hay que
-modelar. (pausa)
+Lo que la distingue de una tabla común es que **el orden forma parte del dato**. En una tabla de clientes uno puede reordenar las filas sin perder información. Acá no: el valor de hoy depende del de ayer, y esa dependencia es lo que hay que modelar. (pausa)
 
-Lo primero que revisé fue si el precio es **estacionario**. Esa palabra suena
-complicada pero significa una cosa sencilla: **que las reglas del juego no cambien
-con el tiempo**. Que el promedio sea siempre parecido y la agitación sea siempre
-parecida, mire uno el tramo que mire.
+**[FIGURA 3 — prueba de estacionariedad]**
 
-**[FIGURA 3 — la prueba de estacionariedad]**
+Lo primero que revisé fue la **estacionariedad**. Una serie es estacionaria cuando sus propiedades estadísticas no dependen del momento en que uno la observe: promedio y dispersión constantes, se mire el tramo que se mire.
 
-Para no decidirlo a ojo existe una prueba estadística. La corrimos sobre las seis
-monedas, en dos versiones de los datos.
+Para no decidirlo a ojo existe una prueba formal, la de **Dickey-Fuller aumentado**. La corrimos sobre las seis criptomonedas, en dos versiones de los datos.
 
-Primero sobre **el precio tal cual**: **ninguna de las seis** pasa. Ninguna.
+Sobre el precio tal cual: **ninguna de las seis** da evidencia de estacionariedad.
 
-Después sobre lo que llamamos **retornos**, que es **el cambio en porcentaje de un
-día al siguiente**. Si ayer cerró en cien y hoy en ciento cinco, el retorno es más
-cinco por ciento. Resultado: **las seis pasan**, con muchísimo margen.
+Sobre los **retornos** —el cambio porcentual entre una observación y la anterior; si ayer cerró en cien y hoy en ciento cinco, es más cinco por ciento—: **las seis**, con un margen amplísimo.
 
-Quiero ser preciso con lo que eso permite afirmar, porque es un matiz que importa.
-Que la prueba no dé positivo sobre los precios **no demuestra** que no sean
-estacionarios: demuestra que no hay evidencia suficiente para afirmarlo. Es la
-diferencia entre *no hay pruebas en contra* y *hay pruebas a favor*. (pausa)
+Quiero ser preciso con lo que eso permite afirmar. Que la prueba no dé positivo sobre los precios **no demuestra** que no sean estacionarios: demuestra que no hay evidencia suficiente para afirmar lo contrario. (pausa)
 
-De ahí sale la primera decisión del proyecto: **trabajamos sobre los cambios
-porcentuales, no sobre el precio**. Y no por costumbre, sino porque lo medimos.
+De ahí sale la primera decisión de diseño: **las características del modelo se construyen sobre retornos y no sobre precios**. No es una convención de la disciplina, es consecuencia de esta medición.
 
 **[FIGURA 5 y 6 — volatilidad]**
 
-Lo segundo que revisé es la **volatilidad**, que es solo una palabra elegante para
-decir **cuánto se mueve el precio**.
+Lo segundo fue la **volatilidad**, que es la dispersión de los retornos. La calculamos con ventana móvil de treinta días, para ver cómo cambia en el tiempo en vez de tener un solo número para seis años.
 
-Antes de medirla en Litecoin hicimos lo que explicaba Fabrizio: fabricamos dos
-series, una con agitación baja y otra con agitación alta, y medimos a ver si las
-recuperábamos. Pedimos **cero coma cero uno tres** y medimos **cero coma cero uno
-cuatro**. Pedimos **cero coma uno dos dos** y medimos casi lo mismo. Funciona.
+Antes de medirla sobre Litecoin aplicamos el control que explicaba Fabrizio. Fijamos una volatilidad de **cero coma cero uno tres ocho** y medimos **cero coma cero uno tres nueve**; fijamos **cero coma uno dos dos** y medimos **cero coma uno dos tres**. El procedimiento devuelve lo que se le pide.
 
-Recién entonces medimos Litecoin. Y el resultado es que **su época más agitada se
-mueve ocho coma ocho veces más que su época más tranquila**.
+Con eso ya podíamos medir Litecoin: **el tramo más volátil se mueve ocho coma ocho veces más que el más tranquilo**.
 
-Eso confirma que Litecoin no tiene una agitación estable: **tiene temporadas**. Y
-eso descarta de entrada las herramientas clásicas, porque todas dan por sentado
-que la agitación es constante. (pausa)
+Eso confirma que la volatilidad no es constante, sino que conmuta entre regímenes, y descarta modelos como ARIMA, que asumen varianza constante. (pausa)
 
 **[FIGURA 7 — autocorrelación]**
 
-Y lo tercero, que para mí es el hallazgo más importante de mi parte.
+Y lo tercero, que es el hallazgo principal de mi sección.
 
-Me pregunté: **¿el cambio de precio de ayer me dice algo sobre el de hoy?** Eso se
-llama **autocorrelación**: cuánto se parece la serie a sí misma unos pasos atrás.
+La **autocorrelación** mide cuánto se relaciona una serie consigo misma unos pasos atrás. Responde a si el pasado de la serie, por sí solo, informa sobre su futuro.
 
-Revisé cuarenta pasos hacia atrás, y **solamente tres** dan algo distinguible de la
-casualidad. Prácticamente ninguno.
+Sobre el precio da **cero coma noventa y nueve**, casi el máximo. Pero no es buena noticia: el precio de hoy se parece al de ayer porque prácticamente es el mismo número. Es la firma de una serie no estacionaria, no información aprovechable.
 
-Ahora, esto suena a mala noticia y es exactamente lo contrario. **Lo que significa
-es que una fórmula simple, de las de toda la vida, no va a poder predecir esto.**
-Y por eso mismo hace falta un modelo más elaborado y hace falta mirar las otras
-cinco monedas. O sea: **es la justificación de que este proyecto tenga sentido**.
+Sobre los retornos cae a **menos cero coma cero tres**. Y de los **cuarenta** rezagos que examiné, solo **tres** superan la banda de confianza.
 
-Con eso le paso la palabra a Alejandro.
+Parece un resultado negativo y es lo contrario. **Significa que un modelo lineal sobre precios rezagados tendría muy poca estructura que explotar**, y por lo tanto es el argumento medido a favor de usar modelos no lineales y multivariantes. Es decir, **es la justificación del enfoque que plantea el caso**.
+
+Le paso la palabra a Alejandro.
 
 ---
 ---
 
-# 3. ALEJANDRO JOSUÉ RODRÍGUEZ ZAMORA — 7:20 a 11:10
+# 3. ALEJANDRO JOSUÉ RODRÍGUEZ ZAMORA — 7:25 a 11:30
 
-## Qué son las criptomonedas y qué es exactamente un giro
+## Criptoactivos y definición del punto de inflexión
 
-Gracias. Yo trabajé la parte de **criptoactivos** y la definición del punto de
-inflexión.
+Gracias. Yo desarrollé la parte de criptoactivos y la definición operativa del punto de inflexión.
 
-Primero lo básico: **una criptomoneda es dinero digital que no depende de ningún
-banco ni de ningún gobierno**. Las transacciones quedan anotadas en un registro
-compartido entre miles de computadoras, y ninguna puede modificarlo sola. La
-confianza no sale de una institución, sale de que todos tienen la misma copia.
+Un **criptoactivo** es un activo digital cuyas transacciones se registran en una red distribuida, sin una entidad central que las valide. La confianza no proviene de una institución sino de que el registro está replicado y ninguna parte puede modificarlo por su cuenta.
 
-Eso tiene dos consecuencias que importan para el proyecto.
+De ahí salen dos características que condicionan nuestro problema.
 
-**La primera: el mercado no cierra nunca.** Ni fines de semana, ni feriados.
+**La primera: el mercado opera de forma continua**, sin apertura ni cierre y sin distinción entre día hábil y fin de semana.
 
-Lo comprobamos: buscamos si Litecoin tiene algún patrón semanal, como sí ocurre en
-la bolsa tradicional, donde está documentado que los lunes se comportan distinto a
-los viernes. **En Litecoin ese patrón es prácticamente inexistente: menos de medio
-por ciento de la variación.** Como el mercado nunca cierra, no hay nada que lo
-produzca. (pausa)
+Eso tiene una consecuencia que medimos. En los mercados bursátiles tradicionales está documentado un efecto de calendario: los rendimientos difieren según el día de la semana. Buscamos ese patrón en Litecoin y **la componente estacional semanal representa apenas el cero coma cuatro por ciento de la variación total**. No existe, porque no hay ningún mecanismo institucional que lo produzca, y por eso no tiene sentido darle al modelo una variable con el día de la semana. (pausa)
 
-**La segunda: no hay nada que le ponga precio.** Una acción se puede valorar
-mirando cuánto gana la empresa. Una criptomoneda no produce nada: su precio depende
-de la oferta, la demanda, las noticias y los reguladores. Por eso los movimientos
-son tan bruscos.
+**La segunda: no existe un anclaje de valoración fundamental.** Una acción se valora a partir de las utilidades de la empresa. Un criptoactivo no genera flujos, así que su precio responde a oferta, demanda, noticias y decisiones regulatorias. Por eso los movimientos son tan pronunciados.
 
-**[FIGURA 8 y 9 — las correlaciones]**
+**[FIGURA 8 y 9 — correlaciones]**
 
-¿Por qué el caso pide acompañar a Litecoin con otras cinco monedas? Porque se
-mueven juntas, y eso lo medimos.
+Ahora, por qué el enunciado pide incorporar otras cinco criptomonedas: porque existe dependencia entre ellas, y eso lo medimos.
 
-La **correlación** es un número entre menos uno y uno que dice **cuánto se mueven
-dos cosas al mismo tiempo**. Uno, idénticas; cero, sin relación.
+La **correlación** es un valor entre menos uno y uno que indica en qué medida dos series se mueven de forma conjunta. Y aquí está el hallazgo más importante de mi sección. (pausa)
 
-Y acá está lo que para mí es el hallazgo más interesante. (pausa)
+Calculada **sobre precios en nivel**, la correlación entre Litecoin y Bitcoin da **cero coma uno tres**, casi nula. Y entre Litecoin y Cardano sube a **cero coma ocho**.
 
-Midiendo **sobre el precio tal cual**, el resultado dice que **Litecoin casi no
-tiene relación con Bitcoin**: da **cero coma uno dos**. Y que sí tiene muchísima
-con Cardano, que es una moneda bastante menor.
+Ese ordenamiento es económicamente implausible: Bitcoin es el principal transmisor de choques del sector, cuando cae, cae el mercado entero.
 
-Eso es un disparate: Bitcoin marca la tendencia de todo el mercado, cuando cae,
-cae todo.
+Calculada **sobre retornos**, el orden se corrige: Litecoin con Bitcoin sube a **cero coma setenta y uno**, y el rango general se estrecha a la mitad.
 
-Midiendo **sobre los cambios porcentuales**, el orden se acomoda: Litecoin con
-Bitcoin sube a **cero coma setenta y uno**.
+La causa es la **correlación espuria**. Dos series que comparten una tendencia de largo plazo aparecen correlacionadas aunque su codependencia real sea otra, porque lo que se mide es la coincidencia de dirección y no el movimiento período a período. Como ya se midió que los precios no son estacionarios, toda correlación calculada sobre ellos hereda ese defecto.
 
-¿Por qué pasaba? Por algo llamado **correlación espuria**. En verano suben las
-ventas de helado y suben los ahogamientos; medidos juntos parecen
-relacionadísimos, pero el helado no ahoga a nadie: subió el calor y arrastró a los
-dos. Con los precios pasa igual.
+**También aquí verificamos el procedimiento antes de aplicarlo:** pedimos una correlación de **cero coma uno** y medimos **cero coma cero nueve**; pedimos **cero coma nueve** y medimos **cero coma noventa**. (pausa)
 
-**Acá también comprobamos el método antes de creerle.** Pedimos una relación de
-**cero coma uno** y medimos **cero coma cero nueve**; pedimos **cero coma nueve** y
-medimos **cero coma noventa**. (pausa)
+**[FIGURA 10 — punto de inflexión]**
 
-**[FIGURA 10 — el punto de inflexión]**
+Cierro con la definición del punto de inflexión, que es lo que sostiene todo el proyecto.
 
-Y termino con lo más importante de mi parte: **qué es exactamente un giro**.
+**Un máximo no existe en términos absolutos: existe respecto de una ventana.** El precio sube y baja continuamente, a todas las escalas, así que la intuición no alcanza para construir una etiqueta.
 
-Acá hay una idea que parece un juego de palabras y no lo es: **una cima no existe
-por sí sola; existe respecto de una ventana**.
+Sobre una misma serie, mirando una observación hacia cada lado aparecen varios máximos. Mirando cinco hacia cada lado, la mayoría deja de serlo, porque en esa vecindad hay un valor más alto. **El dato no cambió: cambió la escala de observación.**
 
-Piensen en once días de precios. Si miro **un día hacia cada lado**, hay varias
-cimas pequeñas. Si miro **cinco días hacia cada lado**, la mayoría deja de serlo,
-porque cerca hay algo más alto.
-
-**El precio no cambió. Cambió la lupa.** Y las dos lecturas son correctas: es un
-giro pequeño, y no es un giro importante.
-
-Por eso **no buscamos la definición verdadera de máximo, porque no existe**. Lo que
-hacemos es **elegir a qué escala trabaja el modelo**, y esa elección la
-justificamos midiendo.
+Por eso no buscamos la definición verdadera de máximo, porque no existe. Lo que hacemos es **elegir a qué escala trabaja el modelo**, y esa elección la justificamos midiendo.
 
 Le paso la palabra a Isaac.
 
 ---
 ---
 
-# 4. ISAAC FELIPE MORÚN MOREIRA — 11:10 a 15:00
+# 4. ISAAC FELIPE MORÚN MOREIRA — 11:30 a 15:30
 
-## Cómo sabremos si el modelo sirve, y qué sigue
+## Métricas de evaluación y plan del proyecto
 
-Gracias. A mí me toca la última parte: **cómo vamos a saber si el modelo sirve de
-algo**. Y acá está la trampa más grande del proyecto.
+Gracias. A mí me corresponde la última sección: **cómo vamos a determinar si el modelo sirve**. Y aquí está el problema metodológico más serio del caso.
 
-**[FIGURA 14 — el balance de clases]**
+**[FIGURA 14 — balance de clases]**
 
-Empiezo por un hecho que se demuestra en dos líneas. (pausa)
+Empiezo por una propiedad que se demuestra en dos líneas. (pausa)
 
-**Dos cimas no pueden estar pegadas.** Si cada cima tiene que ser más alta que
-todos sus vecinos, y dos están cerca, cada una tendría que ser más alta que la
-otra. Imposible.
+**Dos máximos no pueden estar a menos de uve más uno observaciones de distancia**, donde uve es la ventana que acaba de explicar Alejandro. Si lo estuvieran, cada uno caería dentro de la ventana del otro y tendría que ser mayor que el otro. Es imposible.
 
-De ahí se sigue algo que condiciona todo: **las cimas y los valles van a ser
-siempre poquísimos**. Lo medimos: las cimas son el **seis coma seis por ciento**,
-los valles el **seis coma cinco**, y **todo el resto, casi el ochenta y siete por
-ciento, es zona de continuidad**.
+De ahí se sigue que **a lo sumo una de cada uve más uno observaciones puede ser máximo**. Y lo medido queda muy por debajo: los máximos son el **seis coma seis por ciento** de la muestra, los mínimos el **seis coma cinco**, y la zona de continuidad **casi el ochenta y siete por ciento**.
 
-Y esto importa: **no es un defecto de nuestros datos**, no se arregla bajando más
-historia. Sale de la definición misma. (pausa)
+El punto importante: **el desbalance no es un defecto de la muestra que se corrija recogiendo más datos.** Está garantizado por la definición de la etiqueta. (pausa)
 
-Ahora sí, la trampa.
+Y la consecuencia es esta. Consideremos un modelo que no hace nada: responde siempre «zona de continuidad», sin mirar los datos. Ese modelo alcanza una **exactitud del ochenta y seis coma nueve por ciento**.
 
-Supongamos un programa **que no hace absolutamente nada**: responde siempre «zona
-de continuidad», sin mirar los datos.
+**[FIGURA 15 — matriz de confusión del modelo de referencia]**
 
-Ese programa acierta el **ochenta y seis coma nueve por ciento** de las veces.
+Casi un ochenta y siete por ciento de aciertos suena a buen resultado. Y corresponde a un modelo que **no detectó un solo punto de inflexión**. Es inservible. Y no lo suponemos: lo medimos. (pausa)
 
-**[FIGURA 15 — la matriz del modelo inútil]**
+Por eso descartamos la exactitud como métrica de decisión, y usamos las dos que pide el enunciado.
 
-Casi un ochenta y siete por ciento suena excelente. Y **no detectó ni una sola cima
-ni un solo valle**. Es completamente inservible. Y lo medimos, no lo
-suponemos. (pausa)
+La primera es el **F1**, que combina dos cosas que hay que evaluar por separado. La **precisión**: de todos los giros que el modelo anunció, cuántos eran reales. Y el **recall**: de todos los giros que ocurrieron, cuántos alcanzó a anunciar.
 
-Por eso **descartamos la exactitud** y usamos las dos medidas que pide el
-enunciado.
+Lo relevante es que **penaliza los dos extremos**. Un modelo que anuncia un solo giro y acierta tiene precisión perfecta y recall pésimo; uno que anuncia que todo es giro tiene el problema inverso. Solo sale alto si acierta y además no se pierde los casos.
 
-La primera se llama **F1**, y combina dos preguntas. Una: de todas las veces que
-anuncié una cima, ¿cuántas eran de verdad? Es decir, cuántas falsas alarmas di. Y
-otra: de todas las cimas que hubo, ¿cuántas alcancé a anunciar?
+Y lo calculamos **dando el mismo peso a las tres clases**, para que la mayoritaria no oculte a las minoritarias. Ese mismo modelo inútil, que en exactitud daba ochenta y siete, en F1 da **cero coma treinta y uno**. Los dos números salen del mismo modelo, y ahí queda expuesto el problema.
 
-Lo importante es que **castiga los dos extremos**. Si soy muy prudente y anuncio
-una sola, me va mal. Si soy alarmista y anuncio todo, también. Solo sale bien si
-acierto **y además** no se me escapan.
+La segunda métrica es la **Precisión Direccional**, que evalúa si el modelo acierta la dirección del giro, que es lo único que le importaría a quien fuera a usar el sistema. (pausa)
 
-Y lo calculamos **dándole el mismo peso a las tres respuestas**, para que la
-categoría gigante no tape a las chiquitas. Ese mismo programa inútil, que en
-exactitud sacaba ochenta y siete, acá saca **cero coma treinta y uno**. Ahí se ve
-el engaño, con los dos números lado a lado.
+Cierro con dos puntos.
 
-La segunda es la **Precisión Direccional**, que mira si acertamos la dirección del
-giro, que es lo único que le importa a alguien que quiera usar esto. (pausa)
+**Fijamos de antemano un piso contra el cual comparar.** Medimos tres modelos de referencia triviales: el que responde siempre lo mismo, el que responde la clase mayoritaria y uno aleatorio. **Si nuestro modelo no supera a los tres, no aprendió nada**, y así lo reportaremos.
 
-Y cierro con dos cosas.
+Y el plan: en la Semana dos, el marco teórico de los modelos y el procedimiento de desarrollo. En la tres, el primer modelo funcionando. En la cuatro, uno más avanzado. En la cinco, el reporte final.
 
-**Fijamos de antemano un piso contra el cual compararnos.** Medimos qué sacan tres
-programas tontos: el que siempre responde lo mismo, el que responde la categoría
-más común, y uno que responde al azar. **Si nuestro modelo no le gana a los tres,
-no aprendió nada**, y lo vamos a decir.
-
-Y qué sigue: en la Semana dos, el marco teórico de los modelos y el procedimiento.
-En la tres, el primer modelo funcionando. En la cuatro, uno más avanzado. En la
-cinco, el reporte final.
-
-Cerramos con la idea que ordena todo el documento: **nada de lo que afirmamos hoy
-es una cita de un libro. Todo está medido sobre nuestros datos, y cada número se
-puede volver a generar con un comando.**
+Cerramos con el criterio que ordena todo el documento: **ninguna de las afirmaciones que hicimos hoy proviene únicamente de la literatura. Todas están verificadas sobre nuestros propios datos, y cada número es reproducible con un comando.**
 
 Muchas gracias.
 
@@ -334,21 +216,19 @@ Muchas gracias.
 
 Los recortes, en este orden, y solo estos:
 
-1. Fabrizio: el ejemplo de por qué sirven las series artificiales (10 s)
-2. Jose Pablo: el matiz de *no hay pruebas en contra* contra *hay pruebas a favor* (15 s)
-3. Alejandro: el ejemplo del helado y los ahogamientos (15 s)
-4. Isaac: la explicación de la Precisión Direccional (15 s)
+1. Fabrizio: el párrafo de por qué sirven las series construidas (20 s)
+2. Jose Pablo: el matiz entre *no hay evidencia en contra* y *hay evidencia a favor* (15 s)
+3. Alejandro: el efecto de calendario en los mercados tradicionales (15 s)
+4. Isaac: la explicación de precisión y recall por separado (20 s)
 
 **No recorten ningún número.** Los números son lo que sostiene la exposición.
 
 ## Si preguntan al final
 
-Quien contesta es **quien trabajó esa parte**, no quien esté más cerca. Si nadie
-lo trabajó, la respuesta correcta es *«eso no lo medimos, así que no lo afirmo»*.
+Contesta **quien trabajó esa parte**, no quien esté más cerca. Si nadie la trabajó, la respuesta correcta es *«eso no lo medimos, así que no lo afirmo»*.
 
-**Nadie inventa un número.** Si no está de memoria, se abre el documento.
+**Nadie inventa un número.** Si no lo tiene de memoria, se abre el documento.
 
 ## Nota sobre esta entrega
 
-Para la Semana 1 el profesor pidió expresamente **documento y no presentación**.
-Este guion queda preparado para la primera exposición que sí toque.
+Para la Semana 1 el profesor pidió expresamente **documento y no presentación**. Este guion queda preparado para la primera exposición que sí toque.

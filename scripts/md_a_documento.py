@@ -1,4 +1,4 @@
-"""Convierte un markdown a PDF pasando por HTML y Word.
+"""Convierte un markdown a PDF y a Word, pasando por HTML.
 
 Los generadores de Word del proyecto (`scripts/ensamblar_semana1.js`) producen el
 entregable con formato APA, que es rigido a proposito. Los documentos de estudio
@@ -8,8 +8,12 @@ bloques de codigo y jerarquia visual clara. Por eso van por otro camino.
 No se usa pandoc porque no esta instalado en las maquinas del equipo y pedir que
 lo instalen anade un paso que se puede evitar: Word ya esta, y abre HTML.
 
+El .docx existe para que cada quien edite su parte del guion. El PDF es para
+imprimir y leer. Se generan los dos de una sola pasada por Word, porque abrir el
+HTML es lo caro y exportar dos veces no lo es.
+
 Uso:
-    uv run python scripts/md_a_pdf.py docs/defensa/archivo.md
+    python scripts/md_a_documento.py docs/defensa/archivo.md
 """
 
 from __future__ import annotations
@@ -151,7 +155,7 @@ def convertir(md: str) -> str:
     return "\n".join(salida)
 
 
-def a_pdf(ruta_md: Path) -> Path:
+def a_documentos(ruta_md: Path) -> Path:
     md = ruta_md.read_text(encoding="utf-8")
     titulo = next((ln[2:].strip() for ln in md.split("\n") if ln.startswith("# ")), ruta_md.stem)
     ruta_html = ruta_md.with_suffix(".html")
@@ -165,17 +169,24 @@ def a_pdf(ruta_md: Path) -> Path:
     import win32com.client  # noqa: PLC0415  (solo hace falta aqui, y solo en Windows)
 
     ruta_pdf = ruta_md.with_suffix(".pdf")
+    ruta_docx = ruta_md.with_suffix(".docx")
     word = win32com.client.Dispatch("Word.Application")
     word.Visible = False
     try:
         doc = word.Documents.Open(str(ruta_html.resolve()))
         doc.ExportAsFixedFormat(str(ruta_pdf.resolve()), 17)  # 17 = wdExportFormatPDF
+        # 16 = wdFormatDocumentDefault, el .docx moderno. SaveAs2 sobre un documento
+        # abierto desde HTML lo convierte a formato Word nativo y editable.
+        doc.SaveAs2(str(ruta_docx.resolve()), 16)
         paginas = doc.ComputeStatistics(2)
+        palabras = doc.ComputeStatistics(0)
         doc.Close(0)
     finally:
         word.Quit()
     ruta_html.unlink()
-    print(f"  {ruta_pdf.relative_to(RAIZ)}  ({paginas} paginas)")
+    print(f"  {ruta_pdf.relative_to(RAIZ)}")
+    print(f"  {ruta_docx.relative_to(RAIZ)}")
+    print(f"    {paginas} paginas, {palabras} palabras")
     return ruta_pdf
 
 
@@ -184,4 +195,4 @@ if __name__ == "__main__":
         print(__doc__)
         raise SystemExit(1)
     for argumento in sys.argv[1:]:
-        a_pdf(Path(argumento).resolve())
+        a_documentos(Path(argumento).resolve())
