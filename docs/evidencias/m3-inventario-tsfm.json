@@ -1,0 +1,89 @@
+{
+  "ejecutado_utc": "2026-08-17T23:09:00+00:00",
+  "maquina": {
+    "python": "3.14.7",
+    "plataforma": "win32"
+  },
+  "parametros": {
+    "contexto": 512,
+    "horizonte": 12,
+    "w": 7,
+    "h": 5,
+    "repeticiones": 5,
+    "tamano_lote": 32
+  },
+  "nota_horizonte": "El horizonte es latencia_real(w, h) = w + h y no h, porque para conocer la etiqueta de t+h hacen falta las w velas posteriores a t+h.",
+  "nota_tiempo_carga": "tiempo_carga_s mide de cero hasta modelo listo. Si cache_frio es true, incluye la descarga del repositorio; si es false, es solo leer de disco e inicializar. La descarga se paga una vez por maquina.",
+  "nota_granite": "granite-tsfm (IBM TinyTimeMixer) quedo fuera: su resolucion degrada torch de 2.13.0 a 2.10.0, y un entorno distinto al del resto del equipo rompe RNF-3. Medido con uv pip install --dry-run, no instalado.",
+  "nota_extrapolacion": "extrapolacion_validacion_min multiplica el tiempo por ventana en lote por 1955 filas de validacion. Es una extrapolacion, no un cronometraje.",
+  "candidatos": [
+    {
+      "nombre": "chronos-bolt-small",
+      "repo": "amazon/chronos-bolt-small",
+      "familia": "Chronos-Bolt (Amazon)",
+      "paquete": "chronos-forecasting",
+      "cache_frio": false,
+      "contexto": 512,
+      "horizonte": 12,
+      "tiempo_carga_s": 14.08,
+      "memoria_modelo_mb": 291.0,
+      "tamano_disco_mb": 182.05,
+      "tiempo_inferencia_s": 0.0265,
+      "desvio_inferencia_s": 0.0025,
+      "forma_salida": [
+        1,
+        9,
+        12
+      ],
+      "tiempo_por_ventana_en_lote_s": 0.0061,
+      "extrapolacion_validacion_min": 0.2,
+      "viable": true,
+      "memoria_pico_mb": 695.0
+    },
+    {
+      "nombre": "chronos-t5-small",
+      "repo": "amazon/chronos-t5-small",
+      "familia": "Chronos-T5 (Amazon)",
+      "paquete": "chronos-forecasting",
+      "cache_frio": false,
+      "contexto": 512,
+      "horizonte": 12,
+      "tiempo_carga_s": 11.11,
+      "memoria_modelo_mb": 292.1,
+      "tamano_disco_mb": 176.08,
+      "tiempo_inferencia_s": 0.739,
+      "desvio_inferencia_s": 0.0074,
+      "forma_salida": [
+        1,
+        20,
+        12
+      ],
+      "tiempo_por_ventana_en_lote_s": 2.9546,
+      "extrapolacion_validacion_min": 96.3,
+      "viable": true,
+      "memoria_pico_mb": 4805.6
+    },
+    {
+      "nombre": "timesfm-2.5-200m",
+      "repo": "google/timesfm-2.5-200m-pytorch",
+      "familia": "TimesFM (Google)",
+      "paquete": "timesfm",
+      "cache_frio": false,
+      "contexto": 512,
+      "horizonte": 12,
+      "tiempo_carga_s": 9.66,
+      "memoria_modelo_mb": 1066.6,
+      "tamano_disco_mb": 882.32,
+      "tiempo_inferencia_s": 0.1747,
+      "desvio_inferencia_s": 0.0054,
+      "forma_salida": [
+        1,
+        12
+      ],
+      "tiempo_por_ventana_en_lote_s": 0.1836,
+      "extrapolacion_validacion_min": 6.0,
+      "viable": true,
+      "memoria_pico_mb": 1264.6
+    }
+  ]
+}
