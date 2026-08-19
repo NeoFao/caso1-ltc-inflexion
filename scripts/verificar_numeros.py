@@ -42,7 +42,17 @@ PATRON = re.compile(r"\b(\d+[.,]\d{2,6})\b")
 # Un DOI o una URL estan llenos de digitos con puntos que no son mediciones:
 # 10.1016/j.irfa.2018.09.003 aporta cuatro falsos positivos el solo. Se recortan
 # antes de buscar, en vez de ir anadiendolos a CONOCIDOS uno por uno.
-RUIDO = re.compile(r"https?://\S+|\b10\.\d{4,9}/\S+", re.IGNORECASE)
+# Lo que parece un numero y no lo es. Una URL, un DOI y una version de paquete son
+# identificadores: nombran algo, no miden nada, y exigirles respaldo en la evidencia
+# marcaria como inventado un dato que es correcto. Las versiones se reconocen por
+# tener tres componentes (2.13.0) o por ir precedidas del nombre del paquete.
+RUIDO = re.compile(
+    r"https?://\S+"
+    r"|\b10\.\d{4,9}/\S+"
+    r"|\b\d+\.\d+\.\d+(?:[.\w-]*)?\b"
+    r"|\b(?:torch|python|pandas|numpy|scikit-learn|matplotlib)\s+[\d.]+",
+    re.IGNORECASE,
+)
 
 
 def _variantes(valor: float) -> set[str]:

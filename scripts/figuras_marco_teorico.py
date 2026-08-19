@@ -30,7 +30,20 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from statsmodels.tsa.seasonal import seasonal_decompose  # noqa: E402
 
-from contracts.config import ACTIVOS, GRANULARIDAD, VENTANA_W  # noqa: E402
+from contracts.config import ACTIVOS  # noqa: E402
+
+# Anclados a proposito, y NO leidos de contracts/config.py.
+#
+# La evidencia de la Semana 1 se midio con velas diarias y w=5, y el documento
+# entregado el 18/08/2026 cita esos numeros. El contrato se congelo despues en 4h
+# y w=7, asi que leerlo desde aqui haria que re-ejecutar este guion cambiara la
+# evidencia y dejara al entregable citando valores que ya no existen, en silencio.
+#
+# La evidencia de una entrega ya hecha es historia, no una vista del contrato
+# vigente. Para producir las figuras de una entrega futura, se cambian estos dos
+# valores a proposito y se declara en el documento con que se midio.
+GRANULARIDAD = "1d"
+VENTANA_W = 5
 from contracts.labeling import Clase, etiquetar, resumen_clases  # noqa: E402
 from contracts.metrics import evaluar, matriz_confusion  # noqa: E402
 from contracts.schema import cierre  # noqa: E402

@@ -22,20 +22,35 @@ SIMBOLOS = {
 }
 
 # ---------------------------------------------------------------------------
-# PROVISIONAL — decisiones D1, D2 y D3 del PRD.
+# CONGELADO el 18 de agosto de 2026. Estudio y justificacion en
+# docs/04-decision-w-h-granularidad.md, numeros en docs/evidencias/estudio-w-h.json.
 #
-# Estos tres numeros los fija el equipo con la medicion de scripts/spike_datos.py
-# encima de la mesa, no por intuicion. Criterio acordado de antemano: el w mas
-# grande que deje al menos 300 ejemplos de la clase minoritaria en entrenamiento.
+# Los tres valores salen de medicion, no de intuicion, y cada uno de un criterio
+# distinto fijado antes de mirar el resultado:
 #
-# Mientras esta seccion diga PROVISIONAL, ningun resultado que dependa de ella
-# entra al informe como definitivo.
+#   GRANULARIDAD  Con velas diarias NINGUNA combinacion de w alcanza el piso de
+#                 300 ejemplos de clase minoritaria; la mejor deja 149. Con 4h,
+#                 w=7 deja 420. Las dos granularidades cubren el mismo periodo:
+#                 bajar no anade historia, subdivide la que hay.
+#   VENTANA_W     El w mas grande que cumple el piso, porque un w grande produce
+#                 etiquetas mas significativas. w=10 quedo en 299, uno por debajo.
+#   HORIZONTE_H   La informacion mutua entre lo observable en t y la etiqueta en
+#                 t+h cae 4,2 veces de h=1 a h=3 y despues se aplana, en las
+#                 cuatro configuraciones medidas. Corrige una propuesta previa de
+#                 h=5 que se habia hecho por juicio y no por medicion.
+#
+# La anticipacion real del sistema es h+w, no h: 8 velas de 4 horas, 32 horas.
+# Reportar solo h seria enganoso.
+#
+# Cambiar cualquiera de los tres obliga a regenerar toda la evidencia que dependa
+# de etiquetas y a re-correr las comparaciones entre modelos, porque dejan de ser
+# comparables con las anteriores.
 # ---------------------------------------------------------------------------
-PROVISIONAL = True
+PROVISIONAL = False
 
-GRANULARIDAD = "1d"
-VENTANA_W = 5
-HORIZONTE_H = 3
+GRANULARIDAD = "4h"
+VENTANA_W = 7
+HORIZONTE_H = 1
 
 # Piso de ejemplos por clase minoritaria en entrenamiento. Es una propuesta del
 # PM para que la decision tenga criterio explicito, no un valor de la literatura.

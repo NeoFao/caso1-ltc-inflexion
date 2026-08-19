@@ -1,0 +1,19 @@
+{
+  "documento": "Marco teorico - Semana 1 (entregada18.8.26)",
+  "introduccion": "m0-introduccion.md",
+  "conclusion": "m0-conclusion.md",
+  "capitulos": [
+    {
+      "archivo": "m1-series-temporales.md",
+      "titulo": "Marco Teórico: Series de Tiempo"
+    },
+    {
+      "archivo": "m2-criptoactivos.md",
+      "titulo": "Marco Teórico: Criptoactivos y sus Características"
+    },
+    {
+      "archivo": "m2-metricas.md",
+      "titulo": "Métricas de Evaluación para Puntos de Inflexión"
+    }
+  ]
+}

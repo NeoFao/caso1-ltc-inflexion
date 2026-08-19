@@ -1,0 +1,15 @@
+{
+  "documento": "Marco teorico - Semana 2",
+  "introduccion": "m0-introduccion.md",
+  "conclusion": "m0-conclusion.md",
+  "capitulos": [
+    {
+      "archivo": "m3-modelos.md",
+      "titulo": "Modelos Estadísticos y de Aprendizaje Automático para Series Temporales"
+    },
+    {
+      "archivo": "m0-procedimiento.md",
+      "titulo": "Procedimiento para Desarrollar el Modelo de Puntos de Inflexión"
+    }
+  ]
+}

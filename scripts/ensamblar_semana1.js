@@ -32,13 +32,26 @@ const RAIZ = path.resolve(__dirname, '..');
 // sobrescribir la version buena, y a las horas de entregar eso no se hace.
 const ENTREGA = path.join(RAIZ, 'docs', 'entregas', process.env.CARPETA_ENTREGA || 'semana-1');
 
-// El orden importa: es el del enunciado. Series de tiempo primero, criptoactivos
-// despues, y metricas al final como noveno punto de ese bloque.
-const SECCIONES = [
-  'm1-series-temporales.md',
-  'm2-criptoactivos.md',
-  'm2-metricas.md',
-];
+// Que archivos entran, en que orden y con que titulo de capitulo. Cada entrega lo
+// declara en su propio secciones.json, porque el orden es el del enunciado de esa
+// semana y cambia de una a otra.
+//
+// Sin el manifiesto el guion servia para una sola entrega y habia que editarlo cada
+// semana, que es justo la clase de paso manual que se olvida.
+function manifiesto() {
+  const ruta = path.join(ENTREGA, 'secciones.json');
+  if (!fs.existsSync(ruta)) {
+    throw new Error(
+      `falta ${path.relative(RAIZ, ruta)}. Declara ahi que archivos entran, en que `
+      + 'orden y con que titulo de capitulo. Ver docs/entregas/semana-1/secciones.json.',
+    );
+  }
+  const leido = JSON.parse(fs.readFileSync(ruta, 'utf8'));
+  for (const clave of ['introduccion', 'conclusion', 'capitulos']) {
+    if (!(clave in leido)) throw new Error(`${path.relative(RAIZ, ruta)} no declara "${clave}"`);
+  }
+  return leido;
+}
 
 // Dos clases de bloque de cita que no son contenido, y se tratan distinto.
 //
@@ -326,7 +339,8 @@ function emitirSuelta(nombre, cuerpo) {
 
 function main() {
   const avisos = [];
-  const documentos = SECCIONES.map((nombre) => {
+  const plan = manifiesto();
+  const documentos = plan.capitulos.map(({ archivo: nombre }) => {
     const ruta = path.join(ENTREGA, nombre);
     if (!fs.existsSync(ruta)) throw new Error(`falta ${ruta}`);
     const partes = partir(tokenizar(fs.readFileSync(ruta, 'utf8')));
@@ -350,15 +364,11 @@ function main() {
   // APA 7: la primera pagina del cuerpo repite el titulo y la introduccion no
   // lleva encabezado propio.
   cuerpo.push(apa.titulo(1, 'Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin'));
-  emitirSuelta('m0-introduccion.md', cuerpo);
+  emitirSuelta(plan.introduccion, cuerpo);
 
-  const TITULOS = {
-    'm1-series-temporales.md': 'Marco Teórico: Series de Tiempo',
-    'm2-criptoactivos.md': 'Marco Teórico: Criptoactivos y sus Características',
-    'm2-metricas.md': 'Métricas de Evaluación para Puntos de Inflexión',
-  };
+  const titulos = Object.fromEntries(plan.capitulos.map((c) => [c.archivo, c.titulo]));
   for (const doc of documentos) {
-    cuerpo.push(apa.titulo(1, TITULOS[doc.nombre]));
+    cuerpo.push(apa.titulo(1, titulos[doc.nombre]));
     cuerpo.push(...emitir(doc, ENTREGA, avisos));
   }
 
@@ -366,7 +376,7 @@ function main() {
   // las conclusiones si llevan encabezado propio. Sin el, los cuatro parrafos
   // quedaban colgando de la ultima seccion de metricas.
   cuerpo.push(apa.titulo(1, 'Conclusiones'));
-  emitirSuelta('m0-conclusion.md', cuerpo);
+  emitirSuelta(plan.conclusion, cuerpo);
 
   // Referencias de los tres archivos, sin duplicados y ordenadas por apellido.
   const vistas = new Map();
@@ -400,7 +410,10 @@ function main() {
   });
 
   const destino = process.argv[2]
-    || path.join(ENTREGA, 'Marco teorico - Semana 1.docx');
+    // El nombre sale del manifiesto, y si no lo declara, de la carpeta. Tenerlo
+    // fijo hacia que la entrega de la Semana 2 se escribiera en un archivo llamado
+    // "Semana 1", que es la clase de detalle que llega al profesor.
+    || path.join(ENTREGA, `${plan.documento || path.basename(ENTREGA)}.docx`);
 
   Packer.toBuffer(documento).then((contenido) => {
     fs.writeFileSync(destino, contenido);
