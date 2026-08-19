@@ -21,7 +21,28 @@ Eso significa tres cosas:
 
 ## Crear el backend en Hugging Face
 
-**Por qué Hugging Face y no Render, Fly o Railway.** El nivel gratuito da 2 vCPU y 16 GB de RAM sin tarjeta. Render gratis da 512 MB, que no alcanza para servir inferencia de un modelo fundacional. Y hay una razón que pesa más que las especificaciones: el enunciado obliga a usar un modelo fundacional de Hugging Face, así que en la semana 3 los pesos van a estar del mismo lado que el servidor.
+> ## Esto ya no se puede como está escrito
+>
+> **Comprobado el 19 de agosto de 2026 en el formulario de creación de Hugging Face:
+> los Spaces de Docker y de Gradio requieren plan de pago.** Solo los *Static*
+> siguen siendo gratuitos, y un Static sirve archivos: no puede correr FastAPI.
+>
+> La sección de abajo se escribió cuando el nivel gratuito sí incluía Docker. Se
+> conserva porque el `Dockerfile` sigue siendo correcto y serviría el día que haya
+> dónde ejecutarlo, pero **no la sigas tal cual: el paso 1 no se puede completar**.
+>
+> **Qué hacer mientras tanto: nada.** La página funciona con el snapshot congelado y
+> declara su antigüedad en la cabecera, que es exactamente lo que se diseñó para este
+> caso. El backend en vivo es una mejora, no un requisito del enunciado. Antes de
+> pagar o de mudarse de proveedor conviene preguntarse qué se gana, y hoy la
+> respuesta es: que el número de la cabecera diga *hoy* en vez de *hace tres días*.
+>
+> Si en las semanas 3 o 4 hiciera falta de verdad, las alternativas a evaluar son
+> Render, Fly.io, Google Cloud Run y Koyeb. **Sus niveles gratuitos hay que
+> verificarlos en el momento**, no darlos por buenos: este documento afirmaba un
+> nivel gratuito que dejó de existir, y esa es justamente la lección.
+
+**Por qué se había elegido Hugging Face.** Además de las especificaciones que ofrecía entonces, hay una razón que sigue en pie: el enunciado obliga a usar un modelo fundacional de Hugging Face, así que en la semana 3 los pesos van a estar del mismo lado que el servidor.
 
 **Lo que se pierde:** el Space se duerme tras unas 48 horas sin visitas y tarda en despertar. Deja de importar porque la página cae al snapshot mientras tanto.
 
