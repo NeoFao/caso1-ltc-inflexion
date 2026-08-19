@@ -1,7 +1,20 @@
 # Cómo producir la versión de ~45 páginas
 
-**Estado: pendiente de ejecutar.** Este documento es autosuficiente: quien lo tome
-no necesita haber estado en la conversación donde se decidió.
+**Estado: intentado el 18/08/2026, no alcanzó el objetivo.** Se llegó a 51 páginas y
+9 801 palabras, no a 45. La carpeta resultante se retiró y el trabajo quedó en el
+commit `e0d76c2`, de donde se puede recuperar.
+
+**Por qué no alcanzó, para quien vuelva a intentarlo.** La versión concisa ya había
+absorbido el 25 % de recorte fácil, y a partir de ahí cada pasada rinde mucho menos:
+la primera pasada completa dio 3 661 palabras, la segunda 349 y la tercera 129. Las
+2 200 palabras que faltaban ya no salen de la redacción; saldrían de quitar
+argumentos, advertencias metodológicas o literatura, que es contenido y no relleno.
+
+**Si el objetivo de 45 sigue en pie, la única palanca que queda es menos figuras.**
+Cada figura con su pie cuesta cerca de media página, y seis de las quince son las
+series construidas que pidió el profesor, así que la decisión no es técnica.
+
+El resto del documento sigue siendo válido como receta y como registro de lo medido.
 
 ---
 
