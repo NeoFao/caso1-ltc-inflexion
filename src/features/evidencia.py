@@ -177,13 +177,18 @@ def figura_posicion_rango(tabla: pd.DataFrame, w: int, ventana: int = 7):
 
 
 def generar_evidencia(directorio=None) -> dict:
-    """Figuras y mediciones sobre el panel de 4 horas con w = 7.
+    """Figuras y mediciones sobre el panel y la ventana que fija el contrato.
 
-    Se usa 4h y w = 7 y no los valores del contrato porque `contracts/config.py`
-    sigue marcado PROVISIONAL con 1d y w = 5, mientras que la medicion de
-    scripts/spike_datos.py recomienda 4h con w = 7 y es el unico par que deja mas de
-    300 ejemplos de la clase minoritaria en entrenamiento. Se reportan tambien los
-    valores del contrato para que la comparacion exista.
+    Granularidad y w salen de `contracts/config.py`, que desde el commit d8f9b8a esta
+    congelado en 4h y w = 7 (PROVISIONAL = False). No se repiten aqui como constantes
+    propias: serian una segunda fuente de verdad, y la primera vez que el contrato
+    cambie sin que alguien se acuerde de este archivo, los numeros dejarian de ser
+    comparables sin que nadie lo note.
+
+    Esta funcion medía antes dos veces lo mismo —"el panel de 4h con w = 7" y "los
+    valores del contrato"— porque cuando se escribio el contrato decia 1d y w = 5 y
+    los dos casos eran distintos. Al congelarse coincidieron, de modo que la
+    distincion dejo de existir y la segunda medicion era la primera con otro nombre.
     """
     import json
     from datetime import UTC, datetime
@@ -195,18 +200,19 @@ def generar_evidencia(directorio=None) -> dict:
     destino = directorio or estilo.DIRECTORIO_EVIDENCIAS
     destino.mkdir(parents=True, exist_ok=True)
 
-    panel_4h = pd.read_parquet("data/processed/panel_4h_v1.parquet")
-    panel_contrato = pd.read_parquet(f"data/processed/panel_{GRANULARIDAD}_v1.parquet")
+    panel = pd.read_parquet(f"data/processed/panel_{GRANULARIDAD}_v1.parquet")
 
-    estilo.guardar(figura_indicadores(panel_4h), "m2-indicadores-sobre-precio", destino)
+    estilo.guardar(figura_indicadores(panel), "m2-indicadores-sobre-precio", destino)
 
-    tabla_4h = medir_posicion_rango(panel_4h, w=7)
-    tabla_contrato = medir_posicion_rango(panel_contrato, w=VENTANA_W)
-    tabla_4h.round(6).to_csv(destino / "m2-posicion-rango-4h-w7.csv", index=False)
-    estilo.guardar(figura_posicion_rango(tabla_4h, w=7), "m2-posicion-rango", destino)
+    tabla = medir_posicion_rango(panel, w=VENTANA_W)
+    tabla.round(6).to_csv(
+        destino / f"m2-posicion-rango-{GRANULARIDAD}-w{VENTANA_W}.csv", index=False
+    )
+    estilo.guardar(figura_posicion_rango(tabla, w=VENTANA_W), "m2-posicion-rango", destino)
 
-    columnas = construir(panel_4h)
+    columnas = construir(panel)
     evidencia = {
+        "parametros": {"panel": GRANULARIDAD, "w": VENTANA_W},
         "caracteristicas": {
             "n_columnas": int(columnas.shape[1]),
             "columnas": list(columnas.columns),
@@ -214,14 +220,8 @@ def generar_evidencia(directorio=None) -> dict:
             "filas_totales": int(len(columnas)),
         },
         "posicion_rango": {
-            "panel_4h_w7": {
-                "tasas_base": tabla_4h.attrs["tasas_base"],
-                "tramos": tabla_4h.round(6).to_dict(orient="records"),
-            },
-            f"panel_{GRANULARIDAD}_w{VENTANA_W}_contrato": {
-                "tasas_base": tabla_contrato.attrs["tasas_base"],
-                "tramos": tabla_contrato.round(6).to_dict(orient="records"),
-            },
+            "tasas_base": tabla.attrs["tasas_base"],
+            "tramos": tabla.round(6).to_dict(orient="records"),
         },
         "_meta": {
             "generado_utc": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -248,13 +248,13 @@ if __name__ == "__main__":
         salida["caracteristicas"]["filas_sin_ningun_nan"],
         "de", salida["caracteristicas"]["filas_totales"],
     )
-    for nombre, bloque in salida["posicion_rango"].items():
-        print(f"\n===== posicion_rango — {nombre} =====")
-        print("tasas base:", {k: round(v, 5) for k, v in bloque["tasas_base"].items()})
-        tabla = pd.DataFrame(bloque["tramos"])
-        print(
-            tabla[
-                ["ventana", "tramo", "n", "tasa_maximo", "levantamiento_maximo",
-                 "tasa_minimo", "levantamiento_minimo"]
-            ].round(4).to_string(index=False)
-        )
+    bloque = salida["posicion_rango"]
+    parametros = salida["parametros"]
+    print(f"\n===== posicion_rango — panel {parametros['panel']}, w = {parametros['w']} =====")
+    print("tasas base:", {k: round(v, 5) for k, v in bloque["tasas_base"].items()})
+    print(
+        pd.DataFrame(bloque["tramos"])[
+            ["ventana", "tramo", "n", "tasa_maximo", "levantamiento_maximo",
+             "tasa_minimo", "levantamiento_minimo"]
+        ].round(4).to_string(index=False)
+    )
