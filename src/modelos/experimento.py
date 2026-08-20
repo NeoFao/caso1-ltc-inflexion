@@ -4,14 +4,14 @@ Carga el panel congelado, construye las caracteristicas de M2, etiqueta con el
 contrato, parte cronologicamente con embargo, evalua los tres baselines y el
 bosque con el mismo arnes y la misma particion, y deja la evidencia.
 
-Los valores por omision (4h, w=7, h=5) salen de la medicion en
-docs/evidencias/spike-datos-4h.json, NO de contracts/config.py, que sigue
-marcado PROVISIONAL con 1d/w=5/h=3. Mientras esa marca siga puesta, ningun
-numero de aqui entra al informe como definitivo.
+Los valores por omision (4h, w=7, h=1) salen del contrato congelado en
+contracts/config.py el 18 de agosto de 2026, justificado en
+docs/04-decision-w-h-granularidad.md. PROVISIONAL es False: estos numeros ya
+entran al informe como definitivos.
 
 Salidas:
-    docs/evidencias/resultados.csv                    una fila por modelo, se anade
-    docs/evidencias/modelo-clasico-<intervalo>.json   los numeros de esta corrida
+    docs/evidencias/resultados.csv                          una fila por modelo, se anade
+    docs/evidencias/modelo-clasico-<intervalo>-w<w>-h<h>.json   los numeros de esta corrida
 
 Uso:
     uv run python -m src.modelos.experimento
@@ -62,6 +62,20 @@ def _verificar_encabezado(ruta: Path, resultado: dict) -> None:
             f"el encabezado de {ruta.name} es {encabezado} y este resultado trae "
             f"{list(resultado)}. Anadir asi desalinearia las columnas en silencio."
         )
+
+
+def detecta_mejor_que_azar(resultado_modelo: dict, resultado_aleatorio: dict) -> bool:
+    """Si el modelo detecta las dos clases extremas, o solo les acierta por casualidad.
+
+    "> 0" no alcanza como piso: con un solo acierto de 94 casos ya da True, y el
+    aviso para el que existe este chequeo nunca llegaria a imprimirse (issue #51).
+    El piso correcto es el F1 por clase del baseline_aleatorio de la MISMA corrida:
+    si el bosque no le gana ni al azar en una clase extrema, no la esta detectando.
+    """
+    return bool(
+        resultado_modelo["f1_maximo"] > resultado_aleatorio["f1_maximo"]
+        and resultado_modelo["f1_minimo"] > resultado_aleatorio["f1_minimo"]
+    )
 
 
 def _finito(valor):
@@ -211,9 +225,9 @@ def main() -> None:
     supera = bool(delta > 0)
 
     # Superar al trivial por decimales no significa que el modelo sirva: se puede
-    # ganar F1 macro por un puñado de aciertos de suerte sin detectar un solo
-    # extremo. Se mide aparte para que el informe no pueda confundir las dos cosas.
-    detecta = bool(bosque_r["f1_maximo"] > 0 and bosque_r["f1_minimo"] > 0)
+    # ganar F1 macro sin detectar de verdad un extremo. Ver detecta_mejor_que_azar.
+    aleatorio_r = por_nombre["baseline_aleatorio"]
+    detecta = detecta_mejor_que_azar(bosque_r, aleatorio_r)
 
     bosque = next(m for m in modelos if m.nombre == "bosque_aleatorio")
     importancias = bosque.importancias()
@@ -253,8 +267,14 @@ def main() -> None:
             "supera_al_trivial": supera,
             "delta_f1_macro": delta,
             "detecta_ambos_extremos": detecta,
+            "criterio_deteccion": (
+                "F1 por clase extrema estrictamente mayor que el del "
+                "baseline_aleatorio de la misma corrida, no simplemente > 0"
+            ),
             "f1_maximo": bosque_r["f1_maximo"],
             "f1_minimo": bosque_r["f1_minimo"],
+            "f1_maximo_aleatorio": aleatorio_r["f1_maximo"],
+            "f1_minimo_aleatorio": aleatorio_r["f1_minimo"],
             "precision_direccional": bosque_r["precision_direccional"],
         },
         "importancias_top10": importancias.head(10).round(6).to_dict(),
@@ -282,11 +302,17 @@ def main() -> None:
     print(f"\n      el bosque supera al trivial por {delta:+.4f} de F1 macro.")
     if not detecta:
         print(
-            "      PERO no detecta las dos clases extremas: "
-            f"F1 Maximo={bosque_r['f1_maximo']:.4f}, F1 Minimo={bosque_r['f1_minimo']:.4f}, "
-            f"precision direccional={bosque_r['precision_direccional']:.4f}.\n"
+            "      PERO no detecta las dos clases extremas mejor que el azar: "
+            f"F1 Maximo={bosque_r['f1_maximo']:.4f} (azar {aleatorio_r['f1_maximo']:.4f}), "
+            f"F1 Minimo={bosque_r['f1_minimo']:.4f} (azar {aleatorio_r['f1_minimo']:.4f}).\n"
             "      El criterio de aceptacion se cumple por un margen que no es deteccion.\n"
             "      Esto va al informe tal cual: 'corre' y 'funciona' no son lo mismo."
+        )
+    else:
+        print(
+            "      Y detecta ambos extremos mejor que el azar: "
+            f"F1 Maximo={bosque_r['f1_maximo']:.4f} (azar {aleatorio_r['f1_maximo']:.4f}), "
+            f"F1 Minimo={bosque_r['f1_minimo']:.4f} (azar {aleatorio_r['f1_minimo']:.4f})."
         )
 
 
