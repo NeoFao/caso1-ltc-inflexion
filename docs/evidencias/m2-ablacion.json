@@ -1,0 +1,217 @@
+{
+ "modelos_de_referencia": [
+  {
+   "modelo": "logistica_balanceada",
+   "n": 1955,
+   "f1_macro": 0.305785,
+   "precision_direccional": 0.229167,
+   "exactitud": 0.590281,
+   "f1_maximo": 0.103152,
+   "f1_minimo": 0.070485,
+   "f1_continuidad": 0.743719
+  },
+  {
+   "modelo": "logistica_sin_balancear",
+   "n": 1955,
+   "f1_macro": 0.316025,
+   "precision_direccional": 0.0,
+   "exactitud": 0.901279,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.948076
+  },
+  {
+   "modelo": "arboles_balanceado",
+   "n": 1955,
+   "f1_macro": 0.31612,
+   "precision_direccional": 0.0,
+   "exactitud": 0.90179,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.948359
+  },
+  {
+   "modelo": "arboles_sin_balancear",
+   "n": 1955,
+   "f1_macro": 0.31612,
+   "precision_direccional": 0.0,
+   "exactitud": 0.90179,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.948359
+  }
+ ],
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 5,
+  "conjunto_de_medicion": "validacion",
+  "modelo_de_referencia": "LogisticRegression(class_weight='balanced'), semilla 0"
+ },
+ "resultados": [
+  {
+   "conjunto": "sin_retornos",
+   "n_columnas": 46,
+   "n": 1955,
+   "f1_macro": 0.310523,
+   "precision_direccional": 0.192708,
+   "exactitud": 0.618414,
+   "f1_maximo": 0.091483,
+   "f1_minimo": 0.074074,
+   "f1_continuidad": 0.766013,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": 0.0047
+  },
+  {
+   "conjunto": "sin_volatilidad",
+   "n_columnas": 60,
+   "n": 1955,
+   "f1_macro": 0.307258,
+   "precision_direccional": 0.229167,
+   "exactitud": 0.598465,
+   "f1_maximo": 0.107091,
+   "f1_minimo": 0.064516,
+   "f1_continuidad": 0.750167,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": 0.0015
+  },
+  {
+   "conjunto": "completo",
+   "n_columnas": 63,
+   "n": 1955,
+   "f1_macro": 0.305785,
+   "precision_direccional": 0.229167,
+   "exactitud": 0.590281,
+   "f1_maximo": 0.103152,
+   "f1_minimo": 0.070485,
+   "f1_continuidad": 0.743719,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": 0.0
+  },
+  {
+   "conjunto": "sin_correlacion_cruzada",
+   "n_columnas": 58,
+   "n": 1955,
+   "f1_macro": 0.299904,
+   "precision_direccional": 0.234375,
+   "exactitud": 0.573402,
+   "f1_maximo": 0.101928,
+   "f1_minimo": 0.067797,
+   "f1_continuidad": 0.729986,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": -0.0059
+  },
+  {
+   "conjunto": "sin_ventana_deslizante",
+   "n_columnas": 59,
+   "n": 1955,
+   "f1_macro": 0.284342,
+   "precision_direccional": 0.270833,
+   "exactitud": 0.521739,
+   "f1_maximo": 0.103926,
+   "f1_minimo": 0.063063,
+   "f1_continuidad": 0.686038,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": -0.0214
+  },
+  {
+   "conjunto": "sin_indicadores_tecnicos",
+   "n_columnas": 53,
+   "n": 1955,
+   "f1_macro": 0.272134,
+   "precision_direccional": 0.265625,
+   "exactitud": 0.496164,
+   "f1_maximo": 0.097508,
+   "f1_minimo": 0.056075,
+   "f1_continuidad": 0.66282,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": -0.0337
+  },
+  {
+   "conjunto": "sin_rezagos",
+   "n_columnas": 39,
+   "n": 1955,
+   "f1_macro": 0.213284,
+   "precision_direccional": 0.401042,
+   "exactitud": 0.304348,
+   "f1_maximo": 0.110236,
+   "f1_minimo": 0.086313,
+   "f1_continuidad": 0.443303,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": -0.0925
+  },
+  {
+   "conjunto": "sin_rezagos_de_apoyo",
+   "n_columnas": 43,
+   "n": 1955,
+   "f1_macro": 0.212395,
+   "precision_direccional": 0.401042,
+   "exactitud": 0.302813,
+   "f1_maximo": 0.112272,
+   "f1_minimo": 0.084367,
+   "f1_continuidad": 0.440547,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": -0.0934
+  },
+  {
+   "conjunto": "solo_LTC",
+   "n_columnas": 28,
+   "n": 1955,
+   "f1_macro": 0.182913,
+   "precision_direccional": 0.442708,
+   "exactitud": 0.239898,
+   "f1_maximo": 0.10551,
+   "f1_minimo": 0.091743,
+   "f1_continuidad": 0.351487,
+   "n_entrenamiento": 9137.0,
+   "delta_f1_macro": -0.1229
+  },
+  {
+   "conjunto": "baseline_trivial",
+   "n_columnas": 0,
+   "n": 1955,
+   "f1_macro": 0.31612,
+   "precision_direccional": 0.0,
+   "exactitud": 0.90179,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.948359,
+   "n_entrenamiento": NaN,
+   "delta_f1_macro": NaN
+  },
+  {
+   "conjunto": "baseline_mayoritario",
+   "n_columnas": 0,
+   "n": 1955,
+   "f1_macro": 0.31612,
+   "precision_direccional": 0.0,
+   "exactitud": 0.90179,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.948359,
+   "n_entrenamiento": NaN,
+   "delta_f1_macro": NaN
+  },
+  {
+   "conjunto": "baseline_aleatorio",
+   "n_columnas": 0,
+   "n": 1955,
+   "f1_macro": 0.325286,
+   "precision_direccional": 0.036458,
+   "exactitud": 0.818926,
+   "f1_maximo": 0.0625,
+   "f1_minimo": 0.010753,
+   "f1_continuidad": 0.902605,
+   "n_entrenamiento": NaN,
+   "delta_f1_macro": NaN
+  }
+ ],
+ "_meta": {
+  "generado_utc": "2026-08-20T02:05:24+00:00",
+  "issues": [
+   "S2-M2-02",
+   "S4-M2-01"
+  ],
+  "advertencia": "Estos numeros comparan FAMILIAS DE CARACTERISTICAS entre si con un modelo de referencia fijo. No son el rendimiento del sistema: ese sale del modelo de M3 por el arnes de M0, y sobre el bloque de prueba, que aqui no se toca."
+ }
+}

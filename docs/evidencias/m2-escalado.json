@@ -1,0 +1,499 @@
+{
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 5,
+  "umbral_fuera_de_rango": 5.0
+ },
+ "resultados": {
+  "rezagos_nivel__metodo_robusto": {
+   "n_columnas": 63,
+   "n_filas_ajuste": 9167,
+   "columnas_constantes": [],
+   "por_familia": [
+    {
+     "familia": "rezagos",
+     "columnas": 24,
+     "fuera_de_rango_pct_medio": 7.165,
+     "peor_columna_pct": 43.089,
+     "abs_max_prueba": 10.63
+    },
+    {
+     "familia": "volatilidad",
+     "columnas": 3,
+     "fuera_de_rango_pct_medio": 0.339,
+     "peor_columna_pct": 0.661,
+     "abs_max_prueba": 7.576
+    },
+    {
+     "familia": "ventana_deslizante",
+     "columnas": 4,
+     "fuera_de_rango_pct_medio": 0.114,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 9.379
+    },
+    {
+     "familia": "retornos",
+     "columnas": 17,
+     "fuera_de_rango_pct_medio": 0.108,
+     "peor_columna_pct": 0.559,
+     "abs_max_prueba": 14.53
+    },
+    {
+     "familia": "indicadores_tecnicos",
+     "columnas": 10,
+     "fuera_de_rango_pct_medio": 0.096,
+     "peor_columna_pct": 0.457,
+     "abs_max_prueba": 9.726
+    },
+    {
+     "familia": "correlacion_cruzada",
+     "columnas": 5,
+     "fuera_de_rango_pct_medio": 0.0,
+     "peor_columna_pct": 0.0,
+     "abs_max_prueba": 3.713
+    }
+   ],
+   "peores_columnas": [
+    {
+     "columna": "XRP_cierre_rezago_7",
+     "fuera_de_rango_pct": 43.089,
+     "abs_max_prueba": 10.601,
+     "abs_max_entrenamiento": 5.516,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_6",
+     "fuera_de_rango_pct": 43.039,
+     "abs_max_prueba": 10.602,
+     "abs_max_entrenamiento": 5.517,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_5",
+     "fuera_de_rango_pct": 42.988,
+     "abs_max_prueba": 10.609,
+     "abs_max_entrenamiento": 5.52,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_1",
+     "fuera_de_rango_pct": 42.835,
+     "abs_max_prueba": 10.63,
+     "abs_max_entrenamiento": 5.531,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_volatilidad_14",
+     "fuera_de_rango_pct": 0.661,
+     "abs_max_prueba": 5.427,
+     "abs_max_entrenamiento": 5.122,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_curtosis_retornos_20",
+     "fuera_de_rango_pct": 0.559,
+     "abs_max_prueba": 5.953,
+     "abs_max_entrenamiento": 6.732,
+     "familia": "retornos"
+    },
+    {
+     "columna": "LTC_bollinger_ancho_20",
+     "fuera_de_rango_pct": 0.457,
+     "abs_max_prueba": 5.881,
+     "abs_max_entrenamiento": 8.146,
+     "familia": "indicadores_tecnicos"
+    },
+    {
+     "columna": "LTC_volatilidad_7",
+     "fuera_de_rango_pct": 0.356,
+     "abs_max_prueba": 7.576,
+     "abs_max_entrenamiento": 6.716,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_rango_rel_7",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 9.379,
+     "abs_max_entrenamiento": 15.584,
+     "familia": "ventana_deslizante"
+    },
+    {
+     "columna": "LTC_retorno_7",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 5.931,
+     "abs_max_entrenamiento": 8.721,
+     "familia": "retornos"
+    }
+   ]
+  },
+  "rezagos_nivel__metodo_estandar": {
+   "n_columnas": 63,
+   "n_filas_ajuste": 9167,
+   "columnas_constantes": [],
+   "por_familia": [
+    {
+     "familia": "rezagos",
+     "columnas": 24,
+     "fuera_de_rango_pct_medio": 6.629,
+     "peor_columna_pct": 37.957,
+     "abs_max_prueba": 9.822
+    },
+    {
+     "familia": "volatilidad",
+     "columnas": 3,
+     "fuera_de_rango_pct_medio": 0.356,
+     "peor_columna_pct": 0.711,
+     "abs_max_prueba": 7.887
+    },
+    {
+     "familia": "ventana_deslizante",
+     "columnas": 4,
+     "fuera_de_rango_pct_medio": 0.076,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 8.306
+    },
+    {
+     "familia": "indicadores_tecnicos",
+     "columnas": 10,
+     "fuera_de_rango_pct_medio": 0.066,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 8.412
+    },
+    {
+     "familia": "retornos",
+     "columnas": 17,
+     "fuera_de_rango_pct_medio": 0.051,
+     "peor_columna_pct": 0.254,
+     "abs_max_prueba": 12.21
+    },
+    {
+     "familia": "correlacion_cruzada",
+     "columnas": 5,
+     "fuera_de_rango_pct_medio": 0.0,
+     "peor_columna_pct": 0.0,
+     "abs_max_prueba": 4.863
+    }
+   ],
+   "peores_columnas": [
+    {
+     "columna": "XRP_cierre_rezago_7",
+     "fuera_de_rango_pct": 37.957,
+     "abs_max_prueba": 9.819,
+     "abs_max_entrenamiento": 4.997,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_6",
+     "fuera_de_rango_pct": 37.907,
+     "abs_max_prueba": 9.819,
+     "abs_max_entrenamiento": 4.998,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_5",
+     "fuera_de_rango_pct": 37.856,
+     "abs_max_prueba": 9.82,
+     "abs_max_entrenamiento": 4.998,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_1",
+     "fuera_de_rango_pct": 37.652,
+     "abs_max_prueba": 9.822,
+     "abs_max_entrenamiento": 4.999,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "BTC_cierre_rezago_7",
+     "fuera_de_rango_pct": 1.931,
+     "abs_max_prueba": 5.25,
+     "abs_max_entrenamiento": 2.133,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "BTC_cierre_rezago_1",
+     "fuera_de_rango_pct": 1.931,
+     "abs_max_prueba": 5.245,
+     "abs_max_entrenamiento": 2.131,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "BTC_cierre_rezago_5",
+     "fuera_de_rango_pct": 1.931,
+     "abs_max_prueba": 5.248,
+     "abs_max_entrenamiento": 2.132,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "BTC_cierre_rezago_6",
+     "fuera_de_rango_pct": 1.931,
+     "abs_max_prueba": 5.249,
+     "abs_max_entrenamiento": 2.133,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_volatilidad_14",
+     "fuera_de_rango_pct": 0.711,
+     "abs_max_prueba": 5.611,
+     "abs_max_entrenamiento": 5.284,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_volatilidad_7",
+     "fuera_de_rango_pct": 0.356,
+     "abs_max_prueba": 7.887,
+     "abs_max_entrenamiento": 6.966,
+     "familia": "volatilidad"
+    }
+   ]
+  },
+  "rezagos_relativo__metodo_robusto": {
+   "n_columnas": 63,
+   "n_filas_ajuste": 9167,
+   "columnas_constantes": [],
+   "por_familia": [
+    {
+     "familia": "volatilidad",
+     "columnas": 3,
+     "fuera_de_rango_pct_medio": 0.339,
+     "peor_columna_pct": 0.661,
+     "abs_max_prueba": 7.576
+    },
+    {
+     "familia": "ventana_deslizante",
+     "columnas": 4,
+     "fuera_de_rango_pct_medio": 0.114,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 9.379
+    },
+    {
+     "familia": "retornos",
+     "columnas": 17,
+     "fuera_de_rango_pct_medio": 0.108,
+     "peor_columna_pct": 0.559,
+     "abs_max_prueba": 14.53
+    },
+    {
+     "familia": "rezagos",
+     "columnas": 24,
+     "fuera_de_rango_pct_medio": 0.102,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 19.006
+    },
+    {
+     "familia": "indicadores_tecnicos",
+     "columnas": 10,
+     "fuera_de_rango_pct_medio": 0.096,
+     "peor_columna_pct": 0.457,
+     "abs_max_prueba": 9.726
+    },
+    {
+     "familia": "correlacion_cruzada",
+     "columnas": 5,
+     "fuera_de_rango_pct_medio": 0.0,
+     "peor_columna_pct": 0.0,
+     "abs_max_prueba": 3.713
+    }
+   ],
+   "peores_columnas": [
+    {
+     "columna": "LTC_volatilidad_14",
+     "fuera_de_rango_pct": 0.661,
+     "abs_max_prueba": 5.427,
+     "abs_max_entrenamiento": 5.122,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_curtosis_retornos_20",
+     "fuera_de_rango_pct": 0.559,
+     "abs_max_prueba": 5.953,
+     "abs_max_entrenamiento": 6.732,
+     "familia": "retornos"
+    },
+    {
+     "columna": "LTC_bollinger_ancho_20",
+     "fuera_de_rango_pct": 0.457,
+     "abs_max_prueba": 5.881,
+     "abs_max_entrenamiento": 8.146,
+     "familia": "indicadores_tecnicos"
+    },
+    {
+     "columna": "LTC_volatilidad_7",
+     "fuera_de_rango_pct": 0.356,
+     "abs_max_prueba": 7.576,
+     "abs_max_entrenamiento": 6.716,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_rango_rel_7",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 9.379,
+     "abs_max_entrenamiento": 15.584,
+     "familia": "ventana_deslizante"
+    },
+    {
+     "columna": "LTC_cierre_rezago_rel_7",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 8.17,
+     "abs_max_entrenamiento": 12.678,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_cierre_rezago_rel_6",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 8.236,
+     "abs_max_entrenamiento": 13.564,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_cierre_rezago_rel_5",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 9.234,
+     "abs_max_entrenamiento": 12.27,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "XRP_cierre_rezago_rel_5",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 6.913,
+     "abs_max_entrenamiento": 19.389,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_retorno_7",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 5.931,
+     "abs_max_entrenamiento": 8.721,
+     "familia": "retornos"
+    }
+   ]
+  },
+  "rezagos_relativo__metodo_estandar": {
+   "n_columnas": 63,
+   "n_filas_ajuste": 9167,
+   "columnas_constantes": [],
+   "por_familia": [
+    {
+     "familia": "volatilidad",
+     "columnas": 3,
+     "fuera_de_rango_pct_medio": 0.356,
+     "peor_columna_pct": 0.711,
+     "abs_max_prueba": 7.887
+    },
+    {
+     "familia": "ventana_deslizante",
+     "columnas": 4,
+     "fuera_de_rango_pct_medio": 0.076,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 8.306
+    },
+    {
+     "familia": "indicadores_tecnicos",
+     "columnas": 10,
+     "fuera_de_rango_pct_medio": 0.066,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 8.412
+    },
+    {
+     "familia": "rezagos",
+     "columnas": 24,
+     "fuera_de_rango_pct_medio": 0.061,
+     "peor_columna_pct": 0.305,
+     "abs_max_prueba": 15.787
+    },
+    {
+     "familia": "retornos",
+     "columnas": 17,
+     "fuera_de_rango_pct_medio": 0.051,
+     "peor_columna_pct": 0.254,
+     "abs_max_prueba": 12.21
+    },
+    {
+     "familia": "correlacion_cruzada",
+     "columnas": 5,
+     "fuera_de_rango_pct_medio": 0.0,
+     "peor_columna_pct": 0.0,
+     "abs_max_prueba": 4.863
+    }
+   ],
+   "peores_columnas": [
+    {
+     "columna": "LTC_volatilidad_14",
+     "fuera_de_rango_pct": 0.711,
+     "abs_max_prueba": 5.611,
+     "abs_max_entrenamiento": 5.284,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_volatilidad_7",
+     "fuera_de_rango_pct": 0.356,
+     "abs_max_prueba": 7.887,
+     "abs_max_entrenamiento": 6.966,
+     "familia": "volatilidad"
+    },
+    {
+     "columna": "LTC_rango_rel_7",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 8.306,
+     "abs_max_entrenamiento": 13.982,
+     "familia": "ventana_deslizante"
+    },
+    {
+     "columna": "LTC_bollinger_ancho_20",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 5.389,
+     "abs_max_entrenamiento": 7.574,
+     "familia": "indicadores_tecnicos"
+    },
+    {
+     "columna": "LTC_cierre_rezago_rel_6",
+     "fuera_de_rango_pct": 0.305,
+     "abs_max_prueba": 7.298,
+     "abs_max_entrenamiento": 12.057,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_cierre_rezago_rel_5",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 8.039,
+     "abs_max_entrenamiento": 10.7,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_curtosis_retornos_20",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 5.445,
+     "abs_max_entrenamiento": 6.196,
+     "familia": "retornos"
+    },
+    {
+     "columna": "LTC_cierre_rezago_rel_7",
+     "fuera_de_rango_pct": 0.254,
+     "abs_max_prueba": 7.282,
+     "abs_max_entrenamiento": 11.33,
+     "familia": "rezagos"
+    },
+    {
+     "columna": "LTC_retorno_7",
+     "fuera_de_rango_pct": 0.203,
+     "abs_max_prueba": 5.493,
+     "abs_max_entrenamiento": 8.089,
+     "familia": "retornos"
+    },
+    {
+     "columna": "LTC_retorno_3",
+     "fuera_de_rango_pct": 0.152,
+     "abs_max_prueba": 8.115,
+     "abs_max_entrenamiento": 7.69,
+     "familia": "retornos"
+    }
+   ]
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-20T02:00:11+00:00",
+  "issue": "S2-M2-01",
+  "nota": "El escalador se ajusta solo con el bloque de entrenamiento. El diagnostico mide algo distinto del escalado: cuanto se sale del rango aprendido cada familia, que es un problema de estacionariedad y no de escala."
+ }
+}
