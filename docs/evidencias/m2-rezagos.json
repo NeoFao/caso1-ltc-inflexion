@@ -1279,7 +1279,7 @@
   }
  },
  "_meta": {
-  "generado_utc": "2026-08-17T08:41:14+00:00",
+  "generado_utc": "2026-08-20T05:25:11+00:00",
   "issue": "S1-M2-04",
   "nota": "La banda al 95 % es aproximada (+-1,96/raiz(n)) y supone independencia. Con retornos financieros esa suposicion no es exacta, asi que un cruce apenas por encima de la banda no es evidencia fuerte."
  }
