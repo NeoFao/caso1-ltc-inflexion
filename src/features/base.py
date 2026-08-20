@@ -40,30 +40,42 @@ def rezagos(
     activo: str,
     campo: str = "cierre",
     ordenes=REZAGOS_MEDIDOS,
-    relativo: bool = False,
+    relativo: bool = True,
 ) -> pd.DataFrame:
     """Precios rezagados: el valor de hace k velas.
 
     Es la familia mas simple y la que el enunciado nombra explicitamente. shift(k)
     con k positivo mira hacia atras, que es la direccion segura.
 
-    Con `relativo=False` devuelve el precio en NIVEL, que es la lectura literal del
-    enunciado ("los precios historicos (rezagados)").
+    Por defecto —`relativo=True`— devuelve el precio rezagado **expresado respecto
+    del precio actual**: `p(t-k) / p(t) - 1`. Dado que en t conocemos p(t), esa forma
+    y el nivel crudo contienen exactamente la misma informacion; lo que cambia es que
+    esta es estacionaria y la otra no. Sigue siendo el precio historico rezagado que
+    pide el enunciado, y la equivalencia se declara en el informe.
 
-    Con `relativo=True` devuelve el mismo precio rezagado **expresado respecto del
-    precio actual**: `p(t-k) / p(t) - 1`. Dado que en t conocemos p(t), las dos
-    formas contienen exactamente la misma informacion; lo que cambia es que la
-    segunda es estacionaria y la primera no.
+    Con `relativo=False` devuelve el nivel crudo. Se conserva para poder reproducir
+    las mediciones que motivaron el cambio, no para el pipeline.
 
-    Por que existe la opcion, medido y no supuesto: con los rezagos en nivel, el
-    7,2 % de las filas del bloque de prueba cae fuera del rango que la columna tuvo
-    en entrenamiento —hasta el 43 % en las de XRP— mientras ninguna otra familia
-    pasa del 0,34 %. Escalar NO lo arregla: un escalador ajustado con entrenamiento
-    manda esos valores a una zona donde el modelo no aprendio nada.
+    Por que el nivel dejo de ser el valor por defecto, medido y no supuesto:
 
-    La decision de cual usar es del equipo, porque toca la lectura del enunciado.
-    Evidencia: docs/evidencias/m2-escalado.json, regenerable con
+    1. Con los rezagos en nivel, el 7,17 % de las filas del bloque de prueba cae
+       fuera del rango que la columna tuvo en entrenamiento —hasta el 43 % en las de
+       XRP— mientras ninguna otra familia pasa del 0,34 %. Escalar NO lo arregla: la
+       no estacionariedad no es un problema de escala.
+    2. En la ablacion por familias, quitar los rezagos de los activos de apoyo
+       costaba 0,1001 de F1 macro con los niveles y solo 0,0033 con la forma
+       relativa. Lo que el modelo aprovechaba era el NIVEL de precio, que en una
+       serie con tendencia funciona como un indicador de en que tramo de la muestra
+       estamos, y no la relacion entre activos. El nivel producia una conclusion
+       falsa a favor del enfoque multivariante.
+    3. El documento afirma que las caracteristicas se construyen sobre retornos y no
+       sobre niveles, y lo justifica con la prueba ADF. Los rezagos en nivel eran lo
+       unico del proyecto que contradecia esa frase.
+
+    Decidido por el equipo (Fabrizio, 20/08/2026). Evidencia:
+    docs/evidencias/m2-escalado.json y m2-ablacion.json, regenerables con
       uv run python -m src.features.escalado
+      uv run python -m src.features.ablacion
     """
     serie = panel[columna(activo, campo)]
     if relativo:
@@ -307,7 +319,27 @@ def ventana_deslizante(
     return pd.DataFrame(columnas, index=panel.index)
 
 
-def construir(panel: pd.DataFrame, rezagos_relativos: bool = False) -> pd.DataFrame:
+def columnas_en_nivel_de_precio(X: pd.DataFrame) -> list[str]:
+    """Columnas que salen en unidades de precio y por lo tanto no son estacionarias.
+
+    Existe porque hasta ahora quien necesitaba saberlo lo deducia del nombre: M3
+    identifica esas columnas con el fragmento `"_rezago_"`, que era correcto cuando
+    los rezagos salian en nivel. Desde que salen relativos ese fragmento sigue
+    coincidiendo —`_rezago_rel_1` lo contiene— pero ya no significa lo mismo, y una
+    heuristica que cambia de significado sin cambiar de forma es justo la que no
+    falla nunca y siempre miente.
+
+    Con `construir()` por defecto esta lista viene **vacia**. Solo trae columnas si
+    alguien construyo con `rezagos_relativos=False`.
+
+    M3 y M0: usen esta funcion en vez del fragmento de nombre. La nomenclatura de
+    M2 puede cambiar; lo que no cambia es la pregunta "cuales de estas columnas
+    estan en unidades de precio".
+    """
+    return [c for c in X.columns if "_rezago_" in c and "_rezago_rel_" not in c]
+
+
+def construir(panel: pd.DataFrame, rezagos_relativos: bool = True) -> pd.DataFrame:
     """Punto de entrada unico del modulo de caracteristicas.
 
     M3 y la aplicacion llaman a esta funcion y no a las de arriba, para que M2
@@ -328,9 +360,15 @@ def construir(panel: pd.DataFrame, rezagos_relativos: bool = False) -> pd.DataFr
     de a cuales conviene extenderlos se toma en la Semana 3, con la medicion de
     importancia (RF-F4) encima de la mesa y no antes.
 
-    PENDIENTE M2: falta el escalado de RF-F3 (Semana 2). Hasta entonces, los
-    rezagos siguen saliendo en nivel de precio y ninguna columna esta normalizada
-    entre si.
+    Los rezagos salen en forma RELATIVA al precio actual, no en nivel. Es la misma
+    informacion —en t conocemos p(t)— pero estacionaria, y con eso todas las columnas
+    que produce esta funcion son comparables entre periodos. El porque esta medido en
+    el docstring de `rezagos()`. Para reproducir las mediciones que motivaron el
+    cambio: `construir(panel, rezagos_relativos=False)`.
+
+    El escalado de RF-F3 NO se aplica aqui: depende de la particion, y meterlo dentro
+    obligaria a este modulo a conocer el split. Vive en `src/features/escalado.py` y
+    lo aplica quien entrena.
     """
     piezas = [
         retornos(panel, ACTIVO_OBJETIVO),

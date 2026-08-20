@@ -492,7 +492,7 @@
   }
  },
  "_meta": {
-  "generado_utc": "2026-08-20T03:19:11+00:00",
+  "generado_utc": "2026-08-20T04:40:26+00:00",
   "issue": "S2-M2-01",
   "nota": "El escalador se ajusta solo con el bloque de entrenamiento. El diagnostico mide algo distinto del escalado: cuanto se sale del rango aprendido cada familia, que es un problema de estacionariedad y no de escala."
  }

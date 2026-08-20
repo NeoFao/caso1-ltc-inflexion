@@ -3,25 +3,15 @@
   {
    "modelo": "logistica_balanceada",
    "n": 1959,
-   "f1_macro": 0.348545,
-   "precision_direccional": 0.471503,
-   "exactitud": 0.564574,
-   "f1_maximo": 0.15562,
-   "f1_minimo": 0.184173,
-   "f1_continuidad": 0.705841
+   "f1_macro": 0.254996,
+   "precision_direccional": 0.777202,
+   "exactitud": 0.309342,
+   "f1_maximo": 0.176822,
+   "f1_minimo": 0.182473,
+   "f1_continuidad": 0.405694
   },
   {
    "modelo": "logistica_sin_balancear",
-   "n": 1959,
-   "f1_macro": 0.315968,
-   "precision_direccional": 0.0,
-   "exactitud": 0.90097,
-   "f1_maximo": 0.0,
-   "f1_minimo": 0.0,
-   "f1_continuidad": 0.947905
-  },
-  {
-   "modelo": "arboles_balanceado",
    "n": 1959,
    "f1_macro": 0.316063,
    "precision_direccional": 0.0,
@@ -31,14 +21,24 @@
    "f1_continuidad": 0.948188
   },
   {
+   "modelo": "arboles_balanceado",
+   "n": 1959,
+   "f1_macro": 0.31578,
+   "precision_direccional": 0.0,
+   "exactitud": 0.899949,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.94734
+  },
+  {
    "modelo": "arboles_sin_balancear",
    "n": 1959,
-   "f1_macro": 0.316148,
+   "f1_macro": 0.316063,
    "precision_direccional": 0.0,
    "exactitud": 0.90148,
    "f1_maximo": 0.0,
    "f1_minimo": 0.0,
-   "f1_continuidad": 0.948443
+   "f1_continuidad": 0.948188
   }
  ],
  "parametros": {
@@ -365,7 +365,7 @@
   }
  ],
  "_meta": {
-  "generado_utc": "2026-08-20T03:24:06+00:00",
+  "generado_utc": "2026-08-20T04:41:29+00:00",
   "issues": [
    "S2-M2-02",
    "S4-M2-01"
