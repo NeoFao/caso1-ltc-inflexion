@@ -1,8 +1,8 @@
 """Intervalos de confianza de las metricas por bootstrap. Modulo de Alejandro (M2).
 
-Nace de una pregunta de Fabrizio que conviene tener respondida antes de la defensa:
-el mejor modelo del proyecto esta en F1 macro 0,3672 contra 0,3368 del baseline
-aleatorio. Son 0,0304 de diferencia. **Cual es el intervalo de ese 0,3672?**
+Nace de una pregunta que conviene tener respondida antes de la defensa: el mejor
+modelo del proyecto esta en F1 macro 0,3672 contra 0,3368 del baseline aleatorio.
+Son 0,0304 de diferencia. **Cual es el intervalo de ese 0,3672?**
 
 Sin esa respuesta, "cruza DELTA_F1_DECISIVO" suena a criterio objetivo y en realidad
 es una convencion que fijamos nosotros. Lo cual esta bien —hace falta un umbral y se
@@ -13,11 +13,12 @@ fijo antes de medir— pero hay que decirlo asi y acompanarlo de la incertidumbr
 **Dos advertencias metodologicas que hay que leer antes de usar cualquier numero de
 aqui, porque cambian que significa el resultado.**
 
-**1. Se mide sobre VALIDACION, no sobre prueba.** Fabrizio pidio bootstrap "sobre el
-test". No corresponde, por dos razones. Primera: las cifras que preocupan —0,3672 y
-0,3368— estan medidas sobre validacion, asi que un intervalo sobre prueba no seria el
-intervalo de esas cifras, seria otro numero distinto. Segunda: el bloque de prueba se
-toca una vez, al final, y toda decision tomada mirandolo lo contamina. Un intervalo
+**1. Se mide sobre VALIDACION, no sobre prueba.** La forma natural de pedir esto es
+"un bootstrap sobre el test", y no corresponde, por dos razones. Primera: las cifras
+que preocupan —0,3672 y 0,3368— estan medidas sobre validacion, asi que un intervalo
+sobre prueba no seria el intervalo de esas cifras, seria otro numero. Segunda: el
+bloque de prueba se toca una vez, al final, y toda decision tomada mirandolo lo
+contamina. Un intervalo
 de confianza es informacion que usariamos para decidir si el modelo aporta; calcularlo
 sobre prueba y despues reportar el resultado final sobre prueba seria reportar sobre
 datos que ya se usaron para decidir.
@@ -123,9 +124,11 @@ def intervalo_diferencia(
 
 
 def resumen_clases(y_real) -> pd.DataFrame:
-    """Cuantos casos de cada clase tiene el conjunto. Fabrizio lo pidio explicito, y
-    con razon: un intervalo sobre 90 casos de la clase minoritaria no significa lo
-    mismo que sobre 900, y el numero tiene que estar al lado del intervalo."""
+    """Cuantos casos de cada clase tiene el conjunto.
+
+    Va explicito porque un intervalo sobre 90 casos de la clase minoritaria no
+    significa lo mismo que sobre 900, y el numero tiene que estar al lado del
+    intervalo para que se pueda leer."""
     real = pd.Series(np.asarray(y_real, dtype=int))
     total = len(real)
     return pd.DataFrame(
@@ -231,7 +234,6 @@ def generar_evidencia(directorio=None) -> dict:
         "comparaciones_pareadas": comparaciones,
         "_meta": {
             "generado_utc": datetime.now(UTC).isoformat(timespec="seconds"),
-            "pedido_por": "Fabrizio, 20/08/2026",
             "advertencia": (
                 "Medido sobre VALIDACION y no sobre prueba: las cifras que se querian "
                 "acotar estan medidas ahi, y el bloque de prueba se reserva para el "
