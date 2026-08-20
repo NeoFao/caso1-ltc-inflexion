@@ -1,11 +1,11 @@
 {
-  "ejecutado_utc": "2026-08-18T01:09:03+00:00",
+  "ejecutado_utc": "2026-08-20T04:39:23+00:00",
   "intervalo": "4h",
   "w": 7,
   "h": 1,
   "latencia_real": 8,
   "conjunto": "validacion",
-  "config_provisional": true,
+  "config_provisional": false,
   "origen_parametros": "docs/evidencias/spike-datos-4h.json",
   "panel": {
     "filas": 13114,
@@ -72,7 +72,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_trivial",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-18T01:08:56+00:00"
+      "ejecutado_utc": "2026-08-20T04:39:18+00:00"
     },
     {
       "n": 1959,
@@ -84,7 +84,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_mayoritario",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-18T01:08:56+00:00"
+      "ejecutado_utc": "2026-08-20T04:39:18+00:00"
     },
     {
       "n": 1959,
@@ -96,7 +96,7 @@
       "f1_continuidad": 0.904775360271263,
       "modelo": "baseline_aleatorio",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-18T01:08:56+00:00"
+      "ejecutado_utc": "2026-08-20T04:39:18+00:00"
     },
     {
       "n": 1959,
@@ -108,7 +108,7 @@
       "f1_continuidad": 0.9388753056234719,
       "modelo": "bosque_aleatorio",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-18T01:08:58+00:00"
+      "ejecutado_utc": "2026-08-20T04:39:20+00:00"
     },
     {
       "n": 1959,
@@ -120,7 +120,7 @@
       "f1_continuidad": 0.9114349775784754,
       "modelo": "bosque_aleatorio_sin_niveles",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-18T01:09:00+00:00"
+      "ejecutado_utc": "2026-08-20T04:39:21+00:00"
     },
     {
       "n": 1959,
@@ -132,15 +132,18 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "bosque_aleatorio_sin_pesos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-18T01:09:03+00:00"
+      "ejecutado_utc": "2026-08-20T04:39:23+00:00"
     }
   ],
   "veredicto": {
     "supera_al_trivial": true,
     "delta_f1_macro": 0.028243909186727256,
-    "detecta_ambos_extremos": true,
+    "detecta_ambos_extremos": false,
+    "criterio_deteccion": "F1 por clase extrema estrictamente mayor que el del baseline_aleatorio de la misma corrida, no simplemente > 0",
     "f1_maximo": 0.07462686567164178,
     "f1_minimo": 0.019417475728155338,
+    "f1_maximo_aleatorio": 0.05181347150259067,
+    "f1_minimo_aleatorio": 0.053763440860215055,
     "precision_direccional": 0.031088082901554404
   },
   "importancias_top10": {

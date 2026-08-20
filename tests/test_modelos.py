@@ -26,6 +26,7 @@ from src.modelos.base import (
     Modelo,
 )
 from src.modelos.clasico import BosqueAleatorio
+from src.modelos.experimento import detecta_mejor_que_azar
 from src.sintetico.generador import panel_correlacionado, serie_zigzag
 
 ARBOLES_DE_PRUEBA = 20
@@ -247,3 +248,38 @@ def test_guardar_resultado_no_desalinea_las_columnas(tmp_path):
         "baseline_mayoritario",
         "bosque_aleatorio",
     ]
+
+
+def test_no_detecta_si_solo_acierta_un_puñado_por_azar():
+    """El caso exacto del issue #51: el bosque acierta 1 minimo de 94 y 5 maximos
+    de 99, con F1 mayor que cero en las dos clases, pero el baseline aleatorio de
+    esa misma corrida las acierta mejor. Con el umbral viejo (`> 0`) esto daba
+    detectado; con el correcto, no."""
+    bosque = {"f1_maximo": 0.0746, "f1_minimo": 0.0194}
+    aleatorio = {"f1_maximo": 0.0518, "f1_minimo": 0.0538}
+    assert detecta_mejor_que_azar(bosque, aleatorio) is False
+
+
+def test_detecta_si_supera_al_azar_en_las_dos_clases_extremas():
+    bosque = {"f1_maximo": 0.10, "f1_minimo": 0.10}
+    aleatorio = {"f1_maximo": 0.05, "f1_minimo": 0.05}
+    assert detecta_mejor_que_azar(bosque, aleatorio) is True
+
+
+@pytest.mark.parametrize(
+    ("bosque", "aleatorio"),
+    [
+        ({"f1_maximo": 0.10, "f1_minimo": 0.01}, {"f1_maximo": 0.05, "f1_minimo": 0.05}),
+        ({"f1_maximo": 0.01, "f1_minimo": 0.10}, {"f1_maximo": 0.05, "f1_minimo": 0.05}),
+    ],
+)
+def test_no_detecta_si_solo_supera_al_azar_en_una_clase(bosque, aleatorio):
+    """Detectar 'ambos extremos' exige ganarle al azar en las dos, no en una."""
+    assert detecta_mejor_que_azar(bosque, aleatorio) is False
+
+
+def test_empatar_con_el_azar_no_cuenta_como_deteccion():
+    """La desigualdad es estricta: empatar con el azar no es ganarle."""
+    bosque = {"f1_maximo": 0.05, "f1_minimo": 0.05}
+    aleatorio = {"f1_maximo": 0.05, "f1_minimo": 0.05}
+    assert detecta_mejor_que_azar(bosque, aleatorio) is False
