@@ -1,0 +1,168 @@
+{
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 1,
+  "conjunto": "validacion",
+  "remuestras": 1000,
+  "remuestreo": "estratificado por clase real, con reemplazo",
+  "delta_f1_decisivo": 0.02
+ },
+ "tamano_validacion": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 99,
+   "porcentaje": 5.054
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 94,
+   "porcentaje": 4.798
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 1766,
+   "porcentaje": 90.148
+  },
+  {
+   "clase": "TOTAL",
+   "codigo": 0,
+   "n": 1959,
+   "porcentaje": 100.0
+  }
+ ],
+ "tamano_prueba_sin_tocar": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 86,
+   "porcentaje": 4.388
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 86,
+   "porcentaje": 4.388
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 1788,
+   "porcentaje": 91.224
+  },
+  {
+   "clase": "TOTAL",
+   "codigo": 0,
+   "n": 1960,
+   "porcentaje": 100.0
+  }
+ ],
+ "intervalos": {
+  "baseline_trivial": {
+   "f1_macro": {
+    "valor": 0.31606263982102906,
+    "ic_inferior": 0.31606263982102906,
+    "ic_superior": 0.31606263982102906,
+    "desviacion_bootstrap": 0.0,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.0,
+    "ic_inferior": 0.0,
+    "ic_superior": 0.0,
+    "desviacion_bootstrap": 0.0,
+    "remuestras": 1000
+   }
+  },
+  "baseline_aleatorio": {
+   "f1_macro": {
+    "valor": 0.3367840908780229,
+    "ic_inferior": 0.3174134119193544,
+    "ic_superior": 0.36052162761400314,
+    "desviacion_bootstrap": 0.011060161609803831,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.05181347150259067,
+    "ic_inferior": 0.025906735751295335,
+    "ic_superior": 0.08808290155440414,
+    "desviacion_bootstrap": 0.015989337636874223,
+    "remuestras": 1000
+   }
+  },
+  "bosque_aleatorio": {
+   "f1_macro": {
+    "valor": 0.3443065490077563,
+    "ic_inferior": 0.3219398136912651,
+    "ic_superior": 0.37269576185746106,
+    "desviacion_bootstrap": 0.01258643283307793,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.031088082901554404,
+    "ic_inferior": 0.010362694300518135,
+    "ic_superior": 0.05699481865284974,
+    "desviacion_bootstrap": 0.012577480381198911,
+    "remuestras": 1000
+   }
+  },
+  "bosque_aleatorio_sin_niveles": {
+   "f1_macro": {
+    "valor": 0.3672006511532457,
+    "ic_inferior": 0.33989195403715644,
+    "ic_superior": 0.394843574548458,
+    "desviacion_bootstrap": 0.014555953393315923,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.08808290155440414,
+    "ic_inferior": 0.05181347150259067,
+    "ic_superior": 0.12448186528497397,
+    "desviacion_bootstrap": 0.019981784822093184,
+    "remuestras": 1000
+   }
+  }
+ },
+ "comparaciones_pareadas": {
+  "bosque_aleatorio_sin_niveles__vs__baseline_aleatorio": {
+   "diferencia": 0.03041656027522277,
+   "ic_inferior": -0.005902915893540707,
+   "ic_superior": 0.06600411707631348,
+   "excluye_el_cero": false,
+   "fraccion_a_favor": 0.951,
+   "remuestras": 1000
+  },
+  "bosque_aleatorio_sin_niveles__vs__baseline_trivial": {
+   "diferencia": 0.051138011332216626,
+   "ic_inferior": 0.023829314216127395,
+   "ic_superior": 0.07878093472742893,
+   "excluye_el_cero": true,
+   "fraccion_a_favor": 1.0,
+   "remuestras": 1000
+  },
+  "bosque_aleatorio_sin_niveles__vs__bosque_aleatorio": {
+   "diferencia": 0.02289410214548937,
+   "ic_inferior": 0.0003497387231665991,
+   "ic_superior": 0.045951150140720376,
+   "excluye_el_cero": true,
+   "fraccion_a_favor": 0.975,
+   "remuestras": 1000
+  },
+  "bosque_aleatorio__vs__baseline_aleatorio": {
+   "diferencia": 0.0075224581297334,
+   "ic_inferior": -0.025711702709369812,
+   "ic_superior": 0.039088050777455315,
+   "excluye_el_cero": false,
+   "fraccion_a_favor": 0.677,
+   "remuestras": 1000
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-20T05:28:21+00:00",
+  "pedido_por": "Fabrizio, 20/08/2026",
+  "advertencia": "Medido sobre VALIDACION y no sobre prueba: las cifras que se querian acotar estan medidas ahi, y el bloque de prueba se reserva para el resultado final. El tamano de prueba se reporta solo como referencia, sin evaluar ningun modelo sobre el."
+ }
+}
