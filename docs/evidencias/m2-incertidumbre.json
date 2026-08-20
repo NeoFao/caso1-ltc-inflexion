@@ -161,8 +161,7 @@
   }
  },
  "_meta": {
-  "generado_utc": "2026-08-20T05:28:21+00:00",
-  "pedido_por": "Fabrizio, 20/08/2026",
+  "generado_utc": "2026-08-20T21:45:01+00:00",
   "advertencia": "Medido sobre VALIDACION y no sobre prueba: las cifras que se querian acotar estan medidas ahi, y el bloque de prueba se reserva para el resultado final. El tamano de prueba se reporta solo como referencia, sin evaluar ningun modelo sobre el."
  }
 }
