@@ -36,19 +36,41 @@ REZAGOS_MEDIDOS: tuple[int, ...] = (1, 5, 6, 7)
 
 
 def rezagos(
-    panel: pd.DataFrame, activo: str, campo: str = "cierre", ordenes=REZAGOS_MEDIDOS
+    panel: pd.DataFrame,
+    activo: str,
+    campo: str = "cierre",
+    ordenes=REZAGOS_MEDIDOS,
+    relativo: bool = False,
 ) -> pd.DataFrame:
     """Precios rezagados: el valor de hace k velas.
 
     Es la familia mas simple y la que el enunciado nombra explicitamente. shift(k)
     con k positivo mira hacia atras, que es la direccion segura.
 
-    Devuelve el precio en NIVEL y no el retorno, porque el enunciado especifica "los
-    precios historicos (rezagados)". El nivel no es estacionario y eso es un
-    problema conocido: se resuelve en RF-F3, el escalado de la Semana 2. Queda
-    anotado aqui para que no se parchee por la libre en dos lugares distintos.
+    Con `relativo=False` devuelve el precio en NIVEL, que es la lectura literal del
+    enunciado ("los precios historicos (rezagados)").
+
+    Con `relativo=True` devuelve el mismo precio rezagado **expresado respecto del
+    precio actual**: `p(t-k) / p(t) - 1`. Dado que en t conocemos p(t), las dos
+    formas contienen exactamente la misma informacion; lo que cambia es que la
+    segunda es estacionaria y la primera no.
+
+    Por que existe la opcion, medido y no supuesto: con los rezagos en nivel, el
+    7,2 % de las filas del bloque de prueba cae fuera del rango que la columna tuvo
+    en entrenamiento —hasta el 43 % en las de XRP— mientras ninguna otra familia
+    pasa del 0,34 %. Escalar NO lo arregla: un escalador ajustado con entrenamiento
+    manda esos valores a una zona donde el modelo no aprendio nada.
+
+    La decision de cual usar es del equipo, porque toca la lectura del enunciado.
+    Evidencia: docs/evidencias/m2-escalado.json, regenerable con
+      uv run python -m src.features.escalado
     """
     serie = panel[columna(activo, campo)]
+    if relativo:
+        return pd.DataFrame(
+            {f"{activo}_{campo}_rezago_rel_{k}": serie.shift(k) / serie - 1 for k in ordenes},
+            index=panel.index,
+        )
     return pd.DataFrame(
         {f"{activo}_{campo}_rezago_{k}": serie.shift(k) for k in ordenes},
         index=panel.index,
@@ -285,7 +307,7 @@ def ventana_deslizante(
     return pd.DataFrame(columnas, index=panel.index)
 
 
-def construir(panel: pd.DataFrame) -> pd.DataFrame:
+def construir(panel: pd.DataFrame, rezagos_relativos: bool = False) -> pd.DataFrame:
     """Punto de entrada unico del modulo de caracteristicas.
 
     M3 y la aplicacion llaman a esta funcion y no a las de arriba, para que M2
@@ -321,7 +343,7 @@ def construir(panel: pd.DataFrame) -> pd.DataFrame:
         ventana_deslizante(panel),
     ]
     for activo in ACTIVOS:
-        piezas.append(rezagos(panel, activo))
+        piezas.append(rezagos(panel, activo, relativo=rezagos_relativos))
         if activo != ACTIVO_OBJETIVO:
             piezas.append(retornos(panel, activo, periodos=(1, 3)))
 

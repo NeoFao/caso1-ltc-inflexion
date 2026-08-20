@@ -1,0 +1,5 @@
+modelo,n,f1_macro,precision_direccional,exactitud,f1_maximo,f1_minimo,f1_continuidad
+logistica_balanceada,1959,0.3485,0.4715,0.5646,0.1556,0.1842,0.7058
+logistica_sin_balancear,1959,0.316,0.0,0.901,0.0,0.0,0.9479
+arboles_balanceado,1959,0.3161,0.0,0.9015,0.0,0.0,0.9482
+arboles_sin_balancear,1959,0.3161,0.0,0.9015,0.0,0.0,0.9484
