@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "generado_utc": "2026-08-20T04:24:43+00:00",
+    "proposito": "Verificar sobre el panel de 4 horas los diagnosticos que el marco teorico de la Semana 1 midio sobre velas diarias.",
+    "granularidad": "4h",
+    "n_observaciones": 13114
+  },
+  "estacionariedad": {
+    "nivel": {
+      "LTC": {
+        "p_valor": 0.0147,
+        "rechaza": true
+      },
+      "BTC": {
+        "p_valor": 0.4832,
+        "rechaza": false
+      },
+      "ETH": {
+        "p_valor": 0.0471,
+        "rechaza": true
+      },
+      "SOL": {
+        "p_valor": 0.279,
+        "rechaza": false
+      },
+      "XRP": {
+        "p_valor": 0.3339,
+        "rechaza": false
+      },
+      "ADA": {
+        "p_valor": 0.3006,
+        "rechaza": false
+      }
+    },
+    "cuantas_rechazan_en_nivel": 2,
+    "cuantas_rechazan_en_retornos": 6
+  },
+  "volatilidad": {
+    "maxima": 0.0614,
+    "minima": 0.0033,
+    "cociente_agitado_tranquilo": 18.3,
+    "ventana": 30
+  },
+  "autocorrelacion": {
+    "acf_nivel_rezago_1": 0.998,
+    "acf_retornos_rezago_1": -0.019,
+    "rezagos_significativos_en_retornos": [
+      1,
+      5,
+      6,
+      7,
+      11,
+      12,
+      13,
+      19,
+      23,
+      25
+    ],
+    "cuantos_significativos": 10,
+    "rezagos_evaluados": 40
+  }
+}

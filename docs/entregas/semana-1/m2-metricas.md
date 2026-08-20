@@ -10,10 +10,15 @@ evidencia propia y da para una sección completa.
 > Las referencias están en APA 7 al final y **falta verificar volumen, páginas y DOI contra el
 > original**.
 >
-> **Todos los números de esta sección se midieron con `w = 5`, `h = 3` y velas diarias**, que son
-> los valores que hoy están marcados como `PROVISIONAL` en
-> [`contracts/config.py`](../../../contracts/config.py). Si el equipo congela `w = 7` sobre 4
-> horas, los números cambian y hay que regenerarlos; el argumento no cambia.
+> **Todos los números de esta sección se midieron con `w = 5`, `h = 3` y velas diarias.** Esos
+> eran los valores del contrato al redactarla. El equipo los congeló después en `4h`, `w = 7` y
+> `h = 1`, de modo que **las cifras concretas de las tres tablas cambiarían al regenerarlas** y
+> quedan pendientes de actualizar para la comparación final entre modelos.
+>
+> El argumento de la sección no depende de ellas: la cota aritmética del desbalance, el hecho de
+> que un modelo que no detecta nada obtenga una exactitud alta y la inversión del orden entre
+> baselines se sostienen con cualquier `w`, porque son consecuencia de la definición de la etiqueta
+> y no de su valor. Se declara aquí para que nadie cite estos números como definitivos.
 
 ---
 
@@ -333,5 +338,6 @@ https://doi.org/10.1016/j.ipm.2009.03.002
 > sobre la serie completa. Los de la Tabla 3 salen de
 > [`docs/evidencias/m2-baselines.json`](../../evidencias/m2-baselines.json) y están medidos sobre
 > el bloque de prueba, que es la partición correcta para comparar modelos. Todos con `w = 5`,
-> `h = 3` y velas diarias, que es el valor **provisional** del contrato. Si el equipo congela
-> `w = 7` sobre 4 horas, los tres conjuntos de números cambian; el argumento no.
+> `h = 3` y velas diarias, que era el valor del contrato al medirlos. El contrato quedó congelado
+> después en `4h`, `w = 7` y `h = 1`: los tres conjuntos cambiarían al regenerarlos, y el argumento
+> no.

@@ -276,6 +276,70 @@ multivariante del enunciado.
 
 ---
 
+---
+
+## Verificación sobre el panel de trabajo
+
+Todo lo anterior se midió sobre **velas diarias**, que era la granularidad vigente
+cuando se redactó esta sección. El proyecto fijó después su panel de trabajo en
+**velas de 4 horas**, por una razón que pertenece a la etapa de extracción de datos:
+con velas diarias ninguna combinación de ventana deja suficientes ejemplos de las
+clases minoritarias.
+
+Analizar el fenómeno en una granularidad y modelarlo en otra exige comprobar que las
+conclusiones sobrevivan al cambio. Se repitieron los tres diagnósticos sobre el panel
+de 13 114 observaciones de 4 horas:
+
+| Diagnóstico | Velas diarias | Velas de 4 horas |
+|---|---|---|
+| Series que rechazan la raíz unitaria en nivel | 0 de 6 | **2 de 6** |
+| Series que la rechazan en retornos | 6 de 6 | **6 de 6** |
+| Cociente de volatilidad entre extremos | 8,8 | **18,3** |
+| Autocorrelación de los retornos en el rezago 1 | −0,036 | **−0,019** |
+| Rezagos significativos de 40 | 3 | **10** |
+
+**Tabla 1.** Los mismos diagnósticos sobre las dos granularidades. Fuente:
+[`verificacion-4h.json`](../../evidencias/verificacion-4h.json), regenerable con
+`uv run python scripts/verificacion_4h.py`.
+
+**Las cuatro diferencias apuntan en la misma dirección y tienen una sola causa.** El
+panel de 4 horas tiene seis veces más observaciones, y la potencia de una prueba
+estadística crece con el tamaño de la muestra: el intervalo de confianza se estrecha,
+de modo que tanto la prueba de Dickey-Fuller como la banda de la autocorrelación
+detectan efectos que en la muestra diaria quedaban por debajo del umbral. Rechazar
+más no significa que la serie sea más estacionaria; significa que hay más evidencia
+disponible para decidirlo.
+
+Conviene separar entonces qué se sostiene y qué se matiza.
+
+**Se sostiene, y con más fuerza, la estacionariedad de los retornos.** Las seis series
+la rechazan en las dos granularidades, sin excepción, que es el resultado del que
+depende la decisión de construir las características sobre retornos.
+
+**Se refuerza la heterocedasticidad.** El cociente entre el tramo más agitado y el más
+tranquilo pasa de 8,8 a 18,3. A mayor resolución temporal, los episodios de
+volatilidad se distinguen mejor de los períodos de calma, y el argumento contra los
+modelos de varianza constante queda más firme.
+
+**Se matiza la no estacionariedad de los precios.** Sobre 4 horas, dos de las seis
+series —Litecoin, con p = 0,0147, y Ethereum, con p = 0,0471— sí rechazan la
+hipótesis nula, aunque las dos lo hacen de forma marginal, muy próximas al umbral de
+0,05. Las otras cuatro no la rechazan. La conclusión operativa no cambia, porque las
+características se construyen sobre retornos en cualquiera de los dos casos, pero
+sería incorrecto seguir afirmando "ninguna de las seis" sin declarar la granularidad
+sobre la que se midió.
+
+**Y se matiza la autocorrelación, en un sentido que conviene explicar.** Sobre 4 horas
+diez rezagos superan la banda, frente a tres sobre velas diarias. Podría leerse como
+que hay más estructura lineal aprovechable, y sería una lectura equivocada: la
+autocorrelación en el primer rezago es **menor** en 4 horas que en diario, −0,019
+frente a −0,036. Lo que aumenta no es la magnitud de la dependencia sino la capacidad
+de distinguirla del ruido. Que un valor sea estadísticamente distinto de cero no lo
+vuelve útil para predecir, y una correlación de dos centésimas no sostiene un modelo
+por muy significativa que sea. El argumento a favor de modelos no lineales y
+multivariantes queda intacto.
+
+
 ## Referencias
 
 Box, G. E. P., & Pierce, D. A. (1970). Distribution of residual autocorrelations in
