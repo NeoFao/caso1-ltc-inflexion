@@ -82,7 +82,19 @@ def medir_predictibilidad(panel: pd.DataFrame, intervalo: str) -> list[dict]:
     absoluto es pequeno para todo h, y eso ya es informacion: el problema es duro.
     Lo que se interpreta es la FORMA de la curva, no su nivel.
     """
-    caracteristicas = construir(panel)
+    # ANCLADO A PROPOSITO. Heredar el default de construir() es como se
+    # desincronizaron m2-ablacion.json (PR #68) e incertidumbre.py: el #58 cambio ese
+    # default a rezagos relativos el 20/08 y esta evidencia es del 17/08, asi que
+    # re-ejecutar sin anclar dejaria de reproducir lo publicado sin avisar.
+    #
+    # Medido: con la representacion vigente la informacion mutua media sube de
+    # 0,005686 a 0,010217 sobre w=7, h=1. La curva es lo que se interpreta, no su
+    # nivel, asi que el cambio no invalida la decision -- pero si cambia las cifras
+    # que citan docs/04-decision-w-h-granularidad.md y el capitulo de M3.
+    #
+    # Rehacer el estudio con la representacion vigente es una pregunta abierta y
+    # legitima; lo que no puede pasar es que las cifras cambien solas.
+    caracteristicas = construir(panel, rezagos_relativos=False)
     ltc = cierre(panel, "LTC")
     filas = []
     for w in (5, 7):
