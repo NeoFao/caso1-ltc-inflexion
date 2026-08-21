@@ -189,8 +189,18 @@ def con_baselines(tabla: pd.DataFrame, panel: pd.DataFrame, w: int, h: int) -> p
     return pd.concat([tabla, pd.DataFrame(filas)], ignore_index=True)
 
 
-def comparar_modelos_de_referencia(panel: pd.DataFrame, w: int, h: int) -> pd.DataFrame:
+def comparar_modelos_de_referencia(
+    panel: pd.DataFrame, w: int, h: int, *, rezagos_relativos: bool
+) -> pd.DataFrame:
     """Cuatro modelos de referencia sobre el conjunto completo, medidos en validacion.
+
+    `rezagos_relativos` es obligatorio y no tiene valor por omision, a proposito.
+    Antes lo heredaba del default de `construir()`, y cuando el PR #58 cambio ese
+    default esta funcion paso a medir la representacion relativa mientras el bloque
+    `resultados` del mismo archivo seguia midiendo la de nivel: dos representaciones
+    distintas dentro del mismo JSON, sin que nada lo dijera y sin que ninguna linea
+    de codigo cambiara. Misma forma que `Escalador.ajustar()`, y por la misma razon:
+    si equivocarse es silencioso, el parametro se pide.
 
     Existe por un motivo concreto: la primera corrida de las ablaciones dio que
     NINGUN conjunto de caracteristicas supera al baseline trivial. Antes de reportar
@@ -209,7 +219,7 @@ def comparar_modelos_de_referencia(panel: pd.DataFrame, w: int, h: int) -> pd.Da
 
     from src.features.base import construir
 
-    X = construir(panel)
+    X = construir(panel, rezagos_relativos=rezagos_relativos)
     y = objetivo(etiquetar(cierre(panel, "LTC"), w), h)
     particion = particionar(len(panel), w, h)
 
@@ -284,17 +294,57 @@ def generar_evidencia(directorio=None, w: int | None = None, h: int | None = Non
         nombre = f"m2-ablacion-{etiqueta.replace('_', '-')}.csv"
         tabla.round(4).to_csv(destino / nombre, index=False)
 
-    modelos = comparar_modelos_de_referencia(panel, w=w, h=h)
-    modelos.round(4).to_csv(destino / "m2-modelos-referencia.csv", index=False)
+    modelos = {
+        etiqueta: comparar_modelos_de_referencia(
+            panel, w=w, h=h, rezagos_relativos=relativo
+        )
+        for etiqueta, relativo in (("rezagos_en_nivel", False), ("rezagos_relativos", True))
+    }
+    for etiqueta, tabla in modelos.items():
+        nombre = f"m2-modelos-referencia-{etiqueta.replace('_', '-')}.csv"
+        tabla.round(4).to_csv(destino / nombre, index=False)
+
+    # El invariante que habria cazado la desincronizacion del #58 el mismo dia:
+    # `logistica_balanceada` en el bloque de modelos de referencia y `completo` en la
+    # ablacion son literalmente el mismo modelo sobre las mismas columnas. Si no dan
+    # lo mismo, las dos mitades del archivo estan midiendo representaciones distintas
+    # y ninguna cifra de aqui significa lo que dice su etiqueta.
+    for etiqueta, tabla in modelos.items():
+        del_modelo = float(
+            tabla.loc[tabla["modelo"] == "logistica_balanceada", "f1_macro"].iloc[0]
+        )
+        ablacion = variantes[etiqueta]
+        del_completo = float(
+            ablacion.loc[ablacion["conjunto"] == "completo", "f1_macro"].iloc[0]
+        )
+        if abs(del_modelo - del_completo) > 1e-9:
+            raise AssertionError(
+                f"En {etiqueta}, logistica_balanceada da {del_modelo!r} y el conjunto "
+                f"'completo' de la ablacion da {del_completo!r}. Es el mismo modelo "
+                "sobre las mismas columnas: si difieren, los dos bloques no estan "
+                "midiendo la misma representacion."
+            )
 
     evidencia = {
-        "modelos_de_referencia": modelos.round(6).to_dict(orient="records"),
+        "representacion_vigente": "rezagos_relativos",
+        "modelos_de_referencia_rezagos_en_nivel": modelos["rezagos_en_nivel"]
+        .round(6)
+        .to_dict(orient="records"),
+        "modelos_de_referencia_rezagos_relativos": modelos["rezagos_relativos"]
+        .round(6)
+        .to_dict(orient="records"),
         "parametros": {
             "panel": GRANULARIDAD, "w": w, "h": h,
             "conjunto_de_medicion": "validacion",
             "modelo_de_referencia": "LogisticRegression(class_weight='balanced'), semilla 0",
+            "nota": (
+                "Cada bloque dice en su nombre con que representacion se midio. Antes "
+                "habia un unico bloque 'modelos_de_referencia' que heredaba el default "
+                "de construir(), y al cambiar ese default en el #58 quedo midiendo una "
+                "representacion distinta de la del bloque 'resultados' del mismo archivo."
+            ),
         },
-        "resultados": completa.round(6).to_dict(orient="records"),
+        "resultados_rezagos_en_nivel": completa.round(6).to_dict(orient="records"),
         "resultados_rezagos_relativos": variantes["rezagos_relativos"]
         .round(6)
         .to_dict(orient="records"),
@@ -317,7 +367,7 @@ def generar_evidencia(directorio=None, w: int | None = None, h: int | None = Non
 
 if __name__ == "__main__":
     salida = generar_evidencia()
-    tabla = pd.DataFrame(salida["resultados"])
+    tabla = pd.DataFrame(salida["resultados_rezagos_en_nivel"])
     columnas = [
         "conjunto", "n_columnas", "n", "f1_macro", "delta_f1_macro",
         "precision_direccional", "f1_maximo", "f1_minimo", "exactitud",
@@ -330,8 +380,8 @@ if __name__ == "__main__":
     presentes = [c for c in columnas if c in relativos.columns]
     print(relativos[presentes].round(4).to_string(index=False))
     print()
-    print("===== modelos de referencia sobre el conjunto completo (validacion) =====")
-    modelos = pd.DataFrame(salida["modelos_de_referencia"])
+    print("===== modelos de referencia, rezagos RELATIVOS (la representacion vigente) =====")
+    modelos = pd.DataFrame(salida["modelos_de_referencia_rezagos_relativos"])
     print(
         modelos[
             ["modelo", "f1_macro", "precision_direccional", "exactitud",

@@ -210,9 +210,23 @@ def generar_evidencia(directorio=None) -> dict:
     )
     estilo.guardar(figura_posicion_rango(tabla, w=VENTANA_W), "m2-posicion-rango", destino)
 
+    # Aqui la llamada sin argumento es deliberada: el trabajo de este bloque es
+    # documentar QUE produce construir() por omision, asi que tiene que seguir al
+    # default y no fijarlo. Lo que si hace falta es decir cual fue, porque si no el
+    # JSON cambia de significado en silencio cuando el default cambie — que es
+    # exactamente lo que le paso a m2-ablacion.json al entrar el #58.
     columnas = construir(panel)
+    rezagos_en_nivel = [
+        c for c in columnas.columns if "_rezago_" in c and "_rezago_rel_" not in c
+    ]
     evidencia = {
-        "parametros": {"panel": GRANULARIDAD, "w": VENTANA_W},
+        "parametros": {
+            "panel": GRANULARIDAD,
+            "w": VENTANA_W,
+            "representacion": (
+                "rezagos en nivel de precio" if rezagos_en_nivel else "rezagos relativos"
+            ),
+        },
         "caracteristicas": {
             "n_columnas": int(columnas.shape[1]),
             "columnas": list(columnas.columns),
