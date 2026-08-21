@@ -1,7 +1,8 @@
 {
  "parametros": {
   "panel": "4h",
-  "w": 7
+  "w": 7,
+  "representacion": "rezagos relativos"
  },
  "caracteristicas": {
   "n_columnas": 63,
@@ -171,7 +172,7 @@
   ]
  },
  "_meta": {
-  "generado_utc": "2026-08-20T05:24:00+00:00",
+  "generado_utc": "2026-08-21T21:10:35+00:00",
   "issues": [
    "S1-M2-02",
    "S1-M2-03"
