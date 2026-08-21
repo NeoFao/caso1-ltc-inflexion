@@ -1,5 +1,5 @@
 {
-  "ejecutado_utc": "2026-08-20T04:39:23+00:00",
+  "ejecutado_utc": "2026-08-21T16:39:53+00:00",
   "intervalo": "4h",
   "w": 7,
   "h": 1,
@@ -15,9 +15,13 @@
   },
   "caracteristicas": {
     "n_columnas": 63,
-    "n_columnas_en_nivel": 24,
-    "filas_con_algun_nulo": 30
+    "n_columnas_en_nivel": 0,
+    "n_columnas_rezago": 24,
+    "forma_rezagos": "relativos al precio actual",
+    "filas_con_algun_nulo": 30,
+    "origen_columnas_en_nivel": "src.features.base.columnas_en_nivel_de_precio(), el ayudante de M2, en vez de un fragmento de nombre deducido desde M3"
   },
+  "modelo_principal": "bosque_aleatorio_rezagos_relativos",
   "particion": {
     "n_entrenamiento": 9171,
     "n_validacion": 1959,
@@ -72,7 +76,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_trivial",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-20T04:39:18+00:00"
+      "ejecutado_utc": "2026-08-21T16:39:50+00:00"
     },
     {
       "n": 1959,
@@ -84,7 +88,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_mayoritario",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-20T04:39:18+00:00"
+      "ejecutado_utc": "2026-08-21T16:39:50+00:00"
     },
     {
       "n": 1959,
@@ -96,19 +100,19 @@
       "f1_continuidad": 0.904775360271263,
       "modelo": "baseline_aleatorio",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-20T04:39:18+00:00"
+      "ejecutado_utc": "2026-08-21T16:39:50+00:00"
     },
     {
       "n": 1959,
-      "f1_macro": 0.3443065490077563,
-      "precision_direccional": 0.031088082901554404,
-      "exactitud": 0.885145482388974,
-      "f1_maximo": 0.07462686567164178,
-      "f1_minimo": 0.019417475728155338,
-      "f1_continuidad": 0.9388753056234719,
-      "modelo": "bosque_aleatorio",
+      "f1_macro": 0.390497720487045,
+      "precision_direccional": 0.10362694300518134,
+      "exactitud": 0.8580908626850434,
+      "f1_maximo": 0.10810810810810811,
+      "f1_minimo": 0.14035087719298245,
+      "f1_continuidad": 0.9230341761600445,
+      "modelo": "bosque_aleatorio_rezagos_relativos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-20T04:39:20+00:00"
+      "ejecutado_utc": "2026-08-21T16:39:50+00:00"
     },
     {
       "n": 1959,
@@ -118,9 +122,9 @@
       "f1_maximo": 0.07792207792207792,
       "f1_minimo": 0.11224489795918367,
       "f1_continuidad": 0.9114349775784754,
-      "modelo": "bosque_aleatorio_sin_niveles",
+      "modelo": "bosque_aleatorio_sin_rezagos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-20T04:39:21+00:00"
+      "ejecutado_utc": "2026-08-21T16:39:51+00:00"
     },
     {
       "n": 1959,
@@ -130,32 +134,32 @@
       "f1_maximo": 0.0,
       "f1_minimo": 0.0,
       "f1_continuidad": 0.9481879194630872,
-      "modelo": "bosque_aleatorio_sin_pesos",
+      "modelo": "bosque_aleatorio_sin_pesos_rezagos_relativos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-20T04:39:23+00:00"
+      "ejecutado_utc": "2026-08-21T16:39:53+00:00"
     }
   ],
   "veredicto": {
     "supera_al_trivial": true,
-    "delta_f1_macro": 0.028243909186727256,
-    "detecta_ambos_extremos": false,
+    "delta_f1_macro": 0.07443508066601595,
+    "detecta_ambos_extremos": true,
     "criterio_deteccion": "F1 por clase extrema estrictamente mayor que el del baseline_aleatorio de la misma corrida, no simplemente > 0",
-    "f1_maximo": 0.07462686567164178,
-    "f1_minimo": 0.019417475728155338,
+    "f1_maximo": 0.10810810810810811,
+    "f1_minimo": 0.14035087719298245,
     "f1_maximo_aleatorio": 0.05181347150259067,
     "f1_minimo_aleatorio": 0.053763440860215055,
-    "precision_direccional": 0.031088082901554404
+    "precision_direccional": 0.10362694300518134
   },
   "importancias_top10": {
-    "LTC_posicion_rango_7": 0.084991,
-    "LTC_dist_sma_7": 0.070571,
-    "LTC_retorno_7": 0.044209,
-    "LTC_retorno_3": 0.041436,
-    "LTC_dist_ema_12": 0.040476,
-    "LTC_bollinger_pctb_20": 0.025387,
-    "LTC_retorno_1": 0.023365,
-    "LTC_posicion_rango_20": 0.02333,
-    "XRP_retorno_3": 0.020646,
-    "ADA_retorno_3": 0.020557
+    "LTC_posicion_rango_7": 0.070182,
+    "LTC_dist_sma_7": 0.056807,
+    "LTC_cierre_rezago_rel_5": 0.044801,
+    "LTC_cierre_rezago_rel_6": 0.040276,
+    "LTC_dist_ema_12": 0.03246,
+    "LTC_retorno_3": 0.029426,
+    "LTC_retorno_7": 0.02872,
+    "LTC_cierre_rezago_rel_7": 0.026781,
+    "LTC_bollinger_pctb_20": 0.017287,
+    "LTC_retorno_1": 0.016416
   }
 }

@@ -92,12 +92,21 @@ class BosqueAleatorio(Modelo):
         semilla: int = HIPERPARAMETROS["random_state"],
         n_procesos: int = -1,
         excluir: tuple[str, ...] = (),
+        excluir_exactas: tuple[str, ...] = (),
         nombre: str | None = None,
     ) -> None:
-        # `excluir` recibe fragmentos de nombre de columna, no nombres completos:
-        # asi este modulo no necesita conocer la nomenclatura de M2, que es suya y
-        # puede cambiar. Quien sabe que "_rezago_" son precios en nivel es el guion
-        # que decide medir esa variante, no el modelo.
+        # Dos formas de excluir, y conviene saber cual usar.
+        #
+        # `excluir` recibe FRAGMENTOS de nombre. Es comodo, pero compara por
+        # subcadena: excluir "LTC_cierre_rezago_1" tambien se llevaria por delante a
+        # "LTC_cierre_rezago_10" el dia que M2 anada ese orden. Y un fragmento puede
+        # cambiar de significado sin cambiar de forma, que es justo lo que paso con
+        # "_rezago_" cuando los rezagos pasaron a ser relativos.
+        #
+        # `excluir_exactas` recibe NOMBRES COMPLETOS y compara por igualdad. Es la
+        # que hay que usar cuando la lista de columnas se calcula con un ayudante de
+        # M2 -- columnas_en_nivel_de_precio(), por ejemplo -- en vez de adivinarla
+        # desde este modulo.
         self.n_arboles = n_arboles
         self.min_hojas = min_hojas
         self.profundidad_maxima = profundidad_maxima
@@ -105,13 +114,19 @@ class BosqueAleatorio(Modelo):
         self.semilla = semilla
         self.n_procesos = n_procesos
         self.excluir = excluir
+        self.excluir_exactas = excluir_exactas
         if nombre is not None:
             self.nombre = nombre
         self._tuberia: Pipeline | None = None
         self._columnas: list[str] | None = None
 
     def _seleccionar(self, columnas: pd.Index) -> list[str]:
-        return [c for c in columnas if not any(p in c for p in self.excluir)]
+        exactas = set(self.excluir_exactas)
+        return [
+            c
+            for c in columnas
+            if c not in exactas and not any(p in c for p in self.excluir)
+        ]
 
     @staticmethod
     def _preparar(X: pd.DataFrame, columnas: list[str]) -> pd.DataFrame:

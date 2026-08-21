@@ -26,7 +26,11 @@ from src.modelos.base import (
     Modelo,
 )
 from src.modelos.clasico import BosqueAleatorio
-from src.modelos.experimento import detecta_mejor_que_azar
+from src.modelos.experimento import (
+    columnas_de_rezago,
+    columnas_en_nivel_de_precio,
+    detecta_mejor_que_azar,
+)
 from src.sintetico.generador import panel_correlacionado, serie_zigzag
 
 ARBOLES_DE_PRUEBA = 20
@@ -165,6 +169,87 @@ def test_excluir_se_aplica_igual_al_entrenar_y_al_predecir():
     ensuciado = X.copy()
     ensuciado["ruido"] = 1e6
     assert np.array_equal(modelo.predecir(X), modelo.predecir(ensuciado))
+
+
+def test_el_ayudante_distingue_niveles_de_relativos_en_las_dos_direcciones():
+    """La razon por la que M3 dejo de filtrar por el fragmento "_rezago_".
+
+    El fragmento era correcto mientras los rezagos salieran en nivel. Con la forma
+    relativa sigue coincidiendo -- "_rezago_rel_1" lo contiene -- pero ya no
+    significa lo mismo. Se fija en las dos direcciones porque una heuristica que
+    solo se prueba en un sentido es la que no falla nunca y siempre miente.
+    """
+    X = pd.DataFrame(
+        columns=[
+            "LTC_cierre_rezago_1",
+            "BTC_cierre_rezago_5",
+            "LTC_cierre_rezago_rel_1",
+            "BTC_cierre_rezago_rel_5",
+            "LTC_retorno_3",
+        ]
+    )
+
+    assert columnas_en_nivel_de_precio(X) == ["LTC_cierre_rezago_1", "BTC_cierre_rezago_5"]
+    assert columnas_de_rezago(X) == [
+        "LTC_cierre_rezago_1",
+        "BTC_cierre_rezago_5",
+        "LTC_cierre_rezago_rel_1",
+        "BTC_cierre_rezago_rel_5",
+    ]
+
+
+def test_sin_rezagos_relativos_no_quedan_columnas_en_nivel():
+    """Despues del PR #58 esta es la situacion normal, y es la que hacia que la
+    variante `sin_niveles` pasara a no excluir nada bajo un nombre que decia que
+    excluia algo."""
+    X = pd.DataFrame(columns=["LTC_cierre_rezago_rel_1", "LTC_retorno_3"])
+
+    assert columnas_en_nivel_de_precio(X) == []
+    assert columnas_de_rezago(X) == ["LTC_cierre_rezago_rel_1"]
+
+
+def test_excluir_exactas_no_se_lleva_columnas_con_el_mismo_prefijo():
+    """El motivo por el que existe excluir_exactas.
+
+    `excluir` compara por subcadena, asi que excluir "x_rezago_1" tambien se
+    llevaria "x_rezago_10". Hoy los ordenes medidos son (1,2,3,5) y no se nota, pero
+    el dia que M2 anada el orden 10 la variante mediria otra cosa sin fallar.
+    """
+    generador = np.random.default_rng(0)
+    X = pd.DataFrame(
+        {
+            "x_rezago_1": generador.normal(size=60),
+            "x_rezago_10": generador.normal(size=60),
+            "senal": generador.normal(size=60),
+        }
+    )
+    y = pd.Series([int(Clase.CONTINUIDAD)] * 30 + [int(Clase.MAXIMO)] * 30)
+
+    exacto = BosqueAleatorio(
+        n_arboles=ARBOLES_DE_PRUEBA, excluir_exactas=("x_rezago_1",)
+    ).entrenar(X, y)
+    assert set(exacto.importancias().index) == {"x_rezago_10", "senal"}
+
+    # La forma por fragmento se lleva las dos: es el fallo que esto evita.
+    fragmento = BosqueAleatorio(
+        n_arboles=ARBOLES_DE_PRUEBA, excluir=("x_rezago_1",)
+    ).entrenar(X, y)
+    assert set(fragmento.importancias().index) == {"senal"}
+
+
+def test_excluir_exactas_ignora_nombres_que_no_estan():
+    """El ayudante de M2 devuelve lista vacia cuando no hay columnas en nivel, y
+    despues del PR #58 ese es el caso normal. Excluir nada tiene que dejar el
+    modelo igual que no excluir, no fallar."""
+    X, y = _caso_separable()
+    etiquetas = y.fillna(Clase.CONTINUIDAD)
+
+    con = BosqueAleatorio(
+        n_arboles=ARBOLES_DE_PRUEBA, excluir_exactas=("columna_que_no_existe",)
+    ).entrenar(X, etiquetas)
+    sin = BosqueAleatorio(n_arboles=ARBOLES_DE_PRUEBA).entrenar(X, etiquetas)
+
+    assert np.array_equal(con.predecir(X), sin.predecir(X))
 
 
 def test_predecir_sin_las_columnas_del_ajuste_falla_nombrandolas():

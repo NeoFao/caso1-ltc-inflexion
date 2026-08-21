@@ -9,14 +9,20 @@ contracts/config.py el 18 de agosto de 2026, justificado en
 docs/04-decision-w-h-granularidad.md. PROVISIONAL es False: estos numeros ya
 entran al informe como definitivos.
 
+Los rezagos salen en la forma que decida M2 en `construir()`. Desde D6 esa forma es
+relativa al precio actual; `--rezagos-en-nivel` reproduce las mediciones anteriores.
+El nombre de cada modelo lleva la forma de los rezagos con la que se midio, porque
+dos filas del CSV con el mismo nombre tienen que significar lo mismo.
+
 Salidas:
     docs/evidencias/resultados.csv                          una fila por modelo, se anade
-    docs/evidencias/modelo-clasico-<intervalo>-w<w>-h<h>.json   los numeros de esta corrida
+    docs/evidencias/modelo-clasico-<intervalo>-w<w>-h<h>-rezagos-<forma>.json
 
 Uso:
     uv run python -m src.modelos.experimento
     uv run python -m src.modelos.experimento --intervalo 1d --w 5 --h 3
     uv run python -m src.modelos.experimento --sin-variantes
+    uv run python -m src.modelos.experimento --rezagos-en-nivel   # reproduce pre-D6
 """
 
 from __future__ import annotations
@@ -42,10 +48,25 @@ RAIZ = Path(__file__).resolve().parents[2]
 EVIDENCIAS = RAIZ / "docs" / "evidencias"
 RUTA_RESULTADOS = EVIDENCIAS / "resultados.csv"
 
-# Fragmento que identifica a las columnas de precio en nivel dentro de la
-# nomenclatura de M2. Vive aqui y no en el modelo porque es conocimiento sobre las
-# caracteristicas, no sobre el bosque.
-FRAGMENTO_NIVELES = "_rezago_"
+try:
+    from src.features.base import columnas_en_nivel_de_precio
+except ImportError:  # pragma: no cover - solo hasta que entre el PR #58 de M2
+    # Respaldo temporal con la MISMA regla que el ayudante de M2, para que este
+    # cambio pueda entrar a main antes que el #58 sin romper el CI. En cuanto el
+    # #58 este fusionado, el import de arriba gana y este bloque deja de usarse.
+    def columnas_en_nivel_de_precio(X: pd.DataFrame) -> list[str]:
+        return [c for c in X.columns if "_rezago_" in c and "_rezago_rel_" not in c]
+
+
+def columnas_de_rezago(X: pd.DataFrame) -> list[str]:
+    """Todas las columnas de rezago, esten en nivel o en forma relativa.
+
+    Es la pregunta que sostiene la variante `bosque_aleatorio_sin_rezagos`: si el
+    bosque necesita los rezagos, en cualquiera de sus dos formas. Se responde igual
+    antes y despues del cambio de M2, y por eso esa variante no cambia de
+    significado cuando el valor por defecto pasa a relativo.
+    """
+    return [c for c in X.columns if "_rezago_" in c]
 
 
 def _verificar_encabezado(ruta: Path, resultado: dict) -> None:
@@ -114,6 +135,14 @@ def main() -> None:
         help="requerido para evaluar sobre prueba; el bloque se gasta una sola vez",
     )
     parser.add_argument("--sin-variantes", action="store_true", help="solo los cuatro modelos")
+    parser.add_argument(
+        "--rezagos-en-nivel",
+        action="store_true",
+        help=(
+            "construye los rezagos en nivel de precio en vez de relativos. Existe para "
+            "reproducir las mediciones anteriores a D6, no para el pipeline."
+        ),
+    )
     parser.add_argument("--semilla", type=int, default=HIPERPARAMETROS["random_state"])
     parser.add_argument("--n-arboles", type=int, default=HIPERPARAMETROS["n_estimators"])
     argumentos = parser.parse_args()
@@ -146,12 +175,37 @@ def main() -> None:
     )
 
     # ------------------------------------------------------------------ [2/6]
-    X = construir(panel)
-    columnas_en_nivel = [c for c in X.columns if FRAGMENTO_NIVELES in c]
+    X = construir(panel, rezagos_relativos=not argumentos.rezagos_en_nivel)
+    # Se le pregunta a M2 cuales columnas estan en unidades de precio en vez de
+    # deducirlo de un fragmento de nombre desde aqui: la nomenclatura es suya y
+    # puede cambiar, la pregunta no.
+    columnas_en_nivel = columnas_en_nivel_de_precio(X)
+    columnas_rezago = columnas_de_rezago(X)
     filas_con_nulos = int(X.isna().any(axis=1).sum())
+
+    # El nombre lleva SIEMPRE la forma de los rezagos, incluso en el caso por
+    # defecto. Un bosque entrenado con niveles y uno entrenado con relativos no son
+    # el mismo modelo, y resultados.csv se anade sin sobrescribir: si los dos se
+    # llamaran `bosque_aleatorio`, dos filas con el mismo nombre significarian cosas
+    # distintas y solo la fecha las distinguiria. Nombrar solo la variante rara y
+    # dejar el caso por defecto sin sufijo mueve el problema, no lo resuelve.
+    if columnas_en_nivel:
+        forma_rezagos = "en nivel de precio"
+        sufijo = "_rezagos_en_nivel"
+    elif columnas_rezago:
+        forma_rezagos = "relativos al precio actual"
+        sufijo = "_rezagos_relativos"
+    else:
+        forma_rezagos = "no hay columnas de rezago"
+        sufijo = "_sin_rezagos_disponibles"
+
     print(
-        f"[2/6] Caracteristicas  {len(X.columns)} columnas, {filas_con_nulos} filas con "
-        f"algun nulo, {len(columnas_en_nivel)} en nivel de precio"
+        f"[2/6] Caracteristicas  {len(X.columns)} columnas, "
+        f"{filas_con_nulos} filas con algun nulo"
+    )
+    print(
+        f"      rezagos: {forma_rezagos} "
+        f"({len(columnas_rezago)} columnas, {len(columnas_en_nivel)} de ellas en nivel)"
     )
 
     # ------------------------------------------------------------------ [3/6]
@@ -177,31 +231,46 @@ def main() -> None:
     print(balance.to_string(index=False))
 
     # ------------------------------------------------------------------ [5/6]
+    nombre_principal = f"bosque_aleatorio{sufijo}"
     modelos = [
         BaselineTrivial(),
         BaselineMayoritario(),
         BaselineAleatorio(semilla=argumentos.semilla),
-        BosqueAleatorio(n_arboles=argumentos.n_arboles, semilla=argumentos.semilla),
+        BosqueAleatorio(
+            n_arboles=argumentos.n_arboles,
+            semilla=argumentos.semilla,
+            nombre=nombre_principal,
+        ),
     ]
     if not argumentos.sin_variantes:
         # Las variantes se distinguen por su nombre y NO por una columna extra:
         # agregar claves al dict de resultado desalinearia el CSV (ver
         # _verificar_encabezado). Las dos existen para dejar medido, y no argumentado,
         # lo que el informe va a tener que explicar.
-        modelos.append(
-            BosqueAleatorio(
-                n_arboles=argumentos.n_arboles,
-                semilla=argumentos.semilla,
-                excluir=(FRAGMENTO_NIVELES,),
-                nombre="bosque_aleatorio_sin_niveles",
+        #
+        # `sin_rezagos` reemplaza al antiguo `sin_niveles`. El nombre viejo describia
+        # bien lo que media solo mientras TODOS los rezagos estuvieran en nivel:
+        # excluia el fragmento "_rezago_", que entonces eran los 24 niveles y nada
+        # mas. Con los rezagos relativos ese mismo filtro se lleva tambien los
+        # relativos, asi que la variante seguiria midiendo "sin ningun rezago" bajo
+        # un nombre que dice "sin niveles". Se renombra a lo que de verdad hace, que
+        # ademas es una pregunta que sigue teniendo sentido en las dos formas: si el
+        # bosque necesita los rezagos.
+        if columnas_rezago:
+            modelos.append(
+                BosqueAleatorio(
+                    n_arboles=argumentos.n_arboles,
+                    semilla=argumentos.semilla,
+                    excluir_exactas=tuple(columnas_rezago),
+                    nombre="bosque_aleatorio_sin_rezagos",
+                )
             )
-        )
         modelos.append(
             BosqueAleatorio(
                 n_arboles=argumentos.n_arboles,
                 semilla=argumentos.semilla,
                 peso_clases=None,
-                nombre="bosque_aleatorio_sin_pesos",
+                nombre=f"bosque_aleatorio_sin_pesos{sufijo}",
             )
         )
 
@@ -220,7 +289,7 @@ def main() -> None:
         guardar_resultado(resultado, ruta=RUTA_RESULTADOS)
 
     por_nombre = {r["modelo"]: r for r in resultados}
-    bosque_r = por_nombre["bosque_aleatorio"]
+    bosque_r = por_nombre[nombre_principal]
     delta = bosque_r["f1_macro"] - por_nombre["baseline_trivial"]["f1_macro"]
     supera = bool(delta > 0)
 
@@ -229,7 +298,7 @@ def main() -> None:
     aleatorio_r = por_nombre["baseline_aleatorio"]
     detecta = detecta_mejor_que_azar(bosque_r, aleatorio_r)
 
-    bosque = next(m for m in modelos if m.nombre == "bosque_aleatorio")
+    bosque = next(m for m in modelos if m.nombre == nombre_principal)
     importancias = bosque.importancias()
 
     medido = {
@@ -250,8 +319,15 @@ def main() -> None:
         "caracteristicas": {
             "n_columnas": int(len(X.columns)),
             "n_columnas_en_nivel": int(len(columnas_en_nivel)),
+            "n_columnas_rezago": int(len(columnas_rezago)),
+            "forma_rezagos": forma_rezagos,
             "filas_con_algun_nulo": filas_con_nulos,
+            "origen_columnas_en_nivel": (
+                "src.features.base.columnas_en_nivel_de_precio(), el ayudante de M2, "
+                "en vez de un fragmento de nombre deducido desde M3"
+            ),
         },
+        "modelo_principal": nombre_principal,
         "particion": {
             "n_entrenamiento": int(particion.entrenamiento.sum()),
             "n_validacion": int(particion.validacion.sum()),
@@ -279,9 +355,13 @@ def main() -> None:
         },
         "importancias_top10": importancias.head(10).round(6).to_dict(),
     }
-    # w y h van en el nombre: si no, dos configuraciones distintas se sobrescriben y
-    # el informe termina citando numeros de una corrida que ya no es la vigente.
-    ruta_json = EVIDENCIAS / f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}.json"
+    # w, h y la forma de los rezagos van en el nombre: si no, dos configuraciones
+    # distintas se sobrescriben y el informe termina citando numeros de una corrida
+    # que ya no es la vigente.
+    marca_rezagos = sufijo.replace("_", "-")
+    ruta_json = (
+        EVIDENCIAS / f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}{marca_rezagos}.json"
+    )
     guardar_json(_limpiar_json(medido), ruta_json)
 
     print("\n[6/6] Evidencia")
