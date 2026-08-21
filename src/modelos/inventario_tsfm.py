@@ -56,12 +56,13 @@ EVIDENCIAS = RAIZ / "docs" / "evidencias"
 # candidatos, para que la comparacion sea entre modelos y no entre recortes.
 CONTEXTO = 512
 
-# ANCLADO A PROPOSITO, y no leido de contracts/config.py. Aplica D11: la evidencia
-# de una entrega hecha no se regenera.
+# ANCLADO A PROPOSITO, y no leido de contracts/config.py, para que re-ejecutar el
+# guion no cambie la evidencia por su cuenta.
 #
 # Estos valores son los que estaban vigentes cuando se midio el inventario, y sus
 # numeros --tiempos, memoria, tamano en disco-- son los que cita la Tabla 1 de
-# docs/entregas/semana-2/m3-modelos.md, ya entregada. El contrato cambio despues a
+# docs/entregas/semana-2/m3-modelos.md, que es BORRADOR: vence el 25/08. El contrato
+# cambio despues a
 # h = 1 (D3), asi que leerlo aqui haria que re-ejecutar este guion cambiara la
 # evidencia y dejara al entregable citando valores que ya no existen, en silencio.
 #

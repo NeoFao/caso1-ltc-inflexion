@@ -2,11 +2,17 @@
 
 Por que este archivo existe en vez de regenerar el otro
 -------------------------------------------------------
-`src/features/incertidumbre.py` produjo `docs/evidencias/m2-incertidumbre.json`, y
-esas cifras estan citadas en las conclusiones de la Semana 2, que ya se entrego. La
-**D13** dice que remedir una entrega pasada produce evidencia nueva y nunca reescribe
-la entregada. Asi que aquel archivo se queda como esta —declarando que midio rezagos
-en nivel, que era el default cuando se midio— y las cifras vigentes van aqui.
+`src/features/incertidumbre.py` produjo `docs/evidencias/m2-incertidumbre.json`,
+medido cuando el default eran rezagos en nivel.
+
+Un archivo aparte es lo correcto, pero NO por la razon que decia aqui antes. La
+Semana 2 todavia no se entrego: vence el 25/08, asi que la D13 no la protege. La
+razon es la misma del PR #63: dos representaciones distintas no comparten archivo,
+porque entonces la segunda corrida borra la primera y nadie se entera. Aquel JSON
+documenta lo que da la representacion en nivel; este, la vigente.
+
+Consecuencia de que la Semana 2 sea borrador: las conclusiones que citaban aquellas
+cifras **si hay que corregirlas antes de entregar**, y se corrigieron.
 
 Que cambio y por que hay que remedirlo
 --------------------------------------

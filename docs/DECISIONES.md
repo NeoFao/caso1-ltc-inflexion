@@ -172,8 +172,12 @@ silencio.
 Para producir las figuras de una entrega futura se cambian esos valores a propósito y se
 declara en el documento con qué se midió.
 
-**También aplica a `src/modelos/inventario_tsfm.py`**, anclado a `w = 7`, `h = 5` por la
-misma razón: sus tiempos son los que cita la Tabla 1 de la Semana 2, ya entregada.
+**También aplica a `src/modelos/inventario_tsfm.py`**, anclado a `w = 7`, `h = 5`, aunque
+por una razón distinta que conviene no confundir. La Semana 2 **todavía no se entregó**: vence
+el 25/08. Ahí el anclaje no protege historia, evita desincronización — re-ejecutar el guion
+cambiaría los tiempos que cita la Tabla 1 de `m3-modelos.md` sin que el documento se entere.
+Mientras la Semana 2 sea borrador, remedirla y actualizar la tabla **sí está permitido**; lo
+que no está permitido es que la evidencia cambie sola.
 
 ## D12 · Modelo fundacional: Chronos-Bolt
 
@@ -213,7 +217,9 @@ LTC:
 de 12 velas, que era el contrato vigente cuando se hizo el inventario. D3 corrigió después
 `h` a 1, con lo que el horizonte necesario baja a 8. **Lo que decide es el orden de magnitud
 entre candidatos —Bolt es 484 veces más rápido por ventana que T5— y ese orden no depende
-del horizonte.** La evidencia no se regenera porque la cita la Semana 2, ya entregada (D11).
+del horizonte.** La evidencia está anclada, no congelada por D11: la Semana 2 aún es
+borrador. Remedirla con `h = 1` es legítimo y sigue pendiente como opcional, precisamente
+porque no cambiaría la elección.
 
 **Lo que esta decisión NO resuelve.** Un modelo fundacional pronostica una trayectoria, no
 una etiqueta de tres clases. El puente entre ambas cosas —cabeza de clasificación sobre
