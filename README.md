@@ -47,6 +47,8 @@ Por eso el panel de trabajo es el de 4 horas. La granularidad diaria no da sufic
 
 El planteamiento del caso supone que BTC, ETH, SOL, XRP y ADA dicen algo sobre los puntos de inflexión de LTC. **Medido, no se puede afirmar que aporten.** Sobre el bosque de M3 y validación, con rezagos relativos, la diferencia entre usar los seis activos y usar solo LTC es de **+0,0090** en F1 macro: su intervalo de confianza del 95 % incluye el cero, está por debajo del umbral de decisión de 0,02, y cambia de signo al reentrenar con otra semilla.
 
+**Confirmado desde una segunda familia de modelo.** iTransformer es la arquitectura cuyo argumento de venta es atender *entre series*, así que si aportaran, ahí debería verse. Sobre cinco semillas la diferencia es de **+0,0126** de media (entre +0,0021 y +0,0253): a diferencia del bosque el signo no se da vuelta, pero la magnitud queda **por debajo del umbral de 0,02** y es del mismo orden que el ruido de una corrida a otra. Distinto matiz, misma conclusión ([D14](docs/DECISIONES.md)).
+
 No invalida el proyecto —cambia la conclusión, no el método—, pero **ninguna sección puede afirmar que los activos de apoyo aportan**. El estudio completo, y por qué la cifra de la ablación lineal no respondía esta pregunta, están en [`docs/06-aporte-multivariante.md`](docs/06-aporte-multivariante.md).
 
 **Congelado el 18 de agosto de 2026:** `4h`, `w = 7`, `h = 1`. Los tres salen de medición y cada uno de un criterio distinto fijado antes de mirar el resultado — decisiones [D1](docs/DECISIONES.md), [D2](docs/DECISIONES.md) y [D3](docs/DECISIONES.md), con el estudio completo en [`docs/04-decision-w-h-granularidad.md`](docs/04-decision-w-h-granularidad.md).

@@ -87,13 +87,19 @@ def medir_predictibilidad(panel: pd.DataFrame, intervalo: str) -> list[dict]:
     # default a rezagos relativos el 20/08 y esta evidencia es del 17/08, asi que
     # re-ejecutar sin anclar dejaria de reproducir lo publicado sin avisar.
     #
-    # Medido: con la representacion vigente la informacion mutua media sube de
-    # 0,005686 a 0,010217 sobre w=7, h=1. La curva es lo que se interpreta, no su
-    # nivel, asi que el cambio no invalida la decision -- pero si cambia las cifras
-    # que citan docs/04-decision-w-h-granularidad.md y el capitulo de M3.
+    # Medido sobre w=7, en el issue #70 y por separado desde M0, con los mismos
+    # valores hasta el sexto decimal:
     #
-    # Rehacer el estudio con la representacion vigente es una pregunta abierta y
-    # legitima; lo que no puede pasar es que las cifras cambien solas.
+    #   h        en nivel      relativos
+    #   1        0,005686      0,010217
+    #   3        0,001433      0,002641
+    #   5        0,000397      0,000670
+    #   caida    3,97x         3,87x
+    #
+    # El NIVEL casi se duplica; la FORMA no se mueve, y la forma es lo que la D3
+    # interpreta. La decision se sostiene con cualquiera de las dos representaciones,
+    # asi que rehacer el estudio es opcional y no urgente. Lo que no puede pasar es
+    # que las cifras citadas en docs/04-decision-w-h-granularidad.md cambien solas.
     caracteristicas = construir(panel, rezagos_relativos=False)
     ltc = cierre(panel, "LTC")
     filas = []
