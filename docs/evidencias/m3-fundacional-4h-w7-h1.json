@@ -1,0 +1,130 @@
+{
+  "ejecutado_utc": "2026-08-21T20:25:14+00:00",
+  "modelo": "chronos_bolt",
+  "repo": "amazon/chronos-bolt-small",
+  "decision": "D12 en docs/DECISIONES.md",
+  "zero_shot": true,
+  "puente": "Se pronostica la trayectoria y se le aplica etiquetar() del contrato sobre una ventana de 2w+1 centrada en t+h. La alternativa era una cabeza de clasificacion sobre representaciones congeladas.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "horizonte_pronosticado": 8,
+    "contexto": 512,
+    "conjunto": "validacion",
+    "filas_sin_historia_suficiente": 0
+  },
+  "metricas": {
+    "baseline_trivial": {
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9014803471158754,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9481879194630872,
+      "modelo": "baseline_trivial",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:29+00:00"
+    },
+    "baseline_mayoritario": {
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9014803471158754,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9481879194630872,
+      "modelo": "baseline_mayoritario",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:29+00:00"
+    },
+    "baseline_aleatorio": {
+      "n": 1959,
+      "f1_macro": 0.3367840908780229,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.8223583460949464,
+      "f1_maximo": 0.05181347150259067,
+      "f1_minimo": 0.053763440860215055,
+      "f1_continuidad": 0.904775360271263,
+      "modelo": "baseline_aleatorio",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:29+00:00"
+    },
+    "bosque_aleatorio_rezagos_relativos": {
+      "n": 1959,
+      "f1_macro": 0.390497720487045,
+      "precision_direccional": 0.10362694300518134,
+      "exactitud": 0.8580908626850434,
+      "f1_maximo": 0.10810810810810811,
+      "f1_minimo": 0.14035087719298245,
+      "f1_continuidad": 0.9230341761600445,
+      "modelo": "bosque_aleatorio_rezagos_relativos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:30+00:00"
+    },
+    "bosque_aleatorio_sin_rezagos": {
+      "n": 1959,
+      "f1_macro": 0.3672006511532457,
+      "precision_direccional": 0.08808290155440414,
+      "exactitud": 0.8386932108218479,
+      "f1_maximo": 0.07792207792207792,
+      "f1_minimo": 0.11224489795918367,
+      "f1_continuidad": 0.9114349775784754,
+      "modelo": "bosque_aleatorio_sin_rezagos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:31+00:00"
+    },
+    "bosque_aleatorio_sin_pesos_rezagos_relativos": {
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9014803471158754,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9481879194630872,
+      "modelo": "bosque_aleatorio_sin_pesos_rezagos_relativos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:32+00:00"
+    },
+    "chronos_bolt": {
+      "n": 1959,
+      "f1_macro": 0.3685892678679214,
+      "precision_direccional": 0.09326424870466321,
+      "exactitud": 0.8300153139356815,
+      "f1_maximo": 0.08771929824561403,
+      "f1_minimo": 0.1111111111111111,
+      "f1_continuidad": 0.9069373942470389,
+      "modelo": "chronos_bolt",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:24:52+00:00"
+    }
+  },
+  "comparaciones_pareadas": {
+    "chronos_bolt__vs__baseline_trivial": {
+      "diferencia": 0.05252662804689234,
+      "ic_inferior": 0.025309526822523316,
+      "ic_superior": 0.08084520533558615,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 1.0,
+      "remuestras": 1000
+    },
+    "chronos_bolt__vs__baseline_aleatorio": {
+      "diferencia": 0.03180517698989849,
+      "ic_inferior": -0.0029561578741668093,
+      "ic_superior": 0.06523609788450657,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.963,
+      "remuestras": 1000
+    },
+    "chronos_bolt__vs__bosque_aleatorio_rezagos_relativos": {
+      "diferencia": -0.02190845261912361,
+      "ic_inferior": -0.06424929085465762,
+      "ic_superior": 0.020263907872044386,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.155,
+      "remuestras": 1000
+    }
+  },
+  "nota_umbral": "El umbral de 0,02 de la D5 es una convencion del equipo, no un contraste. Cuando el margen y su intervalo discrepen, manda el intervalo."
+}

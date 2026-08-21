@@ -25,6 +25,11 @@ dev = [
 modelos = [
     "torch>=2.4",
     "transformers>=4.45",
+    # Modelo fundacional elegido en la D12. Vive en este grupo y no en las
+    # dependencias base a proposito: CI corre con --group dev y no lo instala, asi
+    # que src/modelos/fundacional.py importa chronos de forma perezosa y sus
+    # pruebas se saltan solas cuando no esta.
+    "chronos-forecasting>=2.3",
 ]
 
 [tool.pytest.ini_options]
