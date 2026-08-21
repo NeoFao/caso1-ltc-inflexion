@@ -1,0 +1,247 @@
+{
+ "que_es": "Los intervalos del proyecto remedidos con rezagos relativos, que es el default desde el PR #58. NO reemplaza a m2-incertidumbre.json, que midio rezagos en nivel y esta citado en las conclusiones de la Semana 2: por la D13, aquello es lo que se entrego y esto es lo que vale hoy.",
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 1,
+  "conjunto": "validacion",
+  "representacion": "rezagos relativos (default desde el #58)",
+  "remuestras": 1000,
+  "remuestreo": "estratificado por clase real, pareado entre modelos",
+  "delta_f1_decisivo": 0.02
+ },
+ "controles": {
+  "descripcion": "Cada modelo reproduce una cifra ya publicada antes de que se calcule ningun intervalo. El 0,390497720487045 lo obtuvieron por separado M3 en el #63 y M2 en el #62, con codigo distinto.",
+  "esperado": {
+   "bosque_rezagos_en_nivel": 0.3443065490077563,
+   "bosque_aleatorio": 0.390497720487045
+  },
+  "obtenido": {
+   "bosque_rezagos_en_nivel": 0.3443065490077563,
+   "bosque_aleatorio": 0.390497720487045
+  },
+  "reproduce": true
+ },
+ "tamano_validacion": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 99,
+   "porcentaje": 5.054
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 94,
+   "porcentaje": 4.798
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 1766,
+   "porcentaje": 90.148
+  },
+  {
+   "clase": "TOTAL",
+   "codigo": 0,
+   "n": 1959,
+   "porcentaje": 100.0
+  }
+ ],
+ "tamano_prueba_sin_tocar": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 86,
+   "porcentaje": 4.388
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 86,
+   "porcentaje": 4.388
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 1788,
+   "porcentaje": 91.224
+  },
+  {
+   "clase": "TOTAL",
+   "codigo": 0,
+   "n": 1960,
+   "porcentaje": 100.0
+  }
+ ],
+ "intervalos": {
+  "baseline_trivial": {
+   "f1_macro": {
+    "valor": 0.31606263982102906,
+    "ic_inferior": 0.31606263982102906,
+    "ic_superior": 0.31606263982102906,
+    "desviacion_bootstrap": 0.0,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.0,
+    "ic_inferior": 0.0,
+    "ic_superior": 0.0,
+    "desviacion_bootstrap": 0.0,
+    "remuestras": 1000
+   }
+  },
+  "baseline_aleatorio": {
+   "f1_macro": {
+    "valor": 0.3367840908780229,
+    "ic_inferior": 0.3174134119193544,
+    "ic_superior": 0.36052162761400314,
+    "desviacion_bootstrap": 0.011060161609803831,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.05181347150259067,
+    "ic_inferior": 0.025906735751295335,
+    "ic_superior": 0.08808290155440414,
+    "desviacion_bootstrap": 0.015989337636874223,
+    "remuestras": 1000
+   }
+  },
+  "bosque_aleatorio": {
+   "f1_macro": {
+    "valor": 0.390497720487045,
+    "ic_inferior": 0.35789105094668644,
+    "ic_superior": 0.42372945542218776,
+    "desviacion_bootstrap": 0.01684010903835414,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.10362694300518134,
+    "ic_inferior": 0.06217616580310881,
+    "ic_superior": 0.14507772020725387,
+    "desviacion_bootstrap": 0.021428287677359808,
+    "remuestras": 1000
+   }
+  },
+  "bosque_rezagos_en_nivel": {
+   "f1_macro": {
+    "valor": 0.3443065490077563,
+    "ic_inferior": 0.3219398136912651,
+    "ic_superior": 0.37269576185746106,
+    "desviacion_bootstrap": 0.01258643283307793,
+    "remuestras": 1000
+   },
+   "precision_direccional": {
+    "valor": 0.031088082901554404,
+    "ic_inferior": 0.010362694300518135,
+    "ic_superior": 0.05699481865284974,
+    "desviacion_bootstrap": 0.012577480381198911,
+    "remuestras": 1000
+   }
+  }
+ },
+ "comparaciones_pareadas": {
+  "bosque_aleatorio__vs__baseline_aleatorio": {
+   "diferencia": 0.053713629609022095,
+   "ic_inferior": 0.013658138903538813,
+   "ic_superior": 0.09285380785082342,
+   "excluye_el_cero": true,
+   "fraccion_a_favor": 0.995,
+   "remuestras": 1000
+  },
+  "bosque_aleatorio__vs__baseline_trivial": {
+   "diferencia": 0.07443508066601595,
+   "ic_inferior": 0.04182841112565737,
+   "ic_superior": 0.10766681560115872,
+   "excluye_el_cero": true,
+   "fraccion_a_favor": 1.0,
+   "remuestras": 1000
+  },
+  "bosque_aleatorio__vs__bosque_rezagos_en_nivel": {
+   "diferencia": 0.046191171479288695,
+   "ic_inferior": 0.01405975822885642,
+   "ic_superior": 0.08052044288942842,
+   "excluye_el_cero": true,
+   "fraccion_a_favor": 0.997,
+   "remuestras": 1000
+  },
+  "bosque_rezagos_en_nivel__vs__baseline_aleatorio": {
+   "diferencia": 0.0075224581297334,
+   "ic_inferior": -0.025711702709369812,
+   "ic_superior": 0.039088050777455315,
+   "excluye_el_cero": false,
+   "fraccion_a_favor": 0.677,
+   "remuestras": 1000
+  }
+ },
+ "sensibilidad_a_la_semilla": {
+  "por_semilla": [
+   {
+    "semilla": 0,
+    "f1_baseline_trivial": 0.31606263982102906,
+    "f1_baseline_aleatorio": 0.3367840908780229,
+    "f1_bosque_aleatorio": 0.390497720487045,
+    "f1_bosque_rezagos_en_nivel": 0.3443065490077563,
+    "vs_baseline_aleatorio": 0.053713629609022095,
+    "vs_rezagos_en_nivel": 0.046191171479288695
+   },
+   {
+    "semilla": 1,
+    "f1_baseline_trivial": 0.31606263982102906,
+    "f1_baseline_aleatorio": 0.332292487120695,
+    "f1_bosque_aleatorio": 0.3738668760418625,
+    "f1_bosque_rezagos_en_nivel": 0.35294172636234084,
+    "vs_baseline_aleatorio": 0.04157438892116749,
+    "vs_rezagos_en_nivel": 0.020925149679521637
+   },
+   {
+    "semilla": 2,
+    "f1_baseline_trivial": 0.31606263982102906,
+    "f1_baseline_aleatorio": 0.3496624421207985,
+    "f1_bosque_aleatorio": 0.3814198749775542,
+    "f1_bosque_rezagos_en_nivel": 0.35263407976592226,
+    "vs_baseline_aleatorio": 0.031757432856755696,
+    "vs_rezagos_en_nivel": 0.028785795211631937
+   },
+   {
+    "semilla": 3,
+    "f1_baseline_trivial": 0.31606263982102906,
+    "f1_baseline_aleatorio": 0.338766078565549,
+    "f1_bosque_aleatorio": 0.38541496267122133,
+    "f1_bosque_rezagos_en_nivel": 0.341541231933227,
+    "vs_baseline_aleatorio": 0.046648884105672306,
+    "vs_rezagos_en_nivel": 0.04387373073799433
+   },
+   {
+    "semilla": 4,
+    "f1_baseline_trivial": 0.31606263982102906,
+    "f1_baseline_aleatorio": 0.34412114107318054,
+    "f1_bosque_aleatorio": 0.3736747209462749,
+    "f1_bosque_rezagos_en_nivel": 0.33006001091107473,
+    "vs_baseline_aleatorio": 0.02955357987309437,
+    "vs_rezagos_en_nivel": 0.04361471003520018
+   }
+  ],
+  "vs_baseline_aleatorio": {
+   "media": 0.04064958307314239,
+   "minima": 0.02955357987309437,
+   "maxima": 0.053713629609022095,
+   "desviacion": 0.010120620202257223,
+   "cambia_de_signo": false,
+   "todas_superan_el_umbral": true
+  },
+  "vs_rezagos_en_nivel": {
+   "media": 0.03667811142872736,
+   "minima": 0.020925149679521637,
+   "maxima": 0.046191171479288695,
+   "desviacion": 0.011189683955985625,
+   "cambia_de_signo": false,
+   "todas_superan_el_umbral": true
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-21T20:50:18+00:00",
+  "reemplaza_para_citas_vigentes": "docs/evidencias/m2-incertidumbre.json",
+  "advertencia": "Medido sobre VALIDACION y no sobre prueba, por las mismas dos razones de siempre: las cifras que se quieren acotar estan medidas ahi, y el bloque de prueba se reserva para el resultado final."
+ }
+}
