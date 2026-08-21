@@ -1,0 +1,278 @@
+{
+  "ejecutado_utc": "2026-08-21T21:28:28+00:00",
+  "tarea": "S4-M3-02, mitad determinista (modelo fundacional)",
+  "conjunto": "validacion",
+  "regla": "La busqueda se hace contra validacion. El bloque de prueba no se toca aqui: se mide UNA vez, aparte, despues de fijar la configuracion.",
+  "parametros_fijos": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1
+  },
+  "rejilla_explorada": {
+    "repos": [
+      "amazon/chronos-bolt-tiny",
+      "amazon/chronos-bolt-small"
+    ],
+    "contextos": [
+      128,
+      256,
+      512
+    ],
+    "cuantiles": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "n_celdas": 18
+  },
+  "referencias": {
+    "baseline_trivial": 0.31606263982102906,
+    "baseline_aleatorio": 0.3367840908780229
+  },
+  "celdas": [
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 128,
+      "cuantil": 0.4,
+      "f1_macro": 0.367310668062003,
+      "precision_direccional": 0.07772020725388601,
+      "f1_maximo": 0.08433734939759036,
+      "f1_minimo": 0.1,
+      "exactitud": 0.8489025012761613,
+      "segundos": 7.1
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 128,
+      "cuantil": 0.5,
+      "f1_macro": 0.3547772591519574,
+      "precision_direccional": 0.06217616580310881,
+      "f1_maximo": 0.05333333333333334,
+      "f1_minimo": 0.0935672514619883,
+      "exactitud": 0.8483920367534457,
+      "segundos": 2.1
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 128,
+      "cuantil": 0.6,
+      "f1_macro": 0.3410891289749935,
+      "precision_direccional": 0.025906735751295335,
+      "f1_maximo": 0.018691588785046728,
+      "f1_minimo": 0.06451612903225806,
+      "exactitud": 0.8871873404798366,
+      "segundos": 2.1
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 256,
+      "cuantil": 0.4,
+      "f1_macro": 0.3548732549369931,
+      "precision_direccional": 0.09326424870466321,
+      "f1_maximo": 0.06829268292682927,
+      "f1_minimo": 0.10426540284360189,
+      "exactitud": 0.8065339458907606,
+      "segundos": 2.4
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 256,
+      "cuantil": 0.5,
+      "f1_macro": 0.38726924721386413,
+      "precision_direccional": 0.14507772020725387,
+      "f1_maximo": 0.10285714285714286,
+      "f1_minimo": 0.15966386554621848,
+      "exactitud": 0.8187850944359367,
+      "segundos": 2.4
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 256,
+      "cuantil": 0.6,
+      "f1_macro": 0.3711853241836109,
+      "precision_direccional": 0.07772020725388601,
+      "f1_maximo": 0.0915032679738562,
+      "f1_minimo": 0.1,
+      "exactitud": 0.8560490045941807,
+      "segundos": 2.6
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 512,
+      "cuantil": 0.4,
+      "f1_macro": 0.3749044312935066,
+      "precision_direccional": 0.14507772020725387,
+      "f1_maximo": 0.14937759336099585,
+      "f1_minimo": 0.09049773755656108,
+      "exactitud": 0.7947932618683001,
+      "segundos": 3.2
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 512,
+      "cuantil": 0.5,
+      "f1_macro": 0.38203862840717834,
+      "precision_direccional": 0.18134715025906736,
+      "f1_maximo": 0.12955465587044535,
+      "f1_minimo": 0.14339622641509434,
+      "exactitud": 0.7769270035732516,
+      "segundos": 3.3
+    },
+    {
+      "repo": "amazon/chronos-bolt-tiny",
+      "contexto": 512,
+      "cuantil": 0.6,
+      "f1_macro": 0.36082236068797996,
+      "precision_direccional": 0.08290155440414508,
+      "f1_maximo": 0.062111801242236024,
+      "f1_minimo": 0.1111111111111111,
+      "exactitud": 0.8340990301174068,
+      "segundos": 3.4
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 128,
+      "cuantil": 0.4,
+      "f1_macro": 0.3539700243326487,
+      "precision_direccional": 0.06735751295336788,
+      "f1_maximo": 0.056818181818181816,
+      "f1_minimo": 0.09411764705882353,
+      "exactitud": 0.8371618172537009,
+      "segundos": 4.4
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 128,
+      "cuantil": 0.5,
+      "f1_macro": 0.373888595536734,
+      "precision_direccional": 0.09844559585492228,
+      "f1_maximo": 0.09580838323353294,
+      "f1_minimo": 0.11518324607329843,
+      "exactitud": 0.8371618172537009,
+      "segundos": 4.3
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 128,
+      "cuantil": 0.6,
+      "f1_macro": 0.35546123963236353,
+      "precision_direccional": 0.05181347150259067,
+      "f1_maximo": 0.04477611940298507,
+      "f1_minimo": 0.09395973154362416,
+      "exactitud": 0.8657478305257784,
+      "segundos": 4.3
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 256,
+      "cuantil": 0.4,
+      "f1_macro": 0.3643086664815692,
+      "precision_direccional": 0.08290155440414508,
+      "f1_maximo": 0.10989010989010989,
+      "f1_minimo": 0.0718562874251497,
+      "exactitud": 0.8381827462991323,
+      "segundos": 6.3
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 256,
+      "cuantil": 0.5,
+      "f1_macro": 0.3865171474507401,
+      "precision_direccional": 0.12435233160621761,
+      "f1_maximo": 0.09836065573770492,
+      "f1_minimo": 0.15384615384615385,
+      "exactitud": 0.8320571720265442,
+      "segundos": 6.6
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 256,
+      "cuantil": 0.6,
+      "f1_macro": 0.3424969434415166,
+      "precision_direccional": 0.04145077720207254,
+      "f1_maximo": 0.027972027972027972,
+      "f1_minimo": 0.07741935483870968,
+      "exactitud": 0.8560490045941807,
+      "segundos": 6.9
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 512,
+      "cuantil": 0.4,
+      "f1_macro": 0.38551822864612245,
+      "precision_direccional": 0.11917098445595854,
+      "f1_maximo": 0.11914893617021277,
+      "f1_minimo": 0.12857142857142856,
+      "exactitud": 0.8335885655946912,
+      "segundos": 10.5
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 512,
+      "cuantil": 0.5,
+      "f1_macro": 0.3685892678679214,
+      "precision_direccional": 0.09326424870466321,
+      "f1_maximo": 0.08771929824561403,
+      "f1_minimo": 0.1111111111111111,
+      "exactitud": 0.8300153139356815,
+      "segundos": 10.5
+    },
+    {
+      "repo": "amazon/chronos-bolt-small",
+      "contexto": 512,
+      "cuantil": 0.6,
+      "f1_macro": 0.3538808093263539,
+      "precision_direccional": 0.046632124352331605,
+      "f1_maximo": 0.038461538461538464,
+      "f1_minimo": 0.09523809523809523,
+      "exactitud": 0.8657478305257784,
+      "segundos": 11.1
+    }
+  ],
+  "mejor": {
+    "repo": "amazon/chronos-bolt-tiny",
+    "contexto": 256,
+    "cuantil": 0.5,
+    "f1_macro": 0.38726924721386413,
+    "precision_direccional": 0.14507772020725387,
+    "f1_maximo": 0.10285714285714286,
+    "f1_minimo": 0.15966386554621848,
+    "exactitud": 0.8187850944359367,
+    "segundos": 2.4
+  },
+  "peor": {
+    "repo": "amazon/chronos-bolt-tiny",
+    "contexto": 128,
+    "cuantil": 0.6,
+    "f1_macro": 0.3410891289749935,
+    "precision_direccional": 0.025906735751295335,
+    "f1_maximo": 0.018691588785046728,
+    "f1_minimo": 0.06451612903225806,
+    "exactitud": 0.8871873404798366,
+    "segundos": 2.1
+  },
+  "dispersion_de_la_rejilla": 0.04618011823887064,
+  "el_mejor_le_gana_al_azar": true,
+  "por_defecto": {
+    "repo": "amazon/chronos-bolt-small",
+    "contexto": 512,
+    "cuantil": 0.5,
+    "f1_macro": 0.3685892678679214,
+    "precision_direccional": 0.09326424870466321,
+    "f1_maximo": 0.08771929824561403,
+    "f1_minimo": 0.1111111111111111,
+    "exactitud": 0.8300153139356815,
+    "segundos": 10.5
+  },
+  "ganancia_del_ajuste": {
+    "diferencia": 0.018679979345942732,
+    "ic_inferior": -0.017598629484712653,
+    "ic_superior": 0.05961950422451633,
+    "excluye_el_cero": false,
+    "fraccion_a_favor": 0.831,
+    "remuestras": 1000,
+    "nota": "Intervalo pareado de la mejor celda contra la configuracion por defecto, sobre validacion. Si incluye el cero, la ganancia de ajustar no se distingue del efecto de haber elegido el maximo de la rejilla mirando este mismo bloque."
+  },
+  "prueba_sin_tocar": "El bloque de prueba NO se midio. El criterio de aceptacion pide medirlo una sola vez despues de fijar los hiperparametros, y todavia falta la mitad avanzada de esta tarea, asi que fijarlos no esta terminado. Gastar esa medicion ahora dejaria al informe sin datos no vistos.",
+  "pendiente": "El modelo avanzado queda fuera de esta busqueda. Su F1 se mueve 0,0304 entre semillas, mas que el umbral de decision, asi que elegir el maximo de una rejilla seleccionaria la semilla mas afortunada y no la mejor configuracion. Planteado en el issue #37 para decidirlo con el equipo."
+}
