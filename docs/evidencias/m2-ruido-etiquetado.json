@@ -284,7 +284,7 @@
   "ruido_maximo_probado": 1.5
  },
  "_meta": {
-  "generado_utc": "2026-08-17T08:10:27+00:00",
+  "generado_utc": "2026-08-20T05:25:15+00:00",
   "issue": "S1-M2-01",
   "advertencia": "Serie lineal a tramos con ruido gaussiano, construida por nosotros. No es Litecoin. Estos numeros caracterizan al etiquetador, no al mercado."
  }

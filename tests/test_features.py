@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from contracts.config import ACTIVO_OBJETIVO
+from contracts.config import ACTIVO_OBJETIVO, ACTIVOS
 from contracts.labeling import Clase, etiquetar
 from contracts.schema import cierre, columna
 from src.evaluacion.fuga import verificar_sin_fuga
@@ -220,13 +220,38 @@ def test_el_rezago_uno_esta_siempre():
     assert 1 in REZAGOS_MEDIDOS
 
 
-def test_el_rezago_k_es_el_precio_de_hace_k_velas(panel):
-    tabla = rezagos(panel, ACTIVO_OBJETIVO)
+def test_el_rezago_k_en_nivel_es_el_precio_de_hace_k_velas(panel):
+    """La forma en nivel se conserva para reproducir las mediciones que motivaron el
+    cambio al formato relativo, asi que tiene que seguir siendo correcta."""
+    tabla = rezagos(panel, ACTIVO_OBJETIVO, relativo=False)
     serie = cierre(panel, ACTIVO_OBJETIVO)
     for k in REZAGOS_MEDIDOS:
         columna_k = tabla[f"{ACTIVO_OBJETIVO}_cierre_rezago_{k}"]
         assert columna_k.iloc[k:].to_numpy() == pytest.approx(serie.iloc[:-k].to_numpy())
         assert columna_k.iloc[:k].isna().all()
+
+
+def test_por_defecto_no_queda_ninguna_columna_en_nivel_de_precio(panel):
+    """Lo que M3 y M0 tienen que poder preguntar sin conocer la nomenclatura de M2.
+
+    El fragmento `"_rezago_"` que usaba M3 para identificar columnas en nivel sigue
+    coincidiendo con `_rezago_rel_`, asi que da un falso positivo. Esta funcion es la
+    respuesta correcta, y la prueba la fija en las dos direcciones."""
+    from src.features.base import columnas_en_nivel_de_precio
+
+    assert columnas_en_nivel_de_precio(construir(panel)) == []
+    en_nivel = columnas_en_nivel_de_precio(construir(panel, rezagos_relativos=False))
+    assert len(en_nivel) == len(ACTIVOS) * len(REZAGOS_MEDIDOS)
+
+
+def test_por_defecto_los_rezagos_salen_en_forma_relativa(panel):
+    """Guarda de la decision del equipo del 20/08/2026. Volver al nivel por defecto
+    reintroduce columnas no estacionarias en el pipeline y, con ellas, el resultado
+    espurio a favor del enfoque multivariante que la ablacion destapo. Si alguien
+    cambia el valor por defecto, que sea a proposito y no de pasada."""
+    columnas = " ".join(construir(panel).columns)
+    assert "rezago_rel_" in columnas
+    assert f"{ACTIVO_OBJETIVO}_cierre_rezago_1 " not in columnas + " "
 
 
 # ---------------------------------------------------------------------------
