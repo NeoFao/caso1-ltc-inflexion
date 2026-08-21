@@ -93,28 +93,43 @@ nivel**. Cubre cinco familias: retornos y rezagos de los seis activos, indicador
 técnicos, estadísticos de ventana deslizante, medidas de volatilidad y medidas de
 correlación entre activos.
 
-**Las que más pesan, medidas por importancia sobre el modelo de referencia:**
+**Las que más pesan, medidas por permutación sobre el conjunto de validación:**
 
-| Característica | Importancia |
+| Característica | Caída del F1 macro al permutarla |
 |---|---|
-| `LTC_posicion_rango_7` | 0,0850 |
-| `LTC_dist_sma_7` | 0,0706 |
-| `LTC_retorno_7` | 0,0442 |
-| `LTC_retorno_3` | 0,0414 |
-| `LTC_dist_ema_12` | 0,0405 |
+| `LTC_posicion_rango_7` | 0,0422 |
+| `LTC_dist_sma_7` | 0,0343 |
+| `ADA_cierre_rezago_rel_5` | 0,0258 |
+| `LTC_cierre_rezago_rel_5` | 0,0255 |
+| `LTC_cierre_rezago_rel_6` | 0,0224 |
 
-**Tabla 2.** Las cinco características de mayor importancia. Fuente:
-[`modelo-clasico-4h-w7-h1-rezagos-en-nivel.json`](../../evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json).
+**Tabla 2.** Las cinco características de mayor importancia por permutación, con el
+modelo de referencia sobre validación. Fuente:
+[`m2-importancia-4h-w7-h1.json`](../../evidencias/m2-importancia-4h-w7-h1.json).
 
-Que encabecen medidas de **posición relativa dentro de una ventana** y no precios en
-nivel es coherente con el hallazgo de la Semana 1: lo que informa es dónde está el
-precio respecto de su vecindad reciente, no cuánto vale.
+**La medida es por permutación y no la que trae el bosque, y la diferencia importa.**
+La importancia por impureza que devuelve `scikit-learn` se calcula sobre entrenamiento
+y favorece a las variables de alta cardinalidad, de modo que describe de qué se colgó
+el modelo para ajustar lo que ya vio. Permutar una columna sobre validación y medir
+cuánto cae el F1 macro responde otra pregunta: si el modelo la necesita para predecir
+lo que no vio. Las dos ordenaciones coinciden en lo grueso —correlación de rangos de
+0,61— y se separan en el detalle, que es lo esperable si esos sesgos son reales.
 
-**Un resultado medido que queda abierto:** retirar las 24 columnas de precio en nivel
-**mejora** el F1 macro del modelo de referencia. La variante sin ellas es la mejor de
-las cinco evaluadas. No se adoptó como configuración por omisión porque la pregunta
-estaba prerregistrada y elegir la variante después de ver el resultado es una
-decisión del equipo, no de quien la mide.
+**Y la tabla sola no significaría nada sin su control.** Cualquier lista ordenada por
+importancia se puede leer, aunque las 63 columnas fueran ruido: alguna quedaría
+primera. Por eso se entrena un segundo modelo con cinco columnas de ruido puro
+añadidas, y la mayor importancia que alcanza una de ellas fija el piso: **0,0065**.
+Toda característica por debajo de ese valor es indistinguible de una columna
+inventada. **Diecisiete de las sesenta y tres lo están.**
+
+Que encabecen medidas de **posición relativa dentro de una ventana** es coherente con
+el hallazgo de la Semana 1: lo que informa es dónde está el precio respecto de su
+vecindad reciente, no cuánto vale.
+
+**Una cautela que la propia medición obliga a declarar:** que una columna no supere el
+piso no prueba que sea inútil, sino que esta medición no la distingue del ruido. Con
+columnas correlacionadas entre sí, permutar reparte el crédito entre ellas y
+subestima a las dos.
 
 **Toda característica se verifica contra fuga de información** antes de entrar: se
 perturba el futuro de la serie y se comprueba que los valores del pasado no cambian.
