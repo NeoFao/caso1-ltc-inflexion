@@ -69,7 +69,8 @@ EVIDENCIAS = Path("docs/evidencias")
 FRAGMENTOS_DE_APOYO: tuple[str, ...] = ("corr_", *(f"{activo}_" for activo in ACTIVOS_APOYO))
 
 #: F1 macro del bosque de M3 sobre validacion, con rezagos en nivel, publicado en
-#: docs/evidencias/modelo-clasico-4h-w7-h1.json. El control tiene que reproducirlo.
+#: docs/evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json bajo el nombre
+#: `bosque_aleatorio_rezagos_en_nivel`. El control tiene que reproducirlo.
 CONTROL_BOSQUE_M3 = 0.3443065490077563
 
 
@@ -215,7 +216,8 @@ def verificar_control(medicion_en_nivel: dict, tolerancia: float = 1e-9) -> None
         raise AssertionError(
             f"El bosque completo da F1 macro {obtenido!r} y M3 publico "
             f"{CONTROL_BOSQUE_M3!r} en modelo-clasico-{GRANULARIDAD}-w{VENTANA_W}-"
-            f"h{HORIZONTE_H}.json. No se publica nada hasta entender la diferencia."
+            f"h{HORIZONTE_H}-rezagos-en-nivel.json. No se publica nada hasta entender "
+            "la diferencia."
         )
 
 

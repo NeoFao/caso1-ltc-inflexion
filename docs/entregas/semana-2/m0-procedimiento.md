@@ -3,7 +3,7 @@
 **Autor:** Fabrizio Espinoza Arce · **Issue:** [S2-M0-02](https://github.com/NeoFao/caso1-ltc-inflexion/issues/22)
 
 > **Nota de verificación.** Los valores citados salen de
-> `docs/evidencias/modelo-clasico-4h-w7-h1.json` y `docs/evidencias/estudio-w-h.json`,
+> `docs/evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json` y `docs/evidencias/estudio-w-h.json`,
 > y se comprueban con `scripts/verificar_numeros.py`. Salvo indicación expresa,
 > todos corresponden a la configuración congelada: **velas de 4 horas, `w = 7`,
 > `h = 1`**.
@@ -104,7 +104,7 @@ correlación entre activos.
 | `LTC_dist_ema_12` | 0,0405 |
 
 **Tabla 2.** Las cinco características de mayor importancia. Fuente:
-[`modelo-clasico-4h-w7-h1.json`](../../evidencias/modelo-clasico-4h-w7-h1.json).
+[`modelo-clasico-4h-w7-h1-rezagos-en-nivel.json`](../../evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json).
 
 Que encabecen medidas de **posición relativa dentro de una ventana** y no precios en
 nivel es coherente con el hallazgo de la Semana 1: lo que informa es dónde está el
@@ -138,7 +138,7 @@ La partición es **cronológica y con embargo**:
 | **Embargo, descartado** | **16** |
 
 **Tabla 3.** Partición temporal del panel de 4 horas. Fuente:
-[`modelo-clasico-4h-w7-h1.json`](../../evidencias/modelo-clasico-4h-w7-h1.json).
+[`modelo-clasico-4h-w7-h1-rezagos-en-nivel.json`](../../evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json).
 
 **El embargo son `w + h` velas descartadas en cada frontera.** Sin él, las últimas
 observaciones de entrenamiento y las primeras de validación comparten las velas que

@@ -57,9 +57,10 @@ Con el mismo panel y las mismas columnas, un modelo dice que quitar los activos 
 - **Las dos representaciones:** con rezagos en nivel de precio y con rezagos relativos.
 
 **Control previo (regla 2 del proyecto).** Antes de publicar nada, el bosque completo con
-rezagos en nivel tiene que reproducir el F1 macro que M3 publicó para `bosque_aleatorio` sobre
+rezagos en nivel tiene que reproducir el F1 macro que M3 publicó para
+`bosque_aleatorio_rezagos_en_nivel` sobre
 validación. Da **0,3443065490**, idéntico hasta el último dígito a
-`docs/evidencias/modelo-clasico-4h-w7-h1.json`. Si no coincidiera, el script se detiene sin
+`docs/evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json`. Si no coincidiera, el script se detiene sin
 escribir.
 
 ## 4. Los resultados

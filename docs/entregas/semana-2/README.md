@@ -50,7 +50,7 @@ verificado.
 |---|---|
 | [`m3-inventario-tsfm.json`](../../evidencias/m3-inventario-tsfm.json) | Los tres candidatos fundacionales medidos en CPU: disco, RAM pico, segundos por ventana y extrapolación al bloque de validación |
 | [`m3-spike-cryptomamba.json`](../../evidencias/m3-spike-cryptomamba.json) | Por qué CryptoMamba no se puede instalar sin CUDA, con el error exacto |
-| [`modelo-clasico-4h-w7-h1.json`](../../evidencias/modelo-clasico-4h-w7-h1.json) | El modelo clásico de referencia contra los tres baselines |
+| [`modelo-clasico-4h-w7-h1-rezagos-en-nivel.json`](../../evidencias/modelo-clasico-4h-w7-h1-rezagos-en-nivel.json) | El modelo clásico de referencia contra los tres baselines |
 
 ---
 
