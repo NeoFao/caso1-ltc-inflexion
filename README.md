@@ -43,6 +43,12 @@ Ejecutado el 5 de agosto de 2026 con `scripts/spike_datos.py`. Los números comp
 
 Por eso el panel de trabajo es el de 4 horas. La granularidad diaria no da suficientes ejemplos de las clases que importan, y eso se midió antes de escribir una línea de modelo.
 
+### Lo que la medición NO respalda, y hay que decirlo en el informe
+
+El planteamiento del caso supone que BTC, ETH, SOL, XRP y ADA dicen algo sobre los puntos de inflexión de LTC. **Medido, no se puede afirmar que aporten.** Sobre el bosque de M3 y validación, con rezagos relativos, la diferencia entre usar los seis activos y usar solo LTC es de **+0,0090** en F1 macro: su intervalo de confianza del 95 % incluye el cero, está por debajo del umbral de decisión de 0,02, y cambia de signo al reentrenar con otra semilla.
+
+No invalida el proyecto —cambia la conclusión, no el método—, pero **ninguna sección puede afirmar que los activos de apoyo aportan**. El estudio completo, y por qué la cifra de la ablación lineal no respondía esta pregunta, están en [`docs/06-aporte-multivariante.md`](docs/06-aporte-multivariante.md).
+
 **Congelado el 18 de agosto de 2026:** `4h`, `w = 7`, `h = 1`. Los tres salen de medición y cada uno de un criterio distinto fijado antes de mirar el resultado — decisiones [D1](docs/DECISIONES.md), [D2](docs/DECISIONES.md) y [D3](docs/DECISIONES.md), con el estudio completo en [`docs/04-decision-w-h-granularidad.md`](docs/04-decision-w-h-granularidad.md).
 
 ---
@@ -153,6 +159,7 @@ Las que se pueden romper en silencio están **fijadas por pruebas** en `tests/te
 | [Backlog](docs/03-backlog.md) | Quién hace qué, en qué orden. Generado desde los issues |
 | **[Decisiones del equipo](docs/DECISIONES.md)** | **Qué se decidió, por qué, y con qué evidencia. Fuente única de verdad** |
 | [Decisión de `w`, `h` y granularidad](docs/04-decision-w-h-granularidad.md) | El estudio medido que sustenta los tres valores |
+| [¿Aportan los activos de apoyo?](docs/06-aporte-multivariante.md) | El resultado negativo, medido con bootstrap pareado sobre el bosque de M3 |
 | [`docs/evidencias/`](docs/evidencias/) | Mediciones y figuras, todas regenerables |
 | [`docs/entregas/`](docs/entregas/) | Los cinco entregables semanales |
 

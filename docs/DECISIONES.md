@@ -227,3 +227,39 @@ cumplen las dos líneas del enunciado, pero **no están medidos en nuestras máq
 elegir sin medir es exactamente lo que RF-M1 prohíbe. Es la tarea S4-M3-01.
 
 **Evidencia:** `docs/evidencias/m3-inventario-tsfm.json` · **Análisis:** `docs/entregas/semana-2/m3-modelos.md`
+
+## D13 · Remedir una entrega pasada produce evidencia nueva, nunca reescribe la entregada
+
+**Estado:** vigente desde el 21/08/2026 · precisa el alcance de [D11](#d11), no la reemplaza
+
+La D11 dice que la evidencia de una entrega hecha no se regenera, y deja abierto el
+procedimiento para medir con el contrato vigente. Faltaba responder la pregunta práctica que
+aparece en cuanto alguien tiene que usarlo: **si remido las tablas de una sección ya
+entregada, ¿dónde van las cifras nuevas?**
+
+**Van a un archivo nuevo en `docs/evidencias/`, declarando con qué se midieron.** La sección
+entregada no se toca; se le añade, si hace falta, una línea que apunte a dónde están las
+cifras vigentes. Las tablas de una entrega pasada se citan como lo que son: lo que se
+presentó ese día.
+
+**Por qué así y no actualizando en sitio.** Sobrescribir deja un entregable ya presentado
+citando cifras distintas de las que se presentaron, sin registro de cuáles eran las
+originales. Nadie recalcula un número que ya vio publicado, así que ese cambio no se detecta
+después: se descubre solo si alguien compara el archivo contra su propio recuerdo.
+
+**Lo que cuesta:** las cifras de la Semana 1 y las vigentes conviven, y hay que decir en cada
+cita cuál se está usando. Es más trabajo que sobrescribir, y es el precio de que las dos
+cosas —lo que se entregó y lo que vale hoy— sigan existiendo por separado.
+
+**Lo que esta decisión NO impide.** Corregir en una entrega pasada un enlace roto, una ruta
+que dejó de existir o el nombre de un modelo que se renombró. Eso no cambia ninguna cifra:
+mantiene la cita apuntando al mismo número. Regenerar la medición sí está prohibido;
+conservar la referencia a la medición original es justamente lo que la D11 quiere.
+
+**Origen:** la planteó Alejandro (M2) el 21/08/2026 al toparse con que la D11 le impedía la
+tarea que tenía pendiente, y preguntó en vez de decidirlo solo. Es el primer caso en que la
+regla 3 funciona como estaba pensada.
+
+**Aplicada en:** [#61](https://github.com/NeoFao/caso1-ltc-inflexion/pull/61), que remide las
+tres tablas de métricas con `4h`, `w = 7`, `h = 1` en `m2-tablas-metricas-4h-w7-h1.json` sin
+tocar `docs/entregas/semana-1/m2-metricas.md`.
