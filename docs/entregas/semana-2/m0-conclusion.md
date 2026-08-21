@@ -30,7 +30,7 @@ Cuatro advertencias que conviene explicitar.
 
 **Una fracción de los puntos de inflexión es impredecible por construcción.** Los saltos inducidos por anuncios regulatorios son exógenos a la serie, y ninguna característica construida sobre el histórico de precios puede anticiparlos.
 
-**El paso de un pronóstico de trayectoria a una etiqueta de tres clases sigue abierto.** Un modelo fundacional pronostica el precio, no la clase. Aplicar el etiquetador sobre la trayectoria pronosticada reutiliza el contrato en lugar de añadir una cabeza entrenable, pero es una decisión de diseño que hay que tomar y justificar.
+**El paso de un pronóstico de trayectoria a una etiqueta de tres clases quedó resuelto, y conviene decir cómo.** Un modelo fundacional pronostica el precio, no la clase. Se optó por aplicar el etiquetador del contrato sobre la trayectoria pronosticada, en lugar de entrenar una cabeza de clasificación sobre representaciones congeladas. Lo que inclinó la decisión fue una medición y no una preferencia: aplicar el etiquetador cuesta unos doce segundos sobre el bloque de validación completo, de modo que la alternativa más simple resultó ser además la más barata, y la opción del extractor de representaciones habría tenido que justificar un costo adicional frente a algo que prácticamente no cuesta.
 
 ## Sobre el umbral de decisión
 

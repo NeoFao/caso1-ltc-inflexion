@@ -226,14 +226,16 @@ publicación para uso público es una tarea abierta.
 
 ## Lo que este procedimiento todavía no resuelve
 
-Tres cuestiones abiertas, que se declaran aquí para que no aparezcan como sorpresa
-más adelante.
+Dos cuestiones abiertas, que se declaran aquí para que no aparezcan como sorpresa
+más adelante. Una tercera, que figuraba en este mismo lugar, se resolvió mientras se
+redactaba el documento y se deja anotada por lo que ilustra.
 
-**Cómo se pasa de un pronóstico de trayectoria a una etiqueta de tres clases.** Un
-modelo fundacional pronostica el precio, no la clase. Aplicar el etiquetador sobre la
-trayectoria pronosticada es la vía más directa y reutiliza el contrato en lugar de
-añadir una cabeza entrenable, pero es una decisión de diseño que hay que tomar y
-justificar.
+**Resuelta: cómo se pasa de un pronóstico de trayectoria a una etiqueta de tres
+clases.** Un modelo fundacional pronostica el precio, no la clase. Se aplica el
+etiquetador del contrato sobre la trayectoria pronosticada, en lugar de entrenar una
+cabeza de clasificación sobre representaciones congeladas. Lo decidió una medición:
+etiquetar la trayectoria cuesta unos doce segundos sobre el bloque de validación
+entero, así que la vía más simple resultó ser también la más barata.
 
 **Qué se entiende por prueba en tiempo real.** El enunciado la pide para las semanas
 3 y 4. Como la etiqueta de un instante no se conoce hasta `w` velas después, caben
