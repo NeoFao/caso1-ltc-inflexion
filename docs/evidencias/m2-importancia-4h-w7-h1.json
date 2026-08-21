@@ -1,0 +1,919 @@
+{
+ "metodo": "Importancia por permutacion sobre VALIDACION, sin reentrenar, 10 permutaciones por columna, semilla 0. La metrica es F1 macro, que es la metrica de decision del proyecto (D5); usar exactitud daria un orden distinto y sin sentido, porque un modelo que no detecta nada ya tiene 90 % de exactitud.",
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 1,
+  "conjunto_de_medicion": "validacion",
+  "modelo": "src.modelos.clasico.BosqueAleatorio (el de M3, importado)",
+  "representacion": "rezagos relativos (default desde el #58)",
+  "n_columnas": 63,
+  "n_validacion": 1959
+ },
+ "control": {
+  "descripcion": "El bosque reproduce el F1 macro publicado antes de medir nada.",
+  "publicado": 0.390497720487045,
+  "obtenido": 0.390497720487045,
+  "reproduce": true
+ },
+ "piso_de_ruido": {
+  "n_centinelas": 5,
+  "piso": 0.006499663765726549,
+  "piso_columna": "centinela_ruido_3",
+  "centinelas": [
+   {
+    "columna": "centinela_ruido_3",
+    "familia": "otras",
+    "caida_media": 0.0065,
+    "caida_desviacion": 0.003894,
+    "caida_minima": 0.003058,
+    "caida_maxima": 0.015491
+   },
+   {
+    "columna": "centinela_ruido_5",
+    "familia": "otras",
+    "caida_media": 0.005866,
+    "caida_desviacion": 0.005405,
+    "caida_minima": -0.000592,
+    "caida_maxima": 0.016068
+   },
+   {
+    "columna": "centinela_ruido_1",
+    "familia": "otras",
+    "caida_media": -0.000853,
+    "caida_desviacion": 0.004265,
+    "caida_minima": -0.006247,
+    "caida_maxima": 0.006743
+   },
+   {
+    "columna": "centinela_ruido_2",
+    "familia": "otras",
+    "caida_media": -0.001404,
+    "caida_desviacion": 0.003281,
+    "caida_minima": -0.007103,
+    "caida_maxima": 0.003221
+   },
+   {
+    "columna": "centinela_ruido_4",
+    "familia": "otras",
+    "caida_media": -0.002523,
+    "caida_desviacion": 0.008558,
+    "caida_minima": -0.011431,
+    "caida_maxima": 0.015728
+   }
+  ],
+  "f1_del_modelo_con_centinelas": 0.38959048062318113,
+  "cuantas_reales_lo_superan": 46,
+  "explicacion": "Importancia mas alta alcanzada por una columna de ruido puro en un modelo entrenado con ellas dentro. Toda caracteristica real por debajo de este valor es indistinguible de una columna inventada.",
+  "criterio_del_piso": "Se usa el piso de 5 centinelas y no el de 15. Con 15, el modelo auxiliar pierde F1 macro (0,3664 contra 0,3905 del real): 15 columnas de ruido le cuestan mas que todo el aporte multivariante medido en S4-M2-01, que es RF-F4 ilustrado. Un piso medido sobre un modelo peor no es el piso de este modelo. Ademas el de 5 es el mas exigente: deja menos columnas dentro.",
+  "sensibilidad_al_numero_de_centinelas": {
+   "5": {
+    "piso": 0.006499663765726549,
+    "cuantas_reales_lo_superan": 46,
+    "f1_del_modelo_con_centinelas": 0.38959048062318113
+   },
+   "15": {
+    "piso": 0.003855432899340988,
+    "cuantas_reales_lo_superan": 50,
+    "f1_del_modelo_con_centinelas": 0.36639072370156484
+   }
+  }
+ },
+ "f1_base": 0.390497720487045,
+ "importancias": [
+  {
+   "columna": "LTC_posicion_rango_7",
+   "familia": "ventana_deslizante",
+   "caida_media": 0.042225,
+   "caida_desviacion": 0.011138,
+   "caida_minima": 0.026597,
+   "caida_maxima": 0.060664,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_dist_sma_7",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.034318,
+   "caida_desviacion": 0.007072,
+   "caida_minima": 0.019007,
+   "caida_maxima": 0.046341,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ADA_cierre_rezago_rel_5",
+   "familia": "rezagos",
+   "caida_media": 0.02584,
+   "caida_desviacion": 0.004948,
+   "caida_minima": 0.016848,
+   "caida_maxima": 0.032596,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_cierre_rezago_rel_5",
+   "familia": "rezagos",
+   "caida_media": 0.025478,
+   "caida_desviacion": 0.009778,
+   "caida_minima": 0.009483,
+   "caida_maxima": 0.043122,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_cierre_rezago_rel_6",
+   "familia": "rezagos",
+   "caida_media": 0.022363,
+   "caida_desviacion": 0.010653,
+   "caida_minima": 0.011921,
+   "caida_maxima": 0.046418,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ADA_cierre_rezago_rel_6",
+   "familia": "rezagos",
+   "caida_media": 0.021867,
+   "caida_desviacion": 0.009552,
+   "caida_minima": 0.001543,
+   "caida_maxima": 0.03585,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_retorno_3",
+   "familia": "retornos",
+   "caida_media": 0.019544,
+   "caida_desviacion": 0.006317,
+   "caida_minima": 0.010705,
+   "caida_maxima": 0.027571,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_dist_ema_12",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.019243,
+   "caida_desviacion": 0.007498,
+   "caida_minima": 0.010721,
+   "caida_maxima": 0.031509,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "BTC_cierre_rezago_rel_5",
+   "familia": "rezagos",
+   "caida_media": 0.01771,
+   "caida_desviacion": 0.005977,
+   "caida_minima": 0.008026,
+   "caida_maxima": 0.02731,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "XRP_cierre_rezago_rel_6",
+   "familia": "rezagos",
+   "caida_media": 0.017547,
+   "caida_desviacion": 0.006863,
+   "caida_minima": 0.007051,
+   "caida_maxima": 0.027202,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_rango_rel_7",
+   "familia": "ventana_deslizante",
+   "caida_media": 0.015614,
+   "caida_desviacion": 0.005107,
+   "caida_minima": 0.006223,
+   "caida_maxima": 0.023926,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_cierre_rezago_rel_1",
+   "familia": "rezagos",
+   "caida_media": 0.015444,
+   "caida_desviacion": 0.008402,
+   "caida_minima": 0.003921,
+   "caida_maxima": 0.028403,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "corr_LTC_SOL_30",
+   "familia": "correlacion_cruzada",
+   "caida_media": 0.014664,
+   "caida_desviacion": 0.004019,
+   "caida_minima": 0.00779,
+   "caida_maxima": 0.019699,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "SOL_cierre_rezago_rel_6",
+   "familia": "rezagos",
+   "caida_media": 0.013909,
+   "caida_desviacion": 0.00638,
+   "caida_minima": 0.004273,
+   "caida_maxima": 0.024989,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_rsi_14",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.01273,
+   "caida_desviacion": 0.005395,
+   "caida_minima": 0.002954,
+   "caida_maxima": 0.020343,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ETH_cierre_rezago_rel_5",
+   "familia": "rezagos",
+   "caida_media": 0.01181,
+   "caida_desviacion": 0.006948,
+   "caida_minima": -0.001331,
+   "caida_maxima": 0.022832,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_cierre_rezago_rel_7",
+   "familia": "rezagos",
+   "caida_media": 0.011563,
+   "caida_desviacion": 0.005651,
+   "caida_minima": 0.001413,
+   "caida_maxima": 0.018102,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "BTC_cierre_rezago_rel_1",
+   "familia": "rezagos",
+   "caida_media": 0.011543,
+   "caida_desviacion": 0.007116,
+   "caida_minima": 0.002156,
+   "caida_maxima": 0.019881,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "BTC_cierre_rezago_rel_7",
+   "familia": "rezagos",
+   "caida_media": 0.011397,
+   "caida_desviacion": 0.004425,
+   "caida_minima": 0.004549,
+   "caida_maxima": 0.017176,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ADA_retorno_3",
+   "familia": "retornos",
+   "caida_media": 0.011237,
+   "caida_desviacion": 0.007125,
+   "caida_minima": 0.000621,
+   "caida_maxima": 0.019825,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_retorno_1",
+   "familia": "retornos",
+   "caida_media": 0.010893,
+   "caida_desviacion": 0.01053,
+   "caida_minima": -0.009671,
+   "caida_maxima": 0.029071,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_volatilidad_14",
+   "familia": "volatilidad",
+   "caida_media": 0.01032,
+   "caida_desviacion": 0.005503,
+   "caida_minima": -0.000345,
+   "caida_maxima": 0.015874,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_dist_ema_26",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.01032,
+   "caida_desviacion": 0.002418,
+   "caida_minima": 0.006716,
+   "caida_maxima": 0.014809,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "corr_LTC_ADA_30",
+   "familia": "correlacion_cruzada",
+   "caida_media": 0.009963,
+   "caida_desviacion": 0.00306,
+   "caida_minima": 0.004295,
+   "caida_maxima": 0.013079,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_bollinger_pctb_20",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.009789,
+   "caida_desviacion": 0.005788,
+   "caida_minima": 7.8e-05,
+   "caida_maxima": 0.019547,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_macd_histograma",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.009764,
+   "caida_desviacion": 0.005511,
+   "caida_minima": 0.002649,
+   "caida_maxima": 0.018859,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ETH_retorno_3",
+   "familia": "retornos",
+   "caida_media": 0.009681,
+   "caida_desviacion": 0.005332,
+   "caida_minima": 0.000126,
+   "caida_maxima": 0.018947,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ETH_retorno_1",
+   "familia": "retornos",
+   "caida_media": 0.009667,
+   "caida_desviacion": 0.004312,
+   "caida_minima": 0.002192,
+   "caida_maxima": 0.01643,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "SOL_cierre_rezago_rel_1",
+   "familia": "rezagos",
+   "caida_media": 0.009588,
+   "caida_desviacion": 0.006942,
+   "caida_minima": 0.001955,
+   "caida_maxima": 0.021555,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ADA_cierre_rezago_rel_7",
+   "familia": "rezagos",
+   "caida_media": 0.009431,
+   "caida_desviacion": 0.006664,
+   "caida_minima": -0.003044,
+   "caida_maxima": 0.018798,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "SOL_cierre_rezago_rel_7",
+   "familia": "rezagos",
+   "caida_media": 0.009229,
+   "caida_desviacion": 0.004644,
+   "caida_minima": 0.002385,
+   "caida_maxima": 0.01415,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_asimetria_retornos_7",
+   "familia": "retornos",
+   "caida_media": 0.009007,
+   "caida_desviacion": 0.005491,
+   "caida_minima": 4.9e-05,
+   "caida_maxima": 0.020663,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_dist_sma_25",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.008941,
+   "caida_desviacion": 0.005266,
+   "caida_minima": 0.000374,
+   "caida_maxima": 0.017773,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "BTC_cierre_rezago_rel_6",
+   "familia": "rezagos",
+   "caida_media": 0.008862,
+   "caida_desviacion": 0.006594,
+   "caida_minima": -0.0002,
+   "caida_maxima": 0.020686,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "XRP_cierre_rezago_rel_5",
+   "familia": "rezagos",
+   "caida_media": 0.008814,
+   "caida_desviacion": 0.005378,
+   "caida_minima": 0.003462,
+   "caida_maxima": 0.017759,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_retorno_7",
+   "familia": "retornos",
+   "caida_media": 0.008736,
+   "caida_desviacion": 0.006325,
+   "caida_minima": -0.004421,
+   "caida_maxima": 0.016754,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "SOL_cierre_rezago_rel_5",
+   "familia": "rezagos",
+   "caida_media": 0.008516,
+   "caida_desviacion": 0.00251,
+   "caida_minima": 0.004762,
+   "caida_maxima": 0.011376,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "SOL_retorno_3",
+   "familia": "retornos",
+   "caida_media": 0.008329,
+   "caida_desviacion": 0.006106,
+   "caida_minima": 0.001378,
+   "caida_maxima": 0.018138,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "SOL_retorno_1",
+   "familia": "retornos",
+   "caida_media": 0.008285,
+   "caida_desviacion": 0.004532,
+   "caida_minima": 0.003415,
+   "caida_maxima": 0.015631,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_volatilidad_7",
+   "familia": "volatilidad",
+   "caida_media": 0.008111,
+   "caida_desviacion": 0.004075,
+   "caida_minima": 0.002859,
+   "caida_maxima": 0.014545,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_curtosis_retornos_7",
+   "familia": "retornos",
+   "caida_media": 0.007876,
+   "caida_desviacion": 0.006597,
+   "caida_minima": -0.004883,
+   "caida_maxima": 0.021041,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "corr_LTC_XRP_30",
+   "familia": "correlacion_cruzada",
+   "caida_media": 0.007735,
+   "caida_desviacion": 0.004548,
+   "caida_minima": 0.003093,
+   "caida_maxima": 0.016316,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "XRP_retorno_3",
+   "familia": "retornos",
+   "caida_media": 0.007215,
+   "caida_desviacion": 0.003942,
+   "caida_minima": 0.00327,
+   "caida_maxima": 0.01654,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_macd",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.007158,
+   "caida_desviacion": 0.002155,
+   "caida_minima": 0.004059,
+   "caida_maxima": 0.009333,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "BTC_retorno_1",
+   "familia": "retornos",
+   "caida_media": 0.006977,
+   "caida_desviacion": 0.006631,
+   "caida_minima": -0.004429,
+   "caida_maxima": 0.019276,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_macd_senal",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.006763,
+   "caida_desviacion": 0.003965,
+   "caida_minima": -0.00016,
+   "caida_maxima": 0.012047,
+   "supera_el_piso_de_ruido": true,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "ETH_cierre_rezago_rel_6",
+   "familia": "rezagos",
+   "caida_media": 0.006333,
+   "caida_desviacion": 0.005451,
+   "caida_minima": 0.00076,
+   "caida_maxima": 0.017052,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_posicion_rango_20",
+   "familia": "ventana_deslizante",
+   "caida_media": 0.006187,
+   "caida_desviacion": 0.004054,
+   "caida_minima": -0.000232,
+   "caida_maxima": 0.01089,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_rango_rel_20",
+   "familia": "ventana_deslizante",
+   "caida_media": 0.005945,
+   "caida_desviacion": 0.004993,
+   "caida_minima": -0.00331,
+   "caida_maxima": 0.012332,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_volatilidad_30",
+   "familia": "volatilidad",
+   "caida_media": 0.005747,
+   "caida_desviacion": 0.006378,
+   "caida_minima": -0.003689,
+   "caida_maxima": 0.016635,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "corr_LTC_ETH_30",
+   "familia": "correlacion_cruzada",
+   "caida_media": 0.00342,
+   "caida_desviacion": 0.003931,
+   "caida_minima": -0.000993,
+   "caida_maxima": 0.011577,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "ETH_cierre_rezago_rel_7",
+   "familia": "rezagos",
+   "caida_media": 0.003234,
+   "caida_desviacion": 0.005088,
+   "caida_minima": -0.004531,
+   "caida_maxima": 0.009026,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "XRP_cierre_rezago_rel_7",
+   "familia": "rezagos",
+   "caida_media": 0.003017,
+   "caida_desviacion": 0.005454,
+   "caida_minima": -0.005133,
+   "caida_maxima": 0.015077,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "BTC_retorno_3",
+   "familia": "retornos",
+   "caida_media": 0.002879,
+   "caida_desviacion": 0.007523,
+   "caida_minima": -0.005042,
+   "caida_maxima": 0.019673,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "corr_LTC_BTC_30",
+   "familia": "correlacion_cruzada",
+   "caida_media": 0.002814,
+   "caida_desviacion": 0.002452,
+   "caida_minima": -0.001294,
+   "caida_maxima": 0.007347,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": true
+  },
+  {
+   "columna": "LTC_bollinger_ancho_20",
+   "familia": "indicadores_tecnicos",
+   "caida_media": 0.002735,
+   "caida_desviacion": 0.00409,
+   "caida_minima": -0.004092,
+   "caida_maxima": 0.009196,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "XRP_retorno_1",
+   "familia": "retornos",
+   "caida_media": 0.002667,
+   "caida_desviacion": 0.003696,
+   "caida_minima": -0.002299,
+   "caida_maxima": 0.009979,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "LTC_asimetria_retornos_20",
+   "familia": "retornos",
+   "caida_media": 0.002404,
+   "caida_desviacion": 0.003492,
+   "caida_minima": -0.003689,
+   "caida_maxima": 0.008459,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "ETH_cierre_rezago_rel_1",
+   "familia": "rezagos",
+   "caida_media": 0.002073,
+   "caida_desviacion": 0.004021,
+   "caida_minima": -0.00395,
+   "caida_maxima": 0.008522,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "ADA_retorno_1",
+   "familia": "retornos",
+   "caida_media": 0.001973,
+   "caida_desviacion": 0.004531,
+   "caida_minima": -0.005842,
+   "caida_maxima": 0.006896,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "ADA_cierre_rezago_rel_1",
+   "familia": "rezagos",
+   "caida_media": 0.00191,
+   "caida_desviacion": 0.00445,
+   "caida_minima": -0.003697,
+   "caida_maxima": 0.011103,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "LTC_curtosis_retornos_20",
+   "familia": "retornos",
+   "caida_media": 0.001321,
+   "caida_desviacion": 0.003528,
+   "caida_minima": -0.003256,
+   "caida_maxima": 0.00543,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  },
+  {
+   "columna": "XRP_cierre_rezago_rel_1",
+   "familia": "rezagos",
+   "caida_media": -0.000153,
+   "caida_desviacion": 0.006088,
+   "caida_minima": -0.011206,
+   "caida_maxima": 0.010366,
+   "supera_el_piso_de_ruido": false,
+   "caida_supera_su_propia_desviacion": false
+  }
+ ],
+ "por_familia": [
+  {
+   "familia": "rezagos",
+   "columnas": 24,
+   "caida_total": 0.277326,
+   "caida_maxima": 0.02584,
+   "caida_mediana": 0.010493
+  },
+  {
+   "familia": "retornos",
+   "columnas": 17,
+   "caida_total": 0.128693,
+   "caida_maxima": 0.019544,
+   "caida_mediana": 0.008285
+  },
+  {
+   "familia": "indicadores_tecnicos",
+   "columnas": 10,
+   "caida_total": 0.121762,
+   "caida_maxima": 0.034318,
+   "caida_mediana": 0.009777
+  },
+  {
+   "familia": "ventana_deslizante",
+   "columnas": 4,
+   "caida_total": 0.06997,
+   "caida_maxima": 0.042225,
+   "caida_mediana": 0.010901
+  },
+  {
+   "familia": "correlacion_cruzada",
+   "columnas": 5,
+   "caida_total": 0.038596,
+   "caida_maxima": 0.014664,
+   "caida_mediana": 0.007735
+  },
+  {
+   "familia": "volatilidad",
+   "columnas": 3,
+   "caida_total": 0.024179,
+   "caida_maxima": 0.01032,
+   "caida_mediana": 0.008111
+  }
+ ],
+ "comparacion_con_impureza": {
+  "correlacion_de_rangos_spearman": 0.6086,
+  "top10_permutacion": [
+   "LTC_posicion_rango_7",
+   "LTC_dist_sma_7",
+   "ADA_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_6",
+   "ADA_cierre_rezago_rel_6",
+   "LTC_retorno_3",
+   "LTC_dist_ema_12",
+   "BTC_cierre_rezago_rel_5",
+   "XRP_cierre_rezago_rel_6"
+  ],
+  "top10_impureza": [
+   "LTC_posicion_rango_7",
+   "LTC_dist_sma_7",
+   "LTC_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_6",
+   "LTC_dist_ema_12",
+   "LTC_retorno_3",
+   "LTC_retorno_7",
+   "LTC_cierre_rezago_rel_7",
+   "LTC_bollinger_pctb_20",
+   "LTC_retorno_1"
+  ],
+  "en_ambos_top10": [
+   "LTC_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_6",
+   "LTC_dist_ema_12",
+   "LTC_dist_sma_7",
+   "LTC_posicion_rango_7",
+   "LTC_retorno_3"
+  ],
+  "solo_en_top10_de_impureza": [
+   "LTC_bollinger_pctb_20",
+   "LTC_cierre_rezago_rel_7",
+   "LTC_retorno_1",
+   "LTC_retorno_7"
+  ]
+ },
+ "decision": {
+  "columnas_que_superan_el_piso": [
+   "LTC_posicion_rango_7",
+   "LTC_dist_sma_7",
+   "ADA_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_6",
+   "ADA_cierre_rezago_rel_6",
+   "LTC_retorno_3",
+   "LTC_dist_ema_12",
+   "BTC_cierre_rezago_rel_5",
+   "XRP_cierre_rezago_rel_6",
+   "LTC_rango_rel_7",
+   "LTC_cierre_rezago_rel_1",
+   "corr_LTC_SOL_30",
+   "SOL_cierre_rezago_rel_6",
+   "LTC_rsi_14",
+   "ETH_cierre_rezago_rel_5",
+   "LTC_cierre_rezago_rel_7",
+   "BTC_cierre_rezago_rel_1",
+   "BTC_cierre_rezago_rel_7",
+   "ADA_retorno_3",
+   "LTC_retorno_1",
+   "LTC_volatilidad_14",
+   "LTC_dist_ema_26",
+   "corr_LTC_ADA_30",
+   "LTC_bollinger_pctb_20",
+   "LTC_macd_histograma",
+   "ETH_retorno_3",
+   "ETH_retorno_1",
+   "SOL_cierre_rezago_rel_1",
+   "ADA_cierre_rezago_rel_7",
+   "SOL_cierre_rezago_rel_7",
+   "LTC_asimetria_retornos_7",
+   "LTC_dist_sma_25",
+   "BTC_cierre_rezago_rel_6",
+   "XRP_cierre_rezago_rel_5",
+   "LTC_retorno_7",
+   "SOL_cierre_rezago_rel_5",
+   "SOL_retorno_3",
+   "SOL_retorno_1",
+   "LTC_volatilidad_7",
+   "LTC_curtosis_retornos_7",
+   "corr_LTC_XRP_30",
+   "XRP_retorno_3",
+   "LTC_macd",
+   "BTC_retorno_1",
+   "LTC_macd_senal"
+  ],
+  "n_que_superan": 46,
+  "n_total": 63,
+  "recorte_medido": {
+   "n_conservadas": 46,
+   "n_descartadas": 17,
+   "descartadas": [
+    "LTC_volatilidad_30",
+    "corr_LTC_BTC_30",
+    "corr_LTC_ETH_30",
+    "LTC_bollinger_ancho_20",
+    "LTC_rango_rel_20",
+    "LTC_posicion_rango_20",
+    "LTC_asimetria_retornos_20",
+    "LTC_curtosis_retornos_20",
+    "BTC_retorno_3",
+    "ETH_cierre_rezago_rel_1",
+    "ETH_cierre_rezago_rel_6",
+    "ETH_cierre_rezago_rel_7",
+    "XRP_cierre_rezago_rel_1",
+    "XRP_cierre_rezago_rel_7",
+    "XRP_retorno_1",
+    "ADA_cierre_rezago_rel_1",
+    "ADA_retorno_1"
+   ],
+   "por_semilla": [
+    {
+     "semilla": 0,
+     "f1_completo": 0.390497720487045,
+     "f1_recortado": 0.3936122302503409,
+     "diferencia": 0.003114509763295914
+    },
+    {
+     "semilla": 1,
+     "f1_completo": 0.3738668760418625,
+     "f1_recortado": 0.37511316556455326,
+     "diferencia": 0.001246289522690791
+    },
+    {
+     "semilla": 2,
+     "f1_completo": 0.3814198749775542,
+     "f1_recortado": 0.38516990761025083,
+     "diferencia": 0.0037500326326966316
+    },
+    {
+     "semilla": 3,
+     "f1_completo": 0.38541496267122133,
+     "f1_recortado": 0.38978968158646277,
+     "diferencia": 0.004374718915241438
+    },
+    {
+     "semilla": 4,
+     "f1_completo": 0.3736747209462749,
+     "f1_recortado": 0.3865039973327266,
+     "diferencia": 0.012829276386451705
+    }
+   ],
+   "diferencia_media": 0.005062965444075296,
+   "diferencia_minima": 0.001246289522690791,
+   "diferencia_maxima": 0.012829276386451705,
+   "cambia_de_signo": false,
+   "el_recorte_mejora_en_todas": true
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-21T21:39:43+00:00",
+  "issues": [
+   "S3-M2-01"
+  ],
+  "advertencia": "Que una columna no supere el piso NO prueba que sea inutil: prueba que esta medicion no la distingue del ruido. Con 1959 velas de validacion y columnas correlacionadas entre si, la permutacion reparte el credito entre las correlacionadas y subestima a las dos."
+ }
+}
