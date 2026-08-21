@@ -43,7 +43,7 @@ Ejecutado el 5 de agosto de 2026 con `scripts/spike_datos.py`. Los números comp
 
 Por eso el panel de trabajo es el de 4 horas. La granularidad diaria no da suficientes ejemplos de las clases que importan, y eso se midió antes de escribir una línea de modelo.
 
-**Los valores de `w` y `h` siguen marcados como PROVISIONAL en [`contracts/config.py`](contracts/config.py).** La medición recomienda `w=7`, pero la decisión es del equipo. El contexto para decidir está en [`docs/00-definicion-punto-inflexion.md`](docs/00-definicion-punto-inflexion.md).
+**Congelado el 18 de agosto de 2026:** `4h`, `w = 7`, `h = 1`. Los tres salen de medición y cada uno de un criterio distinto fijado antes de mirar el resultado — decisiones [D1](docs/DECISIONES.md), [D2](docs/DECISIONES.md) y [D3](docs/DECISIONES.md), con el estudio completo en [`docs/04-decision-w-h-granularidad.md`](docs/04-decision-w-h-granularidad.md).
 
 ---
 
@@ -121,6 +121,14 @@ uv run uvicorn src.api.main:app --reload --port 8000
 
 ---
 
+## Las decisiones del equipo
+
+**[`docs/DECISIONES.md`](docs/DECISIONES.md) es la única fuente de verdad sobre qué decidió el equipo.** Si alguien dice "esto lo acordamos", tiene que poder señalar una fila de ahí. Una decisión que no está en ese archivo no es una decisión del equipo.
+
+Las que se pueden romper en silencio están **fijadas por pruebas** en `tests/test_decisiones.py`, así que cambiar un valor acordado sin pasar por el documento hace fallar el CI. Es deliberado.
+
+---
+
 ## Reglas que no se negocian
 
 1. **Ningún número que no hayas obtenido ejecutando.** Ni conteos, ni porcentajes, ni tiempos. Si no lo corriste, escribí "no lo he medido".
@@ -130,6 +138,8 @@ uv run uvicorn src.api.main:app --reload --port 8000
 5. **Decí en la misma frase lo que no está verificado.** "Corre" y "funciona" no son lo mismo.
 6. **Fijá el criterio antes de mirar el resultado.** Si no, se llama justificar lo que ya querías hacer.
 7. **Una tarea está terminada** cuando hay código, evidencia medida, sección del documento y slide. Las cuatro.
+8. **Todo número nuevo reproduce uno conocido antes de publicarse.** Los cinco errores de medición de la Semana 2 los atrapó un control que reproducía un valor ya sabido, no releer el código.
+9. **Toda decisión que se cite como acordada tiene que poder señalar dónde se acordó**, y una decisión se acuerda en el repositorio, nunca en un mensaje suelto.
 
 ---
 
@@ -141,6 +151,7 @@ uv run uvicorn src.api.main:app --reload --port 8000
 | [Definición del punto de inflexión](docs/00-definicion-punto-inflexion.md) | Qué son `w` y `h` y por qué de ellos depende todo lo demás |
 | [Consulta al profesor](docs/02-consulta-profesor.md) | Guion de la reunión del equipo y el texto listo para enviar |
 | [Backlog](docs/03-backlog.md) | Quién hace qué, en qué orden. Generado desde los issues |
+| **[Decisiones del equipo](docs/DECISIONES.md)** | **Qué se decidió, por qué, y con qué evidencia. Fuente única de verdad** |
 | [Decisión de `w`, `h` y granularidad](docs/04-decision-w-h-granularidad.md) | El estudio medido que sustenta los tres valores |
 | [`docs/evidencias/`](docs/evidencias/) | Mediciones y figuras, todas regenerables |
 | [`docs/entregas/`](docs/entregas/) | Los cinco entregables semanales |
