@@ -356,3 +356,66 @@ afirmar que aporten.** Otra familia de modelo, misma conclusión.
 **Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json`,
 `docs/evidencias/m3-modelos-profundos-4h-w7-h1.json` y
 `docs/evidencias/m3-inventario-avanzado.json`
+
+## D15 · Cómo se ajusta un modelo cuyo ruido de semilla supera el umbral de decisión
+
+**Estado:** vigente desde el 21/08/2026 · responde la consulta de M3 en [#37](https://github.com/NeoFao/caso1-ltc-inflexion/issues/37)
+
+M3 midió que el F1 macro del modelo avanzado recorre **0,330725 a 0,361102** entre cinco
+semillas — un rango de **0,030377**, que **supera el umbral de decisión de 0,02** (D5). Con esa
+dispersión, elegir el máximo de una rejilla no selecciona la mejor configuración: selecciona la
+celda a la que le tocó la semilla más afortunada. Y si después esa celda se reporta contra
+prueba, el número del informe queda inflado por la misma razón por la que no se mira prueba,
+solo que más difícil de ver.
+
+**Se decide promediar cinco semillas por celda**, la opción 1 de las tres que M3 planteó.
+Es asequible —entrenar cuesta 27 s— y cambia lo que significa "la mejor configuración": pasa a
+ser la mejor en promedio, no la mejor observada. Esa es la que se puede defender.
+
+**La comparación entre celdas va pareada por semilla**, no entre medias sueltas. Lo añadió M3
+al implementarlo y no estaba en las opciones planteadas: si una semilla tiende a salir bien en
+todas las celdas, comparar promedios mezcla el efecto de la configuración con el de qué semillas
+le tocaron a cada una. Es la misma lógica del remuestreo pareado, aplicada a la otra fuente de
+variabilidad.
+
+### El criterio se fija antes de mirar el resultado
+
+**Si la dispersión entre semillas dentro de una celda iguala o supera la dispersión entre
+celdas, no se corona ganadora.** Se reporta que la rejilla no distingue configuraciones y se
+conserva la configuración por defecto.
+
+Queda escrito aquí **antes** de correr la rejilla, y no después, porque es exactamente el caso
+en que la tentación de reinterpretar el criterio es mayor. Precedente inmediato: el ajuste del
+modelo fundacional dio +0,018680 con un intervalo que incluye el cero, y se reportó como que
+ajustar no mejora de forma distinguible. El mismo estándar se aplica acá.
+
+### El mecanismo, medido
+
+La inestabilidad no viene solo de la semilla. **Dos corridas con la misma semilla** dan 0,341851
+y 0,346685. El origen son diferencias de orden 10⁻¹¹ en la reducción en punto flotante, que
+`etiquetar()` amplifica: exige que los **2w vecinos** sean *estrictamente* menores que el centro,
+o sea catorce comparaciones estrictas encadenadas por Y lógico.
+
+Comprobado sobre una trayectoria plana con `w = 7`: un vecino que empata con el centro produce
+**Continuidad**; el mismo vecino 10⁻¹¹ por debajo produce **Máximo**.
+
+**Esto no es un defecto del etiquetador ni se va a cambiar.** Sobre precios reales los empates
+son improbables y la definición estricta es la que garantiza la propiedad de separación mínima
+que usa todo el proyecto. Es una consecuencia de la vía elegida para el puente —pronosticar la
+trayectoria y etiquetarla— y **afecta a cualquier modelo que pronostique una trayectoria suave**.
+
+**Se declara en el informe como limitación**, no se corrige. Cambiar la comparación a una
+tolerancia alteraría el contrato y todas las cifras publicadas, a cuatro días de la entrega, para
+resolver algo que solo se manifiesta sobre trayectorias pronosticadas casi planas.
+
+### Lo que esta decisión NO promete
+
+Que ajustar el avanzado sirva de algo. iTransformer ya queda 0,0448 por debajo del bosque
+clásico con intervalo que excluye el cero (D14), y una rejilla no cierra esa distancia. Se hace
+una vez, se reporta lo que dé, y no se itera buscando un número mejor.
+
+**Origen:** M3 planteó la consulta en el #37 antes de gastar el tiempo de cómputo, avanzó
+declarando su opción como propuesta propia y no como acuerdo, y dejó el rastro por escrito. Es
+el procedimiento correcto y conviene que quede dicho.
+
+**Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json`

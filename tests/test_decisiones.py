@@ -50,7 +50,7 @@ def test_el_documento_de_decisiones_existe():
     )
 
 
-@pytest.mark.parametrize("identificador", [f"D{n}" for n in range(1, 15)])
+@pytest.mark.parametrize("identificador", [f"D{n}" for n in range(1, 16)])
 def test_cada_decision_fijada_tiene_su_fila(identificador: str):
     """El documento y las pruebas no pueden separarse.
 
