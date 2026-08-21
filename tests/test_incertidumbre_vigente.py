@@ -18,8 +18,8 @@ def test_los_controles_pueden_fallar():
     y = np.array([int(Clase.CONTINUIDAD)] * 10)
     predicciones = _predicciones_falsas(
         {
-            "bosque_rezagos_en_nivel": [int(Clase.MAXIMO)] * 10,
-            "bosque_aleatorio": [int(Clase.MAXIMO)] * 10,
+            "bosque_aleatorio_rezagos_en_nivel": [int(Clase.MAXIMO)] * 10,
+            "bosque_aleatorio_rezagos_relativos": [int(Clase.MAXIMO)] * 10,
         }
     )
     with pytest.raises(AssertionError, match="No se publica nada"):
@@ -30,20 +30,20 @@ def test_el_mensaje_de_fallo_nombra_los_dos_modelos():
     y = np.array([int(Clase.CONTINUIDAD)] * 10)
     predicciones = _predicciones_falsas(
         {
-            "bosque_rezagos_en_nivel": [int(Clase.MAXIMO)] * 10,
-            "bosque_aleatorio": [int(Clase.MAXIMO)] * 10,
+            "bosque_aleatorio_rezagos_en_nivel": [int(Clase.MAXIMO)] * 10,
+            "bosque_aleatorio_rezagos_relativos": [int(Clase.MAXIMO)] * 10,
         }
     )
     with pytest.raises(AssertionError) as error:
         vigente.verificar_controles(predicciones, y)
-    assert "bosque_rezagos_en_nivel" in str(error.value)
-    assert "bosque_aleatorio" in str(error.value)
+    assert "bosque_aleatorio_rezagos_en_nivel" in str(error.value)
+    assert "bosque_aleatorio_rezagos_relativos" in str(error.value)
 
 
 def test_los_controles_son_los_dos_numeros_ya_publicados():
     """Uno es de M3 y el otro lo obtuvieron M3 y M2 por separado."""
-    assert vigente.CONTROLES["bosque_rezagos_en_nivel"] == 0.3443065490077563
-    assert vigente.CONTROLES["bosque_aleatorio"] == 0.390497720487045
+    assert vigente.CONTROLES["bosque_aleatorio_rezagos_en_nivel"] == 0.3443065490077563
+    assert vigente.CONTROLES["bosque_aleatorio_rezagos_relativos"] == 0.390497720487045
 
 
 def test_este_modulo_no_escribe_sobre_la_evidencia_entregada():
@@ -72,3 +72,26 @@ def test_las_dos_representaciones_no_son_la_misma_matriz():
     assert not [
         c for c in relativo_valida.columns if "_rezago_" in c and "_rezago_rel_" not in c
     ], "la matriz 'relativo' no puede traer ningun rezago en nivel"
+
+
+def test_los_nombres_son_los_mismos_que_los_de_m3():
+    """Un modelo, un nombre, en todo el repositorio.
+
+    Se comprueba contra la evidencia de M3 y no contra una lista escrita aqui: una
+    lista propia volveria a permitir que los dos lados se separen, que es el defecto
+    que se esta arreglando.
+    """
+    import json
+    from pathlib import Path
+
+    esperados = set()
+    for ruta in Path("docs/evidencias").glob("modelo-clasico-*-rezagos-*.json"):
+        datos = json.loads(ruta.read_text(encoding="utf-8"))
+        esperados |= {r["modelo"] for r in datos["resultados"]}
+
+    assert esperados, "no se encontro evidencia de M3 contra la cual comparar"
+    for nombre in vigente.CONTROLES:
+        assert nombre in esperados, (
+            f"{nombre!r} no es un nombre que M3 use. Un mismo modelo con dos nombres "
+            "hace incomparables los JSON entre si."
+        )

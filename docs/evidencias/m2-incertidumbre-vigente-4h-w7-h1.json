@@ -13,12 +13,12 @@
  "controles": {
   "descripcion": "Cada modelo reproduce una cifra ya publicada antes de que se calcule ningun intervalo. El 0,390497720487045 lo obtuvieron por separado M3 en el #63 y M2 en el #62, con codigo distinto.",
   "esperado": {
-   "bosque_rezagos_en_nivel": 0.3443065490077563,
-   "bosque_aleatorio": 0.390497720487045
+   "bosque_aleatorio_rezagos_en_nivel": 0.3443065490077563,
+   "bosque_aleatorio_rezagos_relativos": 0.390497720487045
   },
   "obtenido": {
-   "bosque_rezagos_en_nivel": 0.3443065490077563,
-   "bosque_aleatorio": 0.390497720487045
+   "bosque_aleatorio_rezagos_en_nivel": 0.3443065490077563,
+   "bosque_aleatorio_rezagos_relativos": 0.390497720487045
   },
   "reproduce": true
  },
@@ -107,7 +107,7 @@
     "remuestras": 1000
    }
   },
-  "bosque_aleatorio": {
+  "bosque_aleatorio_rezagos_relativos": {
    "f1_macro": {
     "valor": 0.390497720487045,
     "ic_inferior": 0.35789105094668644,
@@ -123,7 +123,7 @@
     "remuestras": 1000
    }
   },
-  "bosque_rezagos_en_nivel": {
+  "bosque_aleatorio_rezagos_en_nivel": {
    "f1_macro": {
     "valor": 0.3443065490077563,
     "ic_inferior": 0.3219398136912651,
@@ -141,7 +141,7 @@
   }
  },
  "comparaciones_pareadas": {
-  "bosque_aleatorio__vs__baseline_aleatorio": {
+  "bosque_aleatorio_rezagos_relativos__vs__baseline_aleatorio": {
    "diferencia": 0.053713629609022095,
    "ic_inferior": 0.013658138903538813,
    "ic_superior": 0.09285380785082342,
@@ -149,7 +149,7 @@
    "fraccion_a_favor": 0.995,
    "remuestras": 1000
   },
-  "bosque_aleatorio__vs__baseline_trivial": {
+  "bosque_aleatorio_rezagos_relativos__vs__baseline_trivial": {
    "diferencia": 0.07443508066601595,
    "ic_inferior": 0.04182841112565737,
    "ic_superior": 0.10766681560115872,
@@ -157,7 +157,7 @@
    "fraccion_a_favor": 1.0,
    "remuestras": 1000
   },
-  "bosque_aleatorio__vs__bosque_rezagos_en_nivel": {
+  "bosque_aleatorio_rezagos_relativos__vs__bosque_aleatorio_rezagos_en_nivel": {
    "diferencia": 0.046191171479288695,
    "ic_inferior": 0.01405975822885642,
    "ic_superior": 0.08052044288942842,
@@ -165,7 +165,7 @@
    "fraccion_a_favor": 0.997,
    "remuestras": 1000
   },
-  "bosque_rezagos_en_nivel__vs__baseline_aleatorio": {
+  "bosque_aleatorio_rezagos_en_nivel__vs__baseline_aleatorio": {
    "diferencia": 0.0075224581297334,
    "ic_inferior": -0.025711702709369812,
    "ic_superior": 0.039088050777455315,
@@ -180,8 +180,8 @@
     "semilla": 0,
     "f1_baseline_trivial": 0.31606263982102906,
     "f1_baseline_aleatorio": 0.3367840908780229,
-    "f1_bosque_aleatorio": 0.390497720487045,
-    "f1_bosque_rezagos_en_nivel": 0.3443065490077563,
+    "f1_bosque_aleatorio_rezagos_relativos": 0.390497720487045,
+    "f1_bosque_aleatorio_rezagos_en_nivel": 0.3443065490077563,
     "vs_baseline_aleatorio": 0.053713629609022095,
     "vs_rezagos_en_nivel": 0.046191171479288695
    },
@@ -189,8 +189,8 @@
     "semilla": 1,
     "f1_baseline_trivial": 0.31606263982102906,
     "f1_baseline_aleatorio": 0.332292487120695,
-    "f1_bosque_aleatorio": 0.3738668760418625,
-    "f1_bosque_rezagos_en_nivel": 0.35294172636234084,
+    "f1_bosque_aleatorio_rezagos_relativos": 0.3738668760418625,
+    "f1_bosque_aleatorio_rezagos_en_nivel": 0.35294172636234084,
     "vs_baseline_aleatorio": 0.04157438892116749,
     "vs_rezagos_en_nivel": 0.020925149679521637
    },
@@ -198,8 +198,8 @@
     "semilla": 2,
     "f1_baseline_trivial": 0.31606263982102906,
     "f1_baseline_aleatorio": 0.3496624421207985,
-    "f1_bosque_aleatorio": 0.3814198749775542,
-    "f1_bosque_rezagos_en_nivel": 0.35263407976592226,
+    "f1_bosque_aleatorio_rezagos_relativos": 0.3814198749775542,
+    "f1_bosque_aleatorio_rezagos_en_nivel": 0.35263407976592226,
     "vs_baseline_aleatorio": 0.031757432856755696,
     "vs_rezagos_en_nivel": 0.028785795211631937
    },
@@ -207,8 +207,8 @@
     "semilla": 3,
     "f1_baseline_trivial": 0.31606263982102906,
     "f1_baseline_aleatorio": 0.338766078565549,
-    "f1_bosque_aleatorio": 0.38541496267122133,
-    "f1_bosque_rezagos_en_nivel": 0.341541231933227,
+    "f1_bosque_aleatorio_rezagos_relativos": 0.38541496267122133,
+    "f1_bosque_aleatorio_rezagos_en_nivel": 0.341541231933227,
     "vs_baseline_aleatorio": 0.046648884105672306,
     "vs_rezagos_en_nivel": 0.04387373073799433
    },
@@ -216,8 +216,8 @@
     "semilla": 4,
     "f1_baseline_trivial": 0.31606263982102906,
     "f1_baseline_aleatorio": 0.34412114107318054,
-    "f1_bosque_aleatorio": 0.3736747209462749,
-    "f1_bosque_rezagos_en_nivel": 0.33006001091107473,
+    "f1_bosque_aleatorio_rezagos_relativos": 0.3736747209462749,
+    "f1_bosque_aleatorio_rezagos_en_nivel": 0.33006001091107473,
     "vs_baseline_aleatorio": 0.02955357987309437,
     "vs_rezagos_en_nivel": 0.04361471003520018
    }
@@ -240,7 +240,7 @@
   }
  },
  "_meta": {
-  "generado_utc": "2026-08-21T20:50:18+00:00",
+  "generado_utc": "2026-08-21T22:18:56+00:00",
   "reemplaza_para_citas_vigentes": "docs/evidencias/m2-incertidumbre.json",
   "advertencia": "Medido sobre VALIDACION y no sobre prueba, por las mismas dos razones de siempre: las cifras que se quieren acotar estan medidas ahi, y el bloque de prueba se reserva para el resultado final."
  }
