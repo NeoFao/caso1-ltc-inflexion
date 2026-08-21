@@ -33,6 +33,7 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from contracts.config import ACTIVO_OBJETIVO, PROVISIONAL
@@ -99,6 +100,50 @@ def detecta_mejor_que_azar(resultado_modelo: dict, resultado_aleatorio: dict) ->
     )
 
 
+def comparar_fundacional(modelos, X, y, particion, conjunto, nombre_principal) -> dict:
+    """Intervalo de la diferencia entre el fundacional y con quien compite.
+
+    Existe por la D5: el umbral de 0,02 es una convencion del equipo y no un
+    contraste estadistico, y cuando el margen y su intervalo discrepen, manda el
+    intervalo. El fundacional y el bosque quedan a una distancia parecida a ese
+    umbral, asi que decidir por el margen solo seria decidir por un numero que la
+    propia decision declara que no es una prueba.
+
+    El remuestreo es pareado --las dos predicciones se remuestrean sobre las mismas
+    filas-- porque los dos modelos aciertan y fallan sobre las mismas velas y sus
+    errores estan correlacionados. Se reutiliza la funcion de M2 en vez de escribir
+    otra: dos implementaciones del mismo intervalo darian dos numeros distintos.
+    """
+    from src.features.incertidumbre import intervalo_diferencia
+
+    mascaras = {
+        "entrenamiento": particion.entrenamiento,
+        "validacion": particion.validacion,
+        "prueba": particion.prueba,
+    }
+    mascara = mascaras[conjunto] & y.notna().to_numpy()
+    y_real = y[mascara].astype(int).to_numpy()
+
+    interesan = {"chronos_bolt", nombre_principal, "baseline_aleatorio", "baseline_trivial"}
+    predicciones = {
+        m.nombre: np.asarray(m.predecir(X[mascara]), dtype=int)
+        for m in modelos
+        if m.nombre in interesan
+    }
+
+    comparaciones = {}
+    for a, b in (
+        ("chronos_bolt", "baseline_trivial"),
+        ("chronos_bolt", "baseline_aleatorio"),
+        ("chronos_bolt", nombre_principal),
+    ):
+        if a in predicciones and b in predicciones:
+            comparaciones[f"{a}__vs__{b}"] = intervalo_diferencia(
+                y_real, predicciones[a], predicciones[b]
+            )
+    return comparaciones
+
+
 def _finito(valor):
     """Convierte los flotantes no finitos en None.
 
@@ -141,6 +186,14 @@ def main() -> None:
         help=(
             "construye los rezagos en nivel de precio en vez de relativos. Existe para "
             "reproducir las mediciones anteriores a D6, no para el pipeline."
+        ),
+    )
+    parser.add_argument(
+        "--con-fundacional",
+        action="store_true",
+        help=(
+            "anade el modelo fundacional de la D12 (Chronos-Bolt) a la comparacion. "
+            "Requiere el grupo `modelos`: uv sync --group dev --group modelos"
         ),
     )
     parser.add_argument("--semilla", type=int, default=HIPERPARAMETROS["random_state"])
@@ -274,6 +327,16 @@ def main() -> None:
             )
         )
 
+    if argumentos.con_fundacional:
+        # El import va aqui y no arriba: chronos vive en el grupo `modelos`, que CI
+        # no instala, y este guion tiene que seguir corriendo sin el. Entra en la
+        # MISMA corrida que los baselines y el bosque a proposito: el criterio de
+        # aceptacion de S3-M3-01 pide comparar contra ellos, y comparar exige la
+        # misma particion y el mismo arnes, no dos corridas parecidas.
+        from src.modelos.fundacional import ChronosBolt
+
+        modelos.append(ChronosBolt(cierre(panel, ACTIVO_OBJETIVO), w=w, h=h))
+
     print(f"\n[5/6] Evaluacion sobre {argumentos.conjunto}")
     resultados = []
     for numero, modelo in enumerate(modelos, start=1):
@@ -364,9 +427,58 @@ def main() -> None:
     )
     guardar_json(_limpiar_json(medido), ruta_json)
 
+    ruta_fundacional = None
+    if argumentos.con_fundacional:
+        fundacional_r = por_nombre["chronos_bolt"]
+        modelo_fundacional = next(m for m in modelos if m.nombre == "chronos_bolt")
+        comparaciones = comparar_fundacional(
+            modelos, X, y, particion, argumentos.conjunto, nombre_principal
+        )
+        evidencia_fundacional = {
+            "ejecutado_utc": datetime.now(UTC).isoformat(timespec="seconds"),
+            "modelo": "chronos_bolt",
+            "repo": modelo_fundacional.repo,
+            "decision": "D12 en docs/DECISIONES.md",
+            "zero_shot": True,
+            "puente": (
+                "Se pronostica la trayectoria y se le aplica etiquetar() del contrato "
+                "sobre una ventana de 2w+1 centrada en t+h. La alternativa era una "
+                "cabeza de clasificacion sobre representaciones congeladas."
+            ),
+            "parametros": {
+                "intervalo": argumentos.intervalo,
+                "w": w,
+                "h": h,
+                "horizonte_pronosticado": latencia_real(w, h),
+                "contexto": modelo_fundacional.contexto,
+                "conjunto": argumentos.conjunto,
+                "filas_sin_historia_suficiente": modelo_fundacional.sin_historia,
+            },
+            "metricas": {r["modelo"]: r for r in resultados},
+            "comparaciones_pareadas": comparaciones,
+            "nota_umbral": (
+                "El umbral de 0,02 de la D5 es una convencion del equipo, no un "
+                "contraste. Cuando el margen y su intervalo discrepen, manda el intervalo."
+            ),
+        }
+        ruta_fundacional = (
+            EVIDENCIAS / f"m3-fundacional-{argumentos.intervalo}-w{w}-h{h}.json"
+        )
+        guardar_json(_limpiar_json(evidencia_fundacional), ruta_fundacional)
+
     print("\n[6/6] Evidencia")
     print(f"      {RUTA_RESULTADOS.relative_to(RAIZ)}  (+{len(resultados)} filas)")
     print(f"      {ruta_json.relative_to(RAIZ)}")
+    if ruta_fundacional is not None:
+        print(f"      {ruta_fundacional.relative_to(RAIZ)}")
+        print(f"\n      modelo fundacional: F1 macro {fundacional_r['f1_macro']:.6f}")
+        for clave, dato in comparaciones.items():
+            contra = clave.split("__vs__")[1]
+            marca = "excluye el cero" if dato["excluye_el_cero"] else "INCLUYE el cero"
+            print(
+                f"        vs {contra:44} {dato['diferencia']:+.4f}  "
+                f"IC [{dato['ic_inferior']:+.4f}, {dato['ic_superior']:+.4f}]  {marca}"
+            )
     print("\n      importancias mas altas:")
     for variable, peso in importancias.head(5).items():
         print(f"        {peso:.4f}  {variable}")
