@@ -97,3 +97,25 @@ def test_cambia_de_signo_detecta_el_cruce():
     assert bool(diferencias.min() < 0 < diferencias.max()) is True
     solo_positivas = np.array([0.02, 0.03, 0.025])
     assert bool(solo_positivas.min() < 0 < solo_positivas.max()) is False
+
+
+def test_comparar_modelos_de_referencia_exige_la_representacion():
+    """No puede heredar el default de construir(): asi fue como se desincronizo.
+
+    Antes del arreglo, `comparar_modelos_de_referencia` tomaba la representacion del
+    default de `construir()`. Al cambiar ese default en el #58, esa funcion paso a
+    medir rezagos relativos mientras el bloque `resultados` del mismo JSON seguia
+    midiendo rezagos en nivel, sin que ninguna linea de codigo cambiara.
+    """
+    import inspect
+
+    from src.features.ablacion import comparar_modelos_de_referencia
+
+    parametro = inspect.signature(comparar_modelos_de_referencia).parameters[
+        "rezagos_relativos"
+    ]
+    assert parametro.default is inspect.Parameter.empty, (
+        "rezagos_relativos no puede tener valor por omision: un default lo vuelve a "
+        "atar al de construir(), que es lo que produjo la desincronizacion"
+    )
+    assert parametro.kind is inspect.Parameter.KEYWORD_ONLY
