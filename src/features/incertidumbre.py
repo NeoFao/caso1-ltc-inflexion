@@ -194,8 +194,14 @@ def generar_evidencia(directorio=None) -> dict:
     for nombre, modelo in (
         ("baseline_trivial", BaselineTrivial()),
         ("baseline_aleatorio", BaselineAleatorio(semilla=0)),
-        ("bosque_aleatorio", BosqueAleatorio()),
-        ("bosque_aleatorio_sin_niveles", BosqueAleatorio(excluir=("_rezago_",))),
+        (
+            "bosque_aleatorio_rezagos_en_nivel",
+            BosqueAleatorio(nombre="bosque_aleatorio_rezagos_en_nivel"),
+        ),
+        (
+            "bosque_aleatorio_sin_rezagos",
+            BosqueAleatorio(excluir=("_rezago_",), nombre="bosque_aleatorio_sin_rezagos"),
+        ),
     ):
         modelo.entrenar(X_entrena, y_entrena)
         predicciones[nombre] = np.asarray(modelo.predecir(X_valida), dtype=int)
@@ -210,10 +216,10 @@ def generar_evidencia(directorio=None) -> dict:
 
     comparaciones = {}
     for a, b in (
-        ("bosque_aleatorio_sin_niveles", "baseline_aleatorio"),
-        ("bosque_aleatorio_sin_niveles", "baseline_trivial"),
-        ("bosque_aleatorio_sin_niveles", "bosque_aleatorio"),
-        ("bosque_aleatorio", "baseline_aleatorio"),
+        ("bosque_aleatorio_sin_rezagos", "baseline_aleatorio"),
+        ("bosque_aleatorio_sin_rezagos", "baseline_trivial"),
+        ("bosque_aleatorio_sin_rezagos", "bosque_aleatorio_rezagos_en_nivel"),
+        ("bosque_aleatorio_rezagos_en_nivel", "baseline_aleatorio"),
     ):
         comparaciones[f"{a}__vs__{b}"] = intervalo_diferencia(
             y_valida, predicciones[a], predicciones[b], f1_macro

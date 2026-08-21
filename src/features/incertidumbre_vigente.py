@@ -26,7 +26,7 @@ default hay que repetir esto"*.
 
 La comparacion que ahora importa
 --------------------------------
-El bootstrap original comparaba `bosque_aleatorio` contra una variante que quitaba las
+El bootstrap original comparaba el bosque contra una variante que quitaba las
 columnas de precio en nivel. Esa comparacion respondia una pregunta que ya se
 respondio: se tomo la decision, entro en el #58. La pregunta viva es otra —**cuanto
 compro ese cambio**, y si el modelo con la representacion nueva supera al azar de forma
@@ -35,6 +35,18 @@ evaluan sobre las mismas filas.
 
 El remuestreo pareado sigue siendo valido ahi: lo que se remuestrea son las filas de
 validacion, que son las mismas para los dos, no las columnas con que se entrenaron.
+
+Los nombres de los modelos
+--------------------------
+Se usan los de M3 tal cual: `bosque_aleatorio_rezagos_relativos` y
+`bosque_aleatorio_rezagos_en_nivel`. No son nombres propios de este archivo.
+
+La primera version usaba `bosque_aleatorio` a secas para el relativo, y eso repetia el
+defecto que el #63 arreglo en `resultados.csv` y el #68 en `m2-ablacion.json`: en
+`m2-incertidumbre.json` —el viejo, que sigue ahi— ese mismo nombre significa el modelo
+con rezagos EN NIVEL. Dentro de un archivo el contexto desambigua; comparando dos JSON
+por nombre de modelo, no. `test_los_nombres_son_los_mismos_que_los_de_m3` lo vigila
+contra la evidencia de M3, no contra una lista escrita aqui.
 
 Punto de entrada:  uv run python -m src.features.incertidumbre_vigente
 """
@@ -75,8 +87,8 @@ EVIDENCIAS = Path("docs/evidencias")
 #: Salen de dos mediciones independientes que ya estan en el repositorio, y el
 #: segundo lo obtuvieron por separado M3 (#63) y M2 (#62) con codigo distinto.
 CONTROLES = {
-    "bosque_rezagos_en_nivel": 0.3443065490077563,
-    "bosque_aleatorio": 0.390497720487045,
+    "bosque_aleatorio_rezagos_en_nivel": 0.3443065490077563,
+    "bosque_aleatorio_rezagos_relativos": 0.390497720487045,
 }
 
 
@@ -112,10 +124,14 @@ def _predicciones(matrices, y_entrena, semilla: int = 0) -> dict[str, np.ndarray
     for nombre, modelo, clave in (
         ("baseline_trivial", BaselineTrivial(), "relativo"),
         ("baseline_aleatorio", BaselineAleatorio(semilla=semilla), "relativo"),
-        ("bosque_aleatorio", BosqueAleatorio(semilla=semilla), "relativo"),
         (
-            "bosque_rezagos_en_nivel",
-            BosqueAleatorio(semilla=semilla, nombre="bosque_rezagos_en_nivel"),
+            "bosque_aleatorio_rezagos_relativos",
+            BosqueAleatorio(semilla=semilla, nombre="bosque_aleatorio_rezagos_relativos"),
+            "relativo",
+        ),
+        (
+            "bosque_aleatorio_rezagos_en_nivel",
+            BosqueAleatorio(semilla=semilla, nombre="bosque_aleatorio_rezagos_en_nivel"),
             "nivel",
         ),
     ):
@@ -165,9 +181,12 @@ def sensibilidad_a_la_semilla(semillas=(0, 1, 2, 3, 4)) -> dict:
             {
                 "semilla": int(semilla),
                 **{f"f1_{k}": v for k, v in f1.items()},
-                "vs_baseline_aleatorio": f1["bosque_aleatorio"] - f1["baseline_aleatorio"],
+                "vs_baseline_aleatorio": (
+                    f1["bosque_aleatorio_rezagos_relativos"] - f1["baseline_aleatorio"]
+                ),
                 "vs_rezagos_en_nivel": (
-                    f1["bosque_aleatorio"] - f1["bosque_rezagos_en_nivel"]
+                    f1["bosque_aleatorio_rezagos_relativos"]
+                    - f1["bosque_aleatorio_rezagos_en_nivel"]
                 ),
             }
         )
@@ -202,10 +221,10 @@ def generar_evidencia(directorio: Path | None = None) -> dict:
     comparaciones = {
         f"{a}__vs__{b}": intervalo_diferencia(y_valida, predicciones[a], predicciones[b], f1_macro)
         for a, b in (
-            ("bosque_aleatorio", "baseline_aleatorio"),
-            ("bosque_aleatorio", "baseline_trivial"),
-            ("bosque_aleatorio", "bosque_rezagos_en_nivel"),
-            ("bosque_rezagos_en_nivel", "baseline_aleatorio"),
+            ("bosque_aleatorio_rezagos_relativos", "baseline_aleatorio"),
+            ("bosque_aleatorio_rezagos_relativos", "baseline_trivial"),
+            ("bosque_aleatorio_rezagos_relativos", "bosque_aleatorio_rezagos_en_nivel"),
+            ("bosque_aleatorio_rezagos_en_nivel", "baseline_aleatorio"),
         )
     }
 
@@ -301,7 +320,12 @@ if __name__ == "__main__":
     sensibilidad = salida["sensibilidad_a_la_semilla"]
     print(
         pd.DataFrame(sensibilidad["por_semilla"])[
-            ["semilla", "f1_bosque_aleatorio", "vs_baseline_aleatorio", "vs_rezagos_en_nivel"]
+            [
+                "semilla",
+                "f1_bosque_aleatorio_rezagos_relativos",
+                "vs_baseline_aleatorio",
+                "vs_rezagos_en_nivel",
+            ]
         ]
         .round(4)
         .to_string(index=False)
