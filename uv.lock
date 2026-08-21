@@ -59,6 +59,15 @@ wheels = [
 ]
 
 [[package]]
+name = "beartype"
+version = "0.22.9"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/94/1009e248bbfbab11397abca7193bea6626806be9a327d399810d523a07cb/beartype-0.22.9.tar.gz", hash = "sha256:8f82b54aa723a2848a56008d18875f91c1db02c32ef6a62319a002e3e25a975f", size = 1608866, upload-time = "2025-12-13T06:50:30.72Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/71/cc/18245721fa7747065ab478316c7fea7c74777d07f37ae60db2e84f8172e8/beartype-0.22.9-py3-none-any.whl", hash = "sha256:d16c9bbc61ea14637596c5f6fbff2ee99cbe3573e46a716401734ef50c3060c2", size = 1333658, upload-time = "2025-12-13T06:50:28.266Z" },
+]
+
+[[package]]
 name = "caso1-ltc-inflexion"
 version = "0.1.0"
 source = { virtual = "." }
@@ -81,6 +90,7 @@ dev = [
 ]
 modelos = [
     { name = "chronos-forecasting" },
+    { name = "itransformer" },
     { name = "torch" },
     { name = "transformers" },
 ]
@@ -105,6 +115,7 @@ dev = [
 ]
 modelos = [
     { name = "chronos-forecasting", specifier = ">=2.3" },
+    { name = "itransformer", specifier = ">=0.8" },
     { name = "torch", specifier = ">=2.4" },
     { name = "transformers", specifier = ">=4.45" },
 ]
@@ -418,6 +429,20 @@ wheels = [
 ]
 
 [[package]]
+name = "gateloop-transformer"
+version = "0.2.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "einops" },
+    { name = "rotary-embedding-torch" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/eb/9f/97e83f5951ae7df137b322a0130e665ff085ec250b1a9c320b043afed812/gateloop_transformer-0.2.5.tar.gz", hash = "sha256:9559dc3a6b15f4640f2bb7b611010030da126ada5ced784e7c4ce84afa090355", size = 11057, upload-time = "2024-06-18T21:08:18.501Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/56/f1/d373275d5cf1bd09a2103e328caa31b35c6936ad60f5a7feaafb4ad298f7/gateloop_transformer-0.2.5-py3-none-any.whl", hash = "sha256:01bba3f2716f2b462e855decb9665880c6a757b2878d31e02fbc4eb491767323", size = 10367, upload-time = "2024-06-18T21:08:15.934Z" },
+]
+
+[[package]]
 name = "h11"
 version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -528,6 +553,20 @@ wheels = [
 ]
 
 [[package]]
+name = "hyper-connections"
+version = "0.4.11"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "einops" },
+    { name = "torch" },
+    { name = "torch-einops-utils" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/86/2e/47f00583d958527f006459e0e769aa3b20dc61b7b1916df1fa0b9820a192/hyper_connections-0.4.11.tar.gz", hash = "sha256:d4f852733cf8595b2b15e81597ec0ce931907f284a812272c03edea0a4ef12e3", size = 17864, upload-time = "2026-05-13T18:28:47.553Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/42/2d/23143d9e5af1b6a2e7ed4e5f88a6c0cbf7587563acb8f15a740b726ce07f/hyper_connections-0.4.11-py3-none-any.whl", hash = "sha256:92a8d24340ef6dbf2a356b1f2e74ebb877d680aa96afc6f9f1cff636ab2e55f0", size = 29558, upload-time = "2026-05-13T18:28:46.304Z" },
+]
+
+[[package]]
 name = "idna"
 version = "3.18"
 source = { registry = "https://pypi.org/simple" }
@@ -543,6 +582,23 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/72/34/14ca021ce8e5dfedc35312d08ba8bf51fdd999c576889fc2c24cb97f4f10/iniconfig-2.3.0.tar.gz", hash = "sha256:c76315c77db068650d49c5b56314774a7804df16fee4402c1f19d6d15d8c4730", size = 20503, upload-time = "2025-10-18T21:55:43.219Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl", hash = "sha256:f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12", size = 7484, upload-time = "2025-10-18T21:55:41.639Z" },
+]
+
+[[package]]
+name = "itransformer"
+version = "0.8.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "beartype" },
+    { name = "einops" },
+    { name = "gateloop-transformer" },
+    { name = "hyper-connections" },
+    { name = "rotary-embedding-torch" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a2/f0/e30ca82f774768c69d41482ac36c1d23fa9579d646710efb2c58a5d63ab5/itransformer-0.8.1.tar.gz", hash = "sha256:a8c83aaf4ddb89ab4c838b1c13c4a23a1a59724d5cc2f2545228a26bca088b78", size = 11639, upload-time = "2025-06-12T02:13:36.766Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/49/6d/cda26075ba47f0599baa8524354788ca92ca9ee0f355e2a16be82d93b18d/itransformer-0.8.1-py3-none-any.whl", hash = "sha256:ab63a8cbf486391bd4cdbc79713962c5386a10fd3275be282263d1ed9f9724a8", size = 12575, upload-time = "2025-06-12T02:13:35.92Z" },
 ]
 
 [[package]]
@@ -1400,6 +1456,19 @@ wheels = [
 ]
 
 [[package]]
+name = "rotary-embedding-torch"
+version = "0.9.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "einops" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fc/63/776d55b395aed9d2815afc1740056e919691d1be1ceee203d101d33d1674/rotary_embedding_torch-0.9.1.tar.gz", hash = "sha256:f43c39cd9c0aaa17d47e876db89a552a203dd8af35e7980f484ab7ad7ea8bf69", size = 13246, upload-time = "2026-06-20T23:39:14.667Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ea/63/ca681366df98d207876c6ad7761ef6910668c83ec766fd5a70c56b9c3567/rotary_embedding_torch-0.9.1-py3-none-any.whl", hash = "sha256:489ef53e21ab4c4eb35c0c97b551d724f5eea71c2bca39acb8fee8d88b142a76", size = 17423, upload-time = "2026-06-20T23:39:13.427Z" },
+]
+
+[[package]]
 name = "ruff"
 version = "0.16.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1668,6 +1737,19 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/69/d1/491e3a0389430946145888b0203f2b6a759ce2a61481b96a85c2da4f2ced/torch-2.13.0-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:31061ff56ed8fbf26c749806905aeb749ebeb819810fd5d52508aa5afd90dddc", size = 427219769, upload-time = "2026-07-08T16:02:31.18Z" },
     { url = "https://files.pythonhosted.org/packages/9a/1d/38006e045bf0a1fc28ef01e757c554e59e59a8770c284bc4f47b14e60441/torch-2.13.0-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:cc26eead4cf51d0b544e31e364dcf000846549c273bd148936fe9d24d29acb92", size = 526571320, upload-time = "2026-07-08T16:01:59.348Z" },
     { url = "https://files.pythonhosted.org/packages/56/94/655c91992a882bd5071aa0b5d22a07dbb130d801e872be97c0b627a7c693/torch-2.13.0-cp314-cp314t-win_amd64.whl", hash = "sha256:a7de8a313090dc5c7d7ba4bfe5c3be222528f9a4dba1acc83bddb1157360c4b8", size = 122306773, upload-time = "2026-07-08T16:02:39.832Z" },
+]
+
+[[package]]
+name = "torch-einops-utils"
+version = "0.1.20"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "einops" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a5/c0/cfbcda827ae9660e595a520359f6a8328b587a750b6c7393b7c5afc7b148/torch_einops_utils-0.1.20.tar.gz", hash = "sha256:ac70ada21b36315d61d18825b96b4cc9f35250a149973550a3da65f6185a4c19", size = 20036, upload-time = "2026-08-15T15:01:27.809Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/aa/0aca99a15a995715701e0c7fdb78cd2cb1fa75870e999f0047ba39a93274/torch_einops_utils-0.1.20-py3-none-any.whl", hash = "sha256:37bd448476284df31503c7c5ff73956cd19cba8d949c1434d0e3b21d2084edb2", size = 13783, upload-time = "2026-08-15T15:01:26.931Z" },
 ]
 
 [[package]]
