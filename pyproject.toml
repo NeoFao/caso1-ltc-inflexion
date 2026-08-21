@@ -30,6 +30,11 @@ modelos = [
     # que src/modelos/fundacional.py importa chronos de forma perezosa y sus
     # pruebas se saltan solas cuando no esta.
     "chronos-forecasting>=2.3",
+    # Modelo avanzado (S4-M3-01). Implementacion publica de lucidrains, que es lo que
+    # RF-M2 pide. La ruta obvia era neuralforecast, que trae Informer e iTransformer
+    # juntos, pero desde la version 1.7 depende de ray y ray no publica ruedas para
+    # Python 3.14 en Windows. Medido, no supuesto: ver inventario_avanzado.py.
+    "iTransformer>=0.8",
 ]
 
 [tool.pytest.ini_options]
