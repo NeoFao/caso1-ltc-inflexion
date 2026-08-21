@@ -171,3 +171,59 @@ silencio.
 
 Para producir las figuras de una entrega futura se cambian esos valores a propósito y se
 declara en el documento con qué se midió.
+
+**También aplica a `src/modelos/inventario_tsfm.py`**, anclado a `w = 7`, `h = 5` por la
+misma razón: sus tiempos son los que cita la Tabla 1 de la Semana 2, ya entregada.
+
+## D12 · Modelo fundacional: Chronos-Bolt
+
+**Estado:** vigente desde el 21/08/2026 · cierra [#21](https://github.com/NeoFao/caso1-ltc-inflexion/issues/21)
+
+RF-M1 exige justificar la elección según las características **medidas** de los datos y de
+nuestras máquinas, no por popularidad. Los criterios se declararon antes de aplicarlos:
+que corra en CPU (RNF-1), que el código esté disponible (RF-M2), que el tiempo de
+inferencia quepa en el presupuesto de dos horas del modelo avanzado (RNF-4), y que no
+obligue a cambiar el entorno del equipo (RNF-3).
+
+**Se elige `amazon/chronos-bolt-small`.** Medido en CPU, contexto de 512 velas reales de
+LTC:
+
+| Candidato | Disco (MB) | RAM pico (MB) | s/ventana en lote | Bloque de validación (min) |
+|---|---|---|---|---|
+| **chronos-bolt-small** | **182,05** | **695,0** | **0,0061** | **0,2** |
+| chronos-t5-small | 176,08 | 4 805,6 | 2,9546 | 96,3 |
+| timesfm-2.5-200m | 882,32 | 1 264,6 | 0,1836 | 6,0 |
+
+**Alternativas descartadas y el motivo:**
+
+- **Chronos-T5** — por presupuesto, no por gusto: **96,3 minutos de sola inferencia** sobre
+  el bloque de validación, sin entrenar nada, contra el techo de dos horas de RNF-4. Y 4,8 GB
+  de memoria pico contra 695 MB. Es autorregresivo y muestrea 20 trayectorias por ventana;
+  Bolt predice sus 9 cuantiles de una pasada.
+- **TimesFM 2.5** — viable (6,0 min), pero 4,8 veces el disco y 1,8 veces la memoria de Bolt,
+  y devuelve solo el pronóstico puntual. Bolt devuelve 9 cuantiles, que es lo que da
+  incertidumbre para decidir entre Máximo y Mínimo.
+- **IBM granite-tsfm** — descartado **antes de instalarlo**: su resolución degrada `torch` de
+  2.13.0 a 2.10.0, y un entorno distinto al del resto del equipo rompe RNF-3. Comprobado con
+  `uv pip install --dry-run`.
+- **CryptoMamba, VTA y FinLSPM** — no compiten aquí: son candidatos al modelo **avanzado**,
+  no al fundacional. Su análisis está en el capítulo de la Semana 2.
+
+**Con qué configuración se midió, que importa:** con `w = 7`, `h = 5`, es decir un horizonte
+de 12 velas, que era el contrato vigente cuando se hizo el inventario. D3 corrigió después
+`h` a 1, con lo que el horizonte necesario baja a 8. **Lo que decide es el orden de magnitud
+entre candidatos —Bolt es 484 veces más rápido por ventana que T5— y ese orden no depende
+del horizonte.** La evidencia no se regenera porque la cita la Semana 2, ya entregada (D11).
+
+**Lo que esta decisión NO resuelve.** Un modelo fundacional pronostica una trayectoria, no
+una etiqueta de tres clases. El puente entre ambas cosas —cabeza de clasificación sobre
+representaciones congeladas, o pronosticar y aplicarle `etiquetar()`— sigue abierto. El dato
+medido que lo condiciona: aplicar `etiquetar()` sobre la trayectoria de Bolt cuesta unos 12
+segundos sobre todo el bloque de validación, así que la opción simple dejó de ser la barata
+pero peor.
+
+**El modelo avanzado tampoco se decide aquí.** iTransformer e Informer son los candidatos que
+cumplen las dos líneas del enunciado, pero **no están medidos en nuestras máquinas**, y
+elegir sin medir es exactamente lo que RF-M1 prohíbe. Es la tarea S4-M3-01.
+
+**Evidencia:** `docs/evidencias/m3-inventario-tsfm.json` · **Análisis:** `docs/entregas/semana-2/m3-modelos.md`

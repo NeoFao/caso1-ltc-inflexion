@@ -55,6 +55,18 @@ EVIDENCIAS = RAIZ / "docs" / "evidencias"
 # para que el modelo vea varios ciclos y dentro del contexto nativo de los tres
 # candidatos, para que la comparacion sea entre modelos y no entre recortes.
 CONTEXTO = 512
+
+# ANCLADO A PROPOSITO, y no leido de contracts/config.py. Aplica D11: la evidencia
+# de una entrega hecha no se regenera.
+#
+# Estos valores son los que estaban vigentes cuando se midio el inventario, y sus
+# numeros --tiempos, memoria, tamano en disco-- son los que cita la Tabla 1 de
+# docs/entregas/semana-2/m3-modelos.md, ya entregada. El contrato cambio despues a
+# h = 1 (D3), asi que leerlo aqui haria que re-ejecutar este guion cambiara la
+# evidencia y dejara al entregable citando valores que ya no existen, en silencio.
+#
+# Si hace falta medir con el contrato vigente, se cambian estos valores a proposito,
+# se declara en el documento con que se midio, y se guarda con otro nombre.
 VENTANA_W = 7
 HORIZONTE_H = 5
 HORIZONTE = latencia_real(VENTANA_W, HORIZONTE_H)
