@@ -1,0 +1,251 @@
+{
+ "vigente": {
+  "parametros": {
+   "intervalo": "4h",
+   "w": 7,
+   "h": 1
+  },
+  "serie": {
+   "n": 13114,
+   "n_etiquetadas": 13100,
+   "desde": "2020-08-11 04:00:00+00:00",
+   "hasta": "2026-08-05 16:00:00+00:00"
+  },
+  "tabla_1_balance": {
+   "filas": [
+    {
+     "clase": "Maximo",
+     "codigo": 1,
+     "n": 606,
+     "porcentaje": 4.626
+    },
+    {
+     "clase": "Minimo",
+     "codigo": 2,
+     "n": 611,
+     "porcentaje": 4.664
+    },
+    {
+     "clase": "Continuidad",
+     "codigo": 3,
+     "n": 11883,
+     "porcentaje": 90.71
+    }
+   ],
+   "cota_superior_extremos_pct": 12.5
+  },
+  "tabla_2_trivial_serie_completa": {
+   "n": 13100,
+   "f1_macro": 0.31709562502501704,
+   "precision_direccional": 0.0,
+   "exactitud": 0.9070992366412214,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.951286875075051
+  },
+  "tabla_3_baselines_en_prueba": {
+   "n_prueba_con_etiqueta": 1960,
+   "n_prueba_bruto": 1968,
+   "balance_bloque_prueba": [
+    {
+     "clase": "Maximo",
+     "codigo": 1,
+     "n": 86,
+     "porcentaje": 4.388
+    },
+    {
+     "clase": "Minimo",
+     "codigo": 2,
+     "n": 86,
+     "porcentaje": 4.388
+    },
+    {
+     "clase": "Continuidad",
+     "codigo": 3,
+     "n": 1788,
+     "porcentaje": 91.224
+    }
+   ],
+   "baselines": [
+    {
+     "n": 1960,
+     "f1_macro": 0.31803628601921025,
+     "precision_direccional": 0.0,
+     "exactitud": 0.9122448979591836,
+     "f1_maximo": 0.0,
+     "f1_minimo": 0.0,
+     "f1_continuidad": 0.9541088580576307,
+     "modelo": "baseline_trivial"
+    },
+    {
+     "n": 1960,
+     "f1_macro": 0.31803628601921025,
+     "precision_direccional": 0.0,
+     "exactitud": 0.9122448979591836,
+     "f1_maximo": 0.0,
+     "f1_minimo": 0.0,
+     "f1_continuidad": 0.9541088580576307,
+     "modelo": "baseline_mayoritario"
+    },
+    {
+     "n": 1960,
+     "f1_macro": 0.34354616620670914,
+     "precision_direccional": 0.06395348837209303,
+     "exactitud": 0.8306122448979592,
+     "f1_maximo": 0.07777777777777778,
+     "f1_minimo": 0.0449438202247191,
+     "f1_continuidad": 0.9079169006176305,
+     "modelo": "baseline_aleatorio"
+    }
+   ],
+   "matrices_confusion": {
+    "baseline_trivial": {
+     "Maximo": {
+      "Maximo": 0,
+      "Minimo": 0,
+      "Continuidad": 0
+     },
+     "Minimo": {
+      "Maximo": 0,
+      "Minimo": 0,
+      "Continuidad": 0
+     },
+     "Continuidad": {
+      "Maximo": 86,
+      "Minimo": 86,
+      "Continuidad": 1788
+     }
+    },
+    "baseline_mayoritario": {
+     "Maximo": {
+      "Maximo": 0,
+      "Minimo": 0,
+      "Continuidad": 0
+     },
+     "Minimo": {
+      "Maximo": 0,
+      "Minimo": 0,
+      "Continuidad": 0
+     },
+     "Continuidad": {
+      "Maximo": 86,
+      "Minimo": 86,
+      "Continuidad": 1788
+     }
+    },
+    "baseline_aleatorio": {
+     "Maximo": {
+      "Maximo": 7,
+      "Minimo": 4,
+      "Continuidad": 83
+     },
+     "Minimo": {
+      "Maximo": 0,
+      "Minimo": 4,
+      "Continuidad": 88
+     },
+     "Continuidad": {
+      "Maximo": 79,
+      "Minimo": 78,
+      "Continuidad": 1617
+     }
+    }
+   },
+   "particion": [
+    {
+     "conjunto": "entrenamiento",
+     "n": 9171,
+     "desde": "2020-08-11 04:00:00+00:00",
+     "hasta": "2024-10-17 12:00:00+00:00"
+    },
+    {
+     "conjunto": "validacion",
+     "n": 1959,
+     "desde": "2024-10-19 00:00:00+00:00",
+     "hasta": "2025-09-10 08:00:00+00:00"
+    },
+    {
+     "conjunto": "prueba",
+     "n": 1968,
+     "desde": "2025-09-11 20:00:00+00:00",
+     "hasta": "2026-08-05 16:00:00+00:00"
+    }
+   ]
+  }
+ },
+ "control_semana_1": {
+  "proposito": "Reproduce con este mismo codigo las cifras publicadas en la Semana 1 (1d, w = 5, h = 3). Si no coincidieran, generar_evidencia() se detiene antes de escribir nada.",
+  "reproduce_lo_publicado": true,
+  "tabla_1_balance": {
+   "filas": [
+    {
+     "clase": "Maximo",
+     "codigo": 1,
+     "n": 143,
+     "porcentaje": 6.575
+    },
+    {
+     "clase": "Minimo",
+     "codigo": 2,
+     "n": 141,
+     "porcentaje": 6.483
+    },
+    {
+     "clase": "Continuidad",
+     "codigo": 3,
+     "n": 1891,
+     "porcentaje": 86.943
+    }
+   ],
+   "cota_superior_extremos_pct": 16.667
+  },
+  "tabla_2_trivial_serie_completa": {
+   "n": 2175,
+   "f1_macro": 0.3100508280045909,
+   "precision_direccional": 0.0,
+   "exactitud": 0.8694252873563219,
+   "f1_maximo": 0.0,
+   "f1_minimo": 0.0,
+   "f1_continuidad": 0.9301524840137727
+  },
+  "tabla_3_baselines_en_prueba": {
+   "n_prueba_con_etiqueta": 320,
+   "baselines": [
+    {
+     "n": 320,
+     "f1_macro": 0.3075196408529742,
+     "precision_direccional": 0.0,
+     "exactitud": 0.85625,
+     "f1_maximo": 0.0,
+     "f1_minimo": 0.0,
+     "f1_continuidad": 0.9225589225589226,
+     "modelo": "baseline_trivial"
+    },
+    {
+     "n": 320,
+     "f1_macro": 0.3075196408529742,
+     "precision_direccional": 0.0,
+     "exactitud": 0.85625,
+     "f1_maximo": 0.0,
+     "f1_minimo": 0.0,
+     "f1_continuidad": 0.9225589225589226,
+     "modelo": "baseline_mayoritario"
+    },
+    {
+     "n": 320,
+     "f1_macro": 0.3201632778804683,
+     "precision_direccional": 0.06521739130434782,
+     "exactitud": 0.715625,
+     "f1_maximo": 0.0,
+     "f1_minimo": 0.125,
+     "f1_continuidad": 0.8354898336414048,
+     "modelo": "baseline_aleatorio"
+    }
+   ]
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-21T04:48:51+00:00",
+  "advertencia": "Estas cifras NO reemplazan las de docs/entregas/semana-1/. La D11 dice que la evidencia de una entrega hecha es historia. Donde se citan estos numeros es una decision del equipo, no de este modulo."
+ }
+}
