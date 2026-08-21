@@ -1,0 +1,197 @@
+{
+  "ejecutado_utc": "2026-08-21T23:20:09+00:00",
+  "tarea": "S4-M3-02, segunda mitad (modelo avanzado)",
+  "conjunto": "validacion",
+  "metodo": "Cada celda se mide con cinco semillas y se ordena por la media, no por el maximo observado. Con una sola semilla se estaria eligiendo la celda mas afortunada y no la mejor configuracion, porque el F1 se mueve entre semillas mas que el umbral de decision del equipo.",
+  "regla": "La busqueda se hace contra validacion. El bloque de prueba no se toca aqui.",
+  "parametros_fijos": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1
+  },
+  "rejilla_explorada": {
+    "lookbacks": [
+      48,
+      96,
+      192
+    ],
+    "dimensiones": [
+      32,
+      64
+    ],
+    "semillas": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_celdas": 6,
+    "n_entrenamientos": 30
+  },
+  "referencias": {
+    "baseline_trivial": 0.31606263982102906,
+    "baseline_aleatorio": 0.3367840908780229
+  },
+  "celdas": [
+    {
+      "lookback": 48,
+      "dimension": 32,
+      "f1_por_semilla": {
+        "0": 0.34217548874926096,
+        "1": 0.34864357833370185,
+        "2": 0.34694098172359045,
+        "3": 0.3500930472473503,
+        "4": 0.3456269133419097
+      },
+      "f1_medio": 0.3466960018791626,
+      "f1_minimo": 0.34217548874926096,
+      "f1_maximo": 0.3500930472473503,
+      "desviacion": 0.002719226936541919,
+      "es_la_por_defecto": false,
+      "segundos": 236.7
+    },
+    {
+      "lookback": 48,
+      "dimension": 64,
+      "f1_por_semilla": {
+        "0": 0.3404437872522979,
+        "1": 0.3224861948701627,
+        "2": 0.3510474200129372,
+        "3": 0.3335409149650636,
+        "4": 0.318070438132672
+      },
+      "f1_medio": 0.33311775104662666,
+      "f1_minimo": 0.318070438132672,
+      "f1_maximo": 0.3510474200129372,
+      "desviacion": 0.011956375003268571,
+      "es_la_por_defecto": false,
+      "segundos": 251.8
+    },
+    {
+      "lookback": 96,
+      "dimension": 32,
+      "f1_por_semilla": {
+        "0": 0.3355563759675557,
+        "1": 0.3434750035165981,
+        "2": 0.3230304800042558,
+        "3": 0.3524702076507486,
+        "4": 0.343061361090621
+      },
+      "f1_medio": 0.3395186856459559,
+      "f1_minimo": 0.3230304800042558,
+      "f1_maximo": 0.3524702076507486,
+      "desviacion": 0.009833674246292272,
+      "es_la_por_defecto": false,
+      "segundos": 200.7
+    },
+    {
+      "lookback": 96,
+      "dimension": 64,
+      "f1_por_semilla": {
+        "0": 0.3452682673337443,
+        "1": 0.3292091812866884,
+        "2": 0.34323723123986266,
+        "3": 0.3640736952533767,
+        "4": 0.3438554664317133
+      },
+      "f1_medio": 0.34512876830907707,
+      "f1_minimo": 0.3292091812866884,
+      "f1_maximo": 0.3640736952533767,
+      "desviacion": 0.011113614875649132,
+      "es_la_por_defecto": true,
+      "segundos": 195.3
+    },
+    {
+      "lookback": 192,
+      "dimension": 32,
+      "f1_por_semilla": {
+        "0": 0.3265026868206757,
+        "1": 0.3102218221328655,
+        "2": 0.32459679960867693,
+        "3": 0.33363349973399514,
+        "4": 0.3336206693777677
+      },
+      "f1_medio": 0.32571509553479616,
+      "f1_minimo": 0.3102218221328655,
+      "f1_maximo": 0.33363349973399514,
+      "desviacion": 0.00856868285522937,
+      "es_la_por_defecto": false,
+      "segundos": 162.9
+    },
+    {
+      "lookback": 192,
+      "dimension": 64,
+      "f1_por_semilla": {
+        "0": 0.32352914043579145,
+        "1": 0.3281105641139319,
+        "2": 0.3298966328250343,
+        "3": 0.31429944361282364,
+        "4": 0.3421250878513682
+      },
+      "f1_medio": 0.32759217376778993,
+      "f1_minimo": 0.31429944361282364,
+      "f1_maximo": 0.3421250878513682,
+      "desviacion": 0.009055272129404362,
+      "es_la_por_defecto": false,
+      "segundos": 191.7
+    }
+  ],
+  "mejor": {
+    "lookback": 48,
+    "dimension": 32,
+    "f1_por_semilla": {
+      "0": 0.34217548874926096,
+      "1": 0.34864357833370185,
+      "2": 0.34694098172359045,
+      "3": 0.3500930472473503,
+      "4": 0.3456269133419097
+    },
+    "f1_medio": 0.3466960018791626,
+    "f1_minimo": 0.34217548874926096,
+    "f1_maximo": 0.3500930472473503,
+    "desviacion": 0.002719226936541919,
+    "es_la_por_defecto": false,
+    "segundos": 236.7
+  },
+  "por_defecto": {
+    "lookback": 96,
+    "dimension": 64,
+    "f1_por_semilla": {
+      "0": 0.3452682673337443,
+      "1": 0.3292091812866884,
+      "2": 0.34323723123986266,
+      "3": 0.3640736952533767,
+      "4": 0.3438554664317133
+    },
+    "f1_medio": 0.34512876830907707,
+    "f1_minimo": 0.3292091812866884,
+    "f1_maximo": 0.3640736952533767,
+    "desviacion": 0.011113614875649132,
+    "es_la_por_defecto": true,
+    "segundos": 195.3
+  },
+  "ganancia_del_ajuste": {
+    "diferencia_media": 0.00156723357008558,
+    "minima": -0.013980648006026386,
+    "maxima": 0.01943439704701344,
+    "semillas_a_favor": 3,
+    "de_semillas": 5,
+    "cambia_de_signo": true,
+    "pareada_por_semilla": true
+  },
+  "dispersion_entre_celdas": 0.020980906344366446,
+  "dispersion_media_entre_semillas": 0.026072683971868304,
+  "el_ruido_supera_a_la_senal": true,
+  "veredicto_d15": {
+    "regla": "D15: si la dispersion entre semillas dentro de una celda iguala o supera la dispersion entre celdas, no se corona ganadora y se conserva la configuracion por defecto.",
+    "se_corona_ganadora": false,
+    "configuracion_elegida": {
+      "lookback": 96,
+      "dimension": 64
+    },
+    "por_que": "El ruido entre semillas alcanza a la diferencia entre celdas, asi que la rejilla no distingue configuraciones y ajustar no tiene de donde mejorar."
+  },
+  "el_mejor_le_gana_al_azar": true,
+  "prueba_sin_tocar": "El bloque de prueba NO se midio aqui. Se mide una sola vez, aparte, despues de fijar la configuracion de los dos modelos."
+}
