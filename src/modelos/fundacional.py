@@ -44,7 +44,8 @@ REPO_POR_DEFECTO = "amazon/chronos-bolt-small"
 # inventario de la D12, y entra en el contexto nativo del modelo.
 CONTEXTO_POR_DEFECTO = 512
 TAMANO_LOTE = 64
-# Los 9 cuantiles que devuelve Chronos-Bolt van de 0,1 a 0,9; el 4 es la mediana.
+# Los 9 cuantiles que devuelve Chronos-Bolt van de 0,1 a 0,9, en ese orden.
+CUANTILES = (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
 INDICE_MEDIANA = 4
 
 
@@ -66,12 +67,20 @@ class ChronosBolt(Modelo):
         contexto: int = CONTEXTO_POR_DEFECTO,
         repo: str = REPO_POR_DEFECTO,
         lote: int = TAMANO_LOTE,
+        cuantil: float = 0.5,
         nombre: str | None = None,
     ) -> None:
         if not isinstance(cierre, pd.Series):
             raise TypeError(f"cierre debe ser pd.Series, es {type(cierre).__name__}")
         if w < 1 or h < 0:
             raise ValueError(f"w debe ser >= 1 y h >= 0; se recibio w={w}, h={h}")
+        if cuantil not in CUANTILES:
+            raise ValueError(
+                f"cuantil debe ser uno de {CUANTILES}, que son los que devuelve el "
+                f"modelo; se recibio {cuantil}"
+            )
+        self.cuantil = cuantil
+        self._indice_cuantil = CUANTILES.index(cuantil)
 
         self._valores = cierre.to_numpy(dtype=float)
         self._indice = cierre.index
@@ -179,11 +188,12 @@ class ChronosBolt(Modelo):
                 )
                 for i in bloque
             ]
-            # (lote, 9 cuantiles, horizonte). Se usa la mediana como trayectoria
-            # puntual; los otros ocho cuantiles quedan disponibles para una version
-            # que module la decision por incertidumbre, que no es esta.
+            # (lote, 9 cuantiles, horizonte). Cual de los nueve se usa como
+            # trayectoria puntual es un hiperparametro: la mediana es lo neutral,
+            # pero un cuantil bajo inclina el pronostico hacia abajo y con el hacia
+            # Minimo. Se busca contra validacion en S4-M3-02, nunca contra prueba.
             salida = self._cargar().predict(contextos, prediction_length=horizonte)
-            medianas = np.asarray(salida[:, INDICE_MEDIANA, :], dtype=float)
+            medianas = np.asarray(salida[:, self._indice_cuantil, :], dtype=float)
 
             for desplazamiento, i in enumerate(bloque):
                 etiquetas[arranque + desplazamiento] = self._etiqueta_de(

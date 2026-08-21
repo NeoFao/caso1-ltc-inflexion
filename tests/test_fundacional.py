@@ -205,3 +205,26 @@ def test_el_tamano_de_lote_no_cambia_el_resultado():
     chico = ChronosBolt(serie, w=W, h=H, lote=7).entrenar(X, pd.Series(dtype="Int64"))
 
     assert np.array_equal(grande.predecir(X), chico.predecir(X))
+
+
+def test_el_cuantil_por_defecto_es_la_mediana():
+    """La mediana es lo neutral. Si el defecto cambiara sin querer, todas las
+    trayectorias se inclinarian y con ellas las etiquetas."""
+    modelo = _modelo()
+    assert modelo.cuantil == 0.5
+    assert modelo._indice_cuantil == 4
+
+
+@pytest.mark.parametrize("cuantil", [0.1, 0.4, 0.5, 0.9])
+def test_los_cuantiles_validos_mapean_a_su_indice(cuantil):
+    """El modelo devuelve nueve cuantiles de 0,1 a 0,9; el indice tiene que
+    corresponder o se estaria leyendo otro."""
+    modelo = _modelo(cuantil=cuantil)
+    assert modelo._indice_cuantil == round(cuantil * 10) - 1
+
+
+def test_un_cuantil_que_el_modelo_no_devuelve_se_rechaza():
+    """Pedir 0,95 devolveria en silencio el cuantil de al lado si no se comprueba, y
+    la busqueda de hiperparametros creeria estar midiendo algo que no midio."""
+    with pytest.raises(ValueError, match="cuantil debe ser uno de"):
+        _modelo(cuantil=0.95)
