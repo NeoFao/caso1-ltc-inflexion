@@ -1,0 +1,296 @@
+{
+ "pregunta": "Aportan los cinco activos de apoyo informacion sobre LTC, medido sobre el modelo del proyecto y no sobre un modelo de referencia?",
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 1,
+  "conjunto_de_medicion": "validacion",
+  "modelo": "src.modelos.clasico.BosqueAleatorio (el de M3, importado)",
+  "remuestreo": "bootstrap estratificado pareado, 1000 remuestras, semilla 0"
+ },
+ "control": {
+  "descripcion": "El bosque completo con rezagos en nivel reproduce el F1 macro que M3 publico para bosque_aleatorio sobre validacion.",
+  "publicado_por_m3": 0.3443065490077563,
+  "obtenido": 0.3443065490077563,
+  "reproduce": true
+ },
+ "con_rezagos_en_nivel": {
+  "representacion": "rezagos en nivel de precio",
+  "rezagos_relativos": false,
+  "n_columnas": {
+   "completo": 63,
+   "solo_LTC": 28
+  },
+  "n_validacion": 1959,
+  "metricas": {
+   "completo": {
+    "n": 1959,
+    "f1_macro": 0.3443065490077563,
+    "precision_direccional": 0.031088082901554404,
+    "exactitud": 0.885145482388974,
+    "f1_maximo": 0.07462686567164178,
+    "f1_minimo": 0.019417475728155338,
+    "f1_continuidad": 0.9388753056234719
+   },
+   "solo_LTC": {
+    "n": 1959,
+    "f1_macro": 0.3795176208518309,
+    "precision_direccional": 0.14507772020725387,
+    "exactitud": 0.8009188361408882,
+    "f1_maximo": 0.13215859030837004,
+    "f1_minimo": 0.1187214611872146,
+    "f1_continuidad": 0.8876728110599078
+   },
+   "baseline_trivial": {
+    "n": 1959,
+    "f1_macro": 0.31606263982102906,
+    "precision_direccional": 0.0,
+    "exactitud": 0.9014803471158754,
+    "f1_maximo": 0.0,
+    "f1_minimo": 0.0,
+    "f1_continuidad": 0.9481879194630872
+   },
+   "baseline_aleatorio": {
+    "n": 1959,
+    "f1_macro": 0.3367840908780229,
+    "precision_direccional": 0.05181347150259067,
+    "exactitud": 0.8223583460949464,
+    "f1_maximo": 0.05181347150259067,
+    "f1_minimo": 0.053763440860215055,
+    "f1_continuidad": 0.904775360271263
+   }
+  },
+  "intervalos_f1_macro": {
+   "completo": {
+    "valor": 0.3443065490077563,
+    "ic_inferior": 0.3219398136912651,
+    "ic_superior": 0.37269576185746106,
+    "desviacion_bootstrap": 0.01258643283307793,
+    "remuestras": 1000
+   },
+   "solo_LTC": {
+    "valor": 0.3795176208518309,
+    "ic_inferior": 0.3510930129599813,
+    "ic_superior": 0.40826806815179006,
+    "desviacion_bootstrap": 0.014640923996521045,
+    "remuestras": 1000
+   },
+   "baseline_trivial": {
+    "valor": 0.31606263982102906,
+    "ic_inferior": 0.31606263982102906,
+    "ic_superior": 0.31606263982102906,
+    "desviacion_bootstrap": 0.0,
+    "remuestras": 1000
+   },
+   "baseline_aleatorio": {
+    "valor": 0.3367840908780229,
+    "ic_inferior": 0.3174134119193544,
+    "ic_superior": 0.36052162761400314,
+    "desviacion_bootstrap": 0.011060161609803831,
+    "remuestras": 1000
+   }
+  },
+  "diferencias": {
+   "completo_vs_solo_LTC": {
+    "diferencia": -0.03521107184407457,
+    "ic_inferior": -0.06248197326007334,
+    "ic_superior": -0.00799164046445122,
+    "excluye_el_cero": true,
+    "fraccion_a_favor": 0.008,
+    "remuestras": 1000
+   },
+   "completo_vs_baseline_aleatorio": {
+    "diferencia": 0.0075224581297334,
+    "ic_inferior": -0.025711702709369812,
+    "ic_superior": 0.039088050777455315,
+    "excluye_el_cero": false,
+    "fraccion_a_favor": 0.677,
+    "remuestras": 1000
+   },
+   "solo_LTC_vs_baseline_aleatorio": {
+    "diferencia": 0.04273352997380797,
+    "ic_inferior": 0.005204744649042588,
+    "ic_superior": 0.07795044494816568,
+    "excluye_el_cero": true,
+    "fraccion_a_favor": 0.99,
+    "remuestras": 1000
+   }
+  },
+  "veredicto": {
+   "aporte_medido": -0.03521107184407457,
+   "ic_95": [
+    -0.06248197326007334,
+    -0.00799164046445122
+   ],
+   "excluye_el_cero": true,
+   "fraccion_a_favor": 0.008,
+   "supera_el_umbral_del_equipo": true,
+   "el_modelo_completo_le_gana_al_azar": false,
+   "se_puede_afirmar_que_aporta": false
+  }
+ },
+ "con_rezagos_relativos": {
+  "representacion": "rezagos relativos",
+  "rezagos_relativos": true,
+  "n_columnas": {
+   "completo": 63,
+   "solo_LTC": 28
+  },
+  "n_validacion": 1959,
+  "metricas": {
+   "completo": {
+    "n": 1959,
+    "f1_macro": 0.390497720487045,
+    "precision_direccional": 0.10362694300518134,
+    "exactitud": 0.8580908626850434,
+    "f1_maximo": 0.10810810810810811,
+    "f1_minimo": 0.14035087719298245,
+    "f1_continuidad": 0.9230341761600445
+   },
+   "solo_LTC": {
+    "n": 1959,
+    "f1_macro": 0.38151243219904596,
+    "precision_direccional": 0.13989637305699482,
+    "exactitud": 0.8101071975497703,
+    "f1_maximo": 0.11578947368421053,
+    "f1_minimo": 0.1350210970464135,
+    "f1_continuidad": 0.8937267258665139
+   },
+   "baseline_trivial": {
+    "n": 1959,
+    "f1_macro": 0.31606263982102906,
+    "precision_direccional": 0.0,
+    "exactitud": 0.9014803471158754,
+    "f1_maximo": 0.0,
+    "f1_minimo": 0.0,
+    "f1_continuidad": 0.9481879194630872
+   },
+   "baseline_aleatorio": {
+    "n": 1959,
+    "f1_macro": 0.3367840908780229,
+    "precision_direccional": 0.05181347150259067,
+    "exactitud": 0.8223583460949464,
+    "f1_maximo": 0.05181347150259067,
+    "f1_minimo": 0.053763440860215055,
+    "f1_continuidad": 0.904775360271263
+   }
+  },
+  "intervalos_f1_macro": {
+   "completo": {
+    "valor": 0.390497720487045,
+    "ic_inferior": 0.35789105094668644,
+    "ic_superior": 0.42372945542218776,
+    "desviacion_bootstrap": 0.01684010903835414,
+    "remuestras": 1000
+   },
+   "solo_LTC": {
+    "valor": 0.38151243219904596,
+    "ic_inferior": 0.3523234465088763,
+    "ic_superior": 0.41219127352434143,
+    "desviacion_bootstrap": 0.015478238746282992,
+    "remuestras": 1000
+   },
+   "baseline_trivial": {
+    "valor": 0.31606263982102906,
+    "ic_inferior": 0.31606263982102906,
+    "ic_superior": 0.31606263982102906,
+    "desviacion_bootstrap": 0.0,
+    "remuestras": 1000
+   },
+   "baseline_aleatorio": {
+    "valor": 0.3367840908780229,
+    "ic_inferior": 0.3174134119193544,
+    "ic_superior": 0.36052162761400314,
+    "desviacion_bootstrap": 0.011060161609803831,
+    "remuestras": 1000
+   }
+  },
+  "diferencias": {
+   "completo_vs_solo_LTC": {
+    "diferencia": 0.00898528828799905,
+    "ic_inferior": -0.022911831497477407,
+    "ic_superior": 0.04170660001159521,
+    "excluye_el_cero": false,
+    "fraccion_a_favor": 0.7,
+    "remuestras": 1000
+   },
+   "completo_vs_baseline_aleatorio": {
+    "diferencia": 0.053713629609022095,
+    "ic_inferior": 0.013658138903538813,
+    "ic_superior": 0.09285380785082342,
+    "excluye_el_cero": true,
+    "fraccion_a_favor": 0.995,
+    "remuestras": 1000
+   },
+   "solo_LTC_vs_baseline_aleatorio": {
+    "diferencia": 0.044728341321023046,
+    "ic_inferior": 0.007480717681475399,
+    "ic_superior": 0.08383632101206609,
+    "excluye_el_cero": true,
+    "fraccion_a_favor": 0.989,
+    "remuestras": 1000
+   }
+  },
+  "veredicto": {
+   "aporte_medido": 0.00898528828799905,
+   "ic_95": [
+    -0.022911831497477407,
+    0.04170660001159521
+   ],
+   "excluye_el_cero": false,
+   "fraccion_a_favor": 0.7,
+   "supera_el_umbral_del_equipo": false,
+   "el_modelo_completo_le_gana_al_azar": true,
+   "se_puede_afirmar_que_aporta": false
+  }
+ },
+ "sensibilidad_a_la_semilla": {
+  "descripcion": "El bootstrap acota la variabilidad del conjunto de evaluacion. Esto acota la otra: la del ajuste del bosque. Cinco semillas, mismo resto.",
+  "con_rezagos_relativos": {
+   "por_semilla": [
+    {
+     "semilla": 0,
+     "f1_completo": 0.390497720487045,
+     "f1_solo_LTC": 0.38151243219904596,
+     "diferencia": 0.00898528828799905
+    },
+    {
+     "semilla": 1,
+     "f1_completo": 0.3738668760418625,
+     "f1_solo_LTC": 0.37334155829856225,
+     "diferencia": 0.0005253177433002243
+    },
+    {
+     "semilla": 2,
+     "f1_completo": 0.3814198749775542,
+     "f1_solo_LTC": 0.3851157116063702,
+     "diferencia": -0.003695836628816007
+    },
+    {
+     "semilla": 3,
+     "f1_completo": 0.38541496267122133,
+     "f1_solo_LTC": 0.3806972247124298,
+     "diferencia": 0.004717737958791546
+    },
+    {
+     "semilla": 4,
+     "f1_completo": 0.3736747209462749,
+     "f1_solo_LTC": 0.380324699950138,
+     "diferencia": -0.006649979003863105
+    }
+   ],
+   "diferencia_media": 0.0007765056714823416,
+   "diferencia_minima": -0.006649979003863105,
+   "diferencia_maxima": 0.00898528828799905,
+   "desviacion": 0.006287587765733344,
+   "cambia_de_signo": true
+  }
+ },
+ "_meta": {
+  "generado_utc": "2026-08-21T05:27:36+00:00",
+  "issues": [
+   "S4-M2-01"
+  ],
+  "advertencia": "La cifra que vale es la de rezagos relativos. La de rezagos en nivel se publica al lado para mostrar de que tamano es el artefacto que producen los precios no estacionarios, no como resultado alternativo."
+ }
+}
