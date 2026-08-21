@@ -93,7 +93,7 @@
     "remuestras": 1000
    }
   },
-  "bosque_aleatorio": {
+  "bosque_aleatorio_rezagos_en_nivel": {
    "f1_macro": {
     "valor": 0.3443065490077563,
     "ic_inferior": 0.3219398136912651,
@@ -109,7 +109,7 @@
     "remuestras": 1000
    }
   },
-  "bosque_aleatorio_sin_niveles": {
+  "bosque_aleatorio_sin_rezagos": {
    "f1_macro": {
     "valor": 0.3672006511532457,
     "ic_inferior": 0.33989195403715644,
@@ -127,7 +127,7 @@
   }
  },
  "comparaciones_pareadas": {
-  "bosque_aleatorio_sin_niveles__vs__baseline_aleatorio": {
+  "bosque_aleatorio_sin_rezagos__vs__baseline_aleatorio": {
    "diferencia": 0.03041656027522277,
    "ic_inferior": -0.005902915893540707,
    "ic_superior": 0.06600411707631348,
@@ -135,7 +135,7 @@
    "fraccion_a_favor": 0.951,
    "remuestras": 1000
   },
-  "bosque_aleatorio_sin_niveles__vs__baseline_trivial": {
+  "bosque_aleatorio_sin_rezagos__vs__baseline_trivial": {
    "diferencia": 0.051138011332216626,
    "ic_inferior": 0.023829314216127395,
    "ic_superior": 0.07878093472742893,
@@ -143,7 +143,7 @@
    "fraccion_a_favor": 1.0,
    "remuestras": 1000
   },
-  "bosque_aleatorio_sin_niveles__vs__bosque_aleatorio": {
+  "bosque_aleatorio_sin_rezagos__vs__bosque_aleatorio_rezagos_en_nivel": {
    "diferencia": 0.02289410214548937,
    "ic_inferior": 0.0003497387231665991,
    "ic_superior": 0.045951150140720376,
@@ -151,7 +151,7 @@
    "fraccion_a_favor": 0.975,
    "remuestras": 1000
   },
-  "bosque_aleatorio__vs__baseline_aleatorio": {
+  "bosque_aleatorio_rezagos_en_nivel__vs__baseline_aleatorio": {
    "diferencia": 0.0075224581297334,
    "ic_inferior": -0.025711702709369812,
    "ic_superior": 0.039088050777455315,
@@ -161,7 +161,7 @@
   }
  },
  "_meta": {
-  "generado_utc": "2026-08-20T21:45:01+00:00",
+  "generado_utc": "2026-08-21T22:21:21+00:00",
   "advertencia": "Medido sobre VALIDACION y no sobre prueba: las cifras que se querian acotar estan medidas ahi, y el bloque de prueba se reserva para el resultado final. El tamano de prueba se reporta solo como referencia, sin evaluar ningun modelo sobre el."
  }
 }

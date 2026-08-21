@@ -95,3 +95,32 @@ def test_los_nombres_son_los_mismos_que_los_de_m3():
             f"{nombre!r} no es un nombre que M3 use. Un mismo modelo con dos nombres "
             "hace incomparables los JSON entre si."
         )
+
+
+def test_ningun_modulo_de_m2_inventa_un_nombre_de_modelo():
+    """Los dos modulos de bootstrap tienen que usar la nomenclatura de M3.
+
+    Recorre los literales `bosque_*` de ambos archivos y exige que cada uno exista en
+    la evidencia de M3. Es la version general del arreglo: no basta con renombrar hoy,
+    hace falta que inventar un nombre nuevo manana falle.
+    """
+    import json
+    import re
+    from pathlib import Path
+
+    esperados = set()
+    for ruta in Path("docs/evidencias").glob("modelo-clasico-*-rezagos-*.json"):
+        datos = json.loads(ruta.read_text(encoding="utf-8"))
+        esperados |= {r["modelo"] for r in datos["resultados"]}
+    assert esperados
+
+    for modulo in ("incertidumbre.py", "incertidumbre_vigente.py"):
+        fuente = Path("src/features") / modulo
+        texto = fuente.read_text(encoding="utf-8")
+        # Solo literales entre comillas: los nombres que terminan en el JSON.
+        usados = set(re.findall(r'"(bosque_[a-z0-9_]+)"', texto))
+        desconocidos = usados - esperados
+        assert not desconocidos, (
+            f"{modulo} usa nombres de modelo que M3 no usa: {sorted(desconocidos)}. "
+            "Un mismo modelo con dos nombres hace incomparables los JSON entre si."
+        )
