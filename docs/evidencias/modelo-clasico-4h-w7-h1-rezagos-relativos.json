@@ -1,5 +1,5 @@
 {
-  "ejecutado_utc": "2026-08-21T20:24:52+00:00",
+  "ejecutado_utc": "2026-08-21T20:53:42+00:00",
   "intervalo": "4h",
   "w": 7,
   "h": 1,
@@ -76,7 +76,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_trivial",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:29+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
     },
     {
       "n": 1959,
@@ -88,7 +88,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "baseline_mayoritario",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:29+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
     },
     {
       "n": 1959,
@@ -100,7 +100,7 @@
       "f1_continuidad": 0.904775360271263,
       "modelo": "baseline_aleatorio",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:29+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
     },
     {
       "n": 1959,
@@ -112,7 +112,7 @@
       "f1_continuidad": 0.9230341761600445,
       "modelo": "bosque_aleatorio_rezagos_relativos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:30+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
     },
     {
       "n": 1959,
@@ -124,7 +124,7 @@
       "f1_continuidad": 0.9114349775784754,
       "modelo": "bosque_aleatorio_sin_rezagos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:31+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:31+00:00"
     },
     {
       "n": 1959,
@@ -136,7 +136,7 @@
       "f1_continuidad": 0.9481879194630872,
       "modelo": "bosque_aleatorio_sin_pesos_rezagos_relativos",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:32+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:32+00:00"
     },
     {
       "n": 1959,
@@ -148,7 +148,31 @@
       "f1_continuidad": 0.9069373942470389,
       "modelo": "chronos_bolt",
       "conjunto": "validacion",
-      "ejecutado_utc": "2026-08-21T20:24:52+00:00"
+      "ejecutado_utc": "2026-08-21T20:52:51+00:00"
+    },
+    {
+      "n": 1959,
+      "f1_macro": 0.3457056736197257,
+      "precision_direccional": 0.07772020725388601,
+      "exactitud": 0.8055130168453293,
+      "f1_maximo": 0.07407407407407407,
+      "f1_minimo": 0.07142857142857142,
+      "f1_continuidad": 0.8916143753565317,
+      "modelo": "itransformer",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:53:19+00:00"
+    },
+    {
+      "n": 1959,
+      "f1_macro": 0.32447364191325434,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.7947932618683001,
+      "f1_maximo": 0.07627118644067797,
+      "f1_minimo": 0.010362694300518135,
+      "f1_continuidad": 0.886787044998567,
+      "modelo": "itransformer_solo_ltc",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:53:42+00:00"
     }
   ],
   "veredicto": {

@@ -40,7 +40,13 @@ from contracts.config import ACTIVO_OBJETIVO, PROVISIONAL
 from contracts.labeling import etiquetar, latencia_real, objetivo, resumen_clases
 from contracts.schema import cierre, validar_panel
 from contracts.splits import particionar
-from src.evaluacion.arnes import comparar, evaluar_modelo, guardar_json, guardar_resultado
+from src.evaluacion.arnes import (
+    comparar,
+    decidir,
+    evaluar_modelo,
+    guardar_json,
+    guardar_resultado,
+)
 from src.features.base import construir
 from src.modelos.base import BaselineAleatorio, BaselineMayoritario, BaselineTrivial
 from src.modelos.clasico import CRITERIO_PREREGISTRADO, HIPERPARAMETROS, BosqueAleatorio
@@ -124,19 +130,35 @@ def comparar_fundacional(modelos, X, y, particion, conjunto, nombre_principal) -
     mascara = mascaras[conjunto] & y.notna().to_numpy()
     y_real = y[mascara].astype(int).to_numpy()
 
-    interesan = {"chronos_bolt", nombre_principal, "baseline_aleatorio", "baseline_trivial"}
+    interesan = {
+        "chronos_bolt",
+        "itransformer",
+        "itransformer_solo_ltc",
+        nombre_principal,
+        "baseline_aleatorio",
+        "baseline_trivial",
+    }
     predicciones = {
         m.nombre: np.asarray(m.predecir(X[mascara]), dtype=int)
         for m in modelos
         if m.nombre in interesan
     }
 
-    comparaciones = {}
-    for a, b in (
+    pares = [
         ("chronos_bolt", "baseline_trivial"),
         ("chronos_bolt", "baseline_aleatorio"),
         ("chronos_bolt", nombre_principal),
-    ):
+        ("itransformer", "baseline_trivial"),
+        ("itransformer", "baseline_aleatorio"),
+        ("itransformer", nombre_principal),
+        # La que decide entre fundacional y avanzado (seccion 3.3 del PRD).
+        ("itransformer", "chronos_bolt"),
+        # Y la que responde, sobre el modelo avanzado, la misma pregunta que el #62
+        # respondio sobre el bosque: si las cinco series de apoyo aportan.
+        ("itransformer", "itransformer_solo_ltc"),
+    ]
+    comparaciones = {}
+    for a, b in pares:
         if a in predicciones and b in predicciones:
             comparaciones[f"{a}__vs__{b}"] = intervalo_diferencia(
                 y_real, predicciones[a], predicciones[b]
@@ -194,6 +216,14 @@ def main() -> None:
         help=(
             "anade el modelo fundacional de la D12 (Chronos-Bolt) a la comparacion. "
             "Requiere el grupo `modelos`: uv sync --group dev --group modelos"
+        ),
+    )
+    parser.add_argument(
+        "--con-avanzado",
+        action="store_true",
+        help=(
+            "anade el modelo avanzado (iTransformer) y su variante de un solo activo. "
+            "Requiere el grupo `modelos`."
         ),
     )
     parser.add_argument("--semilla", type=int, default=HIPERPARAMETROS["random_state"])
@@ -337,6 +367,25 @@ def main() -> None:
 
         modelos.append(ChronosBolt(cierre(panel, ACTIVO_OBJETIVO), w=w, h=h))
 
+    if argumentos.con_avanzado:
+        # Mismo import perezoso y misma razon. Las dos variantes existen porque el
+        # #62 midio que no se puede afirmar que los activos de apoyo aporten: medir
+        # las dos formas es mas barato que suponer cual gana.
+        from src.modelos.avanzado import ITransformerAvanzado, cierres_del_panel
+
+        cierres_seis = cierres_del_panel(panel)
+        modelos.append(ITransformerAvanzado(cierres_seis, w=w, h=h, semilla=argumentos.semilla))
+        modelos.append(
+            ITransformerAvanzado(
+                cierres_seis,
+                w=w,
+                h=h,
+                semilla=argumentos.semilla,
+                solo_objetivo=True,
+                nombre="itransformer_solo_ltc",
+            )
+        )
+
     print(f"\n[5/6] Evaluacion sobre {argumentos.conjunto}")
     resultados = []
     for numero, modelo in enumerate(modelos, start=1):
@@ -428,32 +477,58 @@ def main() -> None:
     guardar_json(_limpiar_json(medido), ruta_json)
 
     ruta_fundacional = None
-    if argumentos.con_fundacional:
-        fundacional_r = por_nombre["chronos_bolt"]
-        modelo_fundacional = next(m for m in modelos if m.nombre == "chronos_bolt")
+    if argumentos.con_fundacional or argumentos.con_avanzado:
         comparaciones = comparar_fundacional(
             modelos, X, y, particion, argumentos.conjunto, nombre_principal
         )
+        por_modelo = {m.nombre: m for m in modelos}
+
+        modelos_medidos = {}
+        if argumentos.con_fundacional:
+            chronos = por_modelo["chronos_bolt"]
+            modelos_medidos["chronos_bolt"] = {
+                "papel": "fundacional (D12)",
+                "repo": chronos.repo,
+                "zero_shot": True,
+                "contexto": chronos.contexto,
+                "filas_sin_historia_suficiente": chronos.sin_historia,
+            }
+        if argumentos.con_avanzado:
+            for nombre_it in ("itransformer", "itransformer_solo_ltc"):
+                avanzado = por_modelo[nombre_it]
+                modelos_medidos[nombre_it] = {
+                    "papel": "avanzado (S4-M3-01)",
+                    "arquitectura": "iTransformer",
+                    "paquete": "iTransformer (implementacion publica de lucidrains)",
+                    "zero_shot": False,
+                    "lookback": avanzado.lookback,
+                    "epocas": avanzado.epocas,
+                    "n_parametros": avanzado.n_parametros,
+                    "segundos_entrenamiento": avanzado.segundos_entrenamiento,
+                    "perdida_final": avanzado.perdida_final,
+                    "n_series": len(avanzado._columnas),
+                    "presupuesto_rnf4_segundos": 7200,
+                    "cabe_en_el_presupuesto": bool(
+                        (avanzado.segundos_entrenamiento or 0) < 7200
+                    ),
+                }
+
         evidencia_fundacional = {
             "ejecutado_utc": datetime.now(UTC).isoformat(timespec="seconds"),
-            "modelo": "chronos_bolt",
-            "repo": modelo_fundacional.repo,
-            "decision": "D12 en docs/DECISIONES.md",
-            "zero_shot": True,
             "puente": (
-                "Se pronostica la trayectoria y se le aplica etiquetar() del contrato "
-                "sobre una ventana de 2w+1 centrada en t+h. La alternativa era una "
-                "cabeza de clasificacion sobre representaciones congeladas."
+                "Fundacional y avanzado cruzan el puente IGUAL: se pronostica la "
+                "trayectoria y se le aplica etiquetar() del contrato sobre una ventana "
+                "de 2w+1 centrada en t+h. Si cruzaran distinto, la diferencia entre sus "
+                "F1 mezclaria el modelo con el puente."
             ),
             "parametros": {
                 "intervalo": argumentos.intervalo,
                 "w": w,
                 "h": h,
                 "horizonte_pronosticado": latencia_real(w, h),
-                "contexto": modelo_fundacional.contexto,
                 "conjunto": argumentos.conjunto,
-                "filas_sin_historia_suficiente": modelo_fundacional.sin_historia,
             },
+            "modelos": modelos_medidos,
             "metricas": {r["modelo"]: r for r in resultados},
             "comparaciones_pareadas": comparaciones,
             "nota_umbral": (
@@ -461,8 +536,27 @@ def main() -> None:
                 "contraste. Cuando el margen y su intervalo discrepen, manda el intervalo."
             ),
         }
+        if argumentos.con_fundacional and argumentos.con_avanzado:
+            # El veredicto lo produce decidir(), la funcion del arnes escrita para
+            # esto (seccion 3.3 del PRD), y no un razonamiento mio sobre la tabla.
+            # Existe para que la decision no dependa de quien mire los numeros.
+            veredicto = decidir(
+                por_nombre["chronos_bolt"]["f1_macro"],
+                por_nombre["itransformer"]["f1_macro"],
+            )
+            intervalo = comparaciones.get("itransformer__vs__chronos_bolt", {})
+            veredicto["ic_inferior"] = intervalo.get("ic_inferior")
+            veredicto["ic_superior"] = intervalo.get("ic_superior")
+            veredicto["la_diferencia_excluye_el_cero"] = intervalo.get("excluye_el_cero")
+            veredicto["lectura_con_d5"] = (
+                "El margen decide segun la seccion 3.3, pero la D5 manda que cuando el "
+                "margen y su intervalo discrepen, gana el intervalo. Si el intervalo "
+                "incluye el cero, los dos modelos no se distinguen y se prefiere el mas "
+                "simple, que es el fundacional porque no se entrena."
+            )
+            evidencia_fundacional["veredicto_fundacional_vs_avanzado"] = veredicto
         ruta_fundacional = (
-            EVIDENCIAS / f"m3-fundacional-{argumentos.intervalo}-w{w}-h{h}.json"
+            EVIDENCIAS / f"m3-modelos-profundos-{argumentos.intervalo}-w{w}-h{h}.json"
         )
         guardar_json(_limpiar_json(evidencia_fundacional), ruta_fundacional)
 
@@ -471,12 +565,20 @@ def main() -> None:
     print(f"      {ruta_json.relative_to(RAIZ)}")
     if ruta_fundacional is not None:
         print(f"      {ruta_fundacional.relative_to(RAIZ)}")
-        print(f"\n      modelo fundacional: F1 macro {fundacional_r['f1_macro']:.6f}")
+        for nombre_medido, ficha in modelos_medidos.items():
+            if ficha.get("segundos_entrenamiento") is not None:
+                print(
+                    f"\n      {nombre_medido}: entreno en "
+                    f"{ficha['segundos_entrenamiento']} s con "
+                    f"{ficha['n_parametros']:,} parametros "
+                    f"(presupuesto RNF-4: 7200 s)"
+                )
+        print("\n      intervalos de la diferencia (95 %):")
         for clave, dato in comparaciones.items():
-            contra = clave.split("__vs__")[1]
+            a, b = clave.split("__vs__")
             marca = "excluye el cero" if dato["excluye_el_cero"] else "INCLUYE el cero"
             print(
-                f"        vs {contra:44} {dato['diferencia']:+.4f}  "
+                f"        {a:22} vs {b:36} {dato['diferencia']:+.4f}  "
                 f"IC [{dato['ic_inferior']:+.4f}, {dato['ic_superior']:+.4f}]  {marca}"
             )
     print("\n      importancias mas altas:")

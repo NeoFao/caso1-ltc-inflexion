@@ -1,0 +1,70 @@
+{
+  "ejecutado_utc": "2026-08-21T21:04:43+00:00",
+  "pregunta": "Cuanto se mueve el F1 del modelo avanzado si solo cambia la semilla?",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "conjunto": "validacion",
+    "semillas": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "por_semilla": [
+    {
+      "semilla": 0,
+      "f1_completo": 0.3418512690772965,
+      "f1_solo_LTC": 0.3280617203517803,
+      "diferencia": 0.013789548725516243
+    },
+    {
+      "semilla": 1,
+      "f1_completo": 0.3307249768866631,
+      "f1_solo_LTC": 0.3224638703186558,
+      "diferencia": 0.00826110656800727
+    },
+    {
+      "semilla": 2,
+      "f1_completo": 0.34521204215420953,
+      "f1_solo_LTC": 0.3317334248785862,
+      "diferencia": 0.013478617275623328
+    },
+    {
+      "semilla": 3,
+      "f1_completo": 0.3611016700009322,
+      "f1_solo_LTC": 0.3357733268705056,
+      "diferencia": 0.02532834313042659
+    },
+    {
+      "semilla": 4,
+      "f1_completo": 0.33960094290835063,
+      "f1_solo_LTC": 0.3375307019042752,
+      "diferencia": 0.002070241004075435
+    }
+  ],
+  "resumen_f1_completo": {
+    "media": 0.3436981802054904,
+    "minimo": 0.3307249768866631,
+    "maximo": 0.3611016700009322,
+    "desviacion": 0.009936555475575808,
+    "rango": 0.030376693114269104
+  },
+  "aporte_de_los_activos_de_apoyo": {
+    "diferencia_media": 0.012585571340729773,
+    "minima": 0.002070241004075435,
+    "maxima": 0.02532834313042659,
+    "cambia_de_signo": false,
+    "nota": "Misma pregunta que respondio el #62 sobre el bosque, ahora sobre la arquitectura cuyo argumento de venta es atender entre series."
+  },
+  "misma_semilla_otra_corrida": {
+    "primera": 0.3418512690772965,
+    "repeticion": 0.3466846951085518,
+    "identicas": false,
+    "diferencia_absoluta": 0.004833426031255306,
+    "nota": "Si no son identicas, la variabilidad no viene solo de la semilla sino del orden de reduccion en punto flotante de la CPU. Se amplifica porque etiquetar() usa desigualdades estrictas sobre una trayectoria casi plana."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "ejecutado_utc": "2026-08-21T20:55:40+00:00",
+  "pregunta": "Cual de los candidatos a modelo avanzado del enunciado se puede instalar en las maquinas del equipo?",
+  "maquina": {
+    "python": "3.14.7",
+    "plataforma": "win32",
+    "arquitectura": "AMD64"
+  },
+  "candidatos": {
+    "iTransformer": {
+      "paquete": "iTransformer",
+      "arquitectura": "iTransformer",
+      "fuente": "implementacion publica de lucidrains en PyPI",
+      "resoluble": true,
+      "comando": "uv pip install --dry-run iTransformer",
+      "salida": "Checked 1 package in 9ms\nWould make no changes"
+    },
+    "neuralforecast": {
+      "paquete": "neuralforecast>=1.7",
+      "arquitectura": "Informer e iTransformer, los dos",
+      "fuente": "Nixtla; era la ruta obvia porque trae los dos candidatos juntos",
+      "resoluble": false,
+      "comando": "uv pip install --dry-run neuralforecast>=1.7",
+      "salida": " ray>=2.55.0\n      we can conclude that ray>=2.2.0,<2.55.0 cannot be used.\n      And because ray>=2.55.0 has no wheels with a matching platform tag\n      (e.g., `win_amd64`), we can conclude that ray>=2.2.0 cannot be used.\n      And because neuralforecast>=1.7.0 depends on ray[tune]>=2.2.0 and you\n      require neuralforecast>=1.7, we can conclude that your requirements\n      are unsatisfiable.\n\nhint: You require CPython 3.14 (`cp314`), but we only found wheels for `ray` (v2.54.1) with the following Python ABI tags: `cp310`, `cp311`, `cp312`, `cp313`\nhint: Wheels are available for `ray` (v2.57.0) on the following platforms: `manylinux2014_aarch64`, `manylinux2014_x86_64`, `macosx_12_0_arm64`"
+    },
+    "informer-pytorch": {
+      "paquete": "informer-pytorch",
+      "arquitectura": "Informer",
+      "fuente": "paquete suelto en PyPI",
+      "resoluble": false,
+      "comando": "uv pip install --dry-run informer-pytorch",
+      "salida": "Ã— No solution found when resolving dependencies:\n  â•°â”€â–¶ Because informer-pytorch was not found in the package registry and you\n      require informer-pytorch, we can conclude that your requirements are\n      unsatisfiable."
+    }
+  }
+}

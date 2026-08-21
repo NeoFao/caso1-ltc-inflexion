@@ -1,0 +1,234 @@
+{
+  "ejecutado_utc": "2026-08-21T20:54:26+00:00",
+  "puente": "Fundacional y avanzado cruzan el puente IGUAL: se pronostica la trayectoria y se le aplica etiquetar() del contrato sobre una ventana de 2w+1 centrada en t+h. Si cruzaran distinto, la diferencia entre sus F1 mezclaria el modelo con el puente.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "horizonte_pronosticado": 8,
+    "conjunto": "validacion"
+  },
+  "modelos": {
+    "chronos_bolt": {
+      "papel": "fundacional (D12)",
+      "repo": "amazon/chronos-bolt-small",
+      "zero_shot": true,
+      "contexto": 512,
+      "filas_sin_historia_suficiente": 0
+    },
+    "itransformer": {
+      "papel": "avanzado (S4-M3-01)",
+      "arquitectura": "iTransformer",
+      "paquete": "iTransformer (implementacion publica de lucidrains)",
+      "zero_shot": false,
+      "lookback": 96,
+      "epocas": 8,
+      "n_parametros": 141656,
+      "segundos_entrenamiento": 27.0,
+      "perdida_final": 1.014081274119901,
+      "n_series": 6,
+      "presupuesto_rnf4_segundos": 7200,
+      "cabe_en_el_presupuesto": true
+    },
+    "itransformer_solo_ltc": {
+      "papel": "avanzado (S4-M3-01)",
+      "arquitectura": "iTransformer",
+      "paquete": "iTransformer (implementacion publica de lucidrains)",
+      "zero_shot": false,
+      "lookback": 96,
+      "epocas": 8,
+      "n_parametros": 141656,
+      "segundos_entrenamiento": 22.1,
+      "perdida_final": 0.8306836244505895,
+      "n_series": 1,
+      "presupuesto_rnf4_segundos": 7200,
+      "cabe_en_el_presupuesto": true
+    }
+  },
+  "metricas": {
+    "baseline_trivial": {
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9014803471158754,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9481879194630872,
+      "modelo": "baseline_trivial",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
+    },
+    "baseline_mayoritario": {
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9014803471158754,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9481879194630872,
+      "modelo": "baseline_mayoritario",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
+    },
+    "baseline_aleatorio": {
+      "n": 1959,
+      "f1_macro": 0.3367840908780229,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.8223583460949464,
+      "f1_maximo": 0.05181347150259067,
+      "f1_minimo": 0.053763440860215055,
+      "f1_continuidad": 0.904775360271263,
+      "modelo": "baseline_aleatorio",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
+    },
+    "bosque_aleatorio_rezagos_relativos": {
+      "n": 1959,
+      "f1_macro": 0.390497720487045,
+      "precision_direccional": 0.10362694300518134,
+      "exactitud": 0.8580908626850434,
+      "f1_maximo": 0.10810810810810811,
+      "f1_minimo": 0.14035087719298245,
+      "f1_continuidad": 0.9230341761600445,
+      "modelo": "bosque_aleatorio_rezagos_relativos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:30+00:00"
+    },
+    "bosque_aleatorio_sin_rezagos": {
+      "n": 1959,
+      "f1_macro": 0.3672006511532457,
+      "precision_direccional": 0.08808290155440414,
+      "exactitud": 0.8386932108218479,
+      "f1_maximo": 0.07792207792207792,
+      "f1_minimo": 0.11224489795918367,
+      "f1_continuidad": 0.9114349775784754,
+      "modelo": "bosque_aleatorio_sin_rezagos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:31+00:00"
+    },
+    "bosque_aleatorio_sin_pesos_rezagos_relativos": {
+      "n": 1959,
+      "f1_macro": 0.31606263982102906,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9014803471158754,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9481879194630872,
+      "modelo": "bosque_aleatorio_sin_pesos_rezagos_relativos",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:32+00:00"
+    },
+    "chronos_bolt": {
+      "n": 1959,
+      "f1_macro": 0.3685892678679214,
+      "precision_direccional": 0.09326424870466321,
+      "exactitud": 0.8300153139356815,
+      "f1_maximo": 0.08771929824561403,
+      "f1_minimo": 0.1111111111111111,
+      "f1_continuidad": 0.9069373942470389,
+      "modelo": "chronos_bolt",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:52:51+00:00"
+    },
+    "itransformer": {
+      "n": 1959,
+      "f1_macro": 0.3457056736197257,
+      "precision_direccional": 0.07772020725388601,
+      "exactitud": 0.8055130168453293,
+      "f1_maximo": 0.07407407407407407,
+      "f1_minimo": 0.07142857142857142,
+      "f1_continuidad": 0.8916143753565317,
+      "modelo": "itransformer",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:53:19+00:00"
+    },
+    "itransformer_solo_ltc": {
+      "n": 1959,
+      "f1_macro": 0.32447364191325434,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.7947932618683001,
+      "f1_maximo": 0.07627118644067797,
+      "f1_minimo": 0.010362694300518135,
+      "f1_continuidad": 0.886787044998567,
+      "modelo": "itransformer_solo_ltc",
+      "conjunto": "validacion",
+      "ejecutado_utc": "2026-08-21T20:53:42+00:00"
+    }
+  },
+  "comparaciones_pareadas": {
+    "chronos_bolt__vs__baseline_trivial": {
+      "diferencia": 0.05252662804689234,
+      "ic_inferior": 0.025309526822523316,
+      "ic_superior": 0.08084520533558615,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 1.0,
+      "remuestras": 1000
+    },
+    "chronos_bolt__vs__baseline_aleatorio": {
+      "diferencia": 0.03180517698989849,
+      "ic_inferior": -0.0029561578741668093,
+      "ic_superior": 0.06523609788450657,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.963,
+      "remuestras": 1000
+    },
+    "chronos_bolt__vs__bosque_aleatorio_rezagos_relativos": {
+      "diferencia": -0.02190845261912361,
+      "ic_inferior": -0.06424929085465762,
+      "ic_superior": 0.020263907872044386,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.155,
+      "remuestras": 1000
+    },
+    "itransformer__vs__baseline_trivial": {
+      "diferencia": 0.02964303379869665,
+      "ic_inferior": 0.00695882154982006,
+      "ic_superior": 0.05600903663990354,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 0.995,
+      "remuestras": 1000
+    },
+    "itransformer__vs__baseline_aleatorio": {
+      "diferencia": 0.008921582741702794,
+      "ic_inferior": -0.024084444382466777,
+      "ic_superior": 0.044635067422907834,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.694,
+      "remuestras": 1000
+    },
+    "itransformer__vs__bosque_aleatorio_rezagos_relativos": {
+      "diferencia": -0.0447920468673193,
+      "ic_inferior": -0.08520417640535421,
+      "ic_superior": -0.0014568063206228685,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 0.022,
+      "remuestras": 1000
+    },
+    "itransformer__vs__chronos_bolt": {
+      "diferencia": -0.022883594248195693,
+      "ic_inferior": -0.060773713705293164,
+      "ic_superior": 0.018986390002035242,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.144,
+      "remuestras": 1000
+    },
+    "itransformer__vs__itransformer_solo_ltc": {
+      "diferencia": 0.021232031706471366,
+      "ic_inferior": 0.0004335314530101489,
+      "ic_superior": 0.04406663701681757,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 0.978,
+      "remuestras": 1000
+    }
+  },
+  "nota_umbral": "El umbral de 0,02 de la D5 es una convencion del equipo, no un contraste. Cuando el margen y su intervalo discrepen, manda el intervalo.",
+  "veredicto_fundacional_vs_avanzado": {
+    "ganador": "fundacional",
+    "diferencia_f1_macro": -0.022883594248195693,
+    "razon": "el fundacional supera al avanzado por +0.0229 de F1 macro",
+    "ic_inferior": -0.060773713705293164,
+    "ic_superior": 0.018986390002035242,
+    "la_diferencia_excluye_el_cero": false,
+    "lectura_con_d5": "El margen decide segun la seccion 3.3, pero la D5 manda que cuando el margen y su intervalo discrepen, gana el intervalo. Si el intervalo incluye el cero, los dos modelos no se distinguen y se prefiere el mas simple, que es el fundacional porque no se entrena."
+  }
+}

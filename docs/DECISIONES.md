@@ -263,3 +263,90 @@ regla 3 funciona como estaba pensada.
 **Aplicada en:** [#61](https://github.com/NeoFao/caso1-ltc-inflexion/pull/61), que remide las
 tres tablas de métricas con `4h`, `w = 7`, `h = 1` en `m2-tablas-metricas-4h-w7-h1.json` sin
 tocar `docs/entregas/semana-1/m2-metricas.md`.
+
+## D14 · Modelo avanzado: iTransformer, e Informer queda fuera por no ser instalable
+
+**Estado:** vigente desde el 21/08/2026 · cierra [#27](https://github.com/NeoFao/caso1-ltc-inflexion/issues/27)
+
+El enunciado pide que el segundo modelo sea un Transformer y nombra iTransformer e Informer
+entre las opciones. RF-M2 exige además que su código esté disponible públicamente.
+**Disponible en internet y utilizable en nuestras máquinas no son lo mismo**, y la diferencia
+ya nos mordió dos veces: CryptoMamba no compila sin CUDA y `granite-tsfm` degradaba `torch`.
+
+**Se elige iTransformer**, con la implementación pública de lucidrains en PyPI.
+
+### Informer queda fuera, y no por preferencia
+
+No encontramos ninguna vía instalable en este entorno:
+
+| Candidato | Trae | Resultado |
+|---|---|---|
+| `iTransformer` | iTransformer | resoluble |
+| `neuralforecast>=1.7` | Informer **e** iTransformer | **no resoluble**: depende de `ray`, que no publica ruedas para Python 3.14 en Windows |
+| `informer-pytorch` | Informer | **no resoluble** |
+
+`neuralforecast` era la ruta obvia porque traía los dos juntos. Se comprueba con un comando:
+`uv run python -m src.modelos.inventario_avanzado`.
+
+**No es una prueba de que Informer sea inusable en general:** es lo que pudimos verificar en
+nuestro entorno, y así se reporta. Vendorizar el código de `thuml/Time-Series-Library` sería
+posible, pero mete código ajeno sin empaquetar en el repositorio y no se justifica cuando el
+otro candidato del enunciado sí está disponible.
+
+### El presupuesto de la RNF-4 no es lo que limita
+
+Entrenar iTransformer sobre el bloque de entrenamiento tarda **27 segundos** con 141 656
+parámetros, contra un techo de dos horas. Sobra por un factor de 250.
+
+### Lo que encontró, y por qué se reporta con dispersión y no con un número
+
+**El F1 del avanzado no es estable.** Medido sobre validación con cinco semillas:
+
+| | |
+|---|---|
+| F1 macro medio | **0,343698** |
+| Mínimo / máximo | 0,330725 / 0,361102 |
+| **Rango** | **0,030377** |
+| Desviación | 0,009937 |
+
+**El rango supera el umbral de decisión del equipo (0,02).** Eso significa que cualquier
+comparación de este modelo hecha con una sola semilla cae dentro de su propio ruido, y por eso
+aquí se reporta la media con su dispersión en vez de cuatro decimales de una corrida.
+
+Y hay una segunda fuente de variabilidad, que se midió al toparse con ella: **dos corridas con
+la misma semilla no dan el mismo resultado** (0,341851 contra 0,346685, una diferencia de
+0,004833). No es la semilla: son diferencias de orden 10⁻¹¹ en la reducción en punto flotante
+de la CPU. Se amplifican porque `etiquetar()` decide con desigualdades **estrictas**, así que
+sobre una trayectoria pronosticada casi plana una diferencia mínima voltea la etiqueta. **Es
+una propiedad del puente, no del modelo**, y le aplica igual al fundacional —solo que ése no
+se entrena y su pronóstico es determinista—.
+
+### Comparado con lo demás
+
+Con la media de las cinco semillas frente a los otros modelos sobre la misma partición:
+
+- **No se puede afirmar que le gane al azar.** 0,3437 contra 0,3368 del `baseline_aleatorio`
+  son +0,0069, muy por dentro de su propio rango de 0,0304. Y el aleatorio es el exigente
+  según la D7.
+- **El bosque aleatorio le gana.** 0,3905 contra 0,3437 son −0,0468, fuera del rango de ruido.
+- **El fundacional le gana por poco.** 0,3686 contra 0,3437.
+
+**El modelo más simple del proyecto sigue siendo el mejor medido**, y el más caro de los tres
+es el peor. Se reporta así.
+
+### Una confirmación independiente del resultado del #62
+
+iTransformer es la arquitectura cuyo argumento de venta es atender *entre series*, así que si
+los cinco activos de apoyo aportaran algo, es donde debería verse. Medido con cinco semillas,
+la diferencia entre usar los seis y usar solo LTC es de **+0,012586** de media (de +0,002070 a
++0,025328, sin cambiar de signo): **positiva pero por debajo del umbral de 0,02**, y del mismo
+orden que el ruido de corrida a corrida.
+
+Es un matiz sobre el #62, no una contradicción: allí el intervalo de confianza sobre las filas
+de evaluación incluía el cero; aquí el signo se mantiene en las cinco semillas pero la
+magnitud no alcanza el umbral. **Las dos mediciones coinciden en lo que importa: no se puede
+afirmar que aporten.** Otra familia de modelo, misma conclusión.
+
+**Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json`,
+`docs/evidencias/m3-modelos-profundos-4h-w7-h1.json` y
+`docs/evidencias/m3-inventario-avanzado.json`
