@@ -325,13 +325,28 @@ function seccionSuelta(nombre) {
   return bloques.filter((b) => !(b.tipo === 'titulo' && b.nivel === 1));
 }
 
-function emitirSuelta(nombre, cuerpo) {
+/**
+ * La introduccion y las conclusiones no llevan figuras ni tablas, asi que no pasan
+ * por la renumeracion. Pero SI pueden tener bloques sin redactar, y hasta ahora
+ * este camino los descartaba en silencio: no aparecian en el documento ni en el
+ * recuento, de modo que el guion anunciaba "sin bloques pendientes" con las
+ * conclusiones todavia en esqueleto. Casi se entrega asi.
+ */
+function emitirSuelta(nombre, cuerpo, avisos) {
   for (const bloque of seccionSuelta(nombre)) {
     if (bloque.tipo === 'titulo') cuerpo.push(apa.titulo(Math.min(bloque.nivel, 3), bloque.texto));
     else if (bloque.tipo === 'parrafo') cuerpo.push(apa.parrafo(bloque.texto));
     else if (bloque.tipo === 'lista') {
       for (const p of bloque.puntos) {
         cuerpo.push(apa.parrafo(`• ${p}`, { sinSangria: true, indent: { left: apa.SANGRIA } }));
+      }
+    } else if (bloque.tipo === 'cita') {
+      if (NOTA_INTERNA.test(bloque.texto)) continue;
+      if (SIN_REDACTAR.test(bloque.texto)) {
+        avisos.push({ seccion: nombre, texto: bloque.texto.slice(0, 78) });
+        cuerpo.push(apa.aviso(`[PENDIENTE DE REDACCION — ${bloque.texto.slice(0, 220)}]`));
+      } else {
+        cuerpo.push(apa.citaEnBloque(bloque.texto));
       }
     }
   }
@@ -364,7 +379,7 @@ function main() {
   // APA 7: la primera pagina del cuerpo repite el titulo y la introduccion no
   // lleva encabezado propio.
   cuerpo.push(apa.titulo(1, 'Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin'));
-  emitirSuelta(plan.introduccion, cuerpo);
+  emitirSuelta(plan.introduccion, cuerpo, avisos);
 
   const titulos = Object.fromEntries(plan.capitulos.map((c) => [c.archivo, c.titulo]));
   for (const doc of documentos) {
@@ -376,7 +391,7 @@ function main() {
   // las conclusiones si llevan encabezado propio. Sin el, los cuatro parrafos
   // quedaban colgando de la ultima seccion de metricas.
   cuerpo.push(apa.titulo(1, 'Conclusiones'));
-  emitirSuelta(plan.conclusion, cuerpo);
+  emitirSuelta(plan.conclusion, cuerpo, avisos);
 
   // Referencias de los tres archivos, sin duplicados y ordenadas por apellido.
   const vistas = new Map();
