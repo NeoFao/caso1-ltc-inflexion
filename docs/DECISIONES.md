@@ -419,3 +419,54 @@ declarando su opción como propuesta propia y no como acuerdo, y dejó el rastro
 el procedimiento correcto y conviene que quede dicho.
 
 **Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json`
+
+## D16 · Ninguna diferencia se afirma sobre una sola semilla
+
+**Estado:** vigente desde el 22/08/2026 · generaliza la [D15](#d15), que solo cubría el modelo avanzado
+
+El arnés del [#76](https://github.com/NeoFao/caso1-ltc-inflexion/pull/76) se calibró con un
+extractor que **reemite ocho columnas que ya existen, con otro nombre**. Información nueva: cero.
+La diferencia debería ser nula, y en media lo es —**+0,00071**—, pero por semilla recorre de
+**−0,01837 a +0,02573**.
+
+**Añadir columnas que por construcción no informan nada puede producir, en una semilla, una
+"mejora" de +0,026 que cruza el umbral de decisión de 0,02.**
+
+Ese es el tamaño del ruido de reentrenamiento del bosque. Cualquiera que enchufe algo, lo mida una
+vez y reporte el número, va a reportar ruido — y lo va a reportar como un cruce del umbral.
+
+**Regla:** una diferencia entre dos configuraciones se reporta con **cinco semillas**, y solo se
+afirma que una aporta si se cumplen las tres: el intervalo excluye el cero, la diferencia media es
+positiva, y **el signo se mantiene en las cinco**. La estabilidad del signo es la que separa una
+diferencia real pequeña del ruido, porque el ruido cambia de signo y una diferencia real no.
+
+### Contra qué se contrasta, medido
+
+| Comparación | Media | Signo estable | ¿Se afirma? |
+|---|---|---|---|
+| Bosque contra el baseline aleatorio | **+0,04065** | sí, mínimo +0,02955 | **Sí** |
+| Recorte de las 17 columnas bajo el piso de ruido | +0,00506 | sí | Sí, con su tamaño declarado |
+| **Aporte de los cinco activos de apoyo** | **+0,00078** | **no**, 2 de 5 negativas | **No** |
+| *Columnas duplicadas sin información nueva* | *+0,00071* | *no* | *— es el control* |
+
+Las dos últimas filas son el punto. **El aporte multivariante medido y añadir columnas que no
+contienen nada son indistinguibles entre sí**: misma magnitud hasta el cuarto decimal y la misma
+inestabilidad de signo. No es una forma de hablar, es el contraste que la calibración permite
+hacer.
+
+### Por qué esta calibración existe
+
+Salió de una instrucción de método que resultó más útil de lo que parecía: el relleno del arnés
+**no podía ser ruido aleatorio**, tenía que reproducir un número conocido. Con ruido aleatorio, un
+arnés roto y uno correcto habrían dado cifras igual de plausibles y no habría habido nada que
+comparar.
+
+Es la lección de S4-M2-01 medida **antes de tener nada que medir**, en vez de descubierta sobre un
+resultado que ya queríamos creer.
+
+**Lo que esta decisión NO dice.** Que una diferencia pequeña sea falsa. El recorte de las 17
+columnas da +0,00506, muy por debajo de la banda de ruido de una sola semilla, y aun así se
+sostiene porque no cambia de signo en ninguna. Lo que se prohíbe es afirmarlo **con una sola
+medición**.
+
+**Evidencia:** `docs/evidencias/m2-representacion-4h-w7-h1.json`

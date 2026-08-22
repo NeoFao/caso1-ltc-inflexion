@@ -176,9 +176,11 @@ impone `w = 7`.
 Se aborda en dos pasos, como pide el enunciado, y con un piso obligatorio antes de
 los dos.
 
-**Primero el piso.** Tres modelos de referencia deliberadamente triviales —el que
-responde siempre lo mismo, el que responde la clase mayoritaria y uno aleatorio— y un
-modelo clásico de referencia que recorre el circuito completo. Sirven para descartar
+**Primero el piso.** Tres *baselines* deliberadamente triviales —el que responde
+siempre lo mismo, el que responde la clase mayoritaria y uno aleatorio— y un **modelo
+de referencia**, un bosque aleatorio, que recorre el circuito completo. En todo este
+documento *baseline* designa a los tres triviales y **modelo de referencia** designa
+al bosque; no se usan como sinónimos. Sirven para descartar
 explicaciones alternativas: si un modelo elaborado no supera al azar, no aprendió
 nada.
 
