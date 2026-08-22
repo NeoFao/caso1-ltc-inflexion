@@ -1,0 +1,103 @@
+{
+ "pregunta": "Aporta una representacion posterior a 2025 sobre las caracteristicas clasicas, medido y no supuesto?",
+ "estado": "ARNES LISTO, EXTRACCION PENDIENTE. La extraccion real depende de M3. El arnes esta completo y validado con dos controles; enchufar un extractor es agregar una clase que herede de Extractor y una linea en EXTRACTORES.",
+ "parametros": {
+  "panel": "4h",
+  "w": 7,
+  "h": 1,
+  "conjunto_de_medicion": "validacion",
+  "modelo": "src.modelos.clasico.BosqueAleatorio (el de M3, importado)",
+  "semillas": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "delta_f1_decisivo": 0.02
+ },
+ "control_del_arnes": {
+  "descripcion": "Con el extractor nulo las dos ramas tienen que coincidir entre si y con el F1 macro ya publicado. Si no, generar_evidencia() se detiene.",
+  "publicado": 0.390497720487045,
+  "obtenido": 0.390497720487045,
+  "reproduce": true
+ },
+ "calibracion_agregar_columnas": {
+  "extractor": "eco_de_clasicas",
+  "n_columnas_nuevas": 8,
+  "columnas_nuevas": [
+   "eco_de_clasicas_ADA_cierre_rezago_rel_1",
+   "eco_de_clasicas_ADA_cierre_rezago_rel_5",
+   "eco_de_clasicas_ADA_cierre_rezago_rel_6",
+   "eco_de_clasicas_ADA_cierre_rezago_rel_7",
+   "eco_de_clasicas_ADA_retorno_1",
+   "eco_de_clasicas_ADA_retorno_3",
+   "eco_de_clasicas_BTC_cierre_rezago_rel_1",
+   "eco_de_clasicas_BTC_cierre_rezago_rel_5"
+  ],
+  "n_validacion": 1959,
+  "f1_sin_representacion": 0.390497720487045,
+  "f1_con_representacion": 0.3721286542080576,
+  "intervalo_de_la_diferencia": {
+   "diferencia": -0.018369066278987434,
+   "ic_inferior": -0.04375093086525453,
+   "ic_superior": 0.006260243708492196,
+   "excluye_el_cero": false,
+   "fraccion_a_favor": 0.061,
+   "remuestras": 1000
+  },
+  "por_semilla": [
+   {
+    "semilla": 0,
+    "f1_sin_representacion": 0.390497720487045,
+    "f1_con_representacion": 0.3721286542080576,
+    "diferencia": -0.018369066278987434
+   },
+   {
+    "semilla": 1,
+    "f1_sin_representacion": 0.3738668760418625,
+    "f1_con_representacion": 0.36601881001356845,
+    "diferencia": -0.00784806602829402
+   },
+   {
+    "semilla": 2,
+    "f1_sin_representacion": 0.3814198749775542,
+    "f1_con_representacion": 0.37945560814188894,
+    "diferencia": -0.0019642668356652515
+   },
+   {
+    "semilla": 3,
+    "f1_sin_representacion": 0.38541496267122133,
+    "f1_con_representacion": 0.39142879226272176,
+    "diferencia": 0.00601382959150043
+   },
+   {
+    "semilla": 4,
+    "f1_sin_representacion": 0.3736747209462749,
+    "f1_con_representacion": 0.39940268430588594,
+    "diferencia": 0.025727963359611028
+   }
+  ],
+  "diferencia_media": 0.0007120787616329505,
+  "diferencia_minima": -0.018369066278987434,
+  "diferencia_maxima": 0.025727963359611028,
+  "cambia_de_signo": true,
+  "supera_el_umbral_en_todas": false,
+  "se_puede_afirmar_que_aporta": false
+ },
+ "extractores_registrados": [
+  "eco_de_clasicas",
+  "sin_representacion"
+ ],
+ "que_falta": [
+  "Un extractor real que herede de Extractor y produzca representaciones de un modelo fundacional congelado (Chronos-Bolt es el candidato de la D12).",
+  "Correr evaluar_extractor() con el, que ya no requiere tocar este arnes."
+ ],
+ "_meta": {
+  "generado_utc": "2026-08-22T04:28:40+00:00",
+  "issues": [
+   "S2-M2-02"
+  ],
+  "advertencia": "Que el arnes este validado no dice nada sobre si una representacion aporta. Dice que si no aporta, lo vamos a poder afirmar, y que si aporta, no va a ser un artefacto del montaje."
+ }
+}
