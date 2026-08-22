@@ -1,10 +1,11 @@
 """Busqueda de hiperparametros del modelo fundacional (S4-M3-02).
 
-Cubre la mitad determinista de la tarea. La otra --el modelo avanzado-- esta
-detenida a proposito y la razon esta escrita en el issue #37: su F1 se mueve 0,0304
-entre semillas, mas que el umbral de decision del equipo, asi que elegir el maximo
-de una rejilla no seleccionaria la mejor configuracion sino la celda con la semilla
-mas afortunada. Eso se decide con el equipo antes de gastar el tiempo.
+Cubre la mitad determinista de la tarea. La otra --el modelo avanzado-- vive en
+`src/modelos/hiperparametros_avanzado.py`, en un modulo aparte porque la busqueda
+es de otra naturaleza: su F1 se mueve 0,0304 entre semillas, mas que el umbral de
+decision del equipo, asi que alla cada celda se mide con cinco semillas y se ordena
+por la media. Mezclar las dos busquedas en un solo guion esconderia justo lo que
+las distingue.
 
 El fundacional no tiene ese problema: es zero-shot y no muestrea, asi que la misma
 celda da siempre el mismo numero y la rejilla mide lo que dice medir.
@@ -201,11 +202,11 @@ def main() -> None:
             "mitad avanzada de esta tarea, asi que fijarlos no esta terminado. Gastar "
             "esa medicion ahora dejaria al informe sin datos no vistos."
         ),
-        "pendiente": (
-            "El modelo avanzado queda fuera de esta busqueda. Su F1 se mueve 0,0304 "
-            "entre semillas, mas que el umbral de decision, asi que elegir el maximo "
-            "de una rejilla seleccionaria la semilla mas afortunada y no la mejor "
-            "configuracion. Planteado en el issue #37 para decidirlo con el equipo."
+        "el_modelo_avanzado": (
+            "Se busca aparte, en src/modelos/hiperparametros_avanzado.py, promediando "
+            "cinco semillas por celda: su F1 se mueve 0,0304 entre semillas, mas que "
+            "el umbral de decision, asi que una sola semilla elegiria la celda mas "
+            "afortunada y no la mejor configuracion."
         ),
     }
 

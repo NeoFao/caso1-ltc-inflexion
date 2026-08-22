@@ -211,3 +211,31 @@ def test_entrenar_deja_medido_el_costo():
     assert modelo.segundos_entrenamiento is not None
     assert modelo.n_parametros > 0
     assert modelo.perdida_final is not None and np.isfinite(modelo.perdida_final)
+
+
+def test_la_capacidad_es_configurable_y_su_defecto_no_cambio():
+    """dimension y profundidad se parametrizan para poder buscarlas en S4-M3-02. El
+    defecto tiene que seguir siendo el que midio S4-M3-01, o las cifras publicadas
+    dejarian de corresponder al modelo por omision."""
+    modelo = _modelo()
+    assert (modelo.dimension, modelo.profundidad) == (64, 2)
+
+    otro = _modelo(dimension=32, profundidad=1)
+    assert (otro.dimension, otro.profundidad) == (32, 1)
+
+
+@necesita_itransformer
+def test_una_dimension_menor_da_una_red_mas_chica():
+    """Si el parametro no llegara a la red, la rejilla mediria seis veces el mismo
+    modelo y creeria estar comparando capacidades."""
+    cierres = _cierres(n=400)
+    entrena = pd.DataFrame(index=cierres.index[60:250])
+
+    grande = _modelo(cierres, epocas=1, dimension=64).entrenar(
+        entrena, pd.Series(dtype="Int64")
+    )
+    chico = _modelo(cierres, epocas=1, dimension=32).entrenar(
+        entrena, pd.Series(dtype="Int64")
+    )
+
+    assert chico.n_parametros < grande.n_parametros

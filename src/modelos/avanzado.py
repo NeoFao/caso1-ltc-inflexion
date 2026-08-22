@@ -66,6 +66,8 @@ class ITransformerAvanzado(Modelo):
         h: int = HORIZONTE_H,
         lookback: int = LOOKBACK_POR_DEFECTO,
         epocas: int = EPOCAS,
+        dimension: int = DIMENSION,
+        profundidad: int = PROFUNDIDAD,
         lote: int = TAMANO_LOTE,
         semilla: int = 0,
         solo_objetivo: bool = False,
@@ -83,6 +85,8 @@ class ITransformerAvanzado(Modelo):
         self.h = h
         self.lookback = lookback
         self.epocas = epocas
+        self.dimension = dimension
+        self.profundidad = profundidad
         self.lote = lote
         self.semilla = semilla
         self.solo_objetivo = solo_objetivo
@@ -154,8 +158,8 @@ class ITransformerAvanzado(Modelo):
         return iTransformer(
             num_variates=n_variates,
             lookback_len=self.lookback,
-            depth=PROFUNDIDAD,
-            dim=DIMENSION,
+            depth=self.profundidad,
+            dim=self.dimension,
             pred_length=(self.horizonte,),
         )
 
