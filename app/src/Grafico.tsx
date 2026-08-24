@@ -50,14 +50,26 @@ export default function Grafico({ puntos, mostrarPredichas = true }: Props) {
   useEffect(() => {
     if (!serie.current || puntos.length === 0) return;
 
+    // lightweight-charts exige tiempo estrictamente ascendente. La fuente de
+    // datos puede, en algun caso, entregar dos velas con la misma marca de
+    // tiempo (por ejemplo si el backend redondea la fecha a un dia y la
+    // granularidad es de horas): se ordena y se descartan repetidos en vez de
+    // dejar que la libreria truene y la vista quede en blanco.
+    const ordenados = [...puntos].sort(
+      (a, b) => Date.parse(a.fecha) - Date.parse(b.fecha),
+    );
+    const sinRepetidos = ordenados.filter(
+      (p, i) => i === 0 || Date.parse(p.fecha) !== Date.parse(ordenados[i - 1].fecha),
+    );
+
     serie.current.setData(
-      puntos.map((p) => ({
+      sinRepetidos.map((p) => ({
         time: (Date.parse(p.fecha) / 1000) as UTCTimestamp,
         value: p.cierre,
       })),
     );
 
-    const marcadores = puntos.flatMap((p) => {
+    const marcadores = sinRepetidos.flatMap((p) => {
       const salida = [];
       if (p.etiqueta === CLASE.MAXIMO || p.etiqueta === CLASE.MINIMO) {
         const esMaximo = p.etiqueta === CLASE.MAXIMO;

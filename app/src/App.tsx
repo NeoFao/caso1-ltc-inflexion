@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 
 import Grafico from "./Grafico";
 import {
+  type Comparacion,
   type Configuracion,
   type Origen,
   type Respuesta,
   antiguedad,
+  obtenerComparacion,
   obtenerConfiguracion,
   obtenerHistorico,
   obtenerSintetico,
@@ -42,11 +44,18 @@ export default function App() {
   const [origen, setOrigen] = useState<Origen | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
+  const [desde, setDesde] = useState("");
+  const [hasta, setHasta] = useState("");
+  const [comparacion, setComparacion] = useState<Comparacion | null>(null);
 
   useEffect(() => {
     obtenerConfiguracion()
       .then((r) => setConfiguracion(r.datos))
       .catch((e) => setError(String(e)));
+  }, []);
+
+  useEffect(() => {
+    obtenerComparacion().catch(() => null).then((c) => c && setComparacion(c));
   }, []);
 
   useEffect(() => {
@@ -56,7 +65,8 @@ export default function App() {
     }
     setCargando(true);
     setError(null);
-    const peticion = modo === "sintetico" ? obtenerSintetico(300) : obtenerHistorico(activo);
+    const peticion =
+      modo === "sintetico" ? obtenerSintetico(300) : obtenerHistorico(activo, desde, hasta);
     peticion
       .then((r) => {
         setDatos(r.datos);
@@ -64,7 +74,7 @@ export default function App() {
       })
       .catch((e) => setError(String(e)))
       .finally(() => setCargando(false));
-  }, [modo, activo]);
+  }, [modo, activo, desde, hasta]);
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
   const edad = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
@@ -144,7 +154,50 @@ export default function App() {
               ))}
             </select>
           )}
+
+          {modo === "historico" && (
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <label className="flex items-center gap-1">
+                desde
+                <input
+                  type="date"
+                  value={desde}
+                  onChange={(e) => setDesde(e.target.value)}
+                  className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-sm"
+                  aria-label="Desde"
+                />
+              </label>
+              <label className="flex items-center gap-1">
+                hasta
+                <input
+                  type="date"
+                  value={hasta}
+                  onChange={(e) => setHasta(e.target.value)}
+                  className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-sm"
+                  aria-label="Hasta"
+                />
+              </label>
+              {(desde || hasta) && (
+                <button
+                  onClick={() => {
+                    setDesde("");
+                    setHasta("");
+                  }}
+                  className="text-xs font-medium text-[#345d9d] underline"
+                >
+                  limpiar rango
+                </button>
+              )}
+            </div>
+          )}
         </div>
+
+        {modo === "historico" && (desde || hasta) && origen === "snapshot" && (
+          <p className="mt-2 text-xs text-amber-700">
+            El rango de fechas requiere el backend en vivo; el snapshot congelado solo trae las
+            últimas velas y no puede filtrarse por fecha.
+          </p>
+        )}
 
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-500">
           {modoActual.descripcion}
@@ -191,6 +244,59 @@ export default function App() {
               nota="Engañosa con clases desbalanceadas"
             />
             <Metrica titulo="Observaciones" valor={datos.metricas.n} entero nota="Velas evaluadas" />
+            <Metrica
+              titulo="F1 Máximo"
+              valor={datos.metricas.f1_maximo}
+              nota="Clase minoritaria: giros al alza"
+            />
+            <Metrica
+              titulo="F1 Mínimo"
+              valor={datos.metricas.f1_minimo}
+              nota="Clase minoritaria: giros a la baja"
+            />
+            <Metrica
+              titulo="F1 Continuidad"
+              valor={datos.metricas.f1_continuidad}
+              nota="Clase mayoritaria: sin giro"
+            />
+          </section>
+        )}
+
+        {comparacion && (
+          <section className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
+            <h2 className="text-sm font-semibold text-[#1b2a4a]">Comparación de modelos</h2>
+            <p className="mt-1 text-xs text-slate-500">
+              Los {comparacion.modelos.length} modelos evaluados sobre la misma partición de{" "}
+              {comparacion.particion.conjunto} ({comparacion.particion.intervalo}, w=
+              {comparacion.particion.w}, h={comparacion.particion.h}, n={comparacion.n}). Fuente:{" "}
+              <code>{comparacion.fuente}</code>.
+            </p>
+            <div className="mt-3 overflow-x-auto">
+              <table className="w-full min-w-[480px] text-left text-sm">
+                <thead>
+                  <tr className="text-xs uppercase tracking-wide text-slate-400">
+                    <th className="py-1 pr-3">Modelo</th>
+                    <th className="py-1 pr-3">Papel</th>
+                    <th className="py-1 pr-3 text-right">F1 macro</th>
+                    <th className="py-1 pr-3 text-right">Precisión direc.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparacion.modelos.map((m) => (
+                    <tr key={m.clave} className="border-t border-slate-100">
+                      <td className="py-2 pr-3 font-medium text-slate-700">{m.etiqueta}</td>
+                      <td className="py-2 pr-3 text-slate-400">{m.papel}</td>
+                      <td className="py-2 pr-3 text-right">
+                        <BarraMetrica valor={m.f1_macro} />
+                      </td>
+                      <td className="py-2 pr-3 text-right text-slate-600">
+                        {m.precision_direccional.toFixed(3)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
         )}
 
@@ -229,6 +335,19 @@ function Chip({ children, tono }: { children: React.ReactNode; tono?: "ambar" | 
         ? "bg-emerald-100 text-emerald-800"
         : "bg-slate-100 text-slate-600";
   return <span className={`rounded px-2 py-1 font-medium ${estilos}`}>{children}</span>;
+}
+
+/** Barra horizontal proporcional al F1 macro, para comparar modelos de un vistazo. */
+function BarraMetrica({ valor }: { valor: number }) {
+  const ancho = Math.max(0, Math.min(100, valor * 100));
+  return (
+    <div className="flex items-center justify-end gap-2">
+      <div className="h-2 w-24 overflow-hidden rounded-full bg-slate-100">
+        <div className="h-full rounded-full bg-[#345d9d]" style={{ width: `${ancho}%` }} />
+      </div>
+      <span className="w-12 text-right font-medium text-slate-700">{valor.toFixed(3)}</span>
+    </div>
+  );
 }
 
 function Metrica({
