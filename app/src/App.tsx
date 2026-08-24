@@ -63,17 +63,31 @@ export default function App() {
       setDatos(null);
       return;
     }
+    // Cambiar de modo rapido (p. ej. Historico -> Sintetico) deja dos peticiones en
+    // vuelo. Sin este guard, la que responde despues pisa el estado sin importar
+    // cual es mas reciente: el panel de LTC completo (13 100 filas) tarda mas que
+    // la sintetica (300), asi que Historico ganaba la carrera y Sintetico quedaba
+    // mostrando sus numeros.
+    let cancelado = false;
     setCargando(true);
     setError(null);
     const peticion =
       modo === "sintetico" ? obtenerSintetico(300) : obtenerHistorico(activo, desde, hasta);
     peticion
       .then((r) => {
+        if (cancelado) return;
         setDatos(r.datos);
         setOrigen(r.origen);
       })
-      .catch((e) => setError(String(e)))
-      .finally(() => setCargando(false));
+      .catch((e) => {
+        if (!cancelado) setError(String(e));
+      })
+      .finally(() => {
+        if (!cancelado) setCargando(false);
+      });
+    return () => {
+      cancelado = true;
+    };
   }, [modo, activo, desde, hasta]);
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
