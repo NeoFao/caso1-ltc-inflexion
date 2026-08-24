@@ -42,13 +42,19 @@ PATRON = re.compile(r"\b(\d+[.,]\d{2,6})\b")
 # Un DOI o una URL estan llenos de digitos con puntos que no son mediciones:
 # 10.1016/j.irfa.2018.09.003 aporta cuatro falsos positivos el solo. Se recortan
 # antes de buscar, en vez de ir anadiendolos a CONOCIDOS uno por uno.
-# Lo que parece un numero y no lo es. Una URL, un DOI y una version de paquete son
-# identificadores: nombran algo, no miden nada, y exigirles respaldo en la evidencia
-# marcaria como inventado un dato que es correcto. Las versiones se reconocen por
-# tener tres componentes (2.13.0) o por ir precedidas del nombre del paquete.
+# Lo que parece un numero y no lo es. Una URL, un DOI, una version de paquete y un
+# nombre de archivo son identificadores: nombran algo, no miden nada, y exigirles
+# respaldo marcaria como inventado un dato que es correcto. Las versiones se
+# reconocen por tener tres componentes (2.13.0) o por ir precedidas del paquete.
+#
+# El nombre de archivo va entre comillas invertidas y termina en una extension
+# conocida. Se agrego al toparse con la marca (entregada18.8.26).docx, donde la
+# fecha esta pegada a una palabra: el patron de version no la alcanza porque
+# necesita un limite de palabra a la izquierda y "a18" no lo tiene.
 RUIDO = re.compile(
     r"https?://\S+"
     r"|\b10\.\d{4,9}/\S+"
+    r"|`[^`\n]*\.(?:docx|json|md|py|csv|png|txt|js|parquet|toml|lock)[^`\n]*`"
     r"|\b\d+\.\d+\.\d+(?:[.\w-]*)?\b"
     r"|\b(?:torch|python|pandas|numpy|scikit-learn|matplotlib)\s+[\d.]+",
     re.IGNORECASE,
