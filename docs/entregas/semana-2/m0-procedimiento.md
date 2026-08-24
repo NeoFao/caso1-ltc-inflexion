@@ -254,6 +254,22 @@ cabeza de clasificación sobre representaciones congeladas. Lo decidió una medi
 etiquetar la trayectoria cuesta unos doce segundos sobre el bloque de validación
 entero, así que la vía más simple resultó ser también la más barata.
 
+**Esa vía trae una limitación que conviene declarar.** El etiquetador exige que los
+`2w` vecinos sean *estrictamente* menores que el centro para marcar un máximo: son
+catorce comparaciones encadenadas. Sobre precios reales los empates son improbables y
+la definición estricta es la que garantiza la separación mínima entre giros que usa
+todo el proyecto. Sobre una trayectoria **pronosticada**, en cambio, el pronóstico
+tiende a ser suave, de modo que diferencias diminutas deciden la etiqueta: se comprobó
+que un vecino situado `10⁻¹¹` por debajo del centro cambia el resultado de Continuidad
+a Máximo.
+
+La consecuencia práctica es que el modelo avanzado, que se entrena, no reproduce el
+mismo resultado en dos ejecuciones con idéntica semilla: la diferencia entre ambas es
+de 0,004833 en F1 macro. **No es un defecto del etiquetador, sino el precio de esta vía
+del puente**, y afecta a cualquier modelo que pronostique una trayectoria suave. Se
+declara aquí porque obliga a lo que ya se hace en todo el documento: reportar
+cualquier diferencia sobre varias semillas y no sobre una sola ejecución.
+
 **Qué se entiende por prueba en tiempo real.** El enunciado la pide para las semanas
 3 y 4. Como la etiqueta de un instante no se conoce hasta `w` velas después, caben
 dos lecturas —confirmación tardía pero verificable, o anuncio en el momento— y son
