@@ -450,7 +450,8 @@ diferencia real pequeña del ruido, porque el ruido cambia de signo y una difere
 | *Columnas duplicadas sin información nueva* | *+0,00071* | *no* | *— es el control* |
 
 Las dos últimas filas son el punto. **El aporte multivariante medido y añadir columnas que no
-contienen nada son indistinguibles entre sí**: misma magnitud hasta el cuarto decimal y la misma
+contienen nada son indistinguibles entre sí**: los separa menos de la trescientava parte
+del umbral de decisión, y comparten la misma
 inestabilidad de signo. No es una forma de hablar, es el contraste que la calibración permite
 hacer.
 
