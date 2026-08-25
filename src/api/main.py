@@ -119,7 +119,13 @@ def modo_historico(activo: str = "LTC", desde: str | None = None, hasta: str | N
 def _serializar(cierre: pd.Series, etiquetas: pd.Series, predichas: pd.Series) -> list[dict]:
     marco = pd.DataFrame(
         {
-            "fecha": cierre.index.strftime("%Y-%m-%d"),
+            # Marca de tiempo COMPLETA, no la fecha sola. Con velas de 4 horas hay
+            # seis por dia: truncar a "%Y-%m-%d" les daba a las seis la misma
+            # etiqueta, y el grafico -- que necesita tiempos estrictamente
+            # ascendentes -- descartaba cinco de cada seis junto con sus marcadores.
+            # Medido sobre LTC: 1 027 de los 1 217 giros no llegaban a dibujarse.
+            # Los respaldos estaticos de app/public/datos ya usaban este formato.
+            "fecha": cierre.index.tz_convert("UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
             "cierre": cierre.to_numpy(),
             "etiqueta": etiquetas.to_numpy(),
             "predicha": predichas.to_numpy(),
