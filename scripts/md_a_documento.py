@@ -13,7 +13,7 @@ imprimir y leer. Se generan los dos de una sola pasada por Word, porque abrir el
 HTML es lo caro y exportar dos veces no lo es.
 
 Uso:
-    python scripts/md_a_documento.py docs/defensa/archivo.md
+    python scripts/md_a_documento.py ruta/al/archivo.md
 """
 
 from __future__ import annotations

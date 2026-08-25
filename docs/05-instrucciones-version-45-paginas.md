@@ -160,8 +160,9 @@ F9. El propio comando de ensamblado lo recuerda al terminar.
 
 ## 8. Después de generarla
 
-La guía de defensa y el guion de exposición viven en `docs/defensa/`. Hay un par por
-cada versión del documento.
+El material de defensa y los guiones de exposición **no están en el repositorio**:
+este es público y ese material es lo que vamos a decir en la exposición. Se guardan
+solo en local. Hay un par por cada versión del documento.
 
 - **El guion no cambia.** Se comprobó que las ocho figuras que proyecta llevan el
   mismo número y el mismo pie en todas las versiones, y que ningún dato dicho en voz

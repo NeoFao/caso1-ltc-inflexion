@@ -27,3 +27,9 @@ modelos_entrenados/
 Thumbs.db
 ~$*.docx
 ~$*.xlsx
+
+# Material de defensa y guiones de exposicion.
+# Fuera del repositorio a proposito: el repositorio es publico y esto es lo que
+# vamos a decir en la exposicion, incluidas las respuestas preparadas a las
+# preguntas probables. Los archivos siguen existiendo en local, en docs/defensa/.
+docs/defensa/
