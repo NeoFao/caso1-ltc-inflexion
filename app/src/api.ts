@@ -67,6 +67,26 @@ export interface ConOrigen<T> {
   origen: Origen;
 }
 
+export interface ModeloComparado {
+  clave: string;
+  etiqueta: string;
+  papel: string;
+  f1_macro: number;
+  precision_direccional: number;
+  exactitud: number;
+  f1_maximo: number;
+  f1_minimo: number;
+  f1_continuidad: number;
+}
+
+export interface Comparacion {
+  fuente: string;
+  ejecutado_utc: string;
+  particion: { intervalo: string; w: number; h: number; conjunto: string };
+  n: number;
+  modelos: ModeloComparado[];
+}
+
 const BASE = import.meta.env.BASE_URL;
 
 // Donde vive el backend. En desarrollo queda vacio y se usa /api, que el proxy
@@ -107,8 +127,26 @@ export const obtenerSintetico = (n = 300, semilla = 0, ruido = 0) =>
     "sintetico.json",
   );
 
-export const obtenerHistorico = (activo = "LTC") =>
-  conRespaldo<Respuesta>(`/api/historico?activo=${activo}`, `historico-${activo}.json`);
+export const obtenerHistorico = (activo = "LTC", desde?: string, hasta?: string) => {
+  const parametros = new URLSearchParams({ activo });
+  if (desde) parametros.set("desde", desde);
+  if (hasta) parametros.set("hasta", hasta);
+  // El snapshot estatico no acepta rango: se generó una sola vez con las últimas
+  // velas (VELAS_EXPORTADAS en exportar_estatico.py). Sin backend, un rango fuera
+  // de ese recorte simplemente no está disponible; se declara así en vez de
+  // fingir un filtro que el archivo congelado no puede cumplir.
+  return conRespaldo<Respuesta>(`/api/historico?${parametros}`, `historico-${activo}.json`);
+};
+
+/**
+ * Comparacion de los cuatro modelos sobre la misma particion de validacion.
+ *
+ * No tiene ruta de backend: src/api/main.py solo sirve predicciones de
+ * BaselineTrivial, los modelos entrenados de M3 no corren ahi. El panel lee un
+ * snapshot que app/scripts/generar_comparacion.py congela desde la evidencia
+ * medida de M3, y por eso no pasa por conRespaldo como los demas modos.
+ */
+export const obtenerComparacion = () => traer<Comparacion>(`${BASE}datos/comparacion-modelos.json`);
 
 /** Antiguedad legible de un snapshot, para no presentar datos viejos como frescos. */
 export function antiguedad(iso?: string): string | null {

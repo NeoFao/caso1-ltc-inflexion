@@ -1,0 +1,58 @@
+{
+  "fuente": "docs/evidencias/m3-modelos-profundos-4h-w7-h1.json",
+  "ejecutado_utc": "2026-08-21T20:54:26+00:00",
+  "particion": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "horizonte_pronosticado": 8,
+    "conjunto": "validacion"
+  },
+  "n": 1959,
+  "modelos": [
+    {
+      "clave": "baseline_aleatorio",
+      "etiqueta": "Baseline aleatorio",
+      "papel": "piso obligatorio (D7)",
+      "f1_macro": 0.3367840908780229,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.8223583460949464,
+      "f1_maximo": 0.05181347150259067,
+      "f1_minimo": 0.053763440860215055,
+      "f1_continuidad": 0.904775360271263
+    },
+    {
+      "clave": "bosque_aleatorio_rezagos_relativos",
+      "etiqueta": "Clasico (bosque aleatorio)",
+      "papel": "referencia (S1-M3-01)",
+      "f1_macro": 0.390497720487045,
+      "precision_direccional": 0.10362694300518134,
+      "exactitud": 0.8580908626850434,
+      "f1_maximo": 0.10810810810810811,
+      "f1_minimo": 0.14035087719298245,
+      "f1_continuidad": 0.9230341761600445
+    },
+    {
+      "clave": "chronos_bolt",
+      "etiqueta": "Fundacional (Chronos-Bolt)",
+      "papel": "D12",
+      "f1_macro": 0.3685892678679214,
+      "precision_direccional": 0.09326424870466321,
+      "exactitud": 0.8300153139356815,
+      "f1_maximo": 0.08771929824561403,
+      "f1_minimo": 0.1111111111111111,
+      "f1_continuidad": 0.9069373942470389
+    },
+    {
+      "clave": "itransformer",
+      "etiqueta": "Avanzado (iTransformer)",
+      "papel": "D14",
+      "f1_macro": 0.3457056736197257,
+      "precision_direccional": 0.07772020725388601,
+      "exactitud": 0.8055130168453293,
+      "f1_maximo": 0.07407407407407407,
+      "f1_minimo": 0.07142857142857142,
+      "f1_continuidad": 0.8916143753565317
+    }
+  ]
+}
