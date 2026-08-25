@@ -130,10 +130,12 @@ export default function App() {
       <main className="mx-auto max-w-6xl px-6 py-6">
         {datos?.modelo === "baseline_trivial" && (
           <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            <strong>Todavía no hay modelo entrenado.</strong> Lo que se ve son las predicciones del{" "}
-            <em>baseline trivial</em>, que responde siempre «Continuidad» y no detecta ningún giro.
-            Está a propósito: es el piso obligatorio contra el que se compara todo, y demuestra por
-            qué no reportamos exactitud como métrica principal.
+            <strong>Este gráfico usa el baseline trivial.</strong> Los modelos de la comparación de
+            abajo (fundacional, avanzado) todavía no están conectados al gráfico interactivo —eso es
+            el #24—; lo que se ve acá son las predicciones del <em>baseline trivial</em>, que
+            responde siempre «Continuidad» y no detecta ningún giro. Está a propósito: es el piso
+            obligatorio contra el que se compara todo, y demuestra por qué no reportamos exactitud
+            como métrica principal.
           </div>
         )}
 
@@ -281,7 +283,12 @@ export default function App() {
             <h2 className="text-sm font-semibold text-[#1b2a4a]">Comparación de modelos</h2>
             <p className="mt-1 text-xs text-slate-500">
               Los {comparacion.modelos.length} modelos evaluados sobre la misma partición de{" "}
-              {comparacion.particion.conjunto} ({comparacion.particion.intervalo}, w=
+              {/* La evidencia de M3 trae "validacion" sin tilde; se corrige solo en la
+                  vista, sin tocar docs/evidencias/, que no es mio y se regenera por script. */}
+              {comparacion.particion.conjunto === "validacion"
+                ? "validación"
+                : comparacion.particion.conjunto}{" "}
+              ({comparacion.particion.intervalo}, w=
               {comparacion.particion.w}, h={comparacion.particion.h}, n={comparacion.n}). Fuente:{" "}
               <code>{comparacion.fuente}</code>.
             </p>
