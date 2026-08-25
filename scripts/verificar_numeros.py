@@ -107,7 +107,13 @@ def numeros_medidos() -> set[str]:
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    destino = Path(sys.argv[1]) if len(sys.argv) > 1 else RAIZ / "docs" / "entregas"
+    # Se resuelve contra la raiz del proyecto y no contra el directorio actual:
+    # el ejemplo de uso del docstring pasa una ruta relativa, y sin esto
+    # reventaba al imprimir el resumen.
+    destino = RAIZ / "docs" / "entregas"
+    if len(sys.argv) > 1:
+        pedido = Path(sys.argv[1])
+        destino = pedido if pedido.is_absolute() else (RAIZ / pedido).resolve()
     validos = numeros_medidos()
 
     revisados = sospechosos = 0
