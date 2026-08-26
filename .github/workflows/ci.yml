@@ -18,6 +18,10 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+          # Fijada al parche exacto, no a "3.14". En 3.14.0rc2 pydantic no puede
+          # importar fastapi, y un error al importar un archivo de pruebas aborta
+          # la recoleccion entera: la suite no falla, no corre. Ver issue #78.
+          python-version: "3.14.7"
 
       - name: Instalar dependencias
         run: uv sync --group dev

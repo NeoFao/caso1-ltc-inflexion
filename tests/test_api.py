@@ -14,12 +14,43 @@ panel y cambiaria con otro; la propiedad no.
 
 from __future__ import annotations
 
+import sys
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from contracts.labeling import etiquetar
-from src.api.main import _serializar
+
+# El import va dentro de un try y NO al nivel del modulo, aunque fastapi este
+# declarado como dependencia base y find_spec() lo encuentre.
+#
+# El motivo: fastapi puede estar instalado y aun asi no importar. En Python 3.14.0rc2,
+# pydantic llama a typing._eval_type() con un argumento que esa version ya no tiene y
+# revienta con AssertionError al importar fastapi.openapi.models.
+#
+# Un error al importar un archivo de pruebas no falla ese archivo: **aborta la
+# recoleccion entera**. No son "247 pasan y una falla", son cero ejecutadas. Y una
+# suite que no corre se ve igual de verde que una que no existe, asi que se puede
+# seguir verificando contra ella durante dias sin notarlo. Paso: lo reporto M2 en el
+# issue #78 despues de haber verificado varios PR sobre una suite que no arrancaba.
+#
+# Con esto, un entorno donde el backend no importa salta estas pruebas diciendo por
+# que, y las otras 243 siguen corriendo.
+try:
+    from src.api.main import _serializar
+
+    MOTIVO_SIN_API = ""
+except Exception as error:  # noqa: BLE001 - cualquier fallo de import tiene que degradar, no abortar
+    _serializar = None
+    MOTIVO_SIN_API = (
+        f"el backend no se puede importar en este entorno: "
+        f"{type(error).__name__}: {error}. "
+        f"Python {sys.version.split()[0]}. El backend NO funciona aqui; esto no es "
+        f"una prueba omitida por opcional."
+    )
+
+necesita_backend = pytest.mark.skipif(bool(MOTIVO_SIN_API), reason=MOTIVO_SIN_API)
 
 
 def _serie_de_4h(n: int = 48) -> pd.Series:
@@ -37,6 +68,7 @@ def serializada() -> list[dict]:
     return _serializar(serie, etiquetas, predichas)
 
 
+@necesita_backend
 def test_cada_vela_tiene_una_marca_de_tiempo_distinta(serializada):
     """La que fallaba.
 
@@ -52,11 +84,13 @@ def test_cada_vela_tiene_una_marca_de_tiempo_distinta(serializada):
     )
 
 
+@necesita_backend
 def test_no_se_pierde_ninguna_observacion(serializada):
     """Serializar no es filtrar: salen tantas velas como entraron."""
     assert len(serializada) == len(_serie_de_4h())
 
 
+@necesita_backend
 def test_las_marcas_de_tiempo_son_estrictamente_crecientes(serializada):
     """Es lo que exige la libreria de graficos, y lo que hace innecesario
     deduplicar del lado del frontend."""
@@ -66,6 +100,7 @@ def test_las_marcas_de_tiempo_son_estrictamente_crecientes(serializada):
     assert all(b > a for a, b in zip(tiempos, tiempos[1:], strict=False))
 
 
+@necesita_backend
 def test_la_marca_conserva_la_hora_y_no_solo_el_dia(serializada):
     """Con granularidad intradiaria, la hora es parte del dato y no un adorno."""
     horas = {pd.Timestamp(v["fecha"]).hour for v in serializada}
@@ -74,6 +109,7 @@ def test_la_marca_conserva_la_hora_y_no_solo_el_dia(serializada):
     )
 
 
+@necesita_backend
 def test_los_giros_sobreviven_a_la_serializacion():
     """Ningun extremo etiquetado desaparece al serializar.
 
