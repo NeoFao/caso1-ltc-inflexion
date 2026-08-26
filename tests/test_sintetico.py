@@ -16,8 +16,9 @@ import numpy as np
 import pytest
 
 from contracts.config import ACTIVOS
+from contracts.labeling import Clase, etiquetar
 from contracts.schema import cierre, validar_panel
-from src.sintetico.generador import panel_correlacionado
+from src.sintetico.generador import etiquetas_esperadas, panel_correlacionado, serie_zigzag
 
 
 def _correlaciones_cruzadas(panel) -> np.ndarray:
@@ -118,3 +119,36 @@ def test_correlacion_imposible_falla_con_mensaje_util():
 def test_correlacion_fuera_de_rango_se_rechaza():
     with pytest.raises(ValueError):
         panel_correlacionado(n=200, correlacion=1.5)
+
+
+def test_el_etiquetador_recupera_todos_los_vertices_plantados():
+    """La prueba de deteccion sobre sintetico, en version rapida para CI.
+
+    Es el piso del proyecto: si `etiquetar()` no encuentra los vertices que pusimos
+    nosotros -- sin ruido y con separacion mayor que w+1, o sea cada uno un extremo
+    estricto de su ventana -- entonces cualquier cifra sobre datos reales es ruido
+    con formato.
+
+    La verdad de referencia sale de `etiquetas_esperadas()`, que se construye desde
+    los vertices y no desde `etiquetar()`: comparar la funcion consigo misma pasaria
+    siempre.
+
+    El guion completo, con el modelo entrenado encima, esta en
+    `scripts/pruebas_deteccion.py`. Aqui va solo la parte barata.
+    """
+    w = 7
+    n = 1500
+    serie, giros = serie_zigzag(n=n, w=w, semilla=0, ruido=0.0)
+    esperadas = etiquetas_esperadas(n, giros, serie.to_numpy(), w).to_numpy()
+    obtenidas = etiquetar(serie, w).to_numpy()
+
+    # Por posicion y no por indice: las dos series llevan indices de distinto origen.
+    es_giro = np.isin(esperadas, [int(Clase.MAXIMO), int(Clase.MINIMO)])
+    assert es_giro.sum() > 0, "la serie de prueba no planto ningun giro"
+
+    fallados = int((obtenidas[es_giro] != esperadas[es_giro]).sum())
+    assert fallados == 0, (
+        f"{fallados} de {int(es_giro.sum())} vertices plantados no se recuperaron. "
+        "Con ruido cero y separacion suficiente, eso no es dificultad: es un "
+        "corrimiento de indices en alguna parte del canal."
+    )

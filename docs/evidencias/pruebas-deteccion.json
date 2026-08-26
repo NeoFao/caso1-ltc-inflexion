@@ -1,0 +1,49 @@
+{
+  "ejecutado_utc": "2026-08-26T00:33:23+00:00",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1
+  },
+  "1_sintetico_etiquetador": {
+    "que_prueba": "Que el etiquetador recupera los vertices que plantamos, sin ruido y con separacion mayor que w+1, de modo que cada uno es un extremo estricto.",
+    "criterio_preregistrado": "Recuperacion de 100%. Con la serie construida asi, fallar uno solo significa que algo esta corrido.",
+    "n_observaciones": 3000,
+    "giros_plantados": 187,
+    "giros_recuperados": 187,
+    "recuperacion": 1.0,
+    "supera": true
+  },
+  "2_sintetico_modelo_completo": {
+    "que_prueba": "Que el circuito completo -- caracteristicas, particion, modelo -- detecta los giros de una serie construida, pasando por el mismo canal que los datos reales.",
+    "criterio_preregistrado": "El bosque supera al baseline aleatorio en el F1 de LAS DOS clases extremas, con el guardarrail del issue #51: no basta con que sea > 0.",
+    "f1_macro_bosque": 0.540146,
+    "f1_macro_azar": 0.308567,
+    "f1_maximo_bosque": 0.411765,
+    "f1_maximo_azar": 0.0,
+    "f1_minimo_bosque": 0.333333,
+    "f1_minimo_azar": 0.0,
+    "supera": true
+  },
+  "3_entrenamiento": {
+    "que_prueba": "Que el modelo detecta sobre el bloque de entrenamiento, con datos reales.",
+    "criterio_preregistrado": "El bosque supera al baseline aleatorio en las dos clases extremas. Es un piso, no un logro: aqui el modelo ya vio las respuestas.",
+    "conjunto": "entrenamiento",
+    "n": 9165,
+    "f1_macro_bosque": 0.953353,
+    "f1_macro_azar": 0.331638,
+    "f1_maximo_bosque": 0.961098,
+    "f1_minimo_bosque": 0.906414,
+    "supera": true,
+    "advertencia": "Un resultado alto aqui NO es evidencia de que el modelo sirva: es lo esperable de un modelo que vio estas etiquetas. Lo informativo seria un resultado bajo, que indicaria que el problema esta antes del ajuste."
+  },
+  "4_tiempo_real": {
+    "estado": "BLOQUEADA",
+    "por_que": "La etiqueta de un instante no se conoce hasta w velas despues, asi que 'tiempo real' admite dos lecturas -- confirmacion tardia pero verificable, o anuncio en el momento -- y son dos productos distintos. Esta en la consulta 3 al profesor, sin responder.",
+    "que_falta": "La respuesta del profesor. No se inventa una definicion."
+  },
+  "veredicto": {
+    "las_tres_ejecutables_superan": true,
+    "nota": "Superar estas pruebas no dice que el modelo sirva sobre datos reales. Dice que si no sirviera, no seria porque el canal esta roto."
+  }
+}
