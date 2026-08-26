@@ -1,0 +1,68 @@
+{
+  "ejecutado_utc": "2026-08-26T00:06:33+00:00",
+  "pregunta": "La hora del dia informa sobre los puntos de inflexion de LTC?",
+  "criterio_preregistrado": "La hora entra como caracteristica solo si el contraste de independencia da p < 0,05 Y su informacion mutua alcanza a la media de las columnas vigentes. Escrito antes de mirar el resultado.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1
+  },
+  "tasa_de_giros_por_hora_utc": [
+    {
+      "hora": 0,
+      "n": 2183,
+      "porcentaje_giros": 8.7036
+    },
+    {
+      "hora": 4,
+      "n": 2183,
+      "porcentaje_giros": 8.1539
+    },
+    {
+      "hora": 8,
+      "n": 2184,
+      "porcentaje_giros": 8.837
+    },
+    {
+      "hora": 12,
+      "n": 2184,
+      "porcentaje_giros": 9.8443
+    },
+    {
+      "hora": 16,
+      "n": 2183,
+      "porcentaje_giros": 10.4902
+    },
+    {
+      "hora": 20,
+      "n": 2183,
+      "porcentaje_giros": 9.7114
+    }
+  ],
+  "dispersion_entre_horas": {
+    "minimo": 8.1539,
+    "maximo": 10.4902,
+    "rango_en_puntos": 2.3363
+  },
+  "contraste_de_independencia": {
+    "prueba": "chi-cuadrado de independencia entre hora y ser giro",
+    "chi2": 9.7536,
+    "grados_de_libertad": 5,
+    "p_valor": 0.08252,
+    "hay_asociacion_al_5_por_ciento": false
+  },
+  "informacion_mutua": {
+    "codificacion": "sin/cos de la hora, porque la hora es circular",
+    "conjunto": "entrenamiento",
+    "valor": 0.001828,
+    "referencia_columnas_vigentes": 0.010217,
+    "alcanza_la_referencia": false
+  },
+  "veredicto": {
+    "se_incorpora_como_caracteristica": false,
+    "por_que": "El rango entre horas se ve grande, pero no supera el contraste de independencia, y la informacion mutua queda muy por debajo de la de las columnas que ya usamos. Anadirla seria anadir ruido con nombre."
+  },
+  "_meta": {
+    "advertencia": "Que la hora no informe NO contradice el argumento del marco teorico sobre el dia de la semana: son preguntas distintas. Esta la cierra para la granularidad de 4 horas, que es la vigente."
+  }
+}

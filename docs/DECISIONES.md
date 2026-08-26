@@ -471,3 +471,50 @@ sostiene porque no cambia de signo en ninguna. Lo que se prohíbe es afirmarlo *
 medición**.
 
 **Evidencia:** `docs/evidencias/m2-representacion-4h-w7-h1.json`
+
+## D17 · La hora del día no se incorpora como característica
+
+**Estado:** vigente desde el 25/08/2026 · completa el argumento de estacionalidad del marco teórico
+
+El marco teórico de la Semana 1 descarta codificar el **día de la semana**, y el argumento es
+correcto: el mercado de criptoactivos opera de forma continua, sin apertura ni cierre, así que no
+existe el mecanismo institucional que produce el efecto de calendario que documenta French (1980).
+
+**Ese argumento no cubría la hora del día.** Y desde que el panel de trabajo son velas de 4 horas
+—seis por día— sí hay un mecanismo plausible: los operadores humanos duermen, y el volumen se
+concentra cuando están despiertas las plazas grandes. Era la única familia de características de
+calendario ni construida ni medida.
+
+**Criterio, fijado antes de mirar:** la hora entra solo si supera el contraste de independencia al
+5 % **y** su información mutua alcanza a la de las columnas que ya usamos.
+
+### Medido
+
+| Hora UTC | Giros |
+|---|---|
+| 00:00 | 8,70 % |
+| 04:00 | **8,15 %** |
+| 08:00 | 8,84 % |
+| 12:00 | 9,84 % |
+| 16:00 | **10,49 %** |
+| 20:00 | 9,71 % |
+
+El rango es de **2,3363 puntos** y el máximo cae a las 16:00 UTC, que es cuando abre Estados
+Unidos. Se ve como un patrón.
+
+**No lo es.** El contraste de independencia da **p = 0,08252**: no hay asociación al 5 %. Y la
+información mutua de la hora con la etiqueta es **0,001828**, contra **0,010217** de media en las
+63 columnas vigentes — unas cinco veces menos.
+
+**No se incorpora.** Añadirla sería añadir ruido con nombre, que es justo lo que la D16 enseña a
+no hacer: una diferencia que se ve grande y no supera su propio control.
+
+**Lo que esta decisión NO dice.** Que no exista estructura intradía en el mercado. Dice que, con
+esta definición de punto de inflexión y esta granularidad, **no la podemos distinguir del azar**.
+
+**Origen:** el profesor mencionó la ingeniería de características en clase el 25/08/2026. Al
+revisar qué familias teníamos cubiertas apareció que la hora era la única sin medir. La respuesta
+resultó ser negativa, y por eso queda escrita: para que nadie la vuelva a proponer sin saber que
+ya se midió.
+
+**Evidencia:** `docs/evidencias/estacionalidad-intradia.json` · **Reproducible:** `uv run python -m scripts.estacionalidad_intradia`
