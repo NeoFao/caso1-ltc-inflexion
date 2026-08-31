@@ -15,6 +15,7 @@ import pandas as pd
 from contracts.config import DELTA_F1_DECISIVO
 from contracts.metrics import evaluar
 from contracts.splits import Particion
+from src.evaluacion.reserva import consumir
 from src.modelos.base import Modelo
 
 RUTA_RESULTADOS = Path("docs/evidencias/resultados.csv")
@@ -25,13 +26,26 @@ def evaluar_modelo(
     X: pd.DataFrame,
     y: pd.Series,
     particion: Particion,
-    conjunto: str = "prueba",
+    *,
+    conjunto: str,
+    motivo_reserva: str | None = None,
 ) -> dict:
     """Entrena con el bloque de entrenamiento y mide sobre el conjunto pedido.
 
     El entrenamiento siempre usa solo el bloque de entrenamiento, incluso cuando se
     mide sobre validacion: de otro modo la comparacion entre modelos dependeria de
     cuantos datos vio cada uno y no de su calidad.
+
+    `conjunto` es obligatorio y solo por nombre. Antes tenia "prueba" por omision, o
+    sea que la reserva era lo que salia si no se decia nada. Ningun llamador la
+    omitia, pero un valor por omision que gasta el unico bloque no visto es una
+    trampa esperando: la misma forma que `rezagos_relativos` en el PR #68, donde
+    heredar el default desincronizo dos mitades de un archivo sin que cambiara una
+    linea. Si equivocarse es silencioso, el parametro se pide.
+
+    Medir sobre `prueba` pasa por el pestillo de `reserva.py`: la primera vez deja
+    constancia y las siguientes fallan salvo que se pase `motivo_reserva`. Es la D18
+    hecha comprobable en vez de afirmada.
     """
     mascaras = {
         "entrenamiento": particion.entrenamiento,
@@ -40,6 +54,9 @@ def evaluar_modelo(
     }
     if conjunto not in mascaras:
         raise ValueError(f"conjunto desconocido: {conjunto!r}. Esperado uno de {list(mascaras)}")
+
+    if conjunto == "prueba":
+        consumir([modelo.nombre], motivo=motivo_reserva)
 
     entrenables = particion.entrenamiento & y.notna().to_numpy()
     modelo.entrenar(X[entrenables], y[entrenables])
