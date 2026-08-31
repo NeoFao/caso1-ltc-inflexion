@@ -71,10 +71,37 @@ resultado:
 | Familia | Configuración | F1 macro en validación |
 |---|---|---|
 | Clásico | `bosque_aleatorio_rezagos_relativos` | 0,3905 |
-| Fundacional | `chronos_bolt` | *(la que M3 declare)* |
-| Avanzado | `itransformer` | *(la que M3 declare)* |
+| Fundacional | `chronos_bolt` — `amazon/chronos-bolt-small`, contexto 512, cuantil 0,5 | 0,368589 |
+| Avanzado | `itransformer` — lookback 96, dimensión 64 | 0,343698 (media de cinco semillas) |
 
 Más los tres baselines, que ya están.
+
+**Las dos son las configuraciones por omisión, y las eligieron las mediciones, no una
+preferencia.** Cada una tiene su razón registrada:
+
+- **Fundacional.** La búsqueda de hiperparámetros exploró 18 celdas y la mejor daba 0,387269
+  contra los 0,368589 de la por omisión, pero esa ganancia de **+0,018680 tiene un intervalo que
+  incluye el cero**: no se distingue del efecto de haber elegido el máximo de la rejilla mirando
+  el mismo bloque de validación. Sin ganancia demostrable, se conserva la por omisión.
+  Evidencia: `docs/evidencias/m3-hiperparametros-fundacional-4h-w7-h1.json`.
+- **Avanzado.** La rejilla disparó el criterio que la [D15](DECISIONES.md#d15) había fijado de
+  antemano: la dispersión entre semillas (0,026073) supera la dispersión entre celdas (0,020981),
+  así que **no se corona ganadora** y queda la por omisión. Evidencia:
+  `docs/evidencias/m3-hiperparametros-avanzado-4h-w7-h1.json`.
+
+**Sobre la cifra del avanzado, que no es un valor puntual.** Este modelo se entrena, y su F1
+recorre un rango de **0,030377** entre semillas. El 0,343698 de la tabla es la media de cinco, y
+dos corridas independientes de esa misma configuración dieron 0,343698 y 0,345129 — la diferencia
+entre ambas es el efecto que la [D15](DECISIONES.md#d15) documenta. Se declara la media porque es
+lo único comparable; **el valor de una sola corrida no lo es**.
+
+**Qué significan las cinco semillas en cada familia**, porque no es lo mismo en las tres:
+
+| Familia | Qué varía entre semillas |
+|---|---|
+| Clásico | El ajuste del bosque. Cinco entrenamientos distintos. |
+| Fundacional | **Nada.** Es *zero-shot* y no muestrea: las cinco corridas dan idéntico, así que la tercera condición de la [D16](DECISIONES.md#d16) se cumple de forma trivial y conviene decirlo en vez de presentarlo como estabilidad del modelo. |
+| Avanzado | El ajuste de la red. Cinco entrenamientos distintos, y es donde la condición muerde. |
 
 **No se evalúan variantes.** Nada de `sin_rezagos`, `solo_LTC`, `sin_pesos` ni configuraciones
 alternativas de hiperparámetros. Cada variante adicional es otra oportunidad de que alguna quede
@@ -162,7 +189,9 @@ implemento yo.
 
 ## 9. Qué pido concretamente
 
-1. Que M3 complete las dos celdas de la sección 3 **antes** de cualquier corrida.
+1. ~~Que M3 complete las dos celdas de la sección 3 **antes** de cualquier corrida.~~
+   **Hecho el 31/08/2026**, con el bloque de prueba todavía sin tocar. Las dos son las
+   configuraciones por omisión y sus razones están en la sección 3.
 2. Que esto se acepte —o se corrija— y quede como fila en `DECISIONES.md`. Mientras sea solo este
    documento, es la opinión de quien lo escribió, y la regla 3 dice exactamente eso.
 3. Que quien corra la evaluación final sea **una sola persona, una sola vez**, con el protocolo ya

@@ -537,6 +537,14 @@ protocolo escrito después no es un protocolo.
 **Qué se evalúa:** una configuración por familia —clásico, fundacional y avanzado—, elegida sobre
 validación y **nombrada antes** de correr nada. Sin variantes, sin «probamos las dos a ver».
 
+**Las tres ya están nombradas**, con fecha anterior a cualquier corrida sobre prueba: el clásico
+`bosque_aleatorio_rezagos_relativos`, el fundacional `chronos_bolt` con `chronos-bolt-small`,
+contexto 512 y cuantil 0,5, y el avanzado `itransformer` con lookback 96 y dimensión 64. Las dos
+de M3 son las configuraciones por omisión, y en los dos casos **las eligió una medición que dijo
+que ajustar no mejoraba**: en el fundacional porque la ganancia de la rejilla tiene un intervalo
+que incluye el cero, y en el avanzado porque se disparó el criterio de la [D15](#d15). La tabla
+con sus cifras de validación y sus razones está en la sección 3 del protocolo.
+
 **La regla de decisión:** el proyecto declara que detecta puntos de inflexión si el mejor modelo
 cumple **las tres** condiciones de la [D16](#d16) sobre prueba — supera al `baseline_aleatorio`,
 el intervalo del 95 % de esa diferencia excluye el cero, y el signo no cambia entre las cinco
