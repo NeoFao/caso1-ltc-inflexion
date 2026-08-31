@@ -202,6 +202,39 @@ def sensibilidad_a_la_semilla(semillas=(0, 1, 2, 3, 4)) -> dict:
             "cambia_de_signo": bool(valores.min() < 0 < valores.max()),
             "todas_superan_el_umbral": bool((np.abs(valores) >= DELTA_F1_DECISIVO).all()),
         }
+
+    # El resumen por MODELO, y no solo por diferencia, existe porque hizo falta.
+    #
+    # El protocolo del bloque de prueba (D18) declara la cifra de validacion de cada
+    # familia antes de correr nada, y para el clasico se declaro 0,3905: una sola
+    # corrida, que ademas resulta ser la mas alta de las cinco. Sobre prueba, la
+    # seccion 4 manda reportar media y rango de cinco semillas, y comparar validacion
+    # contra prueba. Con una punta medida como maximo y la otra como media, esa caida
+    # sale mayor de lo que es sin que nada falle.
+    #
+    # La media de cinco es lo unico comparable con lo que se va a reportar, y no
+    # estaba en ninguna evidencia: las cinco corridas si, su resumen no. Citarla
+    # obligaba a calcularla en prosa, que es justo el valor derivado sin respaldo que
+    # el equipo acaba de quitar de DECISIONES.md.
+    #
+    # Los baselines entran tambien, aunque no se ajusten: el aleatorio SI depende de
+    # la semilla, y su rango es la referencia contra la que se mide el modelo.
+    claves_f1 = [k for k in filas[0] if k.startswith("f1_")]
+    resumen["f1_por_modelo"] = {}
+    for clave in claves_f1:
+        valores = np.array([f[clave] for f in filas])
+        resumen["f1_por_modelo"][clave.removeprefix("f1_")] = {
+            "media": float(valores.mean()),
+            "minimo": float(valores.min()),
+            "maximo": float(valores.max()),
+            "rango": float(valores.max() - valores.min()),
+            "desviacion": float(valores.std(ddof=1)),
+            # La cifra publicada del proyecto es la de la semilla por omision. Si
+            # ademas es el maximo de las cinco, citarla como si fuera la del modelo
+            # empuja en una direccion conocida, y conviene que se vea en la evidencia
+            # y no solo en quien la lea con cuidado.
+            "la_de_la_semilla_0_es_el_maximo": bool(valores[0] == valores.max()),
+        }
     return resumen
 
 

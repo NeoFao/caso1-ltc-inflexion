@@ -237,10 +237,44 @@
    "desviacion": 0.011189683955985625,
    "cambia_de_signo": false,
    "todas_superan_el_umbral": true
+  },
+  "f1_por_modelo": {
+   "baseline_trivial": {
+    "media": 0.31606263982102906,
+    "minimo": 0.31606263982102906,
+    "maximo": 0.31606263982102906,
+    "rango": 0.0,
+    "desviacion": 0.0,
+    "la_de_la_semilla_0_es_el_maximo": true
+   },
+   "baseline_aleatorio": {
+    "media": 0.3403252479516492,
+    "minimo": 0.332292487120695,
+    "maximo": 0.3496624421207985,
+    "rango": 0.01736995500010352,
+    "desviacion": 0.006728447976770766,
+    "la_de_la_semilla_0_es_el_maximo": false
+   },
+   "bosque_aleatorio_rezagos_relativos": {
+    "media": 0.38097483102479157,
+    "minimo": 0.3736747209462749,
+    "maximo": 0.390497720487045,
+    "rango": 0.0168229995407701,
+    "desviacion": 0.0073214221307342725,
+    "la_de_la_semilla_0_es_el_maximo": true
+   },
+   "bosque_aleatorio_rezagos_en_nivel": {
+    "media": 0.3442967195960642,
+    "minimo": 0.33006001091107473,
+    "maximo": 0.35294172636234084,
+    "rango": 0.022881715451266105,
+    "desviacion": 0.00941440916427501,
+    "la_de_la_semilla_0_es_el_maximo": false
+   }
   }
  },
  "_meta": {
-  "generado_utc": "2026-08-21T22:18:56+00:00",
+  "generado_utc": "2026-08-31T19:41:55+00:00",
   "reemplaza_para_citas_vigentes": "docs/evidencias/m2-incertidumbre.json",
   "advertencia": "Medido sobre VALIDACION y no sobre prueba, por las mismas dos razones de siempre: las cifras que se quieren acotar estan medidas ahi, y el bloque de prueba se reserva para el resultado final."
  }
