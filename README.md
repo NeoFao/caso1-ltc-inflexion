@@ -150,6 +150,7 @@ Las que se pueden romper en silencio están **fijadas por pruebas** en `tests/te
 7. **Una tarea está terminada** cuando hay código, evidencia medida, sección del documento y slide. Las cuatro.
 8. **Todo número nuevo reproduce uno conocido antes de publicarse.** Los cinco errores de medición de la Semana 2 los atrapó un control que reproducía un valor ya sabido, no releer el código.
 9. **Toda decisión que se cite como acordada tiene que poder señalar dónde se acordó**, y una decisión se acuerda en el repositorio, nunca en un mensaje suelto.
+10. **Un control que nunca se vio fallar no es un control.** Rompelo a propósito antes de confiar en él. Los nueve defectos silenciosos del Sprint 2 los encontró alguien ejecutando algo, ninguno leyendo código.
 
 ---
 
@@ -166,6 +167,8 @@ Las que se pueden romper en silencio están **fijadas por pruebas** en `tests/te
 | [¿Aportan los activos de apoyo?](docs/06-aporte-multivariante.md) | El resultado negativo, medido con bootstrap pareado sobre el bosque de M3 |
 | [`docs/evidencias/`](docs/evidencias/) | Mediciones y figuras, todas regenerables |
 | [`docs/entregas/`](docs/entregas/) | Los cinco entregables semanales |
+| [Retrospectiva del Sprint 2](docs/10-retrospectiva-sprint-2.md) | Los nueve defectos silenciosos, qué los encontró, y la cuarta regla |
+| [Protocolo del bloque de prueba](docs/09-protocolo-bloque-prueba.md) | Escrito antes de tocarlo. La reserva sigue intacta |
 
 Los entregables en Word se generan con:
 
