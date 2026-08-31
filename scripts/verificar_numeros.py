@@ -114,10 +114,28 @@ def main() -> None:
     if len(sys.argv) > 1:
         pedido = Path(sys.argv[1])
         destino = pedido if pedido.is_absolute() else (RAIZ / pedido).resolve()
+    # Que la ruta exista y contenga algo NO es una comprobacion de cortesia. Sin
+    # ella, este guion respondia "Todos respaldados por una medicion" sobre cero
+    # archivos y salia con codigo 0: una ruta mal escrita, un directorio movido o un
+    # CI apuntando a un sitio viejo quedaban en verde para siempre sin revisar una
+    # sola linea.
+    #
+    # Es el mismo defecto que el guion existe para atrapar -- una etiqueta que dejo
+    # de describir lo que hay debajo -- dentro del guion que lo atrapa.
+    if not destino.exists():
+        print(f"ERROR: {destino} no existe. No se reviso nada.")
+        sys.exit(2)
+
+    archivos = [destino] if destino.is_file() else sorted(destino.rglob("*.md"))
+    archivos = [a for a in archivos if a.suffix == ".md"]
+    if not archivos:
+        print(f"ERROR: no hay ningun .md en {destino}. No se reviso nada.")
+        sys.exit(2)
+
     validos = numeros_medidos()
 
     revisados = sospechosos = 0
-    for archivo in sorted(destino.rglob("*.md")):
+    for archivo in archivos:
         encabezado = False
         for numero_linea, linea in enumerate(
             archivo.read_text(encoding="utf-8").splitlines(), 1
@@ -133,7 +151,12 @@ def main() -> None:
                 sospechosos += 1
                 print(f"  L{numero_linea:<4} {texto:>10}   {linea.strip()[:84]}")
 
-    print(f"\n{revisados} numeros revisados en {destino.relative_to(RAIZ)}.")
+    ubicacion = destino.relative_to(RAIZ) if destino.is_relative_to(RAIZ) else destino
+    print(f"\n{revisados} numeros revisados en {len(archivos)} archivo(s) de {ubicacion}.")
+    if revisados == 0:
+        print("ERROR: no se encontro ningun numero. Un 'todo respaldado' sobre cero")
+        print("numeros no dice nada, asi que se reporta como fallo y no como exito.")
+        sys.exit(2)
     if sospechosos:
         print(f"{sospechosos} sin respaldo en docs/evidencias/*.json.")
         print("Revisar uno a uno: o se mide y se corrige, o se agrega a CONOCIDOS si")

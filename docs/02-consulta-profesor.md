@@ -95,7 +95,7 @@ Que `w=10` quede en 299 — un ejemplo por debajo del piso de 300 — es casuali
 
 **Las clases van a estar desbalanceadas sí o sí.** Con `w=7`, alrededor del 90 % de las velas son Continuidad. Un modelo que responda siempre "Continuidad" y no detecte un solo giro va a tener más del 90 % de exactitud y va a ser completamente inútil.
 
-Ya lo comprobamos con el sistema corriendo: nuestro baseline trivial da **exactitud 0,914** y **F1 macro 0,318**, con **precisión direccional 0,000**.
+Ya lo comprobamos con el sistema corriendo: nuestro baseline trivial da **exactitud 0,912** y **F1 macro 0,318**, con **precisión direccional 0,000**.
 
 Por eso el informe no reporta exactitud como métrica principal. Reporta F1 macro y Precisión Direccional, que es lo que el enunciado pide.
 
