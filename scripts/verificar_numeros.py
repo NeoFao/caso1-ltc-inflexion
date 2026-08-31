@@ -15,6 +15,7 @@ positivo cuesta diez segundos; un numero inventado en una entrega, mucho mas.
 Uso:
     uv run python scripts/verificar_numeros.py
     uv run python scripts/verificar_numeros.py docs/entregas/semana-2
+    uv run python scripts/verificar_numeros.py docs/entregas --procedencia
 """
 
 from __future__ import annotations
@@ -61,6 +62,17 @@ RUIDO = re.compile(
 )
 
 
+def _mostrar(ruta: Path) -> Path:
+    """La ruta relativa a la raiz si esta dentro, y la absoluta si no.
+
+    relative_to() a secas revienta cuando la ruta cae fuera del proyecto. Rompio
+    tres veces en dos dias --el resumen, el mensaje de error del pestillo y el
+    encabezado por archivo-- y siempre al imprimir algo. Un mensaje que falla al
+    construirse esconde lo que iba a decir.
+    """
+    return ruta.relative_to(RAIZ) if ruta.is_relative_to(RAIZ) else ruta
+
+
 def _variantes(valor: float) -> set[str]:
     """Todas las escrituras plausibles de un mismo numero medido.
 
@@ -81,28 +93,63 @@ def _variantes(valor: float) -> set[str]:
     return salida
 
 
-def numeros_medidos() -> set[str]:
-    """Aplana todos los JSON de evidencia y devuelve sus valores como texto."""
-    validos: set[str] = set()
+def procedencias() -> dict[str, list[str]]:
+    """Cada escritura aceptada, con el origen de donde sale.
 
-    def recorrer(nodo) -> None:
+    Antes esto era un `set` y solo respondia si/no. La pregunta util no es esa: es
+    **de donde** sale un verde, porque el espacio de cadenas aceptadas satura
+    (ver `calibrar()`), y un si sin origen no se puede auditar.
+    """
+    origen: dict[str, list[str]] = {}
+
+    def recorrer(nodo, archivo: str, ruta: str) -> None:
         if isinstance(nodo, dict):
-            for valor in nodo.values():
-                recorrer(valor)
+            for clave, valor in nodo.items():
+                recorrer(valor, archivo, f"{ruta}.{clave}")
         elif isinstance(nodo, list):
-            for valor in nodo:
-                recorrer(valor)
+            for i, valor in enumerate(nodo):
+                recorrer(valor, archivo, f"{ruta}[{i}]")
         elif isinstance(nodo, bool):
             return
         elif isinstance(nodo, (int, float)):
-            validos.update(_variantes(float(nodo)))
+            etiqueta = f"{archivo}{ruta} = {nodo}"
+            for texto in _variantes(float(nodo)):
+                origen.setdefault(texto, []).append(etiqueta)
 
     archivos = sorted(EVIDENCIAS.glob("*.json"))
     if not archivos:
         sys.exit(f"no hay evidencia en {EVIDENCIAS.relative_to(RAIZ)}")
     for archivo in archivos:
-        recorrer(json.loads(archivo.read_text(encoding="utf-8")))
-    return validos
+        recorrer(json.loads(archivo.read_text(encoding="utf-8")), archivo.name, "")
+    return origen
+
+
+def numeros_medidos() -> set[str]:
+    """Las escrituras aceptadas, sin su origen. Se conserva por compatibilidad."""
+    return set(procedencias())
+
+
+def calibrar(validos: set[str]) -> dict[int, tuple[int, int]]:
+    """Cuantas cifras POSIBLES pasan a cada precision, sin haberse medido nunca.
+
+    Es la medida honesta de lo que vale un "respaldado". Con ~2400 valores de
+    evidencia y seis redondeos cada uno, el espacio de dos decimales se satura: casi
+    cualquier cifra que alguien escriba con dos decimales pasa.
+
+    Se calcula y se imprime en vez de dejarlo implicito, porque quien lee "todos
+    respaldados" tiene derecho a saber cuanto discrimina esa afirmacion.
+    """
+    salida = {}
+    for decimales in (2, 3, 4):
+        total = 10**decimales
+        pasan = sum(
+            1
+            for i in range(total)
+            if f"0,{str(i).zfill(decimales)}" in validos
+            or f"0.{str(i).zfill(decimales)}" in validos
+        )
+        salida[decimales] = (pasan, total)
+    return salida
 
 
 def main() -> None:
@@ -110,9 +157,12 @@ def main() -> None:
     # Se resuelve contra la raiz del proyecto y no contra el directorio actual:
     # el ejemplo de uso del docstring pasa una ruta relativa, y sin esto
     # reventaba al imprimir el resumen.
+    argumentos = [a for a in sys.argv[1:] if not a.startswith("--")]
+    con_procedencia = "--procedencia" in sys.argv
+
     destino = RAIZ / "docs" / "entregas"
-    if len(sys.argv) > 1:
-        pedido = Path(sys.argv[1])
+    if argumentos:
+        pedido = Path(argumentos[0])
         destino = pedido if pedido.is_absolute() else (RAIZ / pedido).resolve()
     # Que la ruta exista y contenga algo NO es una comprobacion de cortesia. Sin
     # ella, este guion respondia "Todos respaldados por una medicion" sobre cero
@@ -132,11 +182,14 @@ def main() -> None:
         print(f"ERROR: no hay ningun .md en {destino}. No se reviso nada.")
         sys.exit(2)
 
-    validos = numeros_medidos()
+    origen = procedencias()
+    validos = set(origen)
 
     revisados = sospechosos = 0
     for archivo in archivos:
         encabezado = False
+        if con_procedencia:
+            print(f"\n--- {_mostrar(archivo)}")
         for numero_linea, linea in enumerate(
             archivo.read_text(encoding="utf-8").splitlines(), 1
         ):
@@ -144,14 +197,28 @@ def main() -> None:
                 texto = encontrado.group(1)
                 revisados += 1
                 if texto in CONOCIDOS or texto in validos:
+                    if con_procedencia:
+                        de_donde = (
+                            ["umbral acordado, no medicion"]
+                            if texto in CONOCIDOS
+                            else origen[texto]
+                        )
+                        print(f"  L{numero_linea:<4} {texto:>10}  <- {de_donde[0]}")
+                        for extra in de_donde[1:3]:
+                            print(f"  {'':<6} {'':>10}     tambien {extra}")
+                        if len(de_donde) > 3:
+                            print(
+                                f"  {'':<6} {'':>10}     y {len(de_donde) - 3} origen(es) mas "
+                                "-- cuantos mas haya, menos discrimina la coincidencia"
+                            )
                     continue
                 if not encabezado:
-                    print(f"\n--- {archivo.relative_to(RAIZ)}")
+                    print(f"\n--- {_mostrar(archivo)}")
                     encabezado = True
                 sospechosos += 1
                 print(f"  L{numero_linea:<4} {texto:>10}   {linea.strip()[:84]}")
 
-    ubicacion = destino.relative_to(RAIZ) if destino.is_relative_to(RAIZ) else destino
+    ubicacion = _mostrar(destino)
     print(f"\n{revisados} numeros revisados en {len(archivos)} archivo(s) de {ubicacion}.")
     if revisados == 0:
         print("ERROR: no se encontro ningun numero. Un 'todo respaldado' sobre cero")
@@ -162,7 +229,17 @@ def main() -> None:
         print("Revisar uno a uno: o se mide y se corrige, o se agrega a CONOCIDOS si")
         print("es un umbral acordado y no una medicion.")
         sys.exit(1)
-    print("Todos respaldados por una medicion.")
+    calibracion = calibrar(validos)
+    debiles, total_d = calibracion[2]
+    print(
+        f"Todos coinciden con algun valor de la evidencia.\n"
+        f"\nLo que eso discrimina, medido: a dos decimales pasan {debiles} de "
+        f"{total_d} cifras posibles\nsin haberse medido nunca, a tres "
+        f"{calibracion[3][0]} de {calibracion[3][1]}, a cuatro "
+        f"{calibracion[4][0]} de {calibracion[4][1]}.\n"
+        "Una coincidencia a dos decimales casi no es evidencia. Usa --procedencia\n"
+        "para ver de que medicion sale cada una."
+    )
 
 
 if __name__ == "__main__":
