@@ -189,3 +189,94 @@ def test_el_historico_no_muestra_cifras_del_bloque_de_prueba():
         f"{n_validacion}. Si esta mostrando otro conjunto, tiene que haber una "
         "decision escrita que lo autorice (D18)."
     )
+
+
+# ------------------------------------------------- que no aparezca uno sin vigilar
+# Las pruebas de arriba nombran archivos concretos. Eso ya fallo una vez: el #81
+# cerro el hueco para el panel de comparacion, y el #79 anadio el historico con el
+# fundacional un PR despues, con la misma forma y sin cubrir.
+#
+# Verificar automaticamente un artefacto desconocido no se puede: cada uno publica
+# sus metricas con una estructura distinta y solo el panel declara de que archivo de
+# evidencia salio. Lo que si se puede es impedir que aparezca uno nuevo sin que
+# nadie lo note.
+#
+# Esta prueba no comprueba cifras. Comprueba que la lista de artefactos vigilados
+# siga estando completa, y falla cuando alguien anade el tercero.
+DATOS_APP = RAIZ / "app" / "public" / "datos"
+
+#: Artefactos que COPIAN cifras medidas en otra capa y tienen su prueba arriba.
+#: Anadir uno aca sin escribirle la prueba deja la lista mintiendo, asi que el
+#: mensaje de fallo lo dice explicitamente.
+ARTEFACTOS_VIGILADOS = {
+    "comparacion-modelos.json",
+    "historico-fundacional-LTC.json",
+}
+
+#: Respaldos sin conexion. Publican metricas pero NO copian evidencia: las calculan
+#: sobre su propia instantanea, con su propio n, para que la aplicacion siga en pie
+#: con el backend apagado. No pueden desincronizarse de una evidencia porque no
+#: citan ninguna.
+#:
+#: Van enumerados y no detectados por un patron de nombre a proposito: si manana
+#: aparece `historico-DOGE.json`, esta prueba tiene que obligar a decidir en cual de
+#: los dos grupos cae, en vez de meterlo solo en el que no se vigila.
+RESPALDOS_SIN_CONEXION = {
+    "historico-ADA.json",
+    "historico-BTC.json",
+    "historico-ETH.json",
+    "historico-LTC.json",
+    "historico-SOL.json",
+    "historico-XRP.json",
+    "sintetico.json",
+}
+
+
+def _publica_metricas(datos: object) -> bool:
+    """Si el artefacto expone cifras de rendimiento, en cualquiera de las dos formas.
+
+    Hay dos: un bloque `metricas` arriba --el historico-- o una lista `modelos` con
+    las cifras dentro de cada entrada --el panel de comparacion--. Buscar solo la
+    primera dejaba fuera al panel, que es justamente el que esta prueba nacio para
+    no perder de vista.
+    """
+    if not isinstance(datos, dict):
+        return False
+    if isinstance(datos.get("metricas"), dict):
+        return True
+    filas = datos.get("modelos")
+    return isinstance(filas, list) and any(
+        isinstance(f, dict) and "f1_macro" in f for f in filas
+    )
+
+
+@pytest.mark.skipif(not DATOS_APP.exists(), reason="la aplicacion no publica datos todavia")
+def test_todo_artefacto_que_publica_metricas_tiene_su_prueba():
+    """Ningun archivo nuevo con metricas queda fuera de vigilancia en silencio.
+
+    Si esta prueba falla, hay un artefacto que copia cifras medidas y que nadie
+    comprueba contra su origen. La respuesta correcta NO es agregarlo a la lista:
+    es escribirle su prueba de coherencia y despues agregarlo.
+    """
+    con_metricas = set()
+    for archivo in sorted(DATOS_APP.glob("*.json")):
+        try:
+            datos = json.loads(archivo.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:  # pragma: no cover - un json roto ya falla en otro lado
+            continue
+        if _publica_metricas(datos):
+            con_metricas.add(archivo.name)
+
+    sin_vigilar = con_metricas - ARTEFACTOS_VIGILADOS - RESPALDOS_SIN_CONEXION
+    assert not sin_vigilar, (
+        f"estos artefactos publican metricas y nadie comprueba que sigan siendo las "
+        f"medidas: {sorted(sin_vigilar)}. Escribiles su prueba de coherencia y recien "
+        "entonces agregalos a ARTEFACTOS_VIGILADOS. Agregarlos sin la prueba deja la "
+        "lista diciendo que estan vigilados cuando no lo estan."
+    )
+
+    desaparecidos = (ARTEFACTOS_VIGILADOS | RESPALDOS_SIN_CONEXION) - con_metricas
+    assert not desaparecidos, (
+        f"la lista vigila artefactos que ya no publican metricas: {sorted(desaparecidos)}. "
+        "Si se quitaron a proposito, sacalos de la lista; si no, alguien rompio su formato."
+    )
