@@ -519,3 +519,60 @@ resultó ser negativa, y por eso queda escrita: para que nadie la vuelva a propo
 ya se midió.
 
 **Evidencia:** `docs/evidencias/estacionalidad-intradia.json` · **Reproducible:** `uv run python -m scripts.estacionalidad_intradia`
+
+## D18 · El bloque de prueba se toca una sola vez, con el protocolo escrito de antemano
+
+**Estado:** vigente desde el 30/08/2026 · el procedimiento completo está en [`docs/09-protocolo-bloque-prueba.md`](09-protocolo-bloque-prueba.md)
+
+El proyecto tiene diecisiete decisiones y ninguna hablaba del bloque de prueba. La práctica era
+correcta —las **40 evaluaciones** de `resultados.csv` son todas sobre validación, la reserva está
+intacta— pero dependía de que nadie se olvidara.
+
+**La asimetría que hace esto urgente:** después de ver el número, cualquier criterio que elijamos
+ya está contaminado por conocerlo. No por mala fe, sino porque es imposible desconocerlo. Un
+protocolo escrito después no es un protocolo.
+
+### Lo que queda fijado
+
+**Qué se evalúa:** una configuración por familia —clásico, fundacional y avanzado—, elegida sobre
+validación y **nombrada antes** de correr nada. Sin variantes, sin «probamos las dos a ver».
+
+**La regla de decisión:** el proyecto declara que detecta puntos de inflexión si el mejor modelo
+cumple **las tres** condiciones de la [D16](#d16) sobre prueba — supera al `baseline_aleatorio`,
+el intervalo del 95 % de esa diferencia excluye el cero, y el signo no cambia entre las cinco
+semillas. No se inventa un criterio nuevo para el resultado final.
+
+**El umbral de la [D5](#d5) no aplica acá.** Se fijó para decidir entre modelos nuestros; contra
+un baseline lo que importa es si la diferencia se distingue del azar.
+
+**Lo que dice el informe en cada desenlace, redactado antes de saber cuál toca**, incluido el
+peor: si la diferencia es negativa, se reporta que el modelo no supera al azar sobre datos nuevos
+y **no se busca una configuración que sí lo haga**. En los tres casos se reporta la primera y
+única cifra que salga.
+
+### Lo que conocer el bloque no contamina
+
+El tamaño (1 968 filas), el balance de clases y los tres baselines **ya están medidos** sobre
+prueba, y eso no gasta la reserva: ninguno se elige ni se ajusta mirando el resultado. Lo que la
+gasta es medir un modelo **nuestro** sobre ella.
+
+Dato a tener presente: prueba está más desbalanceada que validación —91,22 % de Continuidad
+contra 90,15 %—, así que una caída del F1 macro entre un conjunto y otro no es por sí sola señal
+de sobreajuste.
+
+### Por qué todavía no se corre
+
+Con los dos modelos ya fijados por [D12](#d12) y [D14](#d14), y sin ajuste que los distinga, la
+precondición está cumplida. Aun así **se espera**, por una razón medida: esta semana aparecieron
+**nueve defectos silenciosos** en el proyecto, varios de ellos en el instrumento de medición. La
+probabilidad de que algo cambie antes del informe final no es especulativa.
+
+Gastar la reserva ahora y que después cambie una cifra deja dos opciones malas: reportar un número
+viejo, o gastarla dos veces. **Se corre cuando el código esté congelado**, y esa congelación es
+una decisión del equipo que se registra acá cuando se tome.
+
+**Origen:** lo planteó Alejandro (M2) el 30/08/2026 al notar que el hueco existía, con el
+protocolo escrito y la verificación de que la reserva seguía intacta. Pidió explícitamente que
+fuera una fila y no un documento suyo, citando la regla 3.
+
+**Evidencia:** `docs/evidencias/resultados.csv` — 40 evaluaciones, todas sobre validación.
