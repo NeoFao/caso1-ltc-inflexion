@@ -18,7 +18,7 @@ export const CLASE = {
   CONTINUIDAD: 3,
 } as const;
 
-export type Origen = "backend" | "snapshot";
+export type Origen = "backend" | "snapshot" | "precalculado";
 
 export interface Punto {
   fecha: string;
@@ -60,6 +60,7 @@ export interface Respuesta {
   generado_utc?: string;
   serie: Punto[];
   metricas: Metricas;
+  ventana?: { desde: string; hasta: string; conjunto: string; nota: string };
 }
 
 export interface ConOrigen<T> {
@@ -137,6 +138,21 @@ export const obtenerHistorico = (activo = "LTC", desde?: string, hasta?: string)
   // fingir un filtro que el archivo congelado no puede cumplir.
   return conRespaldo<Respuesta>(`/api/historico?${parametros}`, `historico-${activo}.json`);
 };
+
+/**
+ * Predicciones del modelo fundacional (Chronos-Bolt) sobre LTC, en la ventana de
+ * validacion del contrato.
+ *
+ * No tiene ruta de backend ni acepta rango: correr el modelo en vivo mide del
+ * orden de minutos sobre el panel completo (~12,6 ms/vela, medido), muy por
+ * encima de cualquier timeout razonable de una peticion HTTP, y conectarlo al
+ * backend en vivo tocaria src/api/, que no es carpeta de M1. El panel lee un
+ * snapshot que app/scripts/generar_historico_fundacional.py precalcula una vez
+ * offline y que reproduce, con control cruzado, las metricas ya publicadas por
+ * M3 en docs/evidencias/m3-modelos-profundos-4h-w7-h1.json.
+ */
+export const obtenerHistoricoFundacional = () =>
+  traer<Respuesta>(`${BASE}datos/historico-fundacional-LTC.json`);
 
 /**
  * Comparacion de los cuatro modelos sobre la misma particion de validacion.

@@ -10,8 +10,11 @@ import {
   obtenerComparacion,
   obtenerConfiguracion,
   obtenerHistorico,
+  obtenerHistoricoFundacional,
   obtenerSintetico,
 } from "./api";
+
+type Modelo = "baseline" | "fundacional";
 
 type Modo = "sintetico" | "historico" | "tiempo-real";
 
@@ -47,6 +50,7 @@ export default function App() {
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
   const [comparacion, setComparacion] = useState<Comparacion | null>(null);
+  const [modeloElegido, setModeloElegido] = useState<Modelo>("baseline");
 
   useEffect(() => {
     obtenerConfiguracion()
@@ -71,8 +75,19 @@ export default function App() {
     let cancelado = false;
     setCargando(true);
     setError(null);
+    // Fundacional no tiene ruta de backend ni acepta rango (ver api.ts): correrlo
+    // en vivo tarda minutos sobre el panel completo. Se envuelve en la misma forma
+    // ConOrigen que las demas peticiones para que el resto del efecto no distinga
+    // de donde viene el dato.
     const peticion =
-      modo === "sintetico" ? obtenerSintetico(300) : obtenerHistorico(activo, desde, hasta);
+      modo === "sintetico"
+        ? obtenerSintetico(300)
+        : modeloElegido === "fundacional"
+          ? obtenerHistoricoFundacional().then((datos) => ({
+              datos,
+              origen: "precalculado" as Origen,
+            }))
+          : obtenerHistorico(activo, desde, hasta);
     peticion
       .then((r) => {
         if (cancelado) return;
@@ -88,7 +103,7 @@ export default function App() {
     return () => {
       cancelado = true;
     };
-  }, [modo, activo, desde, hasta]);
+  }, [modo, activo, desde, hasta, modeloElegido]);
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
   const edad = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
@@ -122,6 +137,7 @@ export default function App() {
                 </Chip>
               )}
               {origen === "backend" && <Chip tono="verde">backend en vivo</Chip>}
+              {origen === "precalculado" && <Chip>ventana fija · precalculado sin backend</Chip>}
             </div>
           )}
         </div>
@@ -130,10 +146,27 @@ export default function App() {
       <main className="mx-auto max-w-6xl px-6 py-6">
         {datos?.modelo === "baseline_trivial" && (
           <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-            <strong>Todavía no hay modelo entrenado.</strong> Lo que se ve son las predicciones del{" "}
-            <em>baseline trivial</em>, que responde siempre «Continuidad» y no detecta ningún giro.
-            Está a propósito: es el piso obligatorio contra el que se compara todo, y demuestra por
-            qué no reportamos exactitud como métrica principal.
+            <strong>Este gráfico usa el baseline trivial.</strong> Responde siempre «Continuidad» y
+            no detecta ningún giro. Está a propósito: es el piso obligatorio contra el que se compara
+            todo, y demuestra por qué no reportamos exactitud como métrica principal.{" "}
+            {modo === "historico" ? (
+              <>Para ver el modelo fundacional, usá el selector de arriba.</>
+            ) : (
+              <>
+                El modo sintético todavía no tiene selector de modelo; en histórico sí podés
+                alternar a Fundacional.
+              </>
+            )}
+          </div>
+        )}
+
+        {datos?.modelo === "chronos_bolt" && (
+          <div className="mb-4 rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900">
+            <strong>Predicciones precalculadas del modelo fundacional (Chronos-Bolt).</strong>{" "}
+            Correrlo en vivo tarda del orden de minutos sobre el panel completo (~12,6 ms/vela
+            medido), así que esta vista muestra una ventana fija —la misma partición de validación
+            que usa la comparación de modelos de abajo— en vez de un rango libre. Para otro activo o
+            rango, usá Baseline.
           </div>
         )}
 
@@ -154,7 +187,26 @@ export default function App() {
             ))}
           </nav>
 
-          {modo === "historico" && configuracion && (
+          {modo === "historico" && (
+            <div className="flex items-center gap-1 text-xs">
+              {(["baseline", "fundacional"] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setModeloElegido(m)}
+                  aria-pressed={modeloElegido === m}
+                  className={`rounded-lg px-3 py-2 font-medium transition ${
+                    modeloElegido === m
+                      ? "bg-[#345d9d] text-white"
+                      : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                  }`}
+                >
+                  {m === "baseline" ? "Baseline" : "Fundacional"}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {modo === "historico" && modeloElegido === "baseline" && configuracion && (
             <select
               value={activo}
               onChange={(e) => setActivo(e.target.value)}
@@ -169,7 +221,7 @@ export default function App() {
             </select>
           )}
 
-          {modo === "historico" && (
+          {modo === "historico" && modeloElegido === "baseline" && (
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <label className="flex items-center gap-1">
                 desde
@@ -204,14 +256,24 @@ export default function App() {
               )}
             </div>
           )}
+
+          {modo === "historico" && modeloElegido === "fundacional" && datos?.ventana && (
+            <p className="text-xs text-slate-500">
+              LTC · ventana de validación: {datos.ventana.desde.slice(0, 10)} –{" "}
+              {datos.ventana.hasta.slice(0, 10)}
+            </p>
+          )}
         </div>
 
-        {modo === "historico" && (desde || hasta) && origen === "snapshot" && (
-          <p className="mt-2 text-xs text-amber-700">
-            El rango de fechas requiere el backend en vivo; el snapshot congelado solo trae las
-            últimas velas y no puede filtrarse por fecha.
-          </p>
-        )}
+        {modo === "historico" &&
+          modeloElegido === "baseline" &&
+          (desde || hasta) &&
+          origen === "snapshot" && (
+            <p className="mt-2 text-xs text-amber-700">
+              El rango de fechas requiere el backend en vivo; el snapshot congelado solo trae las
+              últimas velas y no puede filtrarse por fecha.
+            </p>
+          )}
 
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-500">
           {modoActual.descripcion}
@@ -281,7 +343,12 @@ export default function App() {
             <h2 className="text-sm font-semibold text-[#1b2a4a]">Comparación de modelos</h2>
             <p className="mt-1 text-xs text-slate-500">
               Los {comparacion.modelos.length} modelos evaluados sobre la misma partición de{" "}
-              {comparacion.particion.conjunto} ({comparacion.particion.intervalo}, w=
+              {/* La evidencia de M3 trae "validacion" sin tilde; se corrige solo en la
+                  vista, sin tocar docs/evidencias/, que no es mio y se regenera por script. */}
+              {comparacion.particion.conjunto === "validacion"
+                ? "validación"
+                : comparacion.particion.conjunto}{" "}
+              ({comparacion.particion.intervalo}, w=
               {comparacion.particion.w}, h={comparacion.particion.h}, n={comparacion.n}). Fuente:{" "}
               <code>{comparacion.fuente}</code>.
             </p>
