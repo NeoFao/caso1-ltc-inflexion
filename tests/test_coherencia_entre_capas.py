@@ -129,3 +129,63 @@ def test_los_parametros_del_panel_son_los_del_contrato():
     assert panel["intervalo"] == GRANULARIDAD
     assert panel["w"] == VENTANA_W
     assert panel["h"] == HORIZONTE_H
+
+
+# ---------------------------------------------------------------- historico
+# El panel de comparacion no era el unico artefacto precalculado. El PR #79 anadio
+# un segundo -- la serie historica con el fundacional ya aplicado -- que se genera
+# aparte y se versiona igual. La guarda de arriba no lo cubria, asi que el hueco que
+# esta prueba existe para cerrar quedaba reabierto un PR despues.
+#
+# Aqui la comparacion es contra la evidencia REDONDEADA a cuatro decimales, porque
+# ese archivo publica cifras para mostrar y no para recalcular. Lo que se exige no es
+# precision completa: es que sigan siendo las mismas cifras.
+HISTORICO = RAIZ / "app" / "public" / "datos" / "historico-fundacional-LTC.json"
+EVIDENCIA_PROFUNDOS = RAIZ / "docs" / "evidencias" / "m3-modelos-profundos-4h-w7-h1.json"
+
+necesita_historico = pytest.mark.skipif(
+    not (HISTORICO.exists() and EVIDENCIA_PROFUNDOS.exists()),
+    reason="la aplicacion todavia no publica el historico con el fundacional",
+)
+
+
+@necesita_historico
+def test_el_historico_precalculado_cita_las_metricas_de_la_evidencia():
+    """Las metricas que muestra la vista historica son las que midio M3.
+
+    Si M3 remide y nadie regenera este archivo, la aplicacion sigue mostrando cifras
+    viejas: funciona, las pruebas de su capa pasan, y nada avisa. Es exactamente la
+    forma del defecto de la marca de tiempo.
+    """
+    publicado = json.loads(HISTORICO.read_text(encoding="utf-8"))
+    medido = json.loads(EVIDENCIA_PROFUNDOS.read_text(encoding="utf-8"))["metricas"]
+
+    modelo = publicado["modelo"]
+    assert modelo in medido, (
+        f"el historico publica el modelo {modelo!r}, que no existe en la evidencia de M3"
+    )
+
+    discrepan = {
+        clave: (valor, medido[modelo][clave])
+        for clave, valor in publicado["metricas"].items()
+        if clave != "n" and clave in medido[modelo]
+        and round(medido[modelo][clave], 4) != valor
+    }
+    assert not discrepan, (
+        f"el historico de la app y la evidencia de M3 discrepan en {sorted(discrepan)}: "
+        f"{discrepan}. Hay que regenerarlo con app/scripts/generar_historico_fundacional.py."
+    )
+
+
+@necesita_historico
+def test_el_historico_no_muestra_cifras_del_bloque_de_prueba():
+    """La misma guarda que para el panel: la reserva no llega a la vista sin decision."""
+    publicado = json.loads(HISTORICO.read_text(encoding="utf-8"))
+    n_publicado = publicado["metricas"]["n"]
+    medido = json.loads(EVIDENCIA_PROFUNDOS.read_text(encoding="utf-8"))
+    n_validacion = medido["parametros"].get("n_validacion") or len(publicado["serie"])
+    assert n_publicado == n_validacion, (
+        f"el historico reporta {n_publicado} observaciones y validacion tiene "
+        f"{n_validacion}. Si esta mostrando otro conjunto, tiene que haber una "
+        "decision escrita que lo autorice (D18)."
+    )
