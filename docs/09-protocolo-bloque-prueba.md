@@ -70,9 +70,20 @@ resultado:
 
 | Familia | Configuración | F1 macro en validación |
 |---|---|---|
-| Clásico | `bosque_aleatorio_rezagos_relativos` | 0,3905 |
-| Fundacional | `chronos_bolt` — `amazon/chronos-bolt-small`, contexto 512, cuantil 0,5 | 0,368589 |
+| Clásico | `bosque_aleatorio_rezagos_relativos` | 0,380975 (media de cinco semillas) |
+| Fundacional | `chronos_bolt` — `amazon/chronos-bolt-small`, contexto 512, cuantil 0,5 | 0,368589 (determinista) |
 | Avanzado | `itransformer` — lookback 96, dimensión 64 | 0,343698 (media de cinco semillas) |
+
+**Las tres cifras son comparables entre sí, y por eso el clásico dice la media y no 0,3905.**
+Ese 0,3905 es la corrida de la semilla 0, y resulta ser **la más alta de las cinco**: la media es
+0,380975 y el rango entre semillas, 0,016823. Como la sección 4 manda comparar validación contra
+prueba, partir del máximo en vez de la media **exagera la caída del clásico**, sin que nada falle y
+sin que nadie se equivoque en ningún paso — y la exagera en la dirección que nos hace parecer más
+apoyados en validación de lo que estuvimos.
+
+De los cuatro modelos, el único cuya semilla por omisión coincide con el máximo de las cinco es
+justo este. No es una propiedad de citar la semilla 0: es casualidad, y por eso hacía falta
+mirarlo.
 
 Más los tres baselines, que ya están.
 

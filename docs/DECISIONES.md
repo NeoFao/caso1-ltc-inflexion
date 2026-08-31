@@ -583,4 +583,64 @@ una decisión del equipo que se registra acá cuando se tome.
 protocolo escrito y la verificación de que la reserva seguía intacta. Pidió explícitamente que
 fuera una fila y no un documento suyo, citando la regla 3.
 
+### Toda cifra del protocolo es la media de cinco semillas, incluidas las de validación
+
+M2 encontró que la celda del clásico citaba **0,3905**, que es la corrida de la semilla 0 y
+resulta ser **la más alta de las cinco** — la media es 0,380975 y el rango 0,016823.
+
+Como el protocolo manda comparar validación contra prueba, partir del máximo exagera la caída, sin
+que nada falle y en la dirección que nos hace parecer más apoyados en validación de lo que
+estuvimos. **Después ya no se corrige sin que parezca que se corrigió porque no gustó.**
+
+De los cuatro modelos, el único cuya semilla por omisión coincide con el máximo de las cinco es
+justo el que había entrado al protocolo. Es casualidad, y por eso hacía falta mirarlo.
+
+### Los baselines sobre prueba se miden con cinco semillas, y eso tampoco gasta la reserva
+
+La tabla de baselines cita `baseline_aleatorio` en 0,3435, que es **una corrida**. Ese baseline se
+mueve: sobre validación su rango entre semillas es **0,017370**, del mismo orden que la ventaja
+que hay que distinguir.
+
+**Y es el piso contra el que esta decisión mide las tres condiciones.** Un piso ruidoso hace
+ruidosa la comparación entera.
+
+**Se autoriza medirlos con cinco semillas sobre prueba.** El argumento de la sección 2 se sostiene
+igual con cinco que con una: lo que gasta la reserva es **elegir o ajustar un modelo nuestro**
+mirándola, y un baseline no se elige ni se ajusta — se calcula. Repetirlo con otra semilla no
+añade ninguna decisión que dependa del resultado.
+
 **Evidencia:** `docs/evidencias/resultados.csv` — 40 evaluaciones, todas sobre validación.
+
+## D19 · «Modelo de referencia» designa al bosque; el de la ablación es el «modelo lineal de contraste»
+
+**Estado:** vigente desde el 31/08/2026 · el renombrado en `src/features/` queda pendiente de M2
+
+El término está repartido, y no es una cuestión de prolijidad. Con las mismas palabras, dos
+documentos del proyecto se contradicen:
+
+| Dónde | Qué dice | Qué mide |
+|---|---|---|
+| `m0-conclusion.md`, **entregado** | «el modelo de referencia supera al azar» | el bosque, +0,0537 |
+| `docs/06`, de M2 | «el modelo de referencia no le gana al azar» | la logística, 0,2550 |
+
+**Las dos son ciertas sobre lo que midieron.** Con el mismo término se contradicen.
+
+**El término está definido**, y del lado entregado: `m0-procedimiento.md` dice explícitamente que
+*baseline* designa a los tres triviales y **modelo de referencia** designa al bosque. Eso lo fija.
+
+**El que cede es el lado de M2.** No por jerarquía: porque la definición está en un documento ya
+entregado y la [D13](#d13) lo protege, mientras que el módulo de características se puede
+renombrar sin tocar ninguna cifra.
+
+**El nombre nuevo es «modelo lineal de contraste».** Dice las tres cosas que hacen falta: que es
+lineal, que existe para contrastar familias en igualdad de condiciones, y que **no** es el modelo
+del proyecto. Lo propuso M2 y es mejor que las alternativas que consideré —«comparador» no dice
+que sea lineal, «regresión de referencia» conserva la palabra que causa el choque.
+
+**Lo que el renombrado no puede hacer:** cambiar una sola cifra. Regenerar `m2-ablacion.json`
+tiene que dar los mismos valores con otras claves, y eso se comprueba comparando hoja por hoja,
+como en el [#74](https://github.com/NeoFao/caso1-ltc-inflexion/pull/74).
+
+**Origen:** M2 fue a hacer el renombrado que debía, encontró que el término estaba repartido y con
+definiciones opuestas, y **no eligió el reemplazo por su cuenta** — pidió que lo decidiera quien
+había fijado el vocabulario. Es la regla 3 aplicada a algo que no es un número.
