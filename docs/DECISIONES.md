@@ -331,10 +331,11 @@ se entrena y su pronóstico es determinista—.
 
 Con la media de las cinco semillas frente a los otros modelos sobre la misma partición:
 
-- **No se puede afirmar que le gane al azar.** 0,3437 contra 0,3368 del `baseline_aleatorio`
-  son +0,0069, muy por dentro de su propio rango de 0,0304. Y el aleatorio es el exigente
-  según la D7.
-- **El bosque aleatorio le gana.** 0,3905 contra 0,3437 son −0,0468, fuera del rango de ruido.
+- **No se puede afirmar que le gane al azar.** 0,3437 contra 0,3368 del `baseline_aleatorio`:
+  una ventaja que cabe holgadamente dentro del rango de **0,030377** que el propio modelo
+  recorre entre semillas. Y el aleatorio es el exigente según la D7.
+- **El bosque aleatorio le gana.** 0,3905 contra 0,3437, y esa desventaja **supera** el rango
+  de 0,030377, así que no se explica por el ruido de la semilla.
 - **El fundacional le gana por poco.** 0,3686 contra 0,3437.
 
 **El modelo más simple del proyecto sigue siendo el mejor medido**, y el más caro de los tres
