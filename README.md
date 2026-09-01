@@ -6,6 +6,16 @@ Entrega final: 8 de septiembre de 2026
 
 Clasificación multiclase de puntos de inflexión (Máximo / Mínimo / Continuidad) en el precio de LTC, usando como variables de apoyo BTC, ETH, SOL, XRP y ADA.
 
+## 🌐 La aplicación, en vivo
+
+**[neofao.github.io/caso1-ltc-inflexion](https://neofao.github.io/caso1-ltc-inflexion/)**
+
+Se despliega sola en cada `push` a `main`. No necesita instalar nada ni levantar el backend: cuando la API no responde, la vista cae a instantáneas estáticas versionadas en `app/public/datos/`.
+
+Muestra los precios reales con los giros verdaderos y los predichos sobre el mismo eje, el panel de métricas, y la comparación de los cuatro modelos. El selector **Fundacional** trae las predicciones precalculadas de Chronos-Bolt sobre el bloque de validación.
+
+**Las cifras que muestra no las calcula la aplicación**: las copia de `docs/evidencias/` y hay una prueba que falla si dejan de coincidir. Verificado sobre el sitio desplegado: los cuatro F1 macro son idénticos a la evidencia hasta el último dígito.
+
 ---
 
 ## Arrancar en tres comandos
