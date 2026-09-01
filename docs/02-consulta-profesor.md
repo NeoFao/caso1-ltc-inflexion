@@ -129,62 +129,76 @@ Cuando se decida, se cambia `contracts/config.py`, se quita la marca `PROVISIONA
 
 # Parte B — Texto para enviar
 
+*Reescrita el 1 de septiembre. La versión anterior tenía seis preguntas y proponía `h = 5`;
+desde entonces el equipo fijó `h = 1` y resolvió por su cuenta cuatro de los seis puntos.
+Enviar aquella hoy sería preguntar por cosas ya decididas.*
+
 *Copiar desde acá.*
 
 ---
 
-**Asunto:** Caso N.º 1 (pronóstico de puntos de inflexión en LTC) — consulta sobre seis puntos del enunciado
+**Asunto:** Caso N.º 1 (puntos de inflexión en LTC) — una consulta que nos bloquea, y cuatro decisiones que tomamos
 
 Estimado profesor Roberto Calvo,
 
 Somos el equipo del Caso N.º 1: Alejandro Zamora, Jose Pablo Monestel, Isaac Morun y Fabrizio Espinoza Arce.
 
-Antes de fijar el diseño del modelo queremos consultarle seis puntos del enunciado que admiten más de una lectura, para no avanzar cinco semanas sobre un supuesto equivocado. Ya descargamos y caracterizamos los datos, así que las preguntas vienen con las mediciones que las motivan.
+Le escribimos por **una pregunta que nos bloquea** y para dejarle constancia de **cuatro decisiones que tomamos nosotros** ante ambigüedades del enunciado, por si alguna no coincide con lo que esperaba.
 
-**1. Sobre la ventana `w` y el horizonte `h`.**
+---
 
-El enunciado define el máximo local en función de una ventana temporal `w`, pero no fija su valor, ni el del horizonte de predicción `h`. Entendemos que la elección es nuestra y que debe quedar justificada en el informe a partir de las características de los datos. ¿Es correcta esa interpretación, o hay valores o un criterio que usted espere que utilicemos?
+## La consulta: qué debe mostrar la vista en tiempo real
 
-**2. Sobre la granularidad de las velas.**
+Queremos precisar algo antes de construirla, porque afecta a lo que se ve en pantalla y no al modelo.
 
-El enunciado no especifica la frecuencia de los datos, y encontramos que esa decisión condiciona todo lo demás.
+**El modelo ya predice de verdad.** Estando parado en `t`, y usando únicamente información disponible hasta `t`, anuncia qué será el instante `t + h`. Lo garantizamos con una comprobación automática que perturba todo el futuro y exige que las características del pasado no cambien; hay además una prueba que confirma que esa comprobación detecta una fuga deliberada.
 
-La ventana común a las seis criptomonedas está acotada por Solana, cuya serie en Binance arranca el 11 de agosto de 2020. Eso deja 2 185 observaciones en velas diarias. Fijamos como criterio previo disponer de al menos 300 ejemplos de la clase minoritaria en el conjunto de entrenamiento, y con velas diarias **ninguna** combinación de `(w, h)` lo alcanza: el mejor caso, con `w=3`, da 149.
+Lo que no se puede adelantar es **la verificación**. Para saber si el anuncio hecho en `t` fue correcto hay que esperar a que existan las `w` velas posteriores a `t + h`: en total `h + w`, ocho velas o 32 horas con nuestra configuración.
 
-Con velas de 4 horas el panel pasa a 13 114 observaciones sobre el mismo período, y el criterio se cumple hasta `w=7`, que deja 420 ejemplos.
+De ahí la duda, que es sobre la presentación:
 
-Por eso proponemos trabajar con velas de 4 horas, `w=7` y `h=5`. ¿Le parece adecuado, o prefiere que mantengamos granularidad diaria asumiendo la escasez de ejemplos?
+- **(a)** La vista muestra el anuncio **en el momento**, sin marca de acierto, y la marca aparece 32 horas después.
+- **(b)** La vista muestra solo lo ya verificable, con 32 horas de retraso, de modo que todo lo que se ve viene con su acierto o su fallo al lado.
 
-**3. Sobre qué se considera "tiempo real".**
+**¿Cuál espera ver en la demostración?** La (a) enseña el sistema tal como funcionaría en producción; la (b) es más fácil de evaluar de un vistazo porque nada aparece sin su resultado.
 
-Para determinar si una vela fue un máximo local hay que observar las `w` velas siguientes, de modo que la etiqueta de un instante `t` solo se conoce en `t+w`. Las pruebas "en tiempo real" que pide el enunciado para las semanas 3 y 4 admiten entonces dos interpretaciones:
+Es lo único que tenemos detenido: la tercera prueba de detección que pide el enunciado depende de esta definición, y preferimos no elegirla por nuestra cuenta.
 
-- **(a)** El sistema confirma el giro con `w` velas de retraso: detección tardía pero verificable.
-- **(b)** El sistema anuncia el giro en el momento, sin esperar confirmación: predicción genuina, considerablemente más difícil.
+---
 
-¿Cuál de las dos espera que implementemos? ¿O deberíamos reportar ambas?
+## Las cuatro decisiones que tomamos
 
-**4. Sobre la métrica de decisión.**
+Las tomamos porque el proyecto no podía esperar, y cada una quedó registrada con su evidencia. **Si alguna no coincide con lo que esperaba, todavía estamos a tiempo de corregirla.**
 
-El enunciado solicita Precisión Direccional y F1-Score. Las clases están fuertemente desbalanceadas por construcción: con `w=7` medimos 4,63 % de máximos y 4,66 % de mínimos, de modo que un clasificador que responda siempre "Zona de Continuidad" alcanza más del 90 % de exactitud sin detectar un solo punto de inflexión.
+**1. Ventana, horizonte y granularidad: velas de 4 horas, `w = 7`, `h = 1`.**
 
-Quisiéramos confirmar dos cosas: si el F1-Score debe reportarse como macro, que da igual peso a las tres clases, o ponderado; y cómo debe entenderse la Precisión Direccional en un problema de clasificación multiclase y no de regresión. Provisionalmente la definimos como la fracción de los puntos de inflexión reales cuyo tipo fue predicho correctamente.
+Entendimos que la elección era nuestra y que debía justificarse con los datos. La ventana común a las seis criptomonedas está acotada por Solana, que en Binance arranca el 11 de agosto de 2020: son 2 185 observaciones diarias. Fijamos como criterio previo disponer de al menos 300 ejemplos de la clase minoritaria en entrenamiento, y **con velas diarias ninguna combinación lo alcanza**. Con velas de 4 horas el panel pasa a 13 114 observaciones y el criterio se cumple hasta `w = 7`, con 420 ejemplos.
 
-**5. Sobre el segundo modelo.**
+La anticipación real que ofrece el sistema es `h + w`, es decir **8 velas o 32 horas**, no una sola vela.
 
-El apartado de entregables indica que el segundo modelo debe ser «un Transformer». La lista de opciones del procedimiento incluye iTransformer, CryptoMamba, Informer, VTA y FinLSPM.
+**2. El F1-Score se reporta como macro.**
 
-Entendemos que CryptoMamba no es una arquitectura Transformer, sino un modelo de espacio de estados basado en Mamba, de modo que elegirlo cumpliría con la lista pero no con el requisito literal del entregable. ¿Debemos restringirnos a una arquitectura Transformer —iTransformer o Informer—, o cualquiera de las cinco opciones es aceptable?
+Con `w = 7` medimos 4,63 % de máximos y 4,66 % de mínimos. Un clasificador que responda siempre «Continuidad» alcanza **91,2 % de exactitud** sin detectar un solo giro, así que la exactitud no puede ser la métrica principal. El F1 macro da igual peso a las tres clases.
 
-**6. Sobre el calendario de entregas.**
+La Precisión Direccional la definimos, a falta de una definición para clasificación multiclase, como **la fracción de los puntos de inflexión reales cuyo tipo se predijo correctamente**.
 
-Entendemos que la primera entrega, correspondiente al marco teórico, es el martes 18 de agosto, en formato de documento.
+**3. El segundo modelo es iTransformer, y no CryptoMamba.**
 
-Nos queda una duda sobre las restantes: si las cinco entregas mantienen cadencia semanal a partir de esa fecha, la última caería el 15 de septiembre. ¿Es correcto, o las semanas 4 y 5 se agrupan para cerrar antes?
+El apartado de entregables pide «un Transformer» y la lista de opciones incluye CryptoMamba. **CryptoMamba no es una arquitectura Transformer**, sino un modelo de espacio de estados: elegirlo cumpliría con la lista pero no con el requisito literal. Además no se instala sin CUDA en ninguna de nuestras máquinas, lo que comprobamos.
 
-Lo consultamos porque de ello depende cuánto margen tenemos para las pruebas del modelo avanzado.
+Descartamos también Informer porque no encontramos una vía instalable en nuestro entorno —lo reportamos como lo que es, lo que pudimos verificar acá, y no como una afirmación sobre el paquete.
 
-Quedamos atentos a su respuesta. Muchas gracias por su tiempo.
+**4. Un resultado negativo que preferimos declarar.**
+
+Medimos si las cinco criptomonedas de apoyo aportan información sobre los giros de Litecoin. **No podemos afirmar que aporten:** la diferencia es de 0,0008 en F1 macro, cambia de signo según la semilla, y es del mismo tamaño que la de un control que añade columnas duplicadas sin información nueva.
+
+No invalida el planteamiento —las correlaciones medidas lo justificaban— pero **cambia la conclusión**, y preferimos reportarlo así.
+
+---
+
+Todo lo anterior está medido y es reproducible; con gusto le mostramos el detalle.
+
+Quedamos atentos a su respuesta sobre el punto de tiempo real.
 
 Atentamente,
 
