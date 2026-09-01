@@ -19,7 +19,8 @@
       "exactitud": 0.8223583460949464,
       "f1_maximo": 0.05181347150259067,
       "f1_minimo": 0.053763440860215055,
-      "f1_continuidad": 0.904775360271263
+      "f1_continuidad": 0.904775360271263,
+      "corrida_individual": false
     },
     {
       "clave": "bosque_aleatorio_rezagos_relativos",
@@ -30,7 +31,11 @@
       "exactitud": 0.8580908626850434,
       "f1_maximo": 0.10810810810810811,
       "f1_minimo": 0.14035087719298245,
-      "f1_continuidad": 0.9230341761600445
+      "f1_continuidad": 0.9230341761600445,
+      "corrida_individual": true,
+      "media_multisemilla": 0.381,
+      "rango_semillas": 0.0168,
+      "fuente_sensibilidad": "m2-incertidumbre-vigente-4h-w7-h1.json"
     },
     {
       "clave": "chronos_bolt",
@@ -41,7 +46,8 @@
       "exactitud": 0.8300153139356815,
       "f1_maximo": 0.08771929824561403,
       "f1_minimo": 0.1111111111111111,
-      "f1_continuidad": 0.9069373942470389
+      "f1_continuidad": 0.9069373942470389,
+      "corrida_individual": false
     },
     {
       "clave": "itransformer",
@@ -52,7 +58,11 @@
       "exactitud": 0.8055130168453293,
       "f1_maximo": 0.07407407407407407,
       "f1_minimo": 0.07142857142857142,
-      "f1_continuidad": 0.8916143753565317
+      "f1_continuidad": 0.8916143753565317,
+      "corrida_individual": true,
+      "media_multisemilla": 0.3437,
+      "rango_semillas": 0.0304,
+      "fuente_sensibilidad": "m3-sensibilidad-avanzado-4h-w7-h1.json"
     }
   ]
 }

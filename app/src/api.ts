@@ -78,6 +78,13 @@ export interface ModeloComparado {
   f1_maximo: number;
   f1_minimo: number;
   f1_continuidad: number;
+  // Issue #92: clasico y avanzado se entrenan con una semilla aleatoria, y la
+  // corrida publicada resulto ser la mas alta de las cinco medidas en los dos
+  // casos. corrida_individual distingue esas filas de baseline_aleatorio
+  // (semilla fija) y chronos_bolt (zero-shot determinista), que no lo son.
+  corrida_individual: boolean;
+  media_multisemilla?: number;
+  rango_semillas?: number;
 }
 
 export interface Comparacion {

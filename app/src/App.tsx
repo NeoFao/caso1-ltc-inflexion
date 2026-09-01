@@ -285,9 +285,9 @@ export default function App() {
           </div>
         )}
 
-        <section className="mt-4 rounded-xl border border-slate-200 bg-white p-4">
+        <section className="mt-4 rounded-xl border border-slate-200 bg-white p-4" data-testid="vista">
           {modo === "tiempo-real" ? (
-            <div className="py-20 text-center">
+            <div className="py-20 text-center" data-testid="vista-pendiente">
               <p className="text-sm font-medium text-slate-500">Pendiente (RF-U3)</p>
               <p className="mx-auto mt-2 max-w-lg text-sm text-slate-400">
                 Depende de definir qué se considera «tiempo real»: si el sistema confirma el giro w
@@ -296,30 +296,41 @@ export default function App() {
               </p>
             </div>
           ) : cargando ? (
-            <p className="py-20 text-center text-sm text-slate-400">Cargando…</p>
+            <p className="py-20 text-center text-sm text-slate-400" data-testid="vista-cargando">
+              Cargando…
+            </p>
           ) : datos ? (
             <Grafico puntos={datos.serie} />
           ) : null}
         </section>
 
         {datos && (
-          <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" data-testid="metricas">
             <Metrica
               titulo="F1 macro"
               valor={datos.metricas.f1_macro}
               nota="Promedio de las tres clases, con igual peso"
+              testId="f1-macro"
             />
             <Metrica
               titulo="Precisión direccional"
               valor={datos.metricas.precision_direccional}
               nota="De los giros reales, cuántos se anunciaron bien"
+              testId="precision-direccional"
             />
             <Metrica
               titulo="Exactitud"
               valor={datos.metricas.exactitud}
               nota="Engañosa con clases desbalanceadas"
+              testId="exactitud"
             />
-            <Metrica titulo="Observaciones" valor={datos.metricas.n} entero nota="Velas evaluadas" />
+            <Metrica
+              titulo="Observaciones"
+              valor={datos.metricas.n}
+              entero
+              nota="Velas evaluadas"
+              testId="observaciones"
+            />
             <Metrica
               titulo="F1 Máximo"
               valor={datos.metricas.f1_maximo}
@@ -365,7 +376,18 @@ export default function App() {
                 <tbody>
                   {comparacion.modelos.map((m) => (
                     <tr key={m.clave} className="border-t border-slate-100">
-                      <td className="py-2 pr-3 font-medium text-slate-700">{m.etiqueta}</td>
+                      <td className="py-2 pr-3 font-medium text-slate-700">
+                        {m.etiqueta}
+                        {m.corrida_individual && (
+                          <span
+                            className="mt-0.5 block text-[11px] font-normal text-amber-700"
+                            data-testid={`${m.clave}-corrida-individual`}
+                          >
+                            corrida individual · media de 5 semillas {m.media_multisemilla?.toFixed(3)}{" "}
+                            · rango {m.rango_semillas?.toFixed(3)}
+                          </span>
+                        )}
+                      </td>
                       <td className="py-2 pr-3 text-slate-400">{m.papel}</td>
                       <td className="py-2 pr-3 text-right">
                         <BarraMetrica valor={m.f1_macro} />
@@ -378,6 +400,16 @@ export default function App() {
                 </tbody>
               </table>
             </div>
+            {comparacion.modelos.some((m) => m.corrida_individual) && (
+              <p className="mt-2 text-[11px] leading-snug text-slate-400">
+                «Corrida individual»: ese modelo se entrena con una semilla aleatoria, y la cifra de
+                arriba es una sola corrida, no el promedio — puede caer en cualquier punto del rango
+                mostrado. En los dos casos la corrida publicada acá resultó ser la más alta de las
+                medidas, así que la ventaja de un modelo sobre otro en esta tabla puede estar
+                exagerada frente al promedio declarado. Baseline aleatorio usa semilla fija y el
+                modelo fundacional es determinista: a esos dos no les aplica (issue #92).
+              </p>
+            )}
           </section>
         )}
 
@@ -436,11 +468,13 @@ function Metrica({
   valor,
   entero,
   nota,
+  testId,
 }: {
   titulo: string;
   valor: number;
   entero?: boolean;
   nota?: string;
+  testId?: string;
 }) {
   const texto = Number.isNaN(valor)
     ? "—"
@@ -448,9 +482,11 @@ function Metrica({
       ? valor.toLocaleString("es-CR")
       : valor.toFixed(3);
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4">
+    <div className="rounded-xl border border-slate-200 bg-white p-4" data-testid={testId}>
       <p className="text-xs font-medium uppercase tracking-wide text-slate-400">{titulo}</p>
-      <p className="mt-1 text-2xl font-bold text-[#1b2a4a]">{texto}</p>
+      <p className="mt-1 text-2xl font-bold text-[#1b2a4a]" data-testid={testId && `${testId}-valor`}>
+        {texto}
+      </p>
       {nota && <p className="mt-1 text-xs leading-snug text-slate-400">{nota}</p>}
     </div>
   );
