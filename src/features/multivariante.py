@@ -6,7 +6,7 @@ Este modulo lo mide en vez de asumirlo, y esta escrito para poder responder que 
 Por que no alcanza con la ablacion que ya existe
 ------------------------------------------------
 `src/features/ablacion.py` ya compara `completo` contra `solo_LTC`, pero lo hace con
-un modelo de referencia lineal elegido para que las familias se comparen entre si en
+un modelo lineal de contraste elegido para que las familias se comparen entre si en
 igualdad de condiciones. Ese modelo, con caracteristicas estacionarias, **queda por
 debajo de los tres baselines**: F1 macro 0,2550 contra 0,3161 del trivial. Una
 diferencia medida sobre un modelo que no le gana al azar no dice si la informacion
@@ -319,7 +319,7 @@ def generar_evidencia(directorio: Path | None = None) -> dict:
     evidencia = {
         "pregunta": (
             "Aportan los cinco activos de apoyo informacion sobre LTC, medido sobre el "
-            "modelo del proyecto y no sobre un modelo de referencia?"
+            "modelo del proyecto y no sobre un modelo lineal de contraste?"
         ),
         "parametros": {
             "panel": GRANULARIDAD,
