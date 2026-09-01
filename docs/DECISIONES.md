@@ -583,6 +583,39 @@ una decisión del equipo que se registra acá cuando se tome.
 protocolo escrito y la verificación de que la reserva seguía intacta. Pidió explícitamente que
 fuera una fila y no un documento suyo, citando la regla 3.
 
+### Cuándo se congela el código, con fecha
+
+Decir «se corre cuando el código esté congelado» sin fecha es no decidir. La congelación va al
+calendario:
+
+| | |
+|---|---|
+| **Viernes 4 de septiembre** | Congelación. Nadie fusiona nada que pueda mover una cifra |
+| **Sábado 5 de septiembre** | Se corre la medición sobre el bloque de prueba, una sola vez |
+| **Domingo 6 y lunes 7** | Se redacta el informe con esa cifra |
+| **Martes 8 de septiembre** | Entrega final |
+
+**Qué se puede tocar después de congelar:** redacción, figuras que no citen cifras nuevas,
+correcciones de enlaces y de nombres. Lo que la [D13](#d13) ya permite sobre una entrega hecha.
+
+**Qué no:** nada en `contracts/`, `src/` ni `docs/evidencias/`. Si aparece un defecto que mueve
+una cifra después del viernes, **se descongela explícitamente**, se arregla, y la medición se
+repite declarando el motivo en el pestillo. No se parchea en silencio.
+
+**Las tres precondiciones**, y por eso la fecha no es antes:
+
+1. El panel público publica lo que la D18 declara ([#92](https://github.com/NeoFao/caso1-ltc-inflexion/issues/92), fase 1).
+2. Las pruebas de extremo a extremo corren ([#90](https://github.com/NeoFao/caso1-ltc-inflexion/issues/90)).
+3. La consulta sobre tiempo real está respondida, o se declara sin responder y se elige una lectura.
+
+**Por qué no antes, medido:** en dos semanas aparecieron diez defectos silenciosos, tres de ellos
+en el propio instrumento de medición. Congelar el jueves y descubrir el once el viernes deja dos
+opciones malas: reportar un número viejo, o gastar la reserva dos veces.
+
+**Y por qué no después:** el informe necesita dos días de redacción con la cifra ya en la mano.
+Medir el lunes es escribir la conclusión con el número recién salido, que es exactamente cuando se
+cometen los errores que este protocolo existe para evitar.
+
 ### Toda cifra del protocolo es la media de cinco semillas, incluidas las de validación
 
 M2 encontró que la celda del clásico citaba **0,3905**, que es la corrida de la semilla 0 y

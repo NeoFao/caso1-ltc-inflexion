@@ -147,18 +147,22 @@ Le escribimos por **una pregunta que nos bloquea** y para dejarle constancia de 
 
 ---
 
-## La consulta: qué se entiende por «tiempo real»
+## La consulta: qué debe mostrar la vista en tiempo real
 
-Para saber si una vela fue un máximo local hay que observar las `w` velas siguientes. La etiqueta de un instante `t`, por tanto, **solo se conoce en `t + w`**.
+Queremos precisar algo antes de construirla, porque afecta a lo que se ve en pantalla y no al modelo.
 
-Eso hace que las pruebas «en tiempo real» que el enunciado pide para las semanas 3 y 4 admitan dos lecturas, y son dos productos distintos:
+**El modelo ya predice de verdad.** Estando parado en `t`, y usando únicamente información disponible hasta `t`, anuncia qué será el instante `t + h`. Lo garantizamos con una comprobación automática que perturba todo el futuro y exige que las características del pasado no cambien; hay además una prueba que confirma que esa comprobación detecta una fuga deliberada.
 
-- **(a) Confirmación tardía.** El sistema confirma el giro `w` velas después. Es verificable contra la etiqueta real, y es lo que nuestras métricas actuales miden.
-- **(b) Anuncio en el momento.** El sistema declara el giro sin esperar confirmación. Es predicción genuina y considerablemente más difícil.
+Lo que no se puede adelantar es **la verificación**. Para saber si el anuncio hecho en `t` fue correcto hay que esperar a que existan las `w` velas posteriores a `t + h`: en total `h + w`, ocho velas o 32 horas con nuestra configuración.
 
-**¿Cuál espera que implementemos, o deberíamos reportar ambas?**
+De ahí la duda, que es sobre la presentación:
 
-Es lo único que tenemos detenido: la tercera prueba de detección que pide el enunciado depende de esta definición, y preferimos no inventarla y medir contra ella.
+- **(a)** La vista muestra el anuncio **en el momento**, sin marca de acierto, y la marca aparece 32 horas después.
+- **(b)** La vista muestra solo lo ya verificable, con 32 horas de retraso, de modo que todo lo que se ve viene con su acierto o su fallo al lado.
+
+**¿Cuál espera ver en la demostración?** La (a) enseña el sistema tal como funcionaría en producción; la (b) es más fácil de evaluar de un vistazo porque nada aparece sin su resultado.
+
+Es lo único que tenemos detenido: la tercera prueba de detección que pide el enunciado depende de esta definición, y preferimos no elegirla por nuestra cuenta.
 
 ---
 
