@@ -24,7 +24,7 @@ medido vale más que uno positivo mal medido"*.
 `src/features/ablacion.py` ya compara el conjunto completo contra `solo_LTC`. Sus cifras están
 en `docs/evidencias/m2-ablacion.json`. No sirven para responder esto, por dos razones distintas.
 
-**La primera: el modelo de referencia no le gana al azar.** La ablación usa una regresión
+**La primera: el modelo lineal de contraste no le gana al azar.** La ablación usa una regresión
 logística fija, elegida a propósito para que las familias se comparen entre sí en igualdad de
 condiciones. Con características estacionarias ese modelo obtiene F1 macro **0,2550**, contra
 **0,3161** del baseline trivial y **0,3368** del aleatorio. Una diferencia medida sobre un
