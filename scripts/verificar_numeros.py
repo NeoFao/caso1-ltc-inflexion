@@ -186,6 +186,11 @@ def main() -> None:
     validos = set(origen)
 
     revisados = sospechosos = 0
+    #: Cuantos origenes respalda cada cifra citada. Es lo que de verdad discrimina:
+    #: una cifra con un solo origen esta respaldada; una que coincide con veinte
+    #: valores distintos coincide con el espacio de aceptacion, no con una medicion.
+    #: El criterio lo propuso M3 al pasar y lo midio M2 en el issue #87.
+    origenes_por_cita: list[int] = []
     for archivo in archivos:
         encabezado = False
         if con_procedencia:
@@ -197,13 +202,18 @@ def main() -> None:
                 texto = encontrado.group(1)
                 revisados += 1
                 if texto in CONOCIDOS or texto in validos:
+                    origenes_por_cita.append(
+                        0 if texto in CONOCIDOS else len(origen[texto])
+                    )
                     if con_procedencia:
                         de_donde = (
                             ["umbral acordado, no medicion"]
                             if texto in CONOCIDOS
                             else origen[texto]
                         )
-                        print(f"  L{numero_linea:<4} {texto:>10}  <- {de_donde[0]}")
+                        cuantos = len(de_donde)
+                        marca = "" if texto in CONOCIDOS else f"  [{cuantos} origen(es)]"
+                        print(f"  L{numero_linea:<4} {texto:>10}{marca}  <- {de_donde[0]}")
                         for extra in de_donde[1:3]:
                             print(f"  {'':<6} {'':>10}     tambien {extra}")
                         if len(de_donde) > 3:
@@ -229,10 +239,21 @@ def main() -> None:
         print("Revisar uno a uno: o se mide y se corrige, o se agrega a CONOCIDOS si")
         print("es un umbral acordado y no una medicion.")
         sys.exit(1)
+    medidas = [n for n in origenes_por_cita if n > 0]
+    unicas = sum(1 for n in medidas if n == 1)
+    difusas = sum(1 for n in medidas if n > 10)
+    if medidas:
+        print(
+            f"\nDe las {len(medidas)} que salen de una medicion, "
+            f"{unicas} ({unicas / len(medidas):.1%}) tienen UN solo origen\n"
+            f"y {difusas} ({difusas / len(medidas):.1%}) coinciden con mas de diez valores "
+            "distintos.\nCuantos mas origenes, menos dice la coincidencia."
+        )
+
     calibracion = calibrar(validos)
     debiles, total_d = calibracion[2]
     print(
-        f"Todos coinciden con algun valor de la evidencia.\n"
+        f"\nTodos coinciden con algun valor de la evidencia.\n"
         f"\nLo que eso discrimina, medido: a dos decimales pasan {debiles} de "
         f"{total_d} cifras posibles\nsin haberse medido nunca, a tres "
         f"{calibracion[3][0]} de {calibracion[3][1]}, a cuatro "
