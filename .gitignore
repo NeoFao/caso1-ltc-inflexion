@@ -7,6 +7,10 @@ __pycache__/
 
 node_modules/
 app/dist/
+app/test-results/
+app/playwright-report/
+app/blob-report/
+app/playwright/.cache/
 
 # El panel procesado SI se versiona: es el artefacto congelado que garantiza que
 # los cuatro trabajemos sobre exactamente los mismos numeros (RF-D4).

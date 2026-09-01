@@ -98,6 +98,22 @@ export default function Grafico({ puntos, mostrarPredichas = true }: Props) {
 
     serie.current.setMarkers(marcadores);
     grafico.current?.timeScale().fitContent();
+
+    // Hook de solo lectura para las pruebas de extremo a extremo (issue #90).
+    // lightweight-charts dibuja en un <canvas>: no hay nodos del DOM que contar
+    // para verificar que un giro real llegó a la vista. Este objeto expone lo
+    // mismo que ya se le paso a setMarkers(), asi que un E2E puede comparar
+    // "cuantos giros hay en los datos" contra "cuantos se dibujaron de verdad" y
+    // atrapar el defecto que este mismo issue documenta: 1 027 de 1 217 giros
+    // desaparecian en la deduplicacion antes de llegar aca, y ninguna prueba lo
+    // veia porque cada capa por separado se veia bien.
+    (window as unknown as Record<string, unknown>).__grafico = {
+      velas: sinRepetidos.length,
+      marcadores: marcadores.length,
+      giroReales: sinRepetidos.filter(
+        (p) => p.etiqueta === CLASE.MAXIMO || p.etiqueta === CLASE.MINIMO,
+      ).length,
+    };
   }, [puntos, mostrarPredichas]);
 
   return <div ref={contenedor} className="h-[420px] w-full" />;
