@@ -68,7 +68,7 @@ from contracts.config import (
     VENTANA_W,
 )
 from contracts.labeling import etiquetar, objetivo
-from contracts.metrics import f1_macro, precision_direccional
+from contracts.metrics import evaluar, f1_macro, precision_direccional
 from contracts.schema import cierre
 from contracts.splits import particionar
 from src.features.base import construir
@@ -174,9 +174,22 @@ def sensibilidad_a_la_semilla(semillas=(0, 1, 2, 3, 4)) -> dict:
     matrices, y_entrena, y_valida, _ = _matrices()
 
     filas = []
+    completas = []
     for semilla in semillas:
         pred = _predicciones(matrices, y_entrena, semilla=semilla)
         f1 = {nombre: float(f1_macro(y_valida, p)) for nombre, p in pred.items()}
+        # Las SEIS metricas, no solo el F1 macro. Ver `metricas_por_modelo` abajo.
+        completas.append(
+            {
+                "semilla": int(semilla),
+                **{
+                    nombre: {
+                        k: float(v) for k, v in evaluar(y_valida, p).items() if k != "n"
+                    }
+                    for nombre, p in pred.items()
+                },
+            }
+        )
         filas.append(
             {
                 "semilla": int(semilla),
@@ -235,6 +248,35 @@ def sensibilidad_a_la_semilla(semillas=(0, 1, 2, 3, 4)) -> dict:
             # y no solo en quien la lea con cuidado.
             "la_de_la_semilla_0_es_el_maximo": bool(valores[0] == valores.max()),
         }
+
+    # Las SEIS metricas por semilla, y no solo el F1 macro (fase 2 del #92).
+    #
+    # El panel de la aplicacion muestra seis columnas -- F1 macro, precision
+    # direccional, exactitud y los tres F1 por clase -- y hasta aqui solo teniamos la
+    # media de UNA de ellas. Publicar medias en las seis exigia medir las seis, asi
+    # que el barrido las registra todas. Sin esto, la fase 2 del #92 no se puede
+    # cerrar aunque se decida cerrarla.
+    #
+    # `por_semilla_completo` guarda la corrida entera de cada semilla, no solo su
+    # resumen: la #92 aparecio porque una cifra publicada no se podia rastrear a
+    # ninguna corrida registrada, y un resumen no permite rastrear nada.
+    resumen["por_semilla_completo"] = completas
+    resumen["metricas_por_modelo"] = {}
+    for modelo in completas[0]:
+        if modelo == "semilla":
+            continue
+        por_metrica = {}
+        for metrica in completas[0][modelo]:
+            valores = np.array([c[modelo][metrica] for c in completas])
+            por_metrica[metrica] = {
+                "media": float(valores.mean()),
+                "minimo": float(valores.min()),
+                "maximo": float(valores.max()),
+                "rango": float(valores.max() - valores.min()),
+                "desviacion": float(valores.std(ddof=1)),
+                "la_de_la_semilla_0_es_el_maximo": bool(valores[0] == valores.max()),
+            }
+        resumen["metricas_por_modelo"][modelo] = por_metrica
     return resumen
 
 
