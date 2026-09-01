@@ -131,20 +131,22 @@ export default function App() {
               {configuracion.provisional && (
                 <Chip tono="ambar">parámetros provisionales, sin congelar</Chip>
               )}
-              {origen === "snapshot" && (
+              {!cargando && origen === "snapshot" && (
                 <Chip tono="ambar">
                   datos congelados{edad ? ` · ${edad}` : ""} · backend no disponible
                 </Chip>
               )}
-              {origen === "backend" && <Chip tono="verde">backend en vivo</Chip>}
-              {origen === "precalculado" && <Chip>ventana fija · precalculado sin backend</Chip>}
+              {!cargando && origen === "backend" && <Chip tono="verde">backend en vivo</Chip>}
+              {!cargando && origen === "precalculado" && (
+                <Chip>ventana fija · precalculado sin backend</Chip>
+              )}
             </div>
           )}
         </div>
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-6">
-        {datos?.modelo === "baseline_trivial" && (
+        {!cargando && datos?.modelo === "baseline_trivial" && (
           <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
             <strong>Este gráfico usa el baseline trivial.</strong> Responde siempre «Continuidad» y
             no detecta ningún giro. Está a propósito: es el piso obligatorio contra el que se compara
@@ -160,7 +162,7 @@ export default function App() {
           </div>
         )}
 
-        {datos?.modelo === "chronos_bolt" && (
+        {!cargando && datos?.modelo === "chronos_bolt" && (
           <div className="mb-4 rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900">
             <strong>Predicciones precalculadas del modelo fundacional (Chronos-Bolt).</strong>{" "}
             Correrlo en vivo tarda del orden de minutos sobre el panel completo (~12,6 ms/vela

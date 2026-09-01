@@ -43,11 +43,27 @@ pruebas corren contra el respaldo estático (`app/public/datos/*.json`), que es
 exactamente lo que un lector externo del sitio desplegado ve.
 
 La única excepción es el filtro de fechas: el respaldo estático no filtra por
-rango a propósito (ver el comentario en `src/api.ts`), así que no hay forma de
-probar "acotar el rango reduce las observaciones" sin backend. `fechas.spec.ts`
-prueba sin backend que la app **declara** la limitación en vez de fingir un
-filtro, y agrega una segunda prueba que se salta con motivo explícito si no
-detecta un backend en `/api/config`, y prueba el filtrado real cuando sí lo hay.
+rango a propósito (ver el comentario en `src/api.ts`), así que `fechas.spec.ts`
+solo prueba, sin backend, que la app **declara** la limitación en vez de fingir
+un filtro.
+
+No hay una segunda prueba que ejercite el filtrado real contra un backend en
+vivo, y no es un descuido — lo intenté y encontré por qué no se puede con esta
+configuración. Un primer intento detectaba si `/api/config` respondía antes de
+decidir si correr esa prueba o saltarla; parecía razonable, pero `vite preview`
+sirve `index.html` con 200 para cualquier ruta que no reconoce (el *fallback*
+de una SPA), así que la comprobación daba **falso positivo** aun sin backend
+escuchando, y la prueba fallaba en vez de saltarse. Corregir eso no alcanzaba:
+`import.meta.env.DEV` queda grabado en `false` dentro del bundle desde que se
+compila (issue #89), así que ningún proxy en `vite preview` hace que la app
+intente `/api` una vez construida para producción. Probar el filtrado real
+exigiría correr esta suite entera sobre `vite dev` en cambio, con otro
+servidor y otra configuración — una suite aparte, no una prueba más en esta.
+
+El comportamiento real ya se verificó a mano, dos veces, contra el backend en
+vivo: al construir el #19, y de nuevo cuando Fabrizio revisó el PR #77 ("355
+velas en el rango 2026-01-01 → 2026-03-01, respetando ambos bordes"). El
+detalle de cómo se descartó la segunda prueba está en `fechas.spec.ts`.
 
 ## El hook de depuración en `Grafico.tsx`
 
