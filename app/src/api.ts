@@ -78,6 +78,13 @@ export interface ModeloComparado {
   f1_maximo: number;
   f1_minimo: number;
   f1_continuidad: number;
+  // Issue #92: clasico y avanzado se entrenan con una semilla aleatoria, y la
+  // corrida publicada resulto ser la mas alta de las cinco medidas en los dos
+  // casos. corrida_individual distingue esas filas de baseline_aleatorio
+  // (semilla fija) y chronos_bolt (zero-shot determinista), que no lo son.
+  corrida_individual: boolean;
+  media_multisemilla?: number;
+  rango_semillas?: number;
 }
 
 export interface Comparacion {
@@ -97,6 +104,18 @@ const BASE = import.meta.env.BASE_URL;
 const API = import.meta.env.VITE_API_BASE?.replace(/\/$/, "") ?? "";
 const TIEMPO_LIMITE_BACKEND = 1500;
 
+// Si conviene intentar el backend antes de caer al respaldo (issue #89).
+//
+// En desarrollo (import.meta.env.DEV) siempre se intenta: el proxy de Vite
+// redirige "/api" a localhost:8000, y ahi es donde vive el backend local aunque
+// VITE_API_BASE no este definida. En un build de produccion sin VITE_API_BASE
+// -- el caso de GitHub Pages hoy -- no va a existir "/api" en ese dominio nunca;
+// intentarlo es pedir algo que se sabe de antemano que no esta, y cada carga
+// deja dos errores rojos en la consola. Si un despliegue futuro sí define
+// VITE_API_BASE (por ejemplo apuntando al Space de Hugging Face), se intenta
+// igual.
+const DEBE_INTENTAR_BACKEND = import.meta.env.DEV || Boolean(API);
+
 async function traer<T>(url: string, limiteMs?: number): Promise<T> {
   const control = limiteMs ? AbortSignal.timeout(limiteMs) : undefined;
   const respuesta = await fetch(url, { signal: control });
@@ -112,11 +131,17 @@ async function traer<T>(url: string, limiteMs?: number): Promise<T> {
  * mostrar datos congelados en un segundo y medio que una pantalla en blanco.
  */
 async function conRespaldo<T>(rutaBackend: string, rutaSnapshot: string): Promise<ConOrigen<T>> {
-  try {
-    return { datos: await traer<T>(`${API}${rutaBackend}`, TIEMPO_LIMITE_BACKEND), origen: "backend" };
-  } catch {
-    return { datos: await traer<T>(`${BASE}datos/${rutaSnapshot}`), origen: "snapshot" };
+  if (DEBE_INTENTAR_BACKEND) {
+    try {
+      return {
+        datos: await traer<T>(`${API}${rutaBackend}`, TIEMPO_LIMITE_BACKEND),
+        origen: "backend",
+      };
+    } catch {
+      // cae al respaldo abajo
+    }
   }
+  return { datos: await traer<T>(`${BASE}datos/${rutaSnapshot}`), origen: "snapshot" };
 }
 
 export const obtenerConfiguracion = () =>
