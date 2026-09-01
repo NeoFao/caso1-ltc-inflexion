@@ -239,3 +239,37 @@ def test_una_dimension_menor_da_una_red_mas_chica():
     )
 
     assert chico.n_parametros < grande.n_parametros
+
+
+def test_el_barrido_mide_las_seis_metricas_que_publica_el_panel():
+    """La fase 2 del #92, fijada para que no se deshaga.
+
+    El barrido guardaba solo el F1 macro y el panel publica seis columnas, asi que
+    publicar medias en las seis era imposible y terminaba mostrando una corrida
+    suelta donde la D18 declara medias de cinco. Si alguien recorta METRICAS, el
+    mismo problema vuelve sin que nada falle.
+    """
+    from src.modelos.sensibilidad_avanzado import METRICAS
+
+    assert set(METRICAS) == {
+        "f1_macro",
+        "precision_direccional",
+        "exactitud",
+        "f1_maximo",
+        "f1_minimo",
+        "f1_continuidad",
+    }
+
+
+def test_las_seis_metricas_existen_en_lo_que_devuelve_el_arnes():
+    """De nada sirve nombrarlas si el arnes no las produce con ese nombre: el
+    barrido fallaria a mitad de camino, despues de entrenar cinco redes."""
+    from contracts.metrics import evaluar
+    from src.modelos.sensibilidad_avanzado import METRICAS
+
+    reales = [int(Clase.CONTINUIDAD)] * 8 + [int(Clase.MAXIMO), int(Clase.MINIMO)]
+    predichas = [int(Clase.CONTINUIDAD)] * 9 + [int(Clase.MINIMO)]
+
+    resultado = evaluar(reales, predichas)
+    faltantes = [m for m in METRICAS if m not in resultado]
+    assert not faltantes, f"el arnes no devuelve {faltantes}"

@@ -527,6 +527,12 @@ def main() -> None:
                 "h": h,
                 "horizonte_pronosticado": latencia_real(w, h),
                 "conjunto": argumentos.conjunto,
+                # Faltaba, y se noto en el #92: la cifra del avanzado que publicaba
+                # el panel no se podia atribuir a ninguna corrida registrada porque
+                # este bloque no decia con que semilla se habia medido. El modelo
+                # avanzado se entrena, asi que sin la semilla la cifra no se puede
+                # ubicar aunque el numero sea correcto.
+                "semilla": argumentos.semilla,
             },
             "modelos": modelos_medidos,
             "metricas": {r["modelo"]: r for r in resultados},
