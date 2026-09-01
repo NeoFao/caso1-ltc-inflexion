@@ -124,3 +124,43 @@ def test_ningun_modulo_de_m2_inventa_un_nombre_de_modelo():
             f"{modulo} usa nombres de modelo que M3 no usa: {sorted(desconocidos)}. "
             "Un mismo modelo con dos nombres hace incomparables los JSON entre si."
         )
+
+
+def test_el_barrido_registra_las_seis_metricas_que_muestra_el_panel():
+    """La fase 2 del #92 no se puede cerrar si el barrido mide menos de lo que se publica.
+
+    El panel de la aplicacion muestra seis columnas y hasta el 01/09 el barrido de
+    semillas guardaba solo el F1 macro. Publicar medias en las seis exigia medir las
+    seis, asi que esto vigila que el conjunto no se encoja: si alguien quita una
+    metrica del barrido, la media de esa columna deja de existir en silencio y el
+    panel vuelve a publicar una corrida suelta sin que nada avise.
+
+    Se compara contra el panel y no contra una lista escrita aqui, por la misma razon
+    que `test_los_nombres_son_los_mismos_que_los_de_m3`: una lista propia se
+    desincroniza sola.
+    """
+    import json
+    from pathlib import Path
+
+    panel = Path("app/public/datos/comparacion-modelos.json")
+    evidencia = Path("docs/evidencias/m2-incertidumbre-vigente-4h-w7-h1.json")
+    if not (panel.exists() and evidencia.exists()):
+        pytest.skip("falta el panel de la aplicacion o la evidencia del barrido")
+
+    fila = json.loads(panel.read_text(encoding="utf-8"))["modelos"][0]
+    descriptivas = {"clave", "etiqueta", "papel", "corrida_individual", "rango_entre_semillas"}
+    del_panel = {
+        k
+        for k, v in fila.items()
+        if k not in descriptivas and isinstance(v, (int, float))
+    }
+
+    medidas = json.loads(evidencia.read_text(encoding="utf-8"))
+    por_modelo = medidas["sensibilidad_a_la_semilla"]["metricas_por_modelo"]
+    for modelo, metricas in por_modelo.items():
+        faltan = del_panel - set(metricas)
+        assert not faltan, (
+            f"el barrido de semillas no mide {sorted(faltan)} para {modelo}, y el panel "
+            "las publica. Sin la media de esas columnas, la fase 2 del #92 no se puede "
+            "cerrar: el panel seguiria mostrando una corrida suelta en ellas."
+        )
