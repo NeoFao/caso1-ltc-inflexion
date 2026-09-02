@@ -17,6 +17,11 @@ dos filas del CSV con el mismo nombre tienen que significar lo mismo.
 Salidas:
     docs/evidencias/resultados.csv                          una fila por modelo, se anade
     docs/evidencias/modelo-clasico-<intervalo>-w<w>-h<h>-rezagos-<forma>.json
+    docs/evidencias/m3-modelos-profundos-<intervalo>-w<w>-h<h>.json   con --con-*
+
+Los dos JSON llevan el conjunto en el nombre cuando NO es validacion, para que una
+corrida sobre el bloque de prueba no escriba encima de la evidencia de validacion
+que citan los entregables. Ver `ruta_evidencia`.
 
 Uso:
     uv run python -m src.modelos.experimento
@@ -184,6 +189,31 @@ def _limpiar_json(datos):
     if isinstance(datos, list):
         return [_limpiar_json(valor) for valor in datos]
     return _finito(datos)
+
+
+def ruta_evidencia(nombre: str, conjunto: str) -> Path:
+    """La ruta del JSON de evidencia, con el conjunto en el nombre si no es validacion.
+
+    El nombre ya llevaba intervalo, w, h y la forma de los rezagos, por la razon que
+    explica el comentario de mas abajo: dos configuraciones distintas que compartan
+    nombre se sobrescriben y el informe termina citando una corrida que ya no es la
+    vigente. **El conjunto se habia quedado afuera de esa lista**, y es la unica de
+    las cinco que no se puede volver a medir.
+
+    Sin esto, la corrida del sabado sobre `prueba` escribia encima de
+    `modelo-clasico-4h-w7-h1-rezagos-relativos.json` y de
+    `m3-modelos-profundos-4h-w7-h1.json`, que son evidencia de VALIDACION y que citan
+    `docs/06`, `docs/07` y dos documentos de la Semana 2 ya entregada. El archivo
+    conserva el nombre y la forma, y le cambian todos los numeros: la entrega
+    quedaria citando cifras del bloque de prueba como si fueran de validacion, sin
+    que nada falle. Y pasa DESPUES de gastar la reserva, asi que no se deshace
+    volviendo a correr.
+
+    Validacion no lleva marca a proposito: esos nombres son los que ya estan citados,
+    y renombrarlos romperia las citas que la D13 protege.
+    """
+    marca = "" if conjunto == "validacion" else f"-{conjunto}"
+    return EVIDENCIAS / f"{nombre}{marca}.json"
 
 
 def armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h) -> list:
@@ -502,8 +532,9 @@ def main() -> None:
     # distintas se sobrescriben y el informe termina citando numeros de una corrida
     # que ya no es la vigente.
     marca_rezagos = sufijo.replace("_", "-")
-    ruta_json = (
-        EVIDENCIAS / f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}{marca_rezagos}.json"
+    ruta_json = ruta_evidencia(
+        f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}{marca_rezagos}",
+        argumentos.conjunto,
     )
     guardar_json(_limpiar_json(medido), ruta_json)
 
@@ -586,8 +617,9 @@ def main() -> None:
                 "simple, que es el fundacional porque no se entrena."
             )
             evidencia_fundacional["veredicto_fundacional_vs_avanzado"] = veredicto
-        ruta_fundacional = (
-            EVIDENCIAS / f"m3-modelos-profundos-{argumentos.intervalo}-w{w}-h{h}.json"
+        ruta_fundacional = ruta_evidencia(
+            f"m3-modelos-profundos-{argumentos.intervalo}-w{w}-h{h}",
+            argumentos.conjunto,
         )
         guardar_json(_limpiar_json(evidencia_fundacional), ruta_fundacional)
 
