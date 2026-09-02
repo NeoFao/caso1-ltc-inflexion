@@ -677,3 +677,59 @@ como en el [#74](https://github.com/NeoFao/caso1-ltc-inflexion/pull/74).
 **Origen:** M2 fue a hacer el renombrado que debía, encontró que el término estaba repartido y con
 definiciones opuestas, y **no eligió el reemplazo por su cuenta** — pidió que lo decidiera quien
 había fijado el vocabulario. Es la regla 3 aplicada a algo que no es un número.
+
+## D20 · No hay relación inversa entre los seis activos, y eso explica el resultado de S4-M2-01
+
+**Estado:** vigente desde el 01/09/2026 · responde una observación del profesor en clase
+
+El profesor señaló que al usar variables exógenas lo que hay que buscar es que sean
+**proporcionales o inversamente proporcionales** a la objetivo. Una que se mueve igual aporta
+poco; una que se mueve al revés aporta información que la objetivo no tiene.
+
+**Medido: entre los seis activos no hay ninguna relación inversa.** Los quince pares van de
+**+0,5175 a +0,8300**, y con LTC en particular de +0,5831 (SOL) a +0,7528 (ETH).
+
+### Esto explica un resultado que teníamos medido y no entendido
+
+S4-M2-01 encontró que los cinco activos de apoyo **no aportan de forma distinguible**: +0,00078,
+con el signo cambiando entre semillas. Hasta ahora eso era un hecho sin mecanismo.
+
+**El mecanismo es la proporcionalidad.** Los cinco se mueven fuertemente con LTC, así que casi
+todo lo que traen ya está en LTC. No es que sean malas variables: es que son **redundantes** con
+la objetivo, y la redundancia no informa.
+
+### Se intentó construir una decorrelacionada con los mismos datos
+
+Antes de concluir que hace falta traer un activo de fuera, se probó construirla. Criterio fijado
+antes de mirar: se considera decorrelacionada si `|correlación| < 0,3`.
+
+| Variable construida | Correlación con LTC | ¿Decorrelaciona? |
+|---|---|---|
+| Fuerza relativa LTC/BTC | +0,7530 | no |
+| Fuerza relativa LTC/ETH | +0,5148 | no |
+| **Fuerza relativa LTC/SOL** | **+0,1903** | **sí** |
+| Fuerza relativa LTC/XRP | +0,3269 | no |
+| **Fuerza relativa LTC/ADA** | **+0,2763** | **sí** |
+| Exceso sobre la media del resto | +0,5074 | no |
+
+**Dos sí.** Los cocientes contra los activos menos correlacionados traen información que los
+retornos de LTC no tienen.
+
+### Y aun así no se incorporan, porque se midió si servían
+
+**Decorrelacionar no es informar.** Una variable puede traer información distinta y que esa
+información no sirva para esta etiqueta, así que se probó sobre el modelo con cinco semillas:
+
+**Diferencia media: −0,004065, y el signo cambia entre semillas.** Por las tres condiciones de la
+[D16](#d16) no se puede afirmar que aporte, y la media apunta a que empeora.
+
+**No se incorporan.** Se deja medido y escrito, que es distinto de no haberlo pensado.
+
+### Lo que esta decisión NO dice
+
+Que no exista una variable inversamente proporcional útil. Dice que **no la hay entre los seis que
+fija el enunciado**, y que no se puede construir con ellos. Una candidata real —índice del dólar,
+oro, volatilidad implícita— saldría de fuera de la lista, y eso es una pregunta para el profesor
+antes que una decisión nuestra.
+
+**Evidencia:** `docs/evidencias/relacion-exogenas.json` · **Reproducible:** `uv run python -m scripts.relacion_exogenas`

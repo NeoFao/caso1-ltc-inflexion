@@ -1,0 +1,152 @@
+{
+  "ejecutado_utc": "2026-09-02T00:53:30+00:00",
+  "pregunta": "Hay entre los seis activos alguna relacion inversamente proporcional, o se puede construir una variable decorrelacionada con los mismos datos?",
+  "criterio_preregistrado": "Se considera decorrelacionada una variable con |correlacion| < 0.3. Es una convencion del equipo, fijada antes de mirar.",
+  "parametros": {
+    "intervalo": "4h",
+    "objetivo": "LTC"
+  },
+  "correlacion_del_objetivo_con_cada_apoyo": {
+    "BTC": 0.729199346710812,
+    "ETH": 0.7527936893283712,
+    "SOL": 0.5830961364100435,
+    "XRP": 0.6332198345218588,
+    "ADA": 0.6977501971792472
+  },
+  "todos_los_pares": [
+    {
+      "par": "LTC-BTC",
+      "correlacion": 0.729199346710812
+    },
+    {
+      "par": "LTC-ETH",
+      "correlacion": 0.7527936893283712
+    },
+    {
+      "par": "LTC-SOL",
+      "correlacion": 0.5830961364100435
+    },
+    {
+      "par": "LTC-XRP",
+      "correlacion": 0.6332198345218588
+    },
+    {
+      "par": "LTC-ADA",
+      "correlacion": 0.6977501971792472
+    },
+    {
+      "par": "BTC-ETH",
+      "correlacion": 0.8299628663779989
+    },
+    {
+      "par": "BTC-SOL",
+      "correlacion": 0.6283788083885716
+    },
+    {
+      "par": "BTC-XRP",
+      "correlacion": 0.5968543701276255
+    },
+    {
+      "par": "BTC-ADA",
+      "correlacion": 0.6858259131481061
+    },
+    {
+      "par": "ETH-SOL",
+      "correlacion": 0.6717677503375421
+    },
+    {
+      "par": "ETH-XRP",
+      "correlacion": 0.6264724532102902
+    },
+    {
+      "par": "ETH-ADA",
+      "correlacion": 0.7331996454208569
+    },
+    {
+      "par": "SOL-XRP",
+      "correlacion": 0.5174885542430703
+    },
+    {
+      "par": "SOL-ADA",
+      "correlacion": 0.6252180686114532
+    },
+    {
+      "par": "XRP-ADA",
+      "correlacion": 0.6522422832783428
+    }
+  ],
+  "rango_entre_pares": {
+    "minimo": 0.5174885542430703,
+    "maximo": 0.8299628663779989
+  },
+  "pares_inversamente_proporcionales": [],
+  "hay_alguna_relacion_inversa": false,
+  "variables_construidas": [
+    {
+      "variable": "fuerza_relativa_LTC_BTC",
+      "correlacion_con_el_objetivo": 0.75302,
+      "decorrelaciona": false
+    },
+    {
+      "variable": "fuerza_relativa_LTC_ETH",
+      "correlacion_con_el_objetivo": 0.514836,
+      "decorrelaciona": false
+    },
+    {
+      "variable": "fuerza_relativa_LTC_SOL",
+      "correlacion_con_el_objetivo": 0.190309,
+      "decorrelaciona": true
+    },
+    {
+      "variable": "fuerza_relativa_LTC_XRP",
+      "correlacion_con_el_objetivo": 0.326919,
+      "decorrelaciona": false
+    },
+    {
+      "variable": "fuerza_relativa_LTC_ADA",
+      "correlacion_con_el_objetivo": 0.276278,
+      "decorrelaciona": true
+    },
+    {
+      "variable": "exceso_sobre_la_media_del_resto",
+      "correlacion_con_el_objetivo": 0.507436,
+      "decorrelaciona": false
+    }
+  ],
+  "alguna_construida_decorrelaciona": true,
+  "_meta": {
+    "para_que_sirve": "Explica el resultado de S4-M2-01. Los cinco activos de apoyo no aportan de forma distinguible porque son fuertemente proporcionales a LTC: no traen informacion que LTC no tenga ya. Una variable inversamente proporcional si la traeria, y entre los seis del enunciado no existe."
+  },
+  "prueba_sobre_el_modelo": {
+    "se_probaron": [
+      "fuerza_relativa_LTC_SOL",
+      "fuerza_relativa_LTC_ADA"
+    ],
+    "columnas_anadidas": [
+      "fuerza_rel_LTC_SOL_rezago_1",
+      "fuerza_rel_LTC_SOL_rezago_5",
+      "fuerza_rel_LTC_SOL_rezago_7",
+      "fuerza_rel_LTC_ADA_rezago_1",
+      "fuerza_rel_LTC_ADA_rezago_5",
+      "fuerza_rel_LTC_ADA_rezago_7"
+    ],
+    "f1_sin_por_semilla": [
+      0.390498,
+      0.373867,
+      0.38142,
+      0.385415,
+      0.373675
+    ],
+    "f1_con_por_semilla": [
+      0.379153,
+      0.376518,
+      0.388717,
+      0.382472,
+      0.357689
+    ],
+    "diferencia_media": -0.004065,
+    "cambia_de_signo": true,
+    "se_puede_afirmar_que_aporta": false,
+    "lectura": "Con las tres condiciones de la D16: si la media es negativa o el signo cambia entre semillas, no se puede afirmar que aporte. Decorrelacionar no es lo mismo que informar."
+  }
+}
