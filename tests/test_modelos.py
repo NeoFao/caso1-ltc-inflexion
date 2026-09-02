@@ -437,3 +437,44 @@ def test_sin_la_bandera_las_variantes_siguen_estando():
         "resultados.csv se anade sin sobrescribir, y sobre `prueba` el primer modelo "
         "de la lista es el que deja la constancia en el pestillo de la reserva."
     )
+
+
+def test_la_evidencia_de_prueba_no_pisa_la_de_validacion():
+    """La corrida del sabado no puede escribir encima de la evidencia entregada.
+
+    El nombre del JSON llevaba intervalo, w, h y la forma de los rezagos --por la
+    razon que el propio codigo explica: dos configuraciones con el mismo nombre se
+    sobrescriben-- y el CONJUNTO se habia quedado afuera de esa lista. Es la unica
+    de las cinco que no se puede volver a medir: pasa despues de gastar la reserva.
+    """
+    from src.modelos.experimento import ruta_evidencia
+
+    base = "modelo-clasico-4h-w7-h1-rezagos-relativos"
+    validacion = ruta_evidencia(base, "validacion")
+    prueba = ruta_evidencia(base, "prueba")
+
+    assert validacion != prueba, (
+        "la corrida sobre prueba escribiria encima de la evidencia de validacion. "
+        "El archivo conserva nombre y forma y le cambian todos los numeros, asi que "
+        "la entrega quedaria citando cifras del bloque de prueba sin que nada falle."
+    )
+
+
+def test_validacion_conserva_el_nombre_que_citan_los_entregables():
+    """La otra mitad: arreglar lo de arriba no puede renombrar lo ya citado.
+
+    Estos dos archivos los citan `docs/06`, `docs/07` y dos documentos de la Semana 2
+    ya entregada. Anadirles una marca romperia esas citas -- que es exactamente el
+    error que la D13 existe para impedir, y uno que ya cometi una vez renombrando
+    una evidencia sin buscar quien la citaba.
+    """
+    from src.modelos.experimento import ruta_evidencia
+
+    assert (
+        ruta_evidencia("modelo-clasico-4h-w7-h1-rezagos-relativos", "validacion").name
+        == "modelo-clasico-4h-w7-h1-rezagos-relativos.json"
+    )
+    assert (
+        ruta_evidencia("m3-modelos-profundos-4h-w7-h1", "validacion").name
+        == "m3-modelos-profundos-4h-w7-h1.json"
+    )
