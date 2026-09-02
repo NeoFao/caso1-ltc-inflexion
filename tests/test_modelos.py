@@ -368,3 +368,72 @@ def test_empatar_con_el_azar_no_cuenta_como_deteccion():
     bosque = {"f1_maximo": 0.05, "f1_minimo": 0.05}
     aleatorio = {"f1_maximo": 0.05, "f1_minimo": 0.05}
     assert detecta_mejor_que_azar(bosque, aleatorio) is False
+
+
+# ------------------------------------------- que --sin-variantes haga lo que dice
+
+
+def _argumentos(**cambios):
+    """Las banderas de experimento.py, con los defectos por omision."""
+    from argparse import Namespace
+
+    base = dict(
+        semilla=0,
+        n_arboles=300,
+        sin_variantes=False,
+        con_fundacional=False,
+        con_avanzado=False,
+    )
+    base.update(cambios)
+    return Namespace(**base)
+
+
+def test_sin_variantes_deja_una_configuracion_por_familia():
+    """La seccion 3 del protocolo dice que sobre la reserva no se evaluan variantes.
+
+    Se comprueba con el avanzado incluido a proposito: la bandera se respetaba en el
+    bosque y NO en el avanzado, asi que una prueba que solo mirara el bosque habria
+    pasado mientras el defecto seguia ahi. `--con-avanzado` anadia
+    `itransformer_solo_ltc` igual, y la corrida del sabado habria medido sobre el
+    bloque de prueba una variante que el protocolo excluye -- gastandolo.
+    """
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(sin_variantes=True, con_avanzado=True)
+    nombres = [
+        m.nombre for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1)
+    ]
+
+    prohibidas = [n for n in nombres if "solo_ltc" in n or "sin_pesos" in n or "sin_rezagos" in n]
+    assert not prohibidas, (
+        f"--sin-variantes dejo pasar {prohibidas}. Sobre el bloque de prueba eso es "
+        "medir una variante que el protocolo excluye, y la reserva se gasta igual."
+    )
+
+
+def test_sin_la_bandera_las_variantes_siguen_estando():
+    """El arreglo de arriba no puede llevarse por delante las variantes de validacion:
+    son las que respondieron el #62 y las que el informe tiene que explicar."""
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    nombres = [
+        m.nombre for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1)
+    ]
+
+    assert nombres == [
+        "baseline_trivial",
+        "baseline_mayoritario",
+        "baseline_aleatorio",
+        "bosque_aleatorio_r",
+        "bosque_aleatorio_sin_rezagos",
+        "bosque_aleatorio_sin_pesos_r",
+        "itransformer",
+        "itransformer_solo_ltc",
+    ], (
+        "cambio la composicion o el ORDEN de la corrida. El orden importa dos veces: "
+        "resultados.csv se anade sin sobrescribir, y sobre `prueba` el primer modelo "
+        "de la lista es el que deja la constancia en el pestillo de la reserva."
+    )
