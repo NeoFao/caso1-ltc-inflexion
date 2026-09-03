@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Grafico from "./Grafico";
+import Grafico, { MAXIMO, MINIMO } from "./Grafico";
 import {
   type Comparacion,
   type Configuracion,
@@ -15,6 +15,19 @@ import {
 } from "./api";
 
 type Modelo = "baseline" | "fundacional";
+
+/**
+ * Cuantas horas dura una vela, a partir de la granularidad del contrato
+ * ("4h", "1d"...). Issue #99: los chips dicen "8 velas" y nadie de fuera sabe
+ * cuanto es eso; convertirlo a horas es una conversion de unidades sobre un
+ * numero que ya viene del backend, no una cifra nueva.
+ */
+function horasPorVela(granularidad: string): number {
+  const m = /^(\d+)([hd])$/.exec(granularidad);
+  if (!m) return NaN;
+  const [, cantidad, unidad] = m;
+  return Number(cantidad) * (unidad === "d" ? 24 : 1);
+}
 
 type Modo = "sintetico" | "historico" | "tiempo-real";
 
@@ -107,6 +120,9 @@ export default function App() {
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
   const edad = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
+  const horasAnticipacion = configuracion
+    ? configuracion.latencia_real * horasPorVela(configuracion.granularidad)
+    : null;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -118,16 +134,23 @@ export default function App() {
           <h1 className="mt-1 text-2xl font-bold text-[#1b2a4a]">
             Puntos de inflexión en el precio de Litecoin
           </h1>
+          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+            Avisa cuándo el precio está por dar la vuelta —de subir a bajar, o al revés—
+            {horasAnticipacion ? ` con ${horasAnticipacion} horas de anticipación.` : "."}
+          </p>
           <p className="mt-1 text-sm text-slate-500">
             Alejandro Zamora · Jose Pablo Monestel · Isaac Morun · Fabrizio Espinoza Arce
           </p>
           {configuracion && (
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-              <Chip>
+              <Chip title="w: cuántas velas antes y después se miran para confirmar un giro. h: con cuánta anticipación se anuncia, antes de que el giro termine de confirmarse.">
                 ventana w={configuracion.w} · horizonte h={configuracion.h} ·{" "}
                 {configuracion.granularidad}
               </Chip>
-              <Chip>anticipación efectiva {configuracion.latencia_real} velas</Chip>
+              <Chip>
+                anticipación efectiva {horasAnticipacion ?? "?"} horas ({configuracion.latencia_real}{" "}
+                velas de {configuracion.granularidad})
+              </Chip>
               {configuracion.provisional && (
                 <Chip tono="ambar">parámetros provisionales, sin congelar</Chip>
               )}
@@ -224,7 +247,7 @@ export default function App() {
           )}
 
           {modo === "historico" && modeloElegido === "baseline" && (
-            <div className="flex items-center gap-2 text-sm text-slate-600">
+            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
               <label className="flex items-center gap-1">
                 desde
                 <input
@@ -306,12 +329,14 @@ export default function App() {
           ) : null}
         </section>
 
+        {datos && modo !== "tiempo-real" && <Leyenda />}
+
         {datos && (
           <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" data-testid="metricas">
             <Metrica
               titulo="F1 macro"
               valor={datos.metricas.f1_macro}
-              nota="Promedio de las tres clases, con igual peso"
+              nota="El número principal: pesa igual las tres clases, así que si el modelo ignora los giros (la clase rara), esto baja"
               testId="f1-macro"
             />
             <Metrica
@@ -323,7 +348,7 @@ export default function App() {
             <Metrica
               titulo="Exactitud"
               valor={datos.metricas.exactitud}
-              nota="Engañosa con clases desbalanceadas"
+              nota="No es el número principal: como la Continuidad domina los datos, hasta un modelo que nunca avisa un giro saca exactitud alta"
               testId="exactitud"
             />
             <Metrica
@@ -442,14 +467,66 @@ export default function App() {
   );
 }
 
-function Chip({ children, tono }: { children: React.ReactNode; tono?: "ambar" | "verde" }) {
+function Chip({
+  children,
+  tono,
+  title,
+}: {
+  children: React.ReactNode;
+  tono?: "ambar" | "verde";
+  title?: string;
+}) {
   const estilos =
     tono === "ambar"
       ? "bg-amber-100 text-amber-800"
       : tono === "verde"
         ? "bg-emerald-100 text-emerald-800"
         : "bg-slate-100 text-slate-600";
-  return <span className={`rounded px-2 py-1 font-medium ${estilos}`}>{children}</span>;
+  return (
+    <span className={`rounded px-2 py-1 font-medium ${estilos}`} title={title}>
+      {children}
+    </span>
+  );
+}
+
+/**
+ * Issue #99, puntos 3 y 4: el grafico dibuja marcadores en un <canvas>, sin
+ * texto que los explique, y las tres clases del proyecto no se definen en
+ * ningun lado de la pagina. Usa los mismos colores que Grafico.tsx (importados
+ * de ahi, no copiados) para que nunca puedan desincronizarse.
+ */
+function Leyenda() {
+  return (
+    <div
+      className="mt-3 flex flex-wrap gap-x-5 gap-y-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-xs text-slate-600"
+      data-testid="leyenda"
+    >
+      <span className="flex items-center gap-1.5">
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: MAXIMO }}
+        />
+        <strong className="font-medium text-slate-700">Máximo</strong> — el precio deja de subir y
+        empieza a bajar
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: MINIMO }}
+        />
+        <strong className="font-medium text-slate-700">Mínimo</strong> — el precio deja de bajar y
+        empieza a subir
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="inline-block h-2.5 w-2.5 rounded-full border-2 border-slate-300" />
+        <strong className="font-medium text-slate-700">Continuidad</strong> — sigue como estaba, sin
+        giro (sin marcador en el gráfico)
+      </span>
+      <span className="flex items-center gap-1.5 text-slate-400">
+        <span>●</span> relleno = ocurrió de verdad · <span>➜</span> flecha = lo que anunció el modelo
+      </span>
+    </div>
+  );
 }
 
 /** Barra horizontal proporcional al F1 macro, para comparar modelos de un vistazo. */
