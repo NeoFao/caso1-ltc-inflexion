@@ -1,5 +1,5 @@
 {
-  "ejecutado_utc": "2026-09-01T15:54:07+00:00",
+  "ejecutado_utc": "2026-09-03T18:22:52+00:00",
   "parametros": {
     "intervalo": "4h",
     "w": 7,
@@ -38,12 +38,20 @@
     "advertencia": "Un resultado alto aqui NO es evidencia de que el modelo sirva: es lo esperable de un modelo que vio estas etiquetas. Lo informativo seria un resultado bajo, que indicaria que el problema esta antes del ajuste."
   },
   "4_tiempo_real": {
-    "estado": "BLOQUEADA",
-    "por_que": "La etiqueta de un instante no se conoce hasta w velas despues, asi que 'tiempo real' admite dos lecturas -- confirmacion tardia pero verificable, o anuncio en el momento -- y son dos productos distintos. Esta en la consulta 3 al profesor, sin responder.",
-    "que_falta": "La respuesta del profesor. No se inventa una definicion."
+    "que_prueba": "Que el circuito se comporta igual recibiendo las velas de a una que procesando el bloque entero, y cuantas predicciones quedan sin confirmar.",
+    "criterio_preregistrado": "Las predicciones vela a vela tienen que ser IDENTICAS a las del bloque. Cualquier discrepancia significa que algo usa informacion de filas posteriores, que es fuga que las otras dos pruebas no ven.",
+    "definicion_de_tiempo_real": "D21: la vista anuncia en el momento y confirma cuando llega la etiqueta, 8 velas despues.",
+    "n_velas_simuladas": 500,
+    "predicciones_identicas": true,
+    "discrepancias": 0,
+    "latencia_de_confirmacion_velas": 8,
+    "latencia_de_confirmacion_horas": 32,
+    "sin_confirmar_al_final_del_panel": 8,
+    "por_que_esa_cola": "En produccion el sistema esta parado al final de la serie, y las ultimas 8 velas todavia no tienen etiqueta real: su confirmacion llega 32 horas despues. La D21 obliga a mostrarlas igual, marcadas como pendientes, porque ocultarlas haria parecer el sistema mejor de lo que es.",
+    "supera": true
   },
   "veredicto": {
-    "las_tres_ejecutables_superan": true,
+    "las_cuatro_superan": true,
     "nota": "Superar estas pruebas no dice que el modelo sirva sobre datos reales. Dice que si no sirviera, no seria porque el canal esta roto."
   }
 }
