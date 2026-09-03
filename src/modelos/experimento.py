@@ -17,6 +17,11 @@ dos filas del CSV con el mismo nombre tienen que significar lo mismo.
 Salidas:
     docs/evidencias/resultados.csv                          una fila por modelo, se anade
     docs/evidencias/modelo-clasico-<intervalo>-w<w>-h<h>-rezagos-<forma>.json
+    docs/evidencias/m3-modelos-profundos-<intervalo>-w<w>-h<h>.json   con --con-*
+
+Los dos JSON llevan el conjunto en el nombre cuando NO es validacion, para que una
+corrida sobre el bloque de prueba no escriba encima de la evidencia de validacion
+que citan los entregables. Ver `ruta_evidencia`.
 
 Uso:
     uv run python -m src.modelos.experimento
@@ -186,6 +191,124 @@ def _limpiar_json(datos):
     return _finito(datos)
 
 
+def ruta_evidencia(nombre: str, conjunto: str) -> Path:
+    """La ruta del JSON de evidencia, con el conjunto en el nombre si no es validacion.
+
+    El nombre ya llevaba intervalo, w, h y la forma de los rezagos, por la razon que
+    explica el comentario de mas abajo: dos configuraciones distintas que compartan
+    nombre se sobrescriben y el informe termina citando una corrida que ya no es la
+    vigente. **El conjunto se habia quedado afuera de esa lista**, y es la unica de
+    las cinco que no se puede volver a medir.
+
+    Sin esto, la corrida del sabado sobre `prueba` escribia encima de
+    `modelo-clasico-4h-w7-h1-rezagos-relativos.json` y de
+    `m3-modelos-profundos-4h-w7-h1.json`, que son evidencia de VALIDACION y que citan
+    `docs/06`, `docs/07` y dos documentos de la Semana 2 ya entregada. El archivo
+    conserva el nombre y la forma, y le cambian todos los numeros: la entrega
+    quedaria citando cifras del bloque de prueba como si fueran de validacion, sin
+    que nada falle. Y pasa DESPUES de gastar la reserva, asi que no se deshace
+    volviendo a correr.
+
+    Validacion no lleva marca a proposito: esos nombres son los que ya estan citados,
+    y renombrarlos romperia las citas que la D13 protege.
+    """
+    marca = "" if conjunto == "validacion" else f"-{conjunto}"
+    return EVIDENCIAS / f"{nombre}{marca}.json"
+
+
+def armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h) -> list:
+    """Los modelos que se van a evaluar, segun las banderas.
+
+    Existe como funcion y no dentro de `main()` porque `--sin-variantes` es una
+    bandera del PROTOCOLO del bloque de prueba --su seccion 3 dice "no se evaluan
+    variantes"-- y hasta ahora nada podia comprobar que hiciera lo que promete.
+    Armado adentro de main, para verificarlo habia que correr el experimento
+    entero; con la reserva de por medio eso no se puede ensayar. La bandera se
+    cumplia por lectura, que es como se cuelan los defectos que venimos catalogando.
+
+    Y no la cumplia: `--con-avanzado` anadia `itransformer_solo_ltc` incluso con
+    `--sin-variantes` puesto, asi que la corrida del sabado habria medido sobre la
+    reserva una variante que el protocolo excluye. La bandera del bosque si la
+    respetaba, o sea que las dos mitades del mismo interruptor no hacian lo mismo.
+    """
+    modelos = [
+        BaselineTrivial(),
+        BaselineMayoritario(),
+        BaselineAleatorio(semilla=argumentos.semilla),
+        BosqueAleatorio(
+            n_arboles=argumentos.n_arboles,
+            semilla=argumentos.semilla,
+            nombre=f"bosque_aleatorio{sufijo}",
+        ),
+    ]
+
+    if not argumentos.sin_variantes:
+        # Las variantes se distinguen por su nombre y NO por una columna extra:
+        # agregar claves al dict de resultado desalinearia el CSV (ver
+        # _verificar_encabezado). Las dos existen para dejar medido, y no argumentado,
+        # lo que el informe va a tener que explicar.
+        #
+        # `sin_rezagos` reemplaza al antiguo `sin_niveles`. El nombre viejo describia
+        # bien lo que media solo mientras TODOS los rezagos estuvieran en nivel:
+        # excluia el fragmento "_rezago_", que entonces eran los 24 niveles y nada
+        # mas. Con los rezagos relativos ese mismo filtro se lleva tambien los
+        # relativos, asi que la variante seguiria midiendo "sin ningun rezago" bajo
+        # un nombre que dice "sin niveles". Se renombra a lo que de verdad hace, que
+        # ademas es una pregunta que sigue teniendo sentido en las dos formas: si el
+        # bosque necesita los rezagos.
+        if columnas_rezago:
+            modelos.append(
+                BosqueAleatorio(
+                    n_arboles=argumentos.n_arboles,
+                    semilla=argumentos.semilla,
+                    excluir_exactas=tuple(columnas_rezago),
+                    nombre="bosque_aleatorio_sin_rezagos",
+                )
+            )
+        modelos.append(
+            BosqueAleatorio(
+                n_arboles=argumentos.n_arboles,
+                semilla=argumentos.semilla,
+                peso_clases=None,
+                nombre=f"bosque_aleatorio_sin_pesos{sufijo}",
+            )
+        )
+
+    if argumentos.con_fundacional:
+        # El import va aqui y no arriba: chronos vive en el grupo `modelos`, que CI
+        # no instala, y este guion tiene que seguir corriendo sin el. Entra en la
+        # MISMA corrida que los baselines y el bosque a proposito: el criterio de
+        # aceptacion de S3-M3-01 pide comparar contra ellos, y comparar exige la
+        # misma particion y el mismo arnes, no dos corridas parecidas.
+        from src.modelos.fundacional import ChronosBolt
+
+        modelos.append(ChronosBolt(cierre(panel, ACTIVO_OBJETIVO), w=w, h=h))
+
+    if argumentos.con_avanzado:
+        # Mismo import perezoso y misma razon.
+        from src.modelos.avanzado import ITransformerAvanzado, cierres_del_panel
+
+        cierres_seis = cierres_del_panel(panel)
+        modelos.append(ITransformerAvanzado(cierres_seis, w=w, h=h, semilla=argumentos.semilla))
+        if not argumentos.sin_variantes:
+            # `solo_LTC` existe porque el #62 midio que no se puede afirmar que los
+            # activos de apoyo aporten: medir las dos formas es mas barato que
+            # suponer cual gana. Pero es una VARIANTE, y sobre la reserva el
+            # protocolo pide una configuracion por familia.
+            modelos.append(
+                ITransformerAvanzado(
+                    cierres_seis,
+                    w=w,
+                    h=h,
+                    semilla=argumentos.semilla,
+                    solo_objetivo=True,
+                    nombre="itransformer_solo_ltc",
+                )
+            )
+
+    return modelos
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--intervalo", default="4h", help="4h o 1d")
@@ -201,7 +324,14 @@ def main() -> None:
         action="store_true",
         help="requerido para evaluar sobre prueba; el bloque se gasta una sola vez",
     )
-    parser.add_argument("--sin-variantes", action="store_true", help="solo los cuatro modelos")
+    parser.add_argument(
+        "--sin-variantes",
+        action="store_true",
+        help=(
+            "una sola configuracion por familia: quita sin_rezagos, sin_pesos y "
+            "solo_LTC. Es lo que pide la seccion 3 del protocolo del bloque de prueba."
+        ),
+    )
     parser.add_argument(
         "--rezagos-en-nivel",
         action="store_true",
@@ -315,76 +445,7 @@ def main() -> None:
 
     # ------------------------------------------------------------------ [5/6]
     nombre_principal = f"bosque_aleatorio{sufijo}"
-    modelos = [
-        BaselineTrivial(),
-        BaselineMayoritario(),
-        BaselineAleatorio(semilla=argumentos.semilla),
-        BosqueAleatorio(
-            n_arboles=argumentos.n_arboles,
-            semilla=argumentos.semilla,
-            nombre=nombre_principal,
-        ),
-    ]
-    if not argumentos.sin_variantes:
-        # Las variantes se distinguen por su nombre y NO por una columna extra:
-        # agregar claves al dict de resultado desalinearia el CSV (ver
-        # _verificar_encabezado). Las dos existen para dejar medido, y no argumentado,
-        # lo que el informe va a tener que explicar.
-        #
-        # `sin_rezagos` reemplaza al antiguo `sin_niveles`. El nombre viejo describia
-        # bien lo que media solo mientras TODOS los rezagos estuvieran en nivel:
-        # excluia el fragmento "_rezago_", que entonces eran los 24 niveles y nada
-        # mas. Con los rezagos relativos ese mismo filtro se lleva tambien los
-        # relativos, asi que la variante seguiria midiendo "sin ningun rezago" bajo
-        # un nombre que dice "sin niveles". Se renombra a lo que de verdad hace, que
-        # ademas es una pregunta que sigue teniendo sentido en las dos formas: si el
-        # bosque necesita los rezagos.
-        if columnas_rezago:
-            modelos.append(
-                BosqueAleatorio(
-                    n_arboles=argumentos.n_arboles,
-                    semilla=argumentos.semilla,
-                    excluir_exactas=tuple(columnas_rezago),
-                    nombre="bosque_aleatorio_sin_rezagos",
-                )
-            )
-        modelos.append(
-            BosqueAleatorio(
-                n_arboles=argumentos.n_arboles,
-                semilla=argumentos.semilla,
-                peso_clases=None,
-                nombre=f"bosque_aleatorio_sin_pesos{sufijo}",
-            )
-        )
-
-    if argumentos.con_fundacional:
-        # El import va aqui y no arriba: chronos vive en el grupo `modelos`, que CI
-        # no instala, y este guion tiene que seguir corriendo sin el. Entra en la
-        # MISMA corrida que los baselines y el bosque a proposito: el criterio de
-        # aceptacion de S3-M3-01 pide comparar contra ellos, y comparar exige la
-        # misma particion y el mismo arnes, no dos corridas parecidas.
-        from src.modelos.fundacional import ChronosBolt
-
-        modelos.append(ChronosBolt(cierre(panel, ACTIVO_OBJETIVO), w=w, h=h))
-
-    if argumentos.con_avanzado:
-        # Mismo import perezoso y misma razon. Las dos variantes existen porque el
-        # #62 midio que no se puede afirmar que los activos de apoyo aporten: medir
-        # las dos formas es mas barato que suponer cual gana.
-        from src.modelos.avanzado import ITransformerAvanzado, cierres_del_panel
-
-        cierres_seis = cierres_del_panel(panel)
-        modelos.append(ITransformerAvanzado(cierres_seis, w=w, h=h, semilla=argumentos.semilla))
-        modelos.append(
-            ITransformerAvanzado(
-                cierres_seis,
-                w=w,
-                h=h,
-                semilla=argumentos.semilla,
-                solo_objetivo=True,
-                nombre="itransformer_solo_ltc",
-            )
-        )
+    modelos = armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h)
 
     print(f"\n[5/6] Evaluacion sobre {argumentos.conjunto}")
     resultados = []
@@ -471,8 +532,9 @@ def main() -> None:
     # distintas se sobrescriben y el informe termina citando numeros de una corrida
     # que ya no es la vigente.
     marca_rezagos = sufijo.replace("_", "-")
-    ruta_json = (
-        EVIDENCIAS / f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}{marca_rezagos}.json"
+    ruta_json = ruta_evidencia(
+        f"modelo-clasico-{argumentos.intervalo}-w{w}-h{h}{marca_rezagos}",
+        argumentos.conjunto,
     )
     guardar_json(_limpiar_json(medido), ruta_json)
 
@@ -555,8 +617,9 @@ def main() -> None:
                 "simple, que es el fundacional porque no se entrena."
             )
             evidencia_fundacional["veredicto_fundacional_vs_avanzado"] = veredicto
-        ruta_fundacional = (
-            EVIDENCIAS / f"m3-modelos-profundos-{argumentos.intervalo}-w{w}-h{h}.json"
+        ruta_fundacional = ruta_evidencia(
+            f"m3-modelos-profundos-{argumentos.intervalo}-w{w}-h{h}",
+            argumentos.conjunto,
         )
         guardar_json(_limpiar_json(evidencia_fundacional), ruta_fundacional)
 

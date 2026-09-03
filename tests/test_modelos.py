@@ -368,3 +368,113 @@ def test_empatar_con_el_azar_no_cuenta_como_deteccion():
     bosque = {"f1_maximo": 0.05, "f1_minimo": 0.05}
     aleatorio = {"f1_maximo": 0.05, "f1_minimo": 0.05}
     assert detecta_mejor_que_azar(bosque, aleatorio) is False
+
+
+# ------------------------------------------- que --sin-variantes haga lo que dice
+
+
+def _argumentos(**cambios):
+    """Las banderas de experimento.py, con los defectos por omision."""
+    from argparse import Namespace
+
+    base = dict(
+        semilla=0,
+        n_arboles=300,
+        sin_variantes=False,
+        con_fundacional=False,
+        con_avanzado=False,
+    )
+    base.update(cambios)
+    return Namespace(**base)
+
+
+def test_sin_variantes_deja_una_configuracion_por_familia():
+    """La seccion 3 del protocolo dice que sobre la reserva no se evaluan variantes.
+
+    Se comprueba con el avanzado incluido a proposito: la bandera se respetaba en el
+    bosque y NO en el avanzado, asi que una prueba que solo mirara el bosque habria
+    pasado mientras el defecto seguia ahi. `--con-avanzado` anadia
+    `itransformer_solo_ltc` igual, y la corrida del sabado habria medido sobre el
+    bloque de prueba una variante que el protocolo excluye -- gastandolo.
+    """
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(sin_variantes=True, con_avanzado=True)
+    nombres = [
+        m.nombre for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1)
+    ]
+
+    prohibidas = [n for n in nombres if "solo_ltc" in n or "sin_pesos" in n or "sin_rezagos" in n]
+    assert not prohibidas, (
+        f"--sin-variantes dejo pasar {prohibidas}. Sobre el bloque de prueba eso es "
+        "medir una variante que el protocolo excluye, y la reserva se gasta igual."
+    )
+
+
+def test_sin_la_bandera_las_variantes_siguen_estando():
+    """El arreglo de arriba no puede llevarse por delante las variantes de validacion:
+    son las que respondieron el #62 y las que el informe tiene que explicar."""
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    nombres = [
+        m.nombre for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1)
+    ]
+
+    assert nombres == [
+        "baseline_trivial",
+        "baseline_mayoritario",
+        "baseline_aleatorio",
+        "bosque_aleatorio_r",
+        "bosque_aleatorio_sin_rezagos",
+        "bosque_aleatorio_sin_pesos_r",
+        "itransformer",
+        "itransformer_solo_ltc",
+    ], (
+        "cambio la composicion o el ORDEN de la corrida. El orden importa dos veces: "
+        "resultados.csv se anade sin sobrescribir, y sobre `prueba` el primer modelo "
+        "de la lista es el que deja la constancia en el pestillo de la reserva."
+    )
+
+
+def test_la_evidencia_de_prueba_no_pisa_la_de_validacion():
+    """La corrida del sabado no puede escribir encima de la evidencia entregada.
+
+    El nombre del JSON llevaba intervalo, w, h y la forma de los rezagos --por la
+    razon que el propio codigo explica: dos configuraciones con el mismo nombre se
+    sobrescriben-- y el CONJUNTO se habia quedado afuera de esa lista. Es la unica
+    de las cinco que no se puede volver a medir: pasa despues de gastar la reserva.
+    """
+    from src.modelos.experimento import ruta_evidencia
+
+    base = "modelo-clasico-4h-w7-h1-rezagos-relativos"
+    validacion = ruta_evidencia(base, "validacion")
+    prueba = ruta_evidencia(base, "prueba")
+
+    assert validacion != prueba, (
+        "la corrida sobre prueba escribiria encima de la evidencia de validacion. "
+        "El archivo conserva nombre y forma y le cambian todos los numeros, asi que "
+        "la entrega quedaria citando cifras del bloque de prueba sin que nada falle."
+    )
+
+
+def test_validacion_conserva_el_nombre_que_citan_los_entregables():
+    """La otra mitad: arreglar lo de arriba no puede renombrar lo ya citado.
+
+    Estos dos archivos los citan `docs/06`, `docs/07` y dos documentos de la Semana 2
+    ya entregada. Anadirles una marca romperia esas citas -- que es exactamente el
+    error que la D13 existe para impedir, y uno que ya cometi una vez renombrando
+    una evidencia sin buscar quien la citaba.
+    """
+    from src.modelos.experimento import ruta_evidencia
+
+    assert (
+        ruta_evidencia("modelo-clasico-4h-w7-h1-rezagos-relativos", "validacion").name
+        == "modelo-clasico-4h-w7-h1-rezagos-relativos.json"
+    )
+    assert (
+        ruta_evidencia("m3-modelos-profundos-4h-w7-h1", "validacion").name
+        == "m3-modelos-profundos-4h-w7-h1.json"
+    )
