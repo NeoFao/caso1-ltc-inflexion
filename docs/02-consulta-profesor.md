@@ -137,7 +137,7 @@ Enviar aquella hoy sería preguntar por cosas ya decididas.*
 
 ---
 
-**Asunto:** Caso N.º 1 (puntos de inflexión en LTC) — una consulta que nos bloquea, y cuatro decisiones que tomamos
+**Asunto:** Caso N.º 1 (puntos de inflexión en LTC) — dos consultas y cuatro decisiones
 
 Estimado profesor Roberto Calvo,
 
@@ -163,6 +163,18 @@ De ahí la duda, que es sobre la presentación:
 **¿Cuál espera ver en la demostración?** La (a) enseña el sistema tal como funcionaría en producción; la (b) es más fácil de evaluar de un vistazo porque nada aparece sin su resultado.
 
 Es lo único que tenemos detenido: la tercera prueba de detección que pide el enunciado depende de esta definición, y preferimos no elegirla por nuestra cuenta.
+
+---
+
+## La segunda consulta: el calendario
+
+Entendemos que las entregas semanales van martes a martes desde el 18 de agosto, con lo que la
+quinta caería el **15 de septiembre**. Pero también tenemos anotado que el cierre sería el **8**.
+
+Si el cierre es el 8, las semanas 3, 4 y 5 se comprimen en una, y preferimos saberlo ahora para
+entregarlas como corresponda —tres documentos o uno solo— en vez de decidirlo por nuestra cuenta.
+
+**¿Cuál es la fecha de la entrega final, y espera un documento por semana o uno que las agrupe?**
 
 ---
 

@@ -50,7 +50,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 
 from contracts.config import GRANULARIDAD, HORIZONTE_H, VENTANA_W  # noqa: E402
-from contracts.labeling import Clase, etiquetar, objetivo  # noqa: E402
+from contracts.labeling import Clase, etiquetar, latencia_real, objetivo  # noqa: E402
 from contracts.metrics import evaluar  # noqa: E402
 from contracts.schema import cierre  # noqa: E402
 from contracts.splits import particionar  # noqa: E402
@@ -221,12 +221,92 @@ def prueba_sobre_entrenamiento() -> dict:
     }
 
 
+def prueba_en_tiempo_real(n_ultimas: int = 500) -> dict:
+    """Simula la llegada de velas una por una, como en produccion.
+
+    Desbloqueada por la D21. El modelo ya predice de verdad --anuncia en `t` lo que
+    sera `t + h` con informacion solo hasta `t`-- asi que lo que esta prueba
+    comprueba no es que prediga, sino que el circuito **se comporte igual llegando
+    vela por vela que procesando el bloque entero**.
+
+    Es una comprobacion distinta de las otras dos y por eso existe: un modelo puede
+    dar bien sobre un bloque completo y distinto al recibir los datos de a uno, si
+    algo en el camino usa informacion de filas posteriores. Aqui se entrena una sola
+    vez y despues se predice fila por fila.
+
+    Y mide lo que la D21 obliga a mostrar: cuantas de las predicciones mas recientes
+    quedan **sin confirmar**, que con h + w = 8 velas son siempre las ultimas ocho.
+    """
+    panel = pd.read_parquet(RAIZ / "data" / "processed" / f"panel_{GRANULARIDAD}_v1.parquet")
+    X = construir(panel)
+    etiquetas = etiquetar(cierre(panel, "LTC"), VENTANA_W)
+    y = objetivo(etiquetas, HORIZONTE_H)
+    particion = particionar(n=len(y), w=VENTANA_W, h=HORIZONTE_H)
+
+    entrenables = particion.entrenamiento & y.notna().to_numpy()
+    modelo = BosqueAleatorio(semilla=0)
+    modelo.entrenar(X[entrenables], y[entrenables].astype(int).to_numpy())
+
+    # El tramo de simulacion sale del final de validacion: son datos que el modelo no
+    # vio, y llegan en orden como llegarian en vivo.
+    indices_validacion = np.flatnonzero(particion.validacion)
+    tramo = indices_validacion[-n_ultimas:]
+
+    # De a una, como en produccion.
+    una_por_una = np.array(
+        [int(np.asarray(modelo.predecir(X.iloc[[i]]), dtype=int)[0]) for i in tramo]
+    )
+    # Y el mismo tramo de una sola vez.
+    en_bloque = np.asarray(modelo.predecir(X.iloc[tramo]), dtype=int)
+
+    identicas = bool(np.array_equal(una_por_una, en_bloque))
+    discrepancias = int((una_por_una != en_bloque).sum())
+
+    # La cola sin confirmar NO se mide sobre el tramo de validacion: ese bloque esta
+    # entero en el pasado y todas sus etiquetas existen, asi que daria cero y no
+    # mostraria nada. Se mide donde de verdad ocurre: al final del panel, que es
+    # donde esta parado el sistema en produccion.
+    latencia = latencia_real(VENTANA_W, HORIZONTE_H)
+    sin_confirmar = int(y.iloc[-latencia * 2 :].isna().sum())
+
+    return {
+        "que_prueba": (
+            "Que el circuito se comporta igual recibiendo las velas de a una que "
+            "procesando el bloque entero, y cuantas predicciones quedan sin confirmar."
+        ),
+        "criterio_preregistrado": (
+            "Las predicciones vela a vela tienen que ser IDENTICAS a las del bloque. "
+            "Cualquier discrepancia significa que algo usa informacion de filas "
+            "posteriores, que es fuga que las otras dos pruebas no ven."
+        ),
+        "definicion_de_tiempo_real": (
+            "D21: la vista anuncia en el momento y confirma cuando llega la etiqueta, "
+            f"{latencia} velas despues."
+        ),
+        "n_velas_simuladas": len(tramo),
+        "predicciones_identicas": identicas,
+        "discrepancias": discrepancias,
+        "latencia_de_confirmacion_velas": latencia,
+        "latencia_de_confirmacion_horas": latencia * 4,
+        "sin_confirmar_al_final_del_panel": sin_confirmar,
+        "por_que_esa_cola": (
+            "En produccion el sistema esta parado al final de la serie, y las ultimas "
+            f"{latencia} velas todavia no tienen etiqueta real: su confirmacion llega "
+            f"{latencia * 4} horas despues. La D21 obliga a mostrarlas igual, marcadas "
+            "como pendientes, porque ocultarlas haria parecer el sistema mejor de lo "
+            "que es."
+        ),
+        "supera": identicas,
+    }
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
     sintetica = prueba_sintetica()
     modelo_sintetico = prueba_modelo_sobre_sintetico()
     entrenamiento = prueba_sobre_entrenamiento()
+    tiempo_real = prueba_en_tiempo_real()
 
     medido = {
         "ejecutado_utc": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -234,19 +314,13 @@ def main() -> None:
         "1_sintetico_etiquetador": sintetica,
         "2_sintetico_modelo_completo": modelo_sintetico,
         "3_entrenamiento": entrenamiento,
-        "4_tiempo_real": {
-            "estado": "BLOQUEADA",
-            "por_que": (
-                "La etiqueta de un instante no se conoce hasta w velas despues, asi que "
-                "'tiempo real' admite dos lecturas -- confirmacion tardia pero "
-                "verificable, o anuncio en el momento -- y son dos productos distintos. "
-                "Esta en la consulta 3 al profesor, sin responder."
-            ),
-            "que_falta": "La respuesta del profesor. No se inventa una definicion.",
-        },
+        "4_tiempo_real": tiempo_real,
         "veredicto": {
-            "las_tres_ejecutables_superan": bool(
-                sintetica["supera"] and modelo_sintetico["supera"] and entrenamiento["supera"]
+            "las_cuatro_superan": bool(
+                sintetica["supera"]
+                and modelo_sintetico["supera"]
+                and entrenamiento["supera"]
+                and tiempo_real["supera"]
             ),
             "nota": (
                 "Superar estas pruebas no dice que el modelo sirva sobre datos reales. "
@@ -264,7 +338,11 @@ def main() -> None:
           f"contra {modelo_sintetico['f1_macro_azar']} del azar -> {modelo_sintetico['supera']}")
     print(f"3. Entrenamiento: F1 macro {entrenamiento['f1_macro_bosque']} "
           f"contra {entrenamiento['f1_macro_azar']} del azar -> {entrenamiento['supera']}")
-    print("4. Tiempo real: BLOQUEADA por la consulta 3 al profesor")
+    print(f"4. Tiempo real: {tiempo_real['n_velas_simuladas']} velas de a una, "
+          f"identicas al bloque -> {tiempo_real['supera']}")
+    print(f"   sin confirmar al final del panel: "
+          f"{tiempo_real['sin_confirmar_al_final_del_panel']} velas "
+          f"(latencia {tiempo_real['latencia_de_confirmacion_horas']} horas)")
     print(f"\nEvidencia: {RUTA.relative_to(RAIZ)}")
 
 

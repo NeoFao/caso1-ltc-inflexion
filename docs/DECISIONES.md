@@ -677,3 +677,126 @@ como en el [#74](https://github.com/NeoFao/caso1-ltc-inflexion/pull/74).
 **Origen:** M2 fue a hacer el renombrado que debía, encontró que el término estaba repartido y con
 definiciones opuestas, y **no eligió el reemplazo por su cuenta** — pidió que lo decidiera quien
 había fijado el vocabulario. Es la regla 3 aplicada a algo que no es un número.
+
+## D20 · No hay relación inversa entre los seis activos, y eso explica el resultado de S4-M2-01
+
+**Estado:** vigente desde el 01/09/2026 · responde una observación del profesor en clase
+
+El profesor señaló que al usar variables exógenas lo que hay que buscar es que sean
+**proporcionales o inversamente proporcionales** a la objetivo. Una que se mueve igual aporta
+poco; una que se mueve al revés aporta información que la objetivo no tiene.
+
+**Medido: entre los seis activos no hay ninguna relación inversa.** Los quince pares van de
+**+0,5175 a +0,8300**, y con LTC en particular de +0,5831 (SOL) a +0,7528 (ETH).
+
+### Esto explica un resultado que teníamos medido y no entendido
+
+S4-M2-01 encontró que los cinco activos de apoyo **no aportan de forma distinguible**: +0,00078,
+con el signo cambiando entre semillas. Hasta ahora eso era un hecho sin mecanismo.
+
+**El mecanismo es la proporcionalidad.** Los cinco se mueven fuertemente con LTC, así que casi
+todo lo que traen ya está en LTC. No es que sean malas variables: es que son **redundantes** con
+la objetivo, y la redundancia no informa.
+
+### Se intentó construir una decorrelacionada con los mismos datos
+
+Antes de concluir que hace falta traer un activo de fuera, se probó construirla. Criterio fijado
+antes de mirar: se considera decorrelacionada si `|correlación| < 0,3`.
+
+| Variable construida | Correlación con LTC | ¿Decorrelaciona? |
+|---|---|---|
+| Fuerza relativa LTC/BTC | +0,7530 | no |
+| Fuerza relativa LTC/ETH | +0,5148 | no |
+| **Fuerza relativa LTC/SOL** | **+0,1903** | **sí** |
+| Fuerza relativa LTC/XRP | +0,3269 | no |
+| **Fuerza relativa LTC/ADA** | **+0,2763** | **sí** |
+| Exceso sobre la media del resto | +0,5074 | no |
+
+**Dos sí.** Los cocientes contra los activos menos correlacionados traen información que los
+retornos de LTC no tienen.
+
+### Y aun así no se incorporan, porque se midió si servían
+
+**Decorrelacionar no es informar.** Una variable puede traer información distinta y que esa
+información no sirva para esta etiqueta, así que se probó sobre el modelo con cinco semillas:
+
+**Diferencia media: −0,004065, y el signo cambia entre semillas.** Por las tres condiciones de la
+[D16](#d16) no se puede afirmar que aporte, y la media apunta a que empeora.
+
+**No se incorporan.** Se deja medido y escrito, que es distinto de no haberlo pensado.
+
+### Lo que esta decisión NO dice
+
+Que no exista una variable inversamente proporcional útil. Dice que **no la hay entre los seis que
+fija el enunciado**, y que no se puede construir con ellos. Una candidata real —índice del dólar,
+oro, volatilidad implícita— saldría de fuera de la lista, y eso es una pregunta para el profesor
+antes que una decisión nuestra.
+
+**Evidencia:** `docs/evidencias/relacion-exogenas.json` · **Reproducible:** `uv run python -m scripts.relacion_exogenas`
+
+## D21 · Qué muestra la vista en tiempo real, decidido por el equipo
+
+**Estado:** vigente desde el 01/09/2026 · desbloquea [#26](https://github.com/NeoFao/caso1-ltc-inflexion/issues/26) y [#28](https://github.com/NeoFao/caso1-ltc-inflexion/issues/28)
+
+La consulta al profesor no se va a enviar. La decisión la toma el equipo con lo que él dijo en
+clase, y queda escrita para que sea defendible.
+
+### El punto de partida, que no es lo que parecía
+
+**El modelo ya predice de verdad.** Estando parado en `t`, y con información disponible solo hasta
+`t`, anuncia qué será el instante `t + h`. Lo garantiza `verificar_sin_fuga()`, que perturba todo
+el futuro y exige que las características del pasado no cambien; y hay una prueba de que esa
+comprobación detecta una fuga deliberada.
+
+Lo que no se puede adelantar es la **verificación**: confirmar si el anuncio de `t` fue correcto
+exige las `w` velas posteriores a `t + h`, o sea `h + w` = **8 velas, 32 horas**.
+
+Así que nunca hubo dos sistemas posibles. Había un sistema y dos formas de mostrarlo.
+
+### Lo decidido
+
+**La vista muestra el anuncio en el momento, y la confirmación cuando llega.** Las dos cosas, no
+una.
+
+- Al llegar la vela `t`, el sistema anuncia su predicción para `t + h` y la marca como **pendiente
+  de confirmar**.
+- Cuando pasan las 32 horas y la etiqueta real existe, esa misma predicción cambia a **acertada**
+  o **fallada**.
+
+**Por qué así.** El profesor pidió que el modelo funcione **en generalidad** y no solo sobre datos
+que ya se le metieron. Una vista que solo mostrara lo ya verificable escondería precisamente la
+parte que responde a eso: que el sistema se compromete antes de saber. Y una que solo mostrara
+anuncios sin confirmar no permitiría juzgar si acierta.
+
+**Lo que esto obliga a mostrar, y es deliberado.** Las predicciones más recientes —las últimas 8
+velas— aparecen siempre sin confirmar. Eso no es un defecto de la vista: **es la latencia real del
+problema**, y ocultarla sería el tipo de presentación que hace parecer mejor un sistema de lo que
+es.
+
+**Evidencia de que la predicción es genuina:** `tests/test_fuga.py`, y la propia
+`verificar_sin_fuga()` en `src/evaluacion/fuga.py`.
+
+## D22 · Se entrega el martes 8 un informe único que cubre las semanas 3, 4 y 5
+
+**Estado:** vigente desde el 01/09/2026
+
+El calendario nunca se confirmó. El enunciado tiene cinco entregas semanales desde el 18 de
+agosto, lo que llevaría la última al 15 de septiembre; nuestra propia planificación anotó el 8.
+La duda estaba en la consulta y la consulta no se envía.
+
+**Se decide entregar el martes 8 de septiembre.** Si la fecha real fuera el 15, entregar antes no
+perjudica; al revés no hay remedio.
+
+**Y se entrega un informe único**, no tres documentos semanales. Dos razones:
+
+1. **El enunciado pide un informe técnico**, en singular, entre los dos entregables del proyecto.
+   Las entregas semanales son avances de ese informe, no productos separados.
+2. Si las tres semanas se entregan el mismo día, **tres documentos que se solapan es peor que uno
+   completo**: obliga al lector a reconstruir qué versión de cada cifra vale.
+
+El informe cubre lo que piden las tres semanas: el modelo fundacional, el avanzado, las pruebas de
+detección y el reporte final. Su estructura está en `docs/entregas/informe-final/README.md`.
+
+**Lo que esta decisión asume, y hay que decirlo en el informe:** que agrupar es aceptable. Si el
+profesor esperaba tres documentos, lo que recibe los contiene a los tres, y eso se declara en la
+introducción en vez de esperar que no se note.
