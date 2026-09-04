@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Grafico from "./Grafico";
+import Grafico, { MAXIMO, MINIMO } from "./Grafico";
 import {
   type Comparacion,
   type Configuracion,
@@ -15,6 +15,19 @@ import {
 } from "./api";
 
 type Modelo = "baseline" | "fundacional";
+
+/**
+ * Cuantas horas dura una vela, a partir de la granularidad del contrato
+ * ("4h", "1d"...). Issue #99: los chips dicen "8 velas" y nadie de fuera sabe
+ * cuanto es eso; convertirlo a horas es una conversion de unidades sobre un
+ * numero que ya viene del backend, no una cifra nueva.
+ */
+function horasPorVela(granularidad: string): number {
+  const m = /^(\d+)([hd])$/.exec(granularidad);
+  if (!m) return NaN;
+  const [, cantidad, unidad] = m;
+  return Number(cantidad) * (unidad === "d" ? 24 : 1);
+}
 
 type Modo = "sintetico" | "historico" | "tiempo-real";
 
@@ -35,7 +48,7 @@ const MODOS: { id: Modo; etiqueta: string; descripcion: string }[] = [
     id: "tiempo-real",
     etiqueta: "Tiempo real",
     descripcion:
-      "Últimas velas descargadas en vivo, sin etiqueta conocida todavía.",
+      "LTC al día. El modelo anuncia cada vela en el momento, con la información disponible hasta ese instante; la confirmación —si de verdad fue un giro— tarda lo que el sistema tarda en verla venir.",
   },
 ];
 
@@ -63,10 +76,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (modo === "tiempo-real") {
-      setDatos(null);
-      return;
-    }
     // Cambiar de modo rapido (p. ej. Historico -> Sintetico) deja dos peticiones en
     // vuelo. Sin este guard, la que responde despues pisa el estado sin importar
     // cual es mas reciente: el panel de LTC completo (13 100 filas) tarda mas que
@@ -79,6 +88,15 @@ export default function App() {
     // en vivo tarda minutos sobre el panel completo. Se envuelve en la misma forma
     // ConOrigen que las demas peticiones para que el resto del efecto no distinga
     // de donde viene el dato.
+    //
+    // Tiempo real (D21, issue #28) reutiliza exactamente el mismo historico de
+    // LTC: no hace falta un endpoint nuevo. La distincion "confirmado / sin
+    // confirmar" ya viene en el dato -- etiquetar() deja las ultimas w velas con
+    // etiqueta null porque no tienen ventana completa para confirmar un giro, y
+    // predicha esta presente igual, porque el modelo si predice con lo que sabe
+    // hasta ese instante. Grafico.tsx ya distingue las dos cosas sin cambios: sin
+    // etiqueta no hay circulo (no hay giro confirmado que marcar), pero la flecha
+    // de la prediccion se dibuja igual.
     const peticion =
       modo === "sintetico"
         ? obtenerSintetico(300)
@@ -87,7 +105,9 @@ export default function App() {
               datos,
               origen: "precalculado" as Origen,
             }))
-          : obtenerHistorico(activo, desde, hasta);
+          : modo === "tiempo-real"
+            ? obtenerHistorico("LTC")
+            : obtenerHistorico(activo, desde, hasta);
     peticion
       .then((r) => {
         if (cancelado) return;
@@ -107,6 +127,9 @@ export default function App() {
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
   const edad = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
+  const horasAnticipacion = configuracion
+    ? configuracion.latencia_real * horasPorVela(configuracion.granularidad)
+    : null;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -118,16 +141,23 @@ export default function App() {
           <h1 className="mt-1 text-2xl font-bold text-[#1b2a4a]">
             Puntos de inflexión en el precio de Litecoin
           </h1>
+          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+            Avisa cuándo el precio está por dar la vuelta —de subir a bajar, o al revés—
+            {horasAnticipacion ? ` con ${horasAnticipacion} horas de anticipación.` : "."}
+          </p>
           <p className="mt-1 text-sm text-slate-500">
             Alejandro Zamora · Jose Pablo Monestel · Isaac Morun · Fabrizio Espinoza Arce
           </p>
           {configuracion && (
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-              <Chip>
+              <Chip title="w: cuántas velas antes y después se miran para confirmar un giro. h: con cuánta anticipación se anuncia, antes de que el giro termine de confirmarse.">
                 ventana w={configuracion.w} · horizonte h={configuracion.h} ·{" "}
                 {configuracion.granularidad}
               </Chip>
-              <Chip>anticipación efectiva {configuracion.latencia_real} velas</Chip>
+              <Chip>
+                anticipación efectiva {horasAnticipacion ?? "?"} horas ({configuracion.latencia_real}{" "}
+                velas de {configuracion.granularidad})
+              </Chip>
               {configuracion.provisional && (
                 <Chip tono="ambar">parámetros provisionales, sin congelar</Chip>
               )}
@@ -153,10 +183,15 @@ export default function App() {
             todo, y demuestra por qué no reportamos exactitud como métrica principal.{" "}
             {modo === "historico" ? (
               <>Para ver el modelo fundacional, usá el selector de arriba.</>
-            ) : (
+            ) : modo === "sintetico" ? (
               <>
                 El modo sintético todavía no tiene selector de modelo; en histórico sí podés
                 alternar a Fundacional.
+              </>
+            ) : (
+              <>
+                Tiempo real todavía no tiene selector de modelo; en histórico sí podés alternar a
+                Fundacional.
               </>
             )}
           </div>
@@ -224,7 +259,7 @@ export default function App() {
           )}
 
           {modo === "historico" && modeloElegido === "baseline" && (
-            <div className="flex items-center gap-2 text-sm text-slate-600">
+            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
               <label className="flex items-center gap-1">
                 desde
                 <input
@@ -287,17 +322,25 @@ export default function App() {
           </div>
         )}
 
+        {modo === "tiempo-real" && !cargando && datos && configuracion && (
+          <div
+            className="mb-4 rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900"
+            data-testid="vista-sin-confirmar"
+          >
+            <strong>
+              Las últimas {configuracion.latencia_real} velas ({horasAnticipacion} horas) todavía no
+              tienen confirmación.
+            </strong>{" "}
+            El modelo ya anunció qué cree que va a pasar —son las flechas del gráfico—, pero saber si
+            de verdad hubo un giro exige ver las {configuracion.w} velas posteriores, y esas todavía
+            no ocurrieron. No es una limitación técnica: es lo que tarda el problema en verificarse
+            solo. Última vela disponible:{" "}
+            {new Date(datos.serie[datos.serie.length - 1]?.fecha ?? "").toLocaleString("es-CR")}.
+          </div>
+        )}
+
         <section className="mt-4 rounded-xl border border-slate-200 bg-white p-4" data-testid="vista">
-          {modo === "tiempo-real" ? (
-            <div className="py-20 text-center" data-testid="vista-pendiente">
-              <p className="text-sm font-medium text-slate-500">Pendiente (RF-U3)</p>
-              <p className="mx-auto mt-2 max-w-lg text-sm text-slate-400">
-                Depende de definir qué se considera «tiempo real»: si el sistema confirma el giro w
-                velas después de que ocurrió, o lo anuncia en el momento sin esperar confirmación.
-                Es la consulta 3 al profesor.
-              </p>
-            </div>
-          ) : cargando ? (
+          {cargando ? (
             <p className="py-20 text-center text-sm text-slate-400" data-testid="vista-cargando">
               Cargando…
             </p>
@@ -306,12 +349,14 @@ export default function App() {
           ) : null}
         </section>
 
+        {datos && modo !== "tiempo-real" && <Leyenda />}
+
         {datos && (
           <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" data-testid="metricas">
             <Metrica
               titulo="F1 macro"
               valor={datos.metricas.f1_macro}
-              nota="Promedio de las tres clases, con igual peso"
+              nota="El número principal: pesa igual las tres clases, así que si el modelo ignora los giros (la clase rara), esto baja"
               testId="f1-macro"
             />
             <Metrica
@@ -323,7 +368,7 @@ export default function App() {
             <Metrica
               titulo="Exactitud"
               valor={datos.metricas.exactitud}
-              nota="Engañosa con clases desbalanceadas"
+              nota="No es el número principal: como la Continuidad domina los datos, hasta un modelo que nunca avisa un giro saca exactitud alta"
               testId="exactitud"
             />
             <Metrica
@@ -442,14 +487,66 @@ export default function App() {
   );
 }
 
-function Chip({ children, tono }: { children: React.ReactNode; tono?: "ambar" | "verde" }) {
+function Chip({
+  children,
+  tono,
+  title,
+}: {
+  children: React.ReactNode;
+  tono?: "ambar" | "verde";
+  title?: string;
+}) {
   const estilos =
     tono === "ambar"
       ? "bg-amber-100 text-amber-800"
       : tono === "verde"
         ? "bg-emerald-100 text-emerald-800"
         : "bg-slate-100 text-slate-600";
-  return <span className={`rounded px-2 py-1 font-medium ${estilos}`}>{children}</span>;
+  return (
+    <span className={`rounded px-2 py-1 font-medium ${estilos}`} title={title}>
+      {children}
+    </span>
+  );
+}
+
+/**
+ * Issue #99, puntos 3 y 4: el grafico dibuja marcadores en un <canvas>, sin
+ * texto que los explique, y las tres clases del proyecto no se definen en
+ * ningun lado de la pagina. Usa los mismos colores que Grafico.tsx (importados
+ * de ahi, no copiados) para que nunca puedan desincronizarse.
+ */
+function Leyenda() {
+  return (
+    <div
+      className="mt-3 flex flex-wrap gap-x-5 gap-y-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-xs text-slate-600"
+      data-testid="leyenda"
+    >
+      <span className="flex items-center gap-1.5">
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: MAXIMO }}
+        />
+        <strong className="font-medium text-slate-700">Máximo</strong> — el precio deja de subir y
+        empieza a bajar
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span
+          className="inline-block h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: MINIMO }}
+        />
+        <strong className="font-medium text-slate-700">Mínimo</strong> — el precio deja de bajar y
+        empieza a subir
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="inline-block h-2.5 w-2.5 rounded-full border-2 border-slate-300" />
+        <strong className="font-medium text-slate-700">Continuidad</strong> — sigue como estaba, sin
+        giro (sin marcador en el gráfico)
+      </span>
+      <span className="flex items-center gap-1.5 text-slate-400">
+        <span>●</span> relleno = ocurrió de verdad · <span>➜</span> flecha = lo que anunció el modelo
+      </span>
+    </div>
+  );
 }
 
 /** Barra horizontal proporcional al F1 macro, para comparar modelos de un vistazo. */
