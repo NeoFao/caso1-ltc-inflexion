@@ -3,9 +3,9 @@
 **Módulo M3 — Isaac Morún.** Material para la sección 3 del informe, la mitad de modelos de la
 sección 5, y las limitaciones 2 y 3.
 
-Todas las cifras son de **validación** y salen de un archivo de evidencia que se regenera con un
-comando. La única celda vacía es el bloque de prueba, que se mide **una sola vez** (D18), el lunes 7 tras
-el atraso que fija la [D23](../../DECISIONES.md#d23).
+Las cifras de las secciones 1 a 6 son de **validación**; la sección 7 trae lo del bloque de prueba,
+medido **una sola vez** el 07/09 (D18, D23). Todas salen de un archivo de evidencia que se regenera
+con un comando.
 
 ---
 
@@ -108,8 +108,13 @@ filas, porque los dos modelos aciertan y fallan sobre las mismas velas.
 | Chronos-Bolt − bosque | −0,021908 | [−0,064249 , 0,020264] | no |
 | iTransformer − trivial | +0,029643 | [0,006959 , 0,056009] | **sí** |
 | iTransformer − aleatorio | +0,008922 | [−0,024084 , 0,044635] | no |
-| iTransformer − bosque | −0,044792 | [−0,085204 , −0,001457] | **sí** |
+| iTransformer − bosque | −0,044792 | [−0,085204 , −0,001457] | sí, **pero no se reproduce** |
 | iTransformer − Chronos-Bolt | −0,022884 | [−0,060774 , 0,018986] | no |
+
+> **Las cuatro filas donde entra el iTransformer se leen con la [D25](../../DECISIONES.md#d25).**
+> Ese modelo no es reproducible entre procesos, así que el intervalo pareado de una corrida no
+> decide: el peso lo lleva el signo entre semillas. Las filas de Chronos-Bolt no están afectadas,
+> porque es *zero-shot* y sus predicciones sí reproducen.
 
 **Lo que esto dice, en orden de incomodidad:**
 
@@ -150,16 +155,19 @@ dice que el margen de este problema no está en los hiperparámetros.
 
 ## 6. Lo que no se puede afirmar, y por qué
 
-### Los activos de apoyo sí aportan al avanzado — y el matiz importa
+### Los activos de apoyo: signo estable en las cinco, sin distinguibilidad afirmable
 
-El informe declara como limitación que los activos de apoyo no aportan de forma distinguible.
-**Eso se midió sobre el bosque, y sobre el avanzado da distinto.** No es una generalización que
-convenga hacer, porque la arquitectura elegida existe justamente para atender entre series.
+El informe declara como limitación que los activos de apoyo no aportan de forma distinguible. **Se
+midió sobre el bosque, y sobre el avanzado hay que decirlo con más cuidado**, porque la arquitectura
+elegida existe justamente para atender entre series y es donde uno esperaría ver el aporte si lo
+hay.
 
-La D14 —mía— había concluido lo contrario, y la D24 corrige esa lectura sin reescribirla: la D14
-respondió una pregunta de **distinguibilidad** con el umbral de la D5, que es una convención para
-**elegir entre configuraciones**. La sección 5 del protocolo ya decía que ese umbral no aplica a
-esta clase de pregunta.
+Esta sección pasó por dos correcciones y conviene que se lean juntas. La **D24** corrigió el
+criterio de la D14 —mía—, que había respondido una pregunta de **distinguibilidad** con el umbral de
+la D5, que es una convención para **elegir entre configuraciones**. Esa corrección sigue en pie. La
+**D25** retiró el veredicto que la D24 sacó de ahí, porque la condición que lo sostenía no se
+reproduce. **La conclusión vuelve a coincidir con la D14 por una razón distinta de la que la D14
+dio**, y eso no vuelve correcto el argumento de entonces.
 
 | Semilla | Completo | Solo LTC | Diferencia |
 |---|---|---|---|
@@ -184,12 +192,14 @@ caen del mismo lado en dos barridos independientes. Si no hubiera efecto, que la
 tiene probabilidad 1 en 16. Es evidencia de que algo hay; no alcanza el estándar que el equipo fijó
 para afirmarlo.
 
-**Y aun así no rescata nada.** El iTransformer *con* los cinco activos de apoyo sigue quedando por
-debajo del bosque *sin* ellos. Las dos frases son ciertas a la vez y hay que decirlas juntas:
+**Y aun así no rescataría nada.** El iTransformer *con* los cinco activos de apoyo sigue quedando
+por debajo del bosque *sin* ellos. Las dos cosas son ciertas a la vez y hay que decirlas juntas:
 
-> Los activos de apoyo aportan al modelo avanzado de forma consistente, y el aporte es pequeño.
-> La D20 explica por qué: los seis son fuertemente proporcionales entre sí y **no hay ninguna
-> relación inversa**, así que lo que traen es en buena parte lo que LTC ya tenía.
+> El aporte de los activos de apoyo al modelo avanzado tiene **signo estable en las cinco semillas
+> de dos barridos independientes**, y **no se puede afirmar que sea distinguible del azar** por el
+> estándar que el equipo fijó. La D20 explica por qué sería pequeño aunque lo fuera: los seis son
+> fuertemente proporcionales entre sí y **no hay ninguna relación inversa**, así que lo que traen es
+> en buena parte lo que LTC ya tenía.
 
 ### La dispersión no es pareja, y es peor donde más importa
 
@@ -221,7 +231,39 @@ avanzado se reporta como valor puntual.
 
 ---
 
-## 7. La celda que falta, y las tres lecturas escritas de antemano
+## 7. Sobre el bloque de prueba: los dos modelos fallan en clases opuestas
+
+Esto no aparece al mirar el F1 macro, y es lo más preciso que se puede decir del resultado final.
+
+**Tabla.** F1 por clase extrema sobre el bloque de prueba, contra el piso del azar.
+
+| Modelo | F1 Máximo | F1 Mínimo |
+|---|---|---|
+| `baseline_aleatorio` (el piso, D7) | 0,077778 | 0,044944 |
+| `bosque_aleatorio_rezagos_relativos` | 0,046154 | **0,165746** |
+| `chronos_bolt` | 0,062992 | 0,070707 |
+| `itransformer` | **0,116071** | 0,032432 |
+
+Dos lecturas que conviene no separar:
+
+**Ningún modelo supera al azar en las dos clases extremas.** El bosque le gana holgadamente en
+Mínimo y queda **por debajo del azar** en Máximo; el fundacional queda por debajo en Máximo; y el
+avanzado queda por debajo en Mínimo. Es la forma más exacta del resultado negativo, y más severa que
+mirar solo el F1 macro: no es que el sistema detecte poco, es que **ningún modelo detecta las dos
+cosas que hay que detectar**.
+
+**Y el único que supera al azar en Máximo es el avanzado**, que es el que pierde en F1 macro. La
+clase donde el mejor modelo falla es justamente donde el modelo que el enunciado pedía no falla.
+Decirlo importa en las dos direcciones: es un punto a favor del profundo que el F1 macro esconde, y
+es la razón por la que promediar las dos clases en una sola métrica puede hacer parecer que un
+modelo detecta cuando lo que hace es compensar.
+
+No se saca de aquí ninguna configuración nueva ni se propone combinarlos: la sección 7 del protocolo
+lo prohíbe y esto se reporta como lo que es, una lectura de la única corrida.
+
+---
+
+## 8. La celda que faltaba, y las tres lecturas escritas de antemano
 
 Sobre el bloque de prueba se mide **una configuración por familia**, congelada antes de correr nada:
 `chronos_bolt` por omisión y `itransformer` con lookback 96 y dimensión 64. Sin variantes.
@@ -232,12 +274,16 @@ cuarta rama en la que se busque otra configuración.
 
 Dicho sin adornos: sobre validación **ninguno de los dos modelos de M3 supera al azar de forma
 distinguible**, y el avanzado queda por debajo del bosque clásico en las cinco semillas.
-Esperar que el bloque de prueba mejore eso sería esperar que datos no vistos favorezcan a un modelo
-más que los datos con los que se eligió, que es al revés de como funciona.
+
+**La expectativa se escribió antes y se cumplió.** Aquí decía que esperar que el bloque de prueba
+mejorara lo de validación sería esperar que datos no vistos favorezcan a un modelo más que los datos
+con los que se eligió. La corrida del 07/09 dio el mismo orden que validación, y de las tres
+condiciones se cumplieron dos. Que la predicción incómoda se cumpliera no es un consuelo, pero sí es
+la comprobación de que el criterio no se acomodó al resultado.
 
 ---
 
-## 8. Cómo se regenera cada cifra
+## 9. Cómo se regenera cada cifra
 
 ```bash
 uv sync --group dev --group modelos

@@ -1,0 +1,52 @@
+{
+  "ejecutado_utc": "2026-09-07T23:51:04+00:00",
+  "pregunta": "Se puede hacer que el entrenamiento del iTransformer reproduzca entre procesos con las palancas habituales?",
+  "para_que": "La D25 acota donde la condicion 2 de la D16 decide, y ese alcance descansa en que esta via este cerrada. Sin esta constancia, la unica afirmacion medida de la D25 que nadie podia volver a comprobar era justo esta.",
+  "metodo": "Cada palanca se corre en CORRIDAS procesos separados y se comparan las perdidas finales. Dentro de un mismo proceso el resultado es estable, asi que medirlo ahi no diria nada. Se compara la perdida y no el F1 porque el F1 pasa por etiquetar(), cuyas desigualdades estrictas pueden tapar o inventar una diferencia.",
+  "parametros": {
+    "corridas_por_palanca": 3,
+    "semilla": 0,
+    "lookback": 48,
+    "epocas": 3,
+    "serie": "sintetica y fija, seis activos, 700 velas"
+  },
+  "por_palanca": {
+    "semilla_sola": {
+      "perdidas": [
+        670.0350596110026,
+        670.0350494384766,
+        670.0350189208984
+      ],
+      "corridas": 3,
+      "valores_distintos": 3,
+      "reproduce_entre_procesos": false,
+      "dispersion_absoluta": 4.0690104128771054e-05
+    },
+    "hilos_y_algoritmos": {
+      "perdidas": [
+        670.0350189208984,
+        670.0350290934244,
+        670.0350290934244
+      ],
+      "corridas": 3,
+      "valores_distintos": 2,
+      "reproduce_entre_procesos": false,
+      "dispersion_absoluta": 1.0172526003771054e-05
+    },
+    "hash_fijo": {
+      "perdidas": [
+        670.0350494384766,
+        670.0350392659506,
+        670.0350341796875
+      ],
+      "corridas": 3,
+      "valores_distintos": 3,
+      "reproduce_entre_procesos": false,
+      "dispersion_absoluta": 1.52587890625e-05
+    }
+  },
+  "veredicto": {
+    "alguna_reproduce": false,
+    "lectura": "Si ninguna reproduce, la via de volver reproducible al avanzado esta cerrada con lo que hay, la D15 se sostiene, y el alcance de la D25 --que la condicion 2 no decida donde entre este modelo-- queda medido en vez de supuesto."
+  }
+}
