@@ -1221,3 +1221,81 @@ debajo— con la diferencia de que esta vez no estaba en un dato sino **en el di
 
 **Origen:** M2 detectó el choque, midió su alcance —13 apariciones, todas en su carpeta— y **no
 eligió el nombre**: trajo tres opciones y pidió que decidiera quien había fijado el otro término.
+
+---
+
+## D28 · La condición 2 de la regla principal se completó sin volver a medir, y así se comprobó
+
+**Estado:** vigente desde el 07/09/2026 · se declara **después** de la corrida única, que es
+justamente por lo que hay que declararlo
+
+### El hueco
+
+La sección 5 del protocolo aplica las tres condiciones de la [D16](#d16) al **mejor modelo contra
+el `baseline_aleatorio`**. La corrida única dejó medidas dos de las tres:
+
+| Condición | Estado tras la corrida |
+|---|---|
+| 1 · La diferencia es positiva | **medida** — +0,051367 de media |
+| 2 · El intervalo pareado excluye el cero | **no calculada** |
+| 3 · El signo no cambia en cinco semillas | **medida** — positiva en las cinco |
+
+Falta la 2 porque `comparar_fundacional` solo calcula intervalos pareados de los **modelos
+profundos**, y el mejor modelo resultó ser el **bosque**. Nadie lo previó: el guion asume que la
+comparación interesante involucra a los modelos que el enunciado pide.
+
+**Sin ese número, la regla que el proyecto fijó de antemano no se puede aplicar a su propio
+resultado final.**
+
+### Por qué completarlo no es volver a medir
+
+La sección 7 del protocolo prohíbe volver a correr «para confirmar», cambiar el modelo, ajustar
+nada o quedarse con un subconjunto de semillas. **Esto no es ninguna de esas**, y el argumento es
+comprobable y no retórico:
+
+**El bosque y el `baseline_aleatorio` reproducen bit a bit entre procesos.** Está medido y
+comprometido en `m0-reproducibilidad-predicciones-4h-w7-h1.json`, con la misma huella SHA-256 en
+tres procesos distintos y también en CI sobre Linux. Las predicciones que se recalculan son **las
+mismas** que produjo la corrida.
+
+**Y se comprobó en vez de suponerse.** Antes de calcular el intervalo, el guion verifica que el F1
+macro recalculado coincida **exactamente** con el que la corrida dejó escrito en la evidencia:
+
+```
+bosque_aleatorio_rezagos_relativos   corrida 0.378567  recalculado 0.378567  IGUAL
+baseline_aleatorio                   corrida 0.343546  recalculado 0.343546  IGUAL
+```
+
+Si no hubieran coincidido, el guion **se detiene** y lo dice: significaría que las predicciones no
+son las mismas, y entonces sí haría falta una decisión del equipo en vez de un cálculo.
+
+**Un cálculo determinista sobre predicciones ya producidas no se puede elegir.** Da un solo
+resultado. No hay nada que repetir hasta que salga bonito, que es lo que la D18 protege.
+
+No pasa por el arnés ni por el pestillo a propósito: no produce la cifra de un modelo, completa la
+lectura de una que ya existe. **El pestillo sigue diciendo `n_corridas: 1`.**
+
+### El resultado
+
+```
+diferencia   +0.035021
+IC 95 %      [-0.004861 , +0.074113]
+excluye el cero: NO
+```
+
+**Se cumplen dos de las tres condiciones.** El protocolo exige las tres, así que la lectura que
+toca es la segunda de las tres escritas de antemano en su sección 6: *«no podemos afirmar que
+detecte mejor que el azar sobre prueba»*.
+
+### Lo que haríamos distinto
+
+`comparar_fundacional` debería calcular el intervalo contra el `baseline_aleatorio` **del mejor
+modelo, sea cual sea**, y no solo de los profundos. Es un defecto de la herramienta que solo se ve
+cuando el mejor modelo es el que no se esperaba — y en este proyecto eso pasó desde el principio.
+
+**Evidencia:** `docs/evidencias/m0-intervalo-regla-principal-prueba-4h-w7-h1.json` y
+`scripts/intervalo_regla_principal.py`
+
+**Origen:** se descubrió al aplicar la regla de la sección 5 al resultado de la corrida, minutos
+después de correrla. Se declara en vez de calcularlo en silencio porque **cualquier cálculo hecho
+después de ver el bloque de prueba tiene que quedar escrito**, aunque sea determinista.

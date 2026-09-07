@@ -29,8 +29,8 @@ Y por semana:
 | Prueba de detección: sintético | **Hecha** | 187/187 giros recuperados |
 | Prueba de detección: entrenamiento | **Hecha** | F1 macro 0,953353 contra 0,331638 del azar |
 | Prueba de detección: tiempo real | **Hecha** | 500 velas de a una, predicciones idénticas al bloque (D21) |
-| Rendimiento sobre datos no vistos | **Pendiente** | Se mide el **lunes 7**, una vez (D18, fecha nueva por [D23](../../DECISIONES.md)) |
-| Informe técnico | **Este documento** | **Todas las secciones escritas**; falta solo la celda 5.4 |
+| Rendimiento sobre datos no vistos | **Medido** | 07/09/2026, **una sola vez**. Dos de las tres condiciones: no se puede afirmar detección |
+| Informe técnico | **Este documento** | **Completo.** La 5.4 se rellenó con la cifra de la corrida |
 
 ---
 
@@ -49,9 +49,8 @@ El informe no repite los marcos teóricos ya entregados: los cita. Lo que aporta
 | 6. Limitaciones | [`06-limitaciones.md`](06-limitaciones.md) | Fabrizio (M0) | **Isaac** (6.2, 6.3) y **Alejandro** (6.1, 6.4) |
 | Conclusiones | [`99-conclusiones.md`](99-conclusiones.md) | Fabrizio (M0) | el equipo |
 
-**Todas escritas.** Lo único que falta es la subsección **5.4**, que se rellena con la cifra de la
-corrida única — y está escrita hasta el punto de que rellenarla es poner un número en una tabla cuyo
-criterio de lectura ya está fijado.
+**Todas escritas, y la 5.4 rellenada.** La corrida única se hizo el 07/09 y el informe reporta la
+primera y única cifra que salió, con la lectura que estaba escrita de antemano.
 
 ---
 
@@ -117,12 +116,20 @@ El mecanismo está medido y explica el tamaño: los seis activos son fuertemente
 
 ## Lo que falta para cerrarlo
 
-1. **La medición sobre el bloque de prueba.** Es la única cifra que el informe todavía no tiene. Estaba prevista para el sábado 5 y no se corrió por tres defectos en el camino; la [D23](../../DECISIONES.md) la movió al **lunes 7**, los tres están arreglados, y el camino quedó **ensayado entero dos veces** sobre validación.
-2. **Que cada quien revise lo suyo**, según la columna «quién la revisa» de la tabla de arriba. Las secciones están escritas; lo que falta es que quien midió cada cosa confirme que está bien contada.
-3. **La revisión de QA del flujo terminado** ([#115](https://github.com/NeoFao/caso1-ltc-inflexion/issues/115)), que es la única capa que ve alguien de fuera.
+**La medición ya está hecha.** Se corrió el 07/09/2026, una sola vez, y el pestillo lo registra con
+`n_corridas: 1`.
 
-Ya no falta ninguna respuesta del profesor: la consulta **no se envía** y las dos preguntas abiertas las resolvió el equipo — qué muestra la vista en tiempo real ([D21](../../DECISIONES.md)) y qué se entrega y cuándo ([D22](../../DECISIONES.md)).
+1. **Que cada quien revise lo suyo**, según la columna «quién la revisa» de la tabla de arriba. Las
+   secciones están escritas; lo que falta es que quien midió cada cosa confirme que está bien
+   contada.
+2. **La revisión de QA del flujo terminado** ([#115](https://github.com/NeoFao/caso1-ltc-inflexion/issues/115)),
+   que es la única capa que ve alguien de fuera.
+3. **El ensayo de la exposición**, cronometrado y con la rotación
+   ([#32](https://github.com/NeoFao/caso1-ltc-inflexion/issues/32)).
 
-Tampoco falta ya resolver la contradicción de la limitación 1: la [D24](../../DECISIONES.md) la declaró por familia.
+Ya no falta ninguna respuesta del profesor: la consulta **no se envía** y las preguntas abiertas las
+resolvió el equipo — qué muestra la vista en tiempo real ([D21](../../DECISIONES.md)), qué se
+entrega y cuándo ([D22](../../DECISIONES.md)) y en qué formato ([D26](../../DECISIONES.md)).
 
-El esqueleto existe para que rellenar no sea escribir desde cero.
+Tampoco falta resolver la contradicción de la limitación 1: la [D24](../../DECISIONES.md) la declaró
+por familia y la [D25](../../DECISIONES.md) retiró su veredicto.

@@ -119,28 +119,83 @@ no se afirma.
 
 ## 5.4 El bloque de prueba
 
-> **PENDIENTE DE LA CORRIDA ÚNICA.** Esta subsección se rellena con el resultado de la única
-> medición sobre el bloque de prueba, y **solo con ella**. El resto del informe está escrito y
-> revisado antes de conocerla, que es el punto.
+**Medido el 07/09/2026, una sola vez**, sobre el commit `1426bce` con el árbol limpio. El pestillo
+lo registra con `n_corridas: 1`, seis modelos, cinco semillas, en una sola sesión.
 
-El protocolo está fijado por escrito en `docs/09-protocolo-bloque-prueba.md` y la corrida está
-ensayada de punta a punta sobre validación, dos veces, con las banderas exactas.
+**Tabla 5.** Las 1 960 velas del bloque de prueba, semilla de referencia.
 
-**Lo que se va a medir:** una configuración por familia —sin variantes—, cinco semillas, con media y
-rango. Los seis modelos en **una sola sesión**, que el pestillo registra como una.
+| Modelo | F1 macro | Precisión direccional | F1 máximo | F1 mínimo |
+|---|---|---|---|---|
+| **Bosque aleatorio** | **0,378567** | **0,104651** | 0,046154 | 0,165746 |
+| Chronos-Bolt | 0,349991 | 0,063953 | 0,062992 | 0,070707 |
+| iTransformer | 0,348751 | 0,093023 | 0,116071 | 0,032432 |
+| Baseline aleatorio | 0,343546 | 0,063953 | 0,077778 | 0,044944 |
+| Baseline mayoritario | 0,318036 | 0,000000 | 0,000000 | 0,000000 |
+| Baseline trivial | 0,318036 | 0,000000 | 0,000000 | 0,000000 |
 
-**Lo que se va a reportar, decidido de antemano:**
+El orden es **el mismo que en validación**: gana el bosque, y ningún modelo profundo lo supera.
 
-| Si pasa esto | El informe dice |
-|---|---|
-| El mejor modelo supera al azar y el intervalo excluye el cero | Detecta puntos de inflexión mejor que el azar sobre datos no vistos |
-| Supera al azar y el intervalo incluye el cero | La ventaja no se distingue del azar con estos datos |
-| No supera al azar | El enfoque no detecta puntos de inflexión sobre datos no vistos |
+### La regla de decisión, aplicada
 
-Los tres casos están escritos **antes** de ver el número, y el informe reporta **la primera y única
-cifra que salga**. No hay una segunda corrida ni una cuarta rama en la que se busque otra
-configuración.
+La sección 5 del protocolo declara que el proyecto **detecta puntos de inflexión** si el mejor
+modelo cumple **las tres** condiciones de la D16 contra el `baseline_aleatorio`.
 
-**La expectativa, dicha de antemano para que no se lea como excusa después:** no hay razón para
-esperar que el bloque de prueba mejore lo de validación. Esperar que datos no vistos favorezcan a un
-modelo más que los datos con los que se eligió es al revés de como funciona.
+**Tabla 6.** Las tres condiciones sobre el bloque de prueba.
+
+| Condición | Resultado | ¿Se cumple? |
+|---|---|---|
+| 1 · La diferencia es positiva | **+0,051367** de media en cinco semillas | **Sí** |
+| 2 · El intervalo del 95 % excluye el cero | [**−0,004861** , +0,074113] | **No** |
+| 3 · El signo no cambia en cinco semillas | positiva en las **cinco** | **Sí** |
+
+**Dos de tres. El protocolo exige las tres.**
+
+### Lo que el informe dice, escrito antes de saber cuál tocaba
+
+Es el segundo de los tres casos previstos, y se reporta con las palabras que ya estaban escritas:
+
+> **No podemos afirmar que el sistema detecte puntos de inflexión mejor que el azar sobre el
+> bloque de prueba.** La diferencia es positiva y estable en signo, y su intervalo incluye el
+> cero.
+
+Y la segunda mitad de esa lectura, que el protocolo también dejó escrita: **la caída respecto de
+validación es la que cabe esperar cuando se elige mirando uno de los dos conjuntos.** El bosque
+pasa de 0,390498 en validación a 0,378567 en prueba — una caída pequeña; lo que se
+estrecha es la **ventaja sobre el azar**, porque el baseline aleatorio sube de 0,336784 a 0,343546.
+
+### El criterio de aceptación falla, y por una razón que no es la del intervalo
+
+Hay un segundo veredicto en la evidencia, y es más severo:
+
+```
+supera_al_trivial        True    (+0,060531)
+detecta_ambos_extremos   FALSE
+  F1 Máximo  0,046154  contra 0,077778 del azar   <- PEOR que el azar
+  F1 Mínimo  0,165746  contra 0,044944 del azar
+```
+
+Sobre datos no vistos, **el mejor modelo detecta los mínimos casi cuatro veces mejor que el azar y
+los máximos peor que el azar.** El F1 macro sube porque el mínimo compensa; la detección de una de
+las dos clases que importan, no ocurre.
+
+El propio guion lo imprimió sin que nadie se lo pidiera:
+
+> El criterio de aceptación se cumple por un margen que no es detección. Esto va al informe tal
+> cual: «corre» y «funciona» no son lo mismo.
+
+**Esta es la conclusión honesta del proyecto**, y no se busca una configuración que la mejore: la
+sección 7 del protocolo lo prohíbe explícitamente, y el resultado negativo bien medido es la
+contribución.
+
+### Un hueco de la herramienta, declarado
+
+La condición 2 **no la calculó la corrida**: `comparar_fundacional` solo produce intervalos
+pareados de los modelos profundos, y el mejor modelo resultó ser el bosque. Se completó después,
+verificando que las predicciones recalculadas reprodujeran **exactamente** el F1 que la corrida
+había escrito — los dos modelos reproducen bit a bit entre procesos, así que no es una segunda
+medición sino la lectura de la primera. Está en la **D28**, y el pestillo sigue diciendo
+`n_corridas: 1`.
+
+**La expectativa se dijo de antemano, y se cumplió:** no había razón para esperar que el bloque de
+prueba mejorara lo de validación. Esperar que datos no vistos favorezcan a un modelo más que los
+datos con los que se eligió es al revés de como funciona.
