@@ -56,9 +56,14 @@ DECLARADAS = {
         "m3-hiperparametros-fundacional-4h-w7-h1.json",
         ("por_defecto", "f1_macro"),
     ),
+    # Apunta al barrido COMPLETO, no al anterior. El anterior media solo el F1 macro
+    # y por eso el panel no podia publicar medias en las seis columnas que muestra
+    # (fase 2 del #92). El anterior no se reescribio --lo cita el capitulo de la
+    # Semana 2, ya entregado, y eso es la D13-- asi que los dos coexisten y esta
+    # ruta tiene que decir cual es la que la tabla declara.
     "Avanzado": (
-        "m3-sensibilidad-avanzado-4h-w7-h1.json",
-        ("resumen_f1_completo", "media"),
+        "m3-sensibilidad-avanzado-completa-4h-w7-h1.json",
+        ("resumen_completo", "f1_macro", "media"),
     ),
 }
 

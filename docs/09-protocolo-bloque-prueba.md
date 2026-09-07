@@ -72,7 +72,7 @@ resultado:
 |---|---|---|
 | Clásico | `bosque_aleatorio_rezagos_relativos` | 0,380975 (media de cinco semillas) |
 | Fundacional | `chronos_bolt` — `amazon/chronos-bolt-small`, contexto 512, cuantil 0,5 | 0,368589 (determinista) |
-| Avanzado | `itransformer` — lookback 96, dimensión 64 | 0,343698 (media de cinco semillas) |
+| Avanzado | `itransformer` — lookback 96, dimensión 64 | 0,342604 (media de cinco semillas) |
 
 **Las tres cifras son comparables entre sí, y por eso el clásico dice la media y no 0,3905.**
 Ese 0,3905 es la corrida de la semilla 0, y resulta ser **la más alta de las cinco**: la media es
@@ -101,10 +101,36 @@ preferencia.** Cada una tiene su razón registrada:
   `docs/evidencias/m3-hiperparametros-avanzado-4h-w7-h1.json`.
 
 **Sobre la cifra del avanzado, que no es un valor puntual.** Este modelo se entrena, y su F1
-recorre un rango de **0,030377** entre semillas. El 0,343698 de la tabla es la media de cinco, y
-dos corridas independientes de esa misma configuración dieron 0,343698 y 0,345129 — la diferencia
-entre ambas es el efecto que la [D15](DECISIONES.md#d15) documenta. Se declara la media porque es
-lo único comparable; **el valor de una sola corrida no lo es**.
+recorre un rango de **0,023207** entre semillas. El 0,342604 de la tabla es la media de cinco,
+medida con las seis métricas y con **la semilla de cada corrida declarada**
+(`m3-sensibilidad-avanzado-completa-4h-w7-h1.json`, fase 2 del [#92](https://github.com/NeoFao/caso1-ltc-inflexion/issues/92)).
+Se declara la media porque es lo único comparable; **el valor de una sola corrida no lo es**.
+
+**Esa cifra reemplaza al 0,343698 que declaraba antes esta tabla, y conviene decir por qué.** El
+barrido anterior medía solo el F1 macro, así que no servía para publicar medias en las seis
+columnas del panel. Al repetirlo completo, la media pasó de **0,343698** a **0,342604** — no
+porque el modelo haya cambiado, sino por el efecto de orden de reducción en punto flotante que
+documenta la [D15](DECISIONES.md#d15). El barrido anterior **no se reescribió**: sus cifras las cita el capítulo
+de la Semana 2, ya entregado, y la [D13](DECISIONES.md#d13) manda que remedir produzca evidencia
+nueva en vez de reescribir la entregada. La tabla apunta a la medición completa porque es la que
+el panel publica; el capítulo sigue citando la que se midió cuando se escribió.
+
+**Y una advertencia que solo aparece al medir las seis.** La dispersión entre semillas no es
+pareja entre métricas, y las peores son justamente las que dicen si el sistema detecta giros:
+
+| Métrica | Media | Rango entre semillas |
+|---|---|---|
+| F1 macro | 0,342604 | 0,023207 |
+| Exactitud | 0,778765 | 0,058703 |
+| F1 Continuidad | 0,876340 | 0,035500 |
+| Precisión direccional | 0,097409 | 0,046632 |
+| F1 Mínimo | 0,077887 | 0,048659 |
+| **F1 Máximo** | **0,073585** | **0,075013** |
+
+El F1 de Máximo **recorre más que su propia media**: va de 0,039683 con la semilla 1 a 0,114695 con
+la 3. Una media suelta en esa columna no significa gran cosa, y sobre prueba —con 86 ejemplos por
+clase extrema en vez de los 94 de validación— va a ser peor. **Las tres métricas por clase se
+reportan con su rango, no solas.**
 
 **Qué significan las cinco semillas en cada familia**, porque no es lo mismo en las tres:
 

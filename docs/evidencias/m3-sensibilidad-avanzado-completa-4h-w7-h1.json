@@ -1,0 +1,238 @@
+{
+  "ejecutado_utc": "2026-09-01T17:39:11+00:00",
+  "pregunta": "Cuanto se mueve CADA UNA de las seis metricas del modelo avanzado si solo cambia la semilla?",
+  "para_que": "Fase 2 del issue #92. El panel publico muestra seis columnas y solo se tenia medida la media de una, asi que publicaba una corrida suelta donde la D18 declara medias de cinco. Con esto puede publicar medias en las seis.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "conjunto": "validacion",
+    "semillas": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "configuracion": "lookback 96, dimension 64 (la por omision, D18)",
+    "metricas": [
+      "f1_macro",
+      "precision_direccional",
+      "exactitud",
+      "f1_maximo",
+      "f1_minimo",
+      "f1_continuidad"
+    ]
+  },
+  "por_semilla": [
+    {
+      "semilla": 0,
+      "completo": {
+        "f1_macro": 0.3414404795576674,
+        "precision_direccional": 0.07253886010362694,
+        "exactitud": 0.8029606942317509,
+        "f1_maximo": 0.0730593607305936,
+        "f1_minimo": 0.06091370558375635,
+        "f1_continuidad": 0.8903483723586522
+      },
+      "solo_LTC": {
+        "f1_macro": 0.32911632338765584,
+        "precision_direccional": 0.07253886010362694,
+        "exactitud": 0.777947932618683,
+        "f1_maximo": 0.08208955223880597,
+        "f1_minimo": 0.03015075376884422,
+        "f1_continuidad": 0.8751086641553173
+      },
+      "diferencia_f1_macro": 0.012324156170011535
+    },
+    {
+      "semilla": 1,
+      "completo": {
+        "f1_macro": 0.3332646673859611,
+        "precision_direccional": 0.10880829015544041,
+        "exactitud": 0.7442572741194488,
+        "f1_maximo": 0.03968253968253968,
+        "f1_minimo": 0.10526315789473684,
+        "f1_continuidad": 0.8548483045806068
+      },
+      "solo_LTC": {
+        "f1_macro": 0.3304309388600911,
+        "precision_direccional": 0.11398963730569948,
+        "exactitud": 0.7335375191424196,
+        "f1_maximo": 0.08767123287671233,
+        "f1_minimo": 0.05504587155963303,
+        "f1_continuidad": 0.848575712143928
+      },
+      "diferencia_f1_macro": 0.002833728525869994
+    },
+    {
+      "semilla": 2,
+      "completo": {
+        "f1_macro": 0.339445847949346,
+        "precision_direccional": 0.09844559585492228,
+        "exactitud": 0.7697805002552323,
+        "f1_maximo": 0.0912280701754386,
+        "f1_minimo": 0.05660377358490566,
+        "f1_continuidad": 0.8705057000876937
+      },
+      "solo_LTC": {
+        "f1_macro": 0.3310565668428264,
+        "precision_direccional": 0.08290155440414508,
+        "exactitud": 0.7631444614599285,
+        "f1_maximo": 0.056,
+        "f1_minimo": 0.06870229007633588,
+        "f1_continuidad": 0.8684674104521433
+      },
+      "diferencia_f1_macro": 0.008389281106519597
+    },
+    {
+      "semilla": 3,
+      "completo": {
+        "f1_macro": 0.35647214696133434,
+        "precision_direccional": 0.11917098445595854,
+        "exactitud": 0.7876467585502808,
+        "f1_maximo": 0.11469534050179211,
+        "f1_minimo": 0.07253886010362694,
+        "f1_continuidad": 0.8821822402785838
+      },
+      "solo_LTC": {
+        "f1_macro": 0.3317171538834128,
+        "precision_direccional": 0.05181347150259067,
+        "exactitud": 0.8024502297090352,
+        "f1_maximo": 0.02564102564102564,
+        "f1_minimo": 0.0782122905027933,
+        "f1_continuidad": 0.8912981455064194
+      },
+      "diferencia_f1_macro": 0.02475499307792156
+    },
+    {
+      "semilla": 4,
+      "completo": {
+        "f1_macro": 0.3423979199014667,
+        "precision_direccional": 0.08808290155440414,
+        "exactitud": 0.7891781521184278,
+        "f1_maximo": 0.04926108374384237,
+        "f1_minimo": 0.09411764705882353,
+        "f1_continuidad": 0.8838150289017341
+      },
+      "solo_LTC": {
+        "f1_macro": 0.3391072312502772,
+        "precision_direccional": 0.07253886010362694,
+        "exactitud": 0.7973455844818785,
+        "f1_maximo": 0.06282722513089005,
+        "f1_minimo": 0.06611570247933884,
+        "f1_continuidad": 0.8883787661406026
+      },
+      "diferencia_f1_macro": 0.0032906886511894773
+    }
+  ],
+  "resumen_completo": {
+    "f1_macro": {
+      "media": 0.3426042123511551,
+      "minimo": 0.3332646673859611,
+      "maximo": 0.35647214696133434,
+      "rango": 0.023207479575373224,
+      "desviacion": 0.007627828089215692,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "precision_direccional": {
+      "media": 0.09740932642487046,
+      "minimo": 0.07253886010362694,
+      "maximo": 0.11917098445595854,
+      "rango": 0.046632124352331605,
+      "desviacion": 0.0161870459604283,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "exactitud": {
+      "media": 0.7787646758550281,
+      "minimo": 0.7442572741194488,
+      "maximo": 0.8029606942317509,
+      "rango": 0.05870342011230212,
+      "desviacion": 0.02022006613208292,
+      "la_de_la_semilla_0_es_el_maximo": true
+    },
+    "f1_maximo": {
+      "media": 0.07358527896684128,
+      "minimo": 0.03968253968253968,
+      "maximo": 0.11469534050179211,
+      "rango": 0.07501280081925243,
+      "desviacion": 0.02735925450466336,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "f1_minimo": {
+      "media": 0.07788742884516986,
+      "minimo": 0.05660377358490566,
+      "maximo": 0.10526315789473684,
+      "rango": 0.048659384309831175,
+      "desviacion": 0.01888151993052441,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "f1_continuidad": {
+      "media": 0.876339929241454,
+      "minimo": 0.8548483045806068,
+      "maximo": 0.8903483723586522,
+      "rango": 0.035500067778045374,
+      "desviacion": 0.012507392631038563,
+      "la_de_la_semilla_0_es_el_maximo": true
+    }
+  },
+  "resumen_solo_LTC": {
+    "f1_macro": {
+      "media": 0.3322856428448527,
+      "minimo": 0.32911632338765584,
+      "maximo": 0.3391072312502772,
+      "rango": 0.009990907862621357,
+      "desviacion": 0.0035171689917862913,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "precision_direccional": {
+      "media": 0.07875647668393783,
+      "minimo": 0.05181347150259067,
+      "maximo": 0.11398963730569948,
+      "rango": 0.062176165803108814,
+      "desviacion": 0.0203066507173735,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "exactitud": {
+      "media": 0.774885145482389,
+      "minimo": 0.7335375191424196,
+      "maximo": 0.8024502297090352,
+      "rango": 0.06891271056661563,
+      "desviacion": 0.024984618143086074,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "f1_maximo": {
+      "media": 0.0628458071774868,
+      "minimo": 0.02564102564102564,
+      "maximo": 0.08767123287671233,
+      "rango": 0.06203020723568669,
+      "desviacion": 0.021989473279332546,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "f1_minimo": {
+      "media": 0.05964538167738905,
+      "minimo": 0.03015075376884422,
+      "maximo": 0.0782122905027933,
+      "rango": 0.04806153673394908,
+      "desviacion": 0.016490671988398677,
+      "la_de_la_semilla_0_es_el_maximo": false
+    },
+    "f1_continuidad": {
+      "media": 0.8743657396796822,
+      "minimo": 0.848575712143928,
+      "maximo": 0.8912981455064194,
+      "rango": 0.042722433362491374,
+      "desviacion": 0.015385311322320886,
+      "la_de_la_semilla_0_es_el_maximo": false
+    }
+  },
+  "aporte_de_los_activos_de_apoyo": {
+    "diferencia_media_f1_macro": 0.010318569506302434,
+    "minima": 0.002833728525869994,
+    "maxima": 0.02475499307792156,
+    "cambia_de_signo": false,
+    "nota": "Misma pregunta que respondio el #62 sobre el bosque, sobre la arquitectura cuyo argumento de venta es atender entre series."
+  },
+  "sobre_la_reproducibilidad": "Cada corrida declara su semilla, que es lo que faltaba y motivo la fase 2. Aun asi, dos procesos con la MISMA semilla no dan identico: es el efecto de orden de reduccion en punto flotante que documenta la D15, amplificado porque etiquetar() decide con desigualdades estrictas. Declarar la semilla no lo elimina; lo que hace es que se pueda saber que corrida fue cual.",
+  "relacion_con_el_barrido_anterior": "No reescribe m3-sensibilidad-avanzado-<intervalo>-w<w>-h<h>.json. Aquel mide solo el F1 macro y sus cifras las cita el capitulo de la Semana 2, que ya se entrego; regenerarlo dejaria al entregable citando valores que ya no existen. Es la D13: remedir produce evidencia nueva, no reescribe la entregada. Las medias de los dos difieren por el mismo efecto de la D15, no porque el modelo haya cambiado."
+}
