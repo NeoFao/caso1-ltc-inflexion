@@ -1,0 +1,47 @@
+{
+  "que_es": "Condicion 2 de la regla principal del protocolo: el intervalo pareado del mejor modelo contra el baseline_aleatorio sobre el bloque de prueba. La corrida unica no lo calculo porque `comparar_fundacional` solo compara los modelos profundos, y el mejor resulto ser el bosque.",
+  "no_es_una_segunda_medicion": "Las predicciones son las mismas de la corrida unica: los dos modelos reproducen bit a bit entre procesos (m0-reproducibilidad-predicciones), y se comprobo que el F1 recalculado coincide exactamente con el que la corrida dejo escrito. Un calculo determinista sobre predicciones ya producidas no se puede elegir.",
+  "conjunto": "prueba",
+  "n": 1960,
+  "mejor_modelo": "bosque_aleatorio_rezagos_relativos",
+  "contra": "baseline_aleatorio",
+  "f1_macro_verificado": {
+    "bosque_aleatorio_rezagos_relativos": 0.3785671032002717,
+    "baseline_aleatorio": 0.34354616620670914
+  },
+  "condicion_1_diferencia_positiva": {
+    "por_semilla": {
+      "0": 0.03502093699356257,
+      "1": 0.049704478610381964,
+      "2": 0.06383979933371192,
+      "3": 0.05926641251271475,
+      "4": 0.04900267010056597
+    },
+    "media": 0.051366859510187435,
+    "se_cumple": true
+  },
+  "condicion_2_intervalo_excluye_el_cero": {
+    "diferencia": 0.03502093699356257,
+    "ic_inferior": -0.004861218697200407,
+    "ic_superior": 0.07411342757808757,
+    "excluye_el_cero": false,
+    "fraccion_a_favor": 0.964,
+    "remuestras": 1000,
+    "se_cumple": false
+  },
+  "condicion_3_signo_estable": {
+    "positivas": 5,
+    "de": 5,
+    "se_cumple": true
+  },
+  "condiciones_cumplidas": 2,
+  "lectura": "El protocolo (seccion 5) exige las TRES. Con dos de tres, la lectura que toca es la segunda de las escritas de antemano en su seccion 6: no se puede afirmar que el sistema detecte mejor que el azar sobre el bloque de prueba.",
+  "intervalo": {
+    "diferencia": 0.03502093699356257,
+    "ic_inferior": -0.004861218697200407,
+    "ic_superior": 0.07411342757808757,
+    "excluye_el_cero": false,
+    "fraccion_a_favor": 0.964,
+    "remuestras": 1000
+  }
+}

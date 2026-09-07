@@ -17,9 +17,12 @@ CARPETA_ENTREGA=semana-5 npm run ensamblar --prefix scripts
 
 ## Estado
 
-El ensamblador avisa de **un bloque sin redactar**, y está bien que avise: es la subsección 5.4, la
-celda de la corrida única sobre el bloque de prueba. Es lo único que falta del informe, y se rellena
-con la cifra de esa medición.
+**Completo.** El ensamblador ya no marca bloques pendientes: la subsección 5.4 se rellenó con la
+cifra de la corrida única del 07/09/2026, que se hizo una sola vez y quedó registrada en el pestillo
+con `n_corridas: 1`.
 
-Las tres lecturas posibles de esa cifra están escritas de antemano en `05-rendimiento.md`, para que
-rellenarla sea poner un número y no redactar un capítulo con el resultado delante.
+El resultado, en una línea: **dos de las tres condiciones que el protocolo exige**. La diferencia
+contra el azar es positiva y estable en signo, y su intervalo incluye el cero — así que el informe
+reporta que **no se puede afirmar que el sistema detecte mejor que el azar sobre datos no vistos**.
+
+Es la segunda de las tres lecturas que estaban escritas antes de conocer la cifra.

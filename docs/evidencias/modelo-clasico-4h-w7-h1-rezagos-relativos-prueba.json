@@ -1,0 +1,165 @@
+{
+  "ejecutado_utc": "2026-09-07T22:51:02+00:00",
+  "intervalo": "4h",
+  "w": 7,
+  "h": 1,
+  "latencia_real": 8,
+  "conjunto": "prueba",
+  "config_provisional": false,
+  "origen_parametros": "docs/evidencias/spike-datos-4h.json",
+  "panel": {
+    "filas": 13114,
+    "columnas": 30,
+    "desde": "2020-08-11 04:00:00+00:00",
+    "hasta": "2026-08-05 16:00:00+00:00"
+  },
+  "caracteristicas": {
+    "n_columnas": 63,
+    "n_columnas_en_nivel": 0,
+    "n_columnas_rezago": 24,
+    "forma_rezagos": "relativos al precio actual",
+    "filas_con_algun_nulo": 30,
+    "origen_columnas_en_nivel": "src.features.base.columnas_en_nivel_de_precio(), el ayudante de M2, en vez de un fragmento de nombre deducido desde M3"
+  },
+  "modelo_principal": "bosque_aleatorio_rezagos_relativos",
+  "particion": {
+    "n_entrenamiento": 9171,
+    "n_validacion": 1959,
+    "n_prueba": 1968,
+    "n_embargo": 16,
+    "filas_entrenables": 9165
+  },
+  "balance_entrenamiento": [
+    {
+      "clase": "Maximo",
+      "codigo": 1,
+      "n": 420,
+      "porcentaje": 4.583
+    },
+    {
+      "clase": "Minimo",
+      "codigo": 2,
+      "n": 431,
+      "porcentaje": 4.703
+    },
+    {
+      "clase": "Continuidad",
+      "codigo": 3,
+      "n": 8314,
+      "porcentaje": 90.715
+    }
+  ],
+  "hiperparametros": {
+    "n_estimators": 300,
+    "min_samples_leaf": 5,
+    "max_depth": null,
+    "class_weight": "balanced",
+    "random_state": 0
+  },
+  "criterio_preregistrado": {
+    "class_weight": "balanced. Gini sobre la distribucion empirica (~91 % Continuidad) optimiza un criterio que no es el que reportamos, asi que se decidio de antemano reponderar las clases para alinear el entrenamiento con el F1 macro.",
+    "class_weight_correccion": "CAMBIO DECLARADO. La primera corrida uso balanced_subsample, elegido a priori por coherencia con el bootstrap. Medido: colapsa a la mayoritaria en validacion y empata exactamente con BaselineTrivial (F1 macro 0.316120), aunque si produce predicciones minoritarias en entrenamiento. balanced, que implementa la misma intencion declarada, si produce minoritarias fuera de muestra. El cambio se hizo DESPUES de ver ese resultado y por eso queda escrito aqui: es una correccion de la variante, no una busqueda de hiperparametros, que es la tarea S4-M3-02.",
+    "n_estimators": "300. El F1 macro sobre una clase con pocos cientos de ejemplos es ruidoso con 100 arboles, y 300 sigue siendo barato a esta escala.",
+    "min_samples_leaf": "5. Con cientos de ejemplos minoritarios y decenas de variables, las hojas unitarias memorizan ruido.",
+    "max_depth": "None, deliberadamente sin ajustar. Buscar hiperparametros ahora gastaria el conjunto de validacion antes de que exista el modelo fundacional. Eso es la tarea S4-M3-02.",
+    "metrica_que_decide": "F1 macro, no exactitud (RF-V1 y seccion 3.3 del PRD).",
+    "conjunto_de_prueba": "No se toca. Se mide sobre validacion; prueba se gasta una sola vez, al final."
+  },
+  "resultados": [
+    {
+      "n": 1960,
+      "f1_macro": 0.31803628601921025,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9122448979591836,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9541088580576307,
+      "modelo": "baseline_trivial",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:44+00:00"
+    },
+    {
+      "n": 1960,
+      "f1_macro": 0.31803628601921025,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9122448979591836,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9541088580576307,
+      "modelo": "baseline_mayoritario",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:44+00:00"
+    },
+    {
+      "n": 1960,
+      "f1_macro": 0.34354616620670914,
+      "precision_direccional": 0.06395348837209303,
+      "exactitud": 0.8306122448979592,
+      "f1_maximo": 0.07777777777777778,
+      "f1_minimo": 0.0449438202247191,
+      "f1_continuidad": 0.9079169006176305,
+      "modelo": "baseline_aleatorio",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:44+00:00"
+    },
+    {
+      "n": 1960,
+      "f1_macro": 0.3785671032002717,
+      "precision_direccional": 0.10465116279069768,
+      "exactitud": 0.8596938775510204,
+      "f1_maximo": 0.046153846153846156,
+      "f1_minimo": 0.16574585635359115,
+      "f1_continuidad": 0.9238016070933777,
+      "modelo": "bosque_aleatorio_rezagos_relativos",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:45+00:00"
+    },
+    {
+      "n": 1960,
+      "f1_macro": 0.34999059917527164,
+      "precision_direccional": 0.06395348837209303,
+      "exactitud": 0.8459183673469388,
+      "f1_maximo": 0.06299212598425197,
+      "f1_minimo": 0.0707070707070707,
+      "f1_continuidad": 0.9162726008344924,
+      "modelo": "chronos_bolt",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:47:07+00:00"
+    },
+    {
+      "n": 1960,
+      "f1_macro": 0.3487512632663587,
+      "precision_direccional": 0.09302325581395349,
+      "exactitud": 0.8122448979591836,
+      "f1_maximo": 0.11607142857142858,
+      "f1_minimo": 0.032432432432432434,
+      "f1_continuidad": 0.8977499287952151,
+      "modelo": "itransformer",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:47:40+00:00"
+    }
+  ],
+  "veredicto": {
+    "supera_al_trivial": true,
+    "delta_f1_macro": 0.06053081718106146,
+    "detecta_ambos_extremos": false,
+    "criterio_deteccion": "F1 por clase extrema estrictamente mayor que el del baseline_aleatorio de la misma corrida, no simplemente > 0",
+    "f1_maximo": 0.046153846153846156,
+    "f1_minimo": 0.16574585635359115,
+    "f1_maximo_aleatorio": 0.07777777777777778,
+    "f1_minimo_aleatorio": 0.0449438202247191,
+    "precision_direccional": 0.10465116279069768
+  },
+  "importancias_top10": {
+    "LTC_posicion_rango_7": 0.070182,
+    "LTC_dist_sma_7": 0.056807,
+    "LTC_cierre_rezago_rel_5": 0.044801,
+    "LTC_cierre_rezago_rel_6": 0.040276,
+    "LTC_dist_ema_12": 0.03246,
+    "LTC_retorno_3": 0.029426,
+    "LTC_retorno_7": 0.02872,
+    "LTC_cierre_rezago_rel_7": 0.026781,
+    "LTC_bollinger_pctb_20": 0.017287,
+    "LTC_retorno_1": 0.016416
+  }
+}
