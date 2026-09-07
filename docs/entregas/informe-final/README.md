@@ -30,7 +30,7 @@ Y por semana:
 | Prueba de detección: entrenamiento | **Hecha** | F1 macro 0,953353 contra 0,331638 del azar |
 | Prueba de detección: tiempo real | **Hecha** | 500 velas de a una, predicciones idénticas al bloque (D21) |
 | Rendimiento sobre datos no vistos | **Pendiente** | Se mide el **lunes 7**, una vez (D18, fecha nueva por [D23](../../DECISIONES.md)) |
-| Informe técnico | **Este documento** | Secciones 2 y 3 escritas; el resto, al rellenar la cifra |
+| Informe técnico | **Este documento** | **Todas las secciones escritas**; falta solo la celda 5.4 |
 
 ---
 
@@ -38,16 +38,20 @@ Y por semana:
 
 El informe no repite los marcos teóricos ya entregados: los cita. Lo que aporta es **lo que se construyó, lo que se midió y lo que no se pudo afirmar**.
 
-| Sección | Qué contiene | Fuente del material |
-|---|---|---|
-| Introducción | Qué se construyó y qué se puede afirmar hoy | nueva |
-| 1. Diseño | Los tres parámetros, la partición con embargo, y por qué cada decisión | D1–D3, `docs/04` |
-| 2. Ingeniería de características | Las cinco familias, por qué ninguna es precio crudo, y la importancia medida con su piso de ruido | **escrita**: [`02-ingenieria-de-caracteristicas.md`](02-ingenieria-de-caracteristicas.md) |
-| 3. Los dos modelos | Fundacional y avanzado: qué son, por qué se eligieron, qué costaron | **escrita**: [`m3-modelos.md`](m3-modelos.md) |
-| 4. Pruebas de detección | Las cuatro, incluida la de tiempo real que la D21 desbloqueó | `pruebas-deteccion.json`, D21 |
-| 5. Rendimiento | La comparación sobre validación y **la medición única sobre prueba** | la mitad de modelos, en [`m3-modelos.md`](m3-modelos.md); falta la celda de la corrida |
-| 6. Limitaciones | Lo que el enfoque no puede, incluido el análisis con datos estáticos que pide el enunciado | `docs/06`, D15, D20, **D24** |
-| Conclusiones | Lo que se sostiene y lo que no | nueva |
+| Sección | Archivo | Autor | Quién la revisa |
+|---|---|---|---|
+| Introducción | [`00-introduccion.md`](00-introduccion.md) | Fabrizio (M0) | el equipo |
+| 1. Diseño | [`01-diseno.md`](01-diseno.md) | Fabrizio (M0) | **Alejandro** (etiquetado y ventana) |
+| 2. Ingeniería de características | [`02-ingenieria-de-caracteristicas.md`](02-ingenieria-de-caracteristicas.md) | Alejandro (M2) | Fabrizio |
+| 3. Los dos modelos | [`m3-modelos.md`](m3-modelos.md) | Isaac (M3) | Fabrizio |
+| 4. Pruebas de detección | [`04-pruebas-deteccion.md`](04-pruebas-deteccion.md) | Fabrizio (M0) | **Jose Pablo** (tiempo real y la app) |
+| 5. Rendimiento | [`05-rendimiento.md`](05-rendimiento.md) | Fabrizio (M0), sobre material de M3 | **Isaac** (5.2 y 5.3) |
+| 6. Limitaciones | [`06-limitaciones.md`](06-limitaciones.md) | Fabrizio (M0) | **Isaac** (6.2, 6.3) y **Alejandro** (6.1, 6.4) |
+| Conclusiones | [`99-conclusiones.md`](99-conclusiones.md) | Fabrizio (M0) | el equipo |
+
+**Todas escritas.** Lo único que falta es la subsección **5.4**, que se rellena con la cifra de la
+corrida única — y está escrita hasta el punto de que rellenarla es poner un número en una tabla cuyo
+criterio de lectura ya está fijado.
 
 ---
 
@@ -113,8 +117,9 @@ El mecanismo está medido y explica el tamaño: los seis activos son fuertemente
 
 ## Lo que falta para cerrarlo
 
-1. **La medición sobre el bloque de prueba.** Es la única cifra que el informe todavía no tiene. Estaba prevista para el sábado 5 y no se corrió por tres defectos en el camino; la [D23](../../DECISIONES.md) la movió al **lunes 7** y los tres están arreglados y medidos (#101, #105).
-2. **Las secciones que faltan**: introducción, 1 (diseño), 4 (pruebas de detección), la celda de prueba en la 5, la 6 y las conclusiones.
+1. **La medición sobre el bloque de prueba.** Es la única cifra que el informe todavía no tiene. Estaba prevista para el sábado 5 y no se corrió por tres defectos en el camino; la [D23](../../DECISIONES.md) la movió al **lunes 7**, los tres están arreglados, y el camino quedó **ensayado entero dos veces** sobre validación.
+2. **Que cada quien revise lo suyo**, según la columna «quién la revisa» de la tabla de arriba. Las secciones están escritas; lo que falta es que quien midió cada cosa confirme que está bien contada.
+3. **La revisión de QA del flujo terminado** ([#115](https://github.com/NeoFao/caso1-ltc-inflexion/issues/115)), que es la única capa que ve alguien de fuera.
 
 Ya no falta ninguna respuesta del profesor: la consulta **no se envía** y las dos preguntas abiertas las resolvió el equipo — qué muestra la vista en tiempo real ([D21](../../DECISIONES.md)) y qué se entrega y cuándo ([D22](../../DECISIONES.md)).
 
