@@ -877,3 +877,91 @@ todo camino que solo se recorre una vez se ensaya entero antes, sobre datos que 
 **Origen:** M2 avisó el 06/09 de que la medición no se había corrido, con tres comprobaciones
 independientes de que la reserva seguía intacta, y pidió que se decidiera ese mismo día en vez del
 lunes. Es la misma forma que el #100: traer el problema antes de que sea urgente.
+
+---
+
+## D24 · Qué criterio responde «¿aporta?» y cuál responde «¿lo elegimos?», y la corrección a la D14
+
+**Estado:** propuesta desde el 06/09/2026 · corrige la lectura de la [D14](#d14), que **no se
+reescribe** · pedida por M0 al detectar el choque con la sección de M3 del informe
+
+### El choque
+
+La D14 concluye, sobre los activos de apoyo en el modelo avanzado, que **«no se puede afirmar que
+aporten»**. La sección de M3 del informe final concluye que **sí aportan**. Las dos citan la misma
+evidencia.
+
+**No discrepan en los números. Discrepan en qué regla aplicaron** — y la que apliqué en la D14 no
+era la que correspondía.
+
+### Las dos preguntas no son la misma
+
+| Pregunta | Qué la responde | Por qué |
+|---|---|---|
+| ¿El aporte se distingue del azar? | Las tres condiciones de la [D16](#d16) | Es una pregunta de distinguibilidad |
+| ¿Alcanza para preferir una configuración? | El umbral de 0,02 de la [D5](#d5) | Es una convención de decisión del equipo |
+
+Esto ya estaba escrito y no lo vi: la **sección 5 del protocolo** dice textualmente que *«el umbral
+de 0,02 (D5) no se aplica aquí. Ese umbral se fijó para decidir entre modelos nuestros; contra un
+baseline, lo que importa es si la diferencia se distingue del azar»*.
+
+La D14 usó el umbral de la D5 para responder una pregunta de distinguibilidad.
+
+### Lo que dice el criterio que corresponde
+
+Las tres condiciones de la D16, sobre el modelo avanzado:
+
+1. **La diferencia es positiva** — media **+0,012586**, la misma que la D14 midió y reportó.
+2. **El intervalo pareado excluye el cero** — [0,000434 , 0,044067], en
+   `m3-modelos-profundos-4h-w7-h1.json`. Ese intervalo **ya estaba en la evidencia que la D14
+   cita**, y la D14 no lo usó.
+3. **El signo no cambia** — positivo en las cinco semillas, de +0,002070 a +0,025328.
+
+**Las tres salen de la evidencia que la D14 ya tenía delante.** No hace falta ninguna medición
+nueva para corregir la lectura, y por eso esta decisión no depende de ningún barrido posterior.
+
+**Las tres se cumplen: el aporte es distinguible.**
+
+### El argumento de la D14 que no se sostiene, y por qué
+
+La D14 dice que el aporte es *«del mismo orden que el ruido de corrida a corrida»*. Ese ruido se
+midió: **0,004833** entre dos procesos con la misma semilla. El aporte medio es más del doble.
+
+Pero lo que de verdad los separa no es la magnitud: **el ruido de punto flotante no tiene signo** y
+el aporte fue positivo en **las cinco** semillas. Si no hubiera efecto, que las cinco cayeran del
+mismo lado tiene probabilidad **1 en 16**. Por eso la tercera condición de la D16 es la del signo, y
+por eso mirar solo la magnitud contra un umbral se pierde justo la parte que discrimina.
+
+### Lo que la D14 acertó y sigue vigente
+
+- **La magnitud es pequeña**, por debajo del umbral que el equipo fijó para preferir una
+  configuración sobre otra. La [D20](#d20) explica por qué: los seis activos son fuertemente
+  proporcionales y **no hay ninguna relación inversa**, así que traen poco que LTC no tenga.
+- **El avanzado con los cinco apoyos sigue por debajo del bosque sin ellos.** Aportar no es
+  rescatar.
+- Todo lo demás de la D14 —la elección de iTransformer, Informer fuera por no instalable, la
+  dispersión entre semillas, el presupuesto— no lo toca esta decisión.
+
+### Lo que se corrige, exactamente
+
+Donde la D14 dice *«las dos mediciones coinciden en lo que importa: no se puede afirmar que
+aporten»*, **no coinciden**: sobre el bosque el intervalo del #62 incluye el cero, y sobre el
+avanzado lo excluye. Presentarlo como confirmación independiente fue afirmar de más.
+
+**La frase correcta, y la que va al informe:**
+
+> El aporte de los activos de apoyo es **distinguible del azar en el modelo avanzado y demasiado
+> pequeño para cambiar ninguna decisión**. Sobre el bosque no se distingue. No es el mismo
+> resultado en las dos familias, y la limitación se declara por familia y no en general.
+
+### Consecuencia para el informe
+
+La **limitación 1** del esqueleto no se declara en general. Se declara para el bosque —que es donde
+se midió el 0,00078— y el resultado del avanzado se reporta aparte con su matiz.
+
+**Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-completa-4h-w7-h1.json` y
+`docs/evidencias/m3-modelos-profundos-4h-w7-h1.json`
+
+**Origen:** M0 detectó que la D14 y la sección de M3 del informe se contradecían y **no eligió cuál
+valía**: pidió la lectura a quien había escrito las dos. La regla 3, aplicada a una conclusión en
+vez de a un número.
