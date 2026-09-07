@@ -149,8 +149,13 @@ dice que el margen de este problema no está en los hiperparámetros.
 ### Los activos de apoyo sí aportan al avanzado — y el matiz importa
 
 El informe declara como limitación que los activos de apoyo no aportan de forma distinguible.
-**Eso se midió sobre el bosque, y sobre el avanzado da distinto.** Conviene no generalizarlo, porque
-la arquitectura elegida existe justamente para atender entre series.
+**Eso se midió sobre el bosque, y sobre el avanzado da distinto.** No es una generalización que
+convenga hacer, porque la arquitectura elegida existe justamente para atender entre series.
+
+La D14 —mía— había concluido lo contrario, y la D23 corrige esa lectura sin reescribirla: la D14
+respondió una pregunta de **distinguibilidad** con el umbral de la D5, que es una convención para
+**elegir entre configuraciones**. La sección 5 del protocolo ya decía que ese umbral no aplica a
+esta clase de pregunta.
 
 | Semilla | Completo | Solo LTC | Diferencia |
 |---|---|---|---|
@@ -162,7 +167,12 @@ la arquitectura elegida existe justamente para atender entre series.
 
 Media **+0,010319**, mínima +0,002834, máxima +0,024755, y **el signo no cambia en ninguna de las
 cinco**. La comparación pareada de una corrida da +0,021232 con intervalo [0,000434 , 0,044067], que
-excluye el cero. Las tres condiciones de la D16 se cumplen.
+excluye el cero — y estaba en la evidencia que la D14 cita, sin usarse. **Las tres condiciones de
+la D16 se cumplen.**
+
+Lo que separa este aporte del ruido de punto flotante no es la magnitud sino el signo: ese ruido
+**no tiene signo**, y aquí las cinco semillas caen del mismo lado. Si no hubiera efecto, eso tiene
+probabilidad 1 en 16.
 
 **Y aun así no rescata nada.** El iTransformer *con* los cinco activos de apoyo sigue quedando por
 debajo del bosque *sin* ellos. Las dos frases son ciertas a la vez y hay que decirlas juntas:
