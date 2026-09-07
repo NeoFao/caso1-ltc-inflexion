@@ -14,8 +14,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from contracts.config import ACTIVOS
 from contracts.labeling import Clase, etiquetar, objetivo
 from contracts.metrics import f1_macro
+from contracts.schema import columna
 from contracts.splits import particionar
 from src.evaluacion.arnes import evaluar_modelo, guardar_resultado
 from src.features.base import construir
@@ -368,3 +370,330 @@ def test_empatar_con_el_azar_no_cuenta_como_deteccion():
     bosque = {"f1_maximo": 0.05, "f1_minimo": 0.05}
     aleatorio = {"f1_maximo": 0.05, "f1_minimo": 0.05}
     assert detecta_mejor_que_azar(bosque, aleatorio) is False
+
+
+# ------------------------------------------- que --sin-variantes haga lo que dice
+
+
+def _argumentos(**cambios):
+    """Las banderas de experimento.py, con los defectos por omision."""
+    from argparse import Namespace
+
+    base = dict(
+        semilla=0,
+        n_arboles=300,
+        conjunto="validacion",
+        sin_variantes=False,
+        con_fundacional=False,
+        con_avanzado=False,
+    )
+    base.update(cambios)
+    return Namespace(**base)
+
+
+def test_sin_variantes_deja_una_configuracion_por_familia():
+    """La seccion 3 del protocolo dice que sobre la reserva no se evaluan variantes.
+
+    Se comprueba con el avanzado incluido a proposito: la bandera se respetaba en el
+    bosque y NO en el avanzado, asi que una prueba que solo mirara el bosque habria
+    pasado mientras el defecto seguia ahi. `--con-avanzado` anadia
+    `itransformer_solo_ltc` igual, y la corrida del sabado habria medido sobre el
+    bloque de prueba una variante que el protocolo excluye -- gastandolo.
+    """
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(sin_variantes=True, con_avanzado=True)
+    nombres = [
+        m.nombre
+        for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r")
+    ]
+
+    prohibidas = [n for n in nombres if "solo_ltc" in n or "sin_pesos" in n or "sin_rezagos" in n]
+    assert not prohibidas, (
+        f"--sin-variantes dejo pasar {prohibidas}. Sobre el bloque de prueba eso es "
+        "medir una variante que el protocolo excluye, y la reserva se gasta igual."
+    )
+
+
+def test_sin_la_bandera_las_variantes_siguen_estando():
+    """El arreglo de arriba no puede llevarse por delante las variantes de validacion:
+    son las que respondieron el #62 y las que el informe tiene que explicar."""
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    nombres = [
+        m.nombre
+        for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r")
+    ]
+
+    assert nombres == [
+        "baseline_trivial",
+        "baseline_mayoritario",
+        "baseline_aleatorio",
+        "bosque_aleatorio_r",
+        "bosque_aleatorio_sin_rezagos",
+        "bosque_aleatorio_sin_pesos_r",
+        "itransformer",
+        "itransformer_solo_ltc",
+    ], (
+        "cambio la composicion o el ORDEN de la corrida. El orden importa dos veces: "
+        "resultados.csv se anade sin sobrescribir, y sobre `prueba` el primer modelo "
+        "de la lista es el que deja la constancia en el pestillo de la reserva."
+    )
+
+
+def test_la_evidencia_de_prueba_no_pisa_la_de_validacion():
+    """La corrida del sabado no puede escribir encima de la evidencia entregada.
+
+    El nombre del JSON llevaba intervalo, w, h y la forma de los rezagos --por la
+    razon que el propio codigo explica: dos configuraciones con el mismo nombre se
+    sobrescriben-- y el CONJUNTO se habia quedado afuera de esa lista. Es la unica
+    de las cinco que no se puede volver a medir: pasa despues de gastar la reserva.
+    """
+    from src.modelos.experimento import ruta_evidencia
+
+    base = "modelo-clasico-4h-w7-h1-rezagos-relativos"
+    validacion = ruta_evidencia(base, "validacion")
+    prueba = ruta_evidencia(base, "prueba")
+
+    assert validacion != prueba, (
+        "la corrida sobre prueba escribiria encima de la evidencia de validacion. "
+        "El archivo conserva nombre y forma y le cambian todos los numeros, asi que "
+        "la entrega quedaria citando cifras del bloque de prueba sin que nada falle."
+    )
+
+
+def test_validacion_conserva_el_nombre_que_citan_los_entregables():
+    """La otra mitad: arreglar lo de arriba no puede renombrar lo ya citado.
+
+    Estos dos archivos los citan `docs/06`, `docs/07` y dos documentos de la Semana 2
+    ya entregada. Anadirles una marca romperia esas citas -- que es exactamente el
+    error que la D13 existe para impedir, y uno que ya cometi una vez renombrando
+    una evidencia sin buscar quien la citaba.
+    """
+    from src.modelos.experimento import ruta_evidencia
+
+    assert (
+        ruta_evidencia("modelo-clasico-4h-w7-h1-rezagos-relativos", "validacion").name
+        == "modelo-clasico-4h-w7-h1-rezagos-relativos.json"
+    )
+    assert (
+        ruta_evidencia("m3-modelos-profundos-4h-w7-h1", "validacion").name
+        == "m3-modelos-profundos-4h-w7-h1.json"
+    )
+
+
+def test_la_ficha_de_evidencia_recorre_lo_que_se_evaluo_y_no_una_lista_fija():
+    """El bloque de evidencia tiene que sobrevivir a --sin-variantes.
+
+    Recorria ("itransformer", "itransformer_solo_ltc") sin condicion, que estaba bien
+    mientras la variante se anadiera siempre. En cuanto --sin-variantes empezo a
+    quitarla, ese recorrido reventaba con KeyError -- y reventaba TARDE: con los seis
+    modelos ya evaluados, el CSV ya escrito y la reserva ya gastada, justo antes de
+    guardar los intervalos pareados y el veredicto. La seccion 7 prohibe volver a
+    correr, asi que esas cifras no se recuperaban.
+
+    Las otras pruebas de este archivo se detienen en la lista de modelos y por eso no
+    lo habrian visto. Esta baja hasta la ficha.
+    """
+    from src.modelos.experimento import armar_modelos, describir_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(sin_variantes=True, con_avanzado=True)
+    modelos = armar_modelos(
+        argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r"
+    )
+
+    fichas = describir_modelos(modelos)
+
+    assert "itransformer" in fichas
+    assert "itransformer_solo_ltc" not in fichas, (
+        "la ficha describe una variante que no se evaluo"
+    )
+
+
+def test_la_ficha_describe_las_dos_variantes_cuando_las_dos_se_evaluan():
+    """La otra direccion: quitar la lista fija no puede perder la variante cuando si esta."""
+    from src.modelos.experimento import armar_modelos, describir_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    fichas = describir_modelos(
+        armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r")
+    )
+
+    assert set(fichas) == {"itransformer", "itransformer_solo_ltc"}
+    assert fichas["itransformer"]["n_series"] == len(ACTIVOS)
+    assert fichas["itransformer_solo_ltc"]["n_series"] == 1
+
+
+def test_sobre_prueba_la_bandera_del_protocolo_es_obligatoria(monkeypatch):
+    """Un control que depende de que alguien se acuerde no es un control.
+
+    El PR #101 hizo que --sin-variantes funcione, pero seguia dependiendo de que
+    quien corriera el sabado la escribiera. La seccion 3 no es opcional: sobre la
+    reserva es una configuracion por familia. Se exige explicita --y no se implica en
+    silencio-- por lo mismo que --gastar-prueba se exige: sobre el unico conjunto que
+    no se puede volver a medir, lo que se pide se escribe.
+
+    Corta antes de leer el panel y antes de evaluar nada, asi que no roza la reserva.
+    """
+    from src.modelos.experimento import main
+
+    monkeypatch.setattr(
+        "sys.argv",
+        ["experimento", "--conjunto", "prueba", "--gastar-prueba",
+         "--semillas", "0,1,2,3,4"],
+    )
+    with pytest.raises(SystemExit, match="sin-variantes"):
+        main()
+
+
+def test_sobre_validacion_no_se_exige_esa_bandera():
+    """Las variantes existen y sobre validacion se miden: son las que respondieron el
+    #62 y las que el informe tiene que explicar. La guarda es solo para la reserva."""
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    nombres = [
+        m.nombre
+        for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_r")
+    ]
+    assert "itransformer_solo_ltc" in nombres
+
+
+# ------------------------------------- el bucle de semillas dentro de una sesion
+
+
+def _fila(modelo: str, f1: float) -> dict:
+    """Una fila del arnes con las seis metricas que publica el panel."""
+    return {
+        "modelo": modelo,
+        "f1_macro": f1,
+        "precision_direccional": f1 / 2,
+        "exactitud": 0.8,
+        "f1_maximo": f1 / 3,
+        "f1_minimo": f1 / 4,
+        "f1_continuidad": 0.9,
+    }
+
+
+def test_el_resumen_por_semilla_da_media_y_rango_de_las_seis():
+    """La seccion 4 del protocolo pide cinco semillas con media y rango.
+
+    Se resumen las SEIS metricas y no solo el F1 macro, que es justo lo que la fase 2
+    del #92 arreglo en el barrido de sensibilidad: si el panel publica seis columnas y
+    aca se mide una, la corrida final vuelve a dejar cinco sin media.
+    """
+    from src.modelos.experimento import resumir_por_semilla
+
+    resumen = resumir_por_semilla(
+        {0: [_fila("m", 0.30)], 1: [_fila("m", 0.40)], 2: [_fila("m", 0.35)]}
+    )
+
+    assert resumen["semillas"] == [0, 1, 2]
+    metricas = resumen["por_modelo"]["m"]["resumen"]
+    assert set(metricas) == {
+        "f1_macro", "precision_direccional", "exactitud",
+        "f1_maximo", "f1_minimo", "f1_continuidad",
+    }
+    assert metricas["f1_macro"]["media"] == pytest.approx(0.35)
+    assert metricas["f1_macro"]["rango"] == pytest.approx(0.10)
+    assert not resumen["por_modelo"]["m"]["identico_en_todas"]
+
+
+def test_el_resumen_marca_los_modelos_que_no_muestrean():
+    """El fundacional es zero-shot: las cinco corridas dan identico y la tercera
+    condicion de la D16 se cumple de forma trivial. La evidencia tiene que decirlo en
+    vez de presentarlo como estabilidad del modelo, que es lo que ya dice el
+    protocolo sobre esa fila."""
+    from src.modelos.experimento import resumir_por_semilla
+
+    resumen = resumir_por_semilla(
+        {s: [_fila("chronos_bolt", 0.368589)] for s in (0, 1, 2, 3, 4)}
+    )
+    fundacional = resumen["por_modelo"]["chronos_bolt"]
+
+    assert fundacional["identico_en_todas"]
+    assert fundacional["resumen"]["f1_macro"]["rango"] == 0.0
+
+
+def test_sobre_prueba_se_exigen_cinco_semillas(monkeypatch):
+    """Una sola corrida no es comparable con las cifras de validacion, que son medias
+    de cinco (D16). Y con el pestillo contando sesiones (#105), correr cinco veces
+    para conseguirlas serian cinco corridas sobre una reserva que se toca una vez.
+
+    Corta antes de leer el panel, asi que no roza la reserva.
+    """
+    from src.modelos.experimento import main
+
+    monkeypatch.setattr(
+        "sys.argv",
+        ["experimento", "--conjunto", "prueba", "--gastar-prueba", "--sin-variantes"],
+    )
+    with pytest.raises(SystemExit, match="CINCO semillas"):
+        main()
+
+
+def test_el_bucle_de_semillas_evalua_todo_con_cada_una():
+    """La ruta de varias semillas no se puede ensayar sobre prueba: gastarla es el
+    unico modo. Por eso el bucle sale de main() y se prueba aca, con baselines --que
+    no entrenan nada pesado-- pero recorriendo el mismo codigo que el lunes.
+
+    Se comprueban las dos cosas que importan: que cada semilla produzca su propia
+    tanda, y que la de referencia sea la PRIMERA, porque de sus modelos salen los
+    intervalos pareados y el veredicto.
+    """
+    from src.modelos.experimento import evaluar_en_todas_las_semillas
+
+    panel = panel_correlacionado(n=400, semilla=0)
+    X = construir(panel)
+    y = objetivo(etiquetar(panel[columna(ACTIVOS[0], "cierre")], 7), 1)
+    particion = particionar(n=len(y), w=7, h=1)
+    argumentos = _argumentos(sin_variantes=True, n_arboles=5)
+
+    por_semilla, modelos, resultados = evaluar_en_todas_las_semillas(
+        argumentos, panel, [], "_r", 7, 1, "bosque_aleatorio_r",
+        X, y, particion, [0, 1, 2],
+    )
+
+    assert sorted(por_semilla) == [0, 1, 2]
+    assert resultados == por_semilla[0], "la referencia tiene que ser la primera semilla"
+    assert all(len(filas) == len(modelos) for filas in por_semilla.values())
+
+    # El aleatorio depende de la semilla y el trivial no. Si el bucle no propagara la
+    # semilla, los tres darian identico y esto lo dice.
+    aleatorios = {
+        next(r["f1_macro"] for r in filas if r["modelo"] == "baseline_aleatorio")
+        for filas in por_semilla.values()
+    }
+    triviales = {
+        next(r["f1_macro"] for r in filas if r["modelo"] == "baseline_trivial")
+        for filas in por_semilla.values()
+    }
+    assert len(aleatorios) > 1, "la semilla no llego a los modelos que la usan"
+    assert len(triviales) == 1
+
+
+def test_con_una_sola_semilla_el_bucle_no_cambia_nada():
+    """El camino por omision tiene que quedar identico: una vuelta, los mismos
+    modelos, los mismos resultados. Si no, cambiarian cifras ya publicadas."""
+    from src.modelos.experimento import evaluar_en_todas_las_semillas
+
+    panel = panel_correlacionado(n=400, semilla=0)
+    X = construir(panel)
+    y = objetivo(etiquetar(panel[columna(ACTIVOS[0], "cierre")], 7), 1)
+    particion = particionar(n=len(y), w=7, h=1)
+    argumentos = _argumentos(sin_variantes=True, n_arboles=5)
+
+    por_semilla, modelos, resultados = evaluar_en_todas_las_semillas(
+        argumentos, panel, [], "_r", 7, 1, "bosque_aleatorio_r",
+        X, y, particion, [0],
+    )
+
+    assert list(por_semilla) == [0]
+    assert resultados == por_semilla[0]
+    assert argumentos.semilla == 0
