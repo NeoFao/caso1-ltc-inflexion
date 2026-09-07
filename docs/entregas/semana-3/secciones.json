@@ -1,0 +1,19 @@
+{
+  "documento": "Caso 1 - Semana 3 - Modelo fundacional y pruebas de deteccion",
+  "introduccion": "m0-introduccion.md",
+  "conclusion": "m0-conclusion.md",
+  "capitulos": [
+    {
+      "archivo": "m0-diseno.md",
+      "titulo": "Diseño: Qué se Predice, Sobre Qué Datos y Cómo se Separan"
+    },
+    {
+      "archivo": "m3-fundacional.md",
+      "titulo": "El Modelo Fundacional: Chronos-Bolt"
+    },
+    {
+      "archivo": "m0-pruebas-deteccion.md",
+      "titulo": "Pruebas de Detección: Sintética, de Entrenamiento y en Tiempo Real"
+    }
+  ]
+}

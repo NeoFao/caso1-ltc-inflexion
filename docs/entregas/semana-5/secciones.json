@@ -1,0 +1,13 @@
+{
+  "documento": "Caso 1 - Semana 5 - Informe final",
+  "introduccion": "00-introduccion.md",
+  "conclusion": "99-conclusiones.md",
+  "capitulos": [
+    { "archivo": "01-diseno.md", "titulo": "Diseño" },
+    { "archivo": "02-ingenieria-de-caracteristicas.md", "titulo": "Ingeniería de Características" },
+    { "archivo": "m3-modelos.md", "titulo": "Los Dos Modelos: Fundacional y Avanzado" },
+    { "archivo": "04-pruebas-deteccion.md", "titulo": "Pruebas de Detección" },
+    { "archivo": "05-rendimiento.md", "titulo": "Rendimiento" },
+    { "archivo": "06-limitaciones.md", "titulo": "Limitaciones" }
+  ]
+}

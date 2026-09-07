@@ -778,7 +778,7 @@ es.
 
 ## D22 · Se entrega el martes 8 un informe único que cubre las semanas 3, 4 y 5
 
-**Estado:** vigente desde el 01/09/2026
+**Estado:** la fecha sigue vigente · **la parte de «un informe único en vez de tres» la reemplaza la [D26](#d26)**, después de que el profesor contestara la suposición que esta decisión declaró · vigente desde el 01/09/2026
 
 El calendario nunca se confirmó. El enunciado tiene cinco entregas semanales desde el 18 de
 agosto, lo que llevaría la última al 15 de septiembre; nuestra propia planificación anotó el 8.
@@ -1074,3 +1074,77 @@ referencia rota.
 **Origen:** M0 encontró que la condición 2 no se reproducía y **no decidió por su cuenta qué hacer
 con una decisión ajena**: trajo la medición y las opciones. La regla 3, otra vez, y esta vez sobre
 una conclusión mía que había que retirar.
+
+---
+
+## D26 · Se entregan las dos formas: los avances por semana y el informe único
+
+**Estado:** vigente desde el 07/09/2026 · **reemplaza la segunda mitad de la [D22](#d22)** · el
+profesor respondió la suposición que la D22 había declarado
+
+### Qué pasó
+
+La D22 decidió entregar **un informe único** en vez de tres documentos semanales, y dejó escrita la
+suposición sobre la que se apoyaba:
+
+> **Lo que esta decisión asume, y hay que decirlo en el informe:** que agrupar es aceptable. Si el
+> profesor esperaba tres documentos, lo que recibe los contiene a los tres.
+
+**El profesor contestó esa suposición**, y dice lo contrario:
+
+> Recordar hacer los avances por separado, esto con el fin de poder ver en detalle y profundizar en
+> conceptos teóricos.
+
+La suposición queda refutada. No hace falta discutirla: se declaró como suposición justamente para
+poder retirarla sin rehacer el razonamiento.
+
+### Lo que se decide
+
+**Se entregan las dos cosas.** No es un compromiso: cada forma responde algo que la otra no.
+
+| Forma | Qué aporta | Por qué no la reemplaza la otra |
+|---|---|---|
+| **Avances por semana** (3, 4 y 5) | Permite seguir un tema hasta el fondo sin la comparación entre modelos encima | Es lo que el profesor pide, y su razón es poder profundizar en los conceptos |
+| **Informe único** | Una sola versión vigente de cada cifra, con las limitaciones declaradas juntas | El enunciado pide **un informe técnico**, en singular, entre los dos entregables |
+
+El primer argumento de la D22 sigue en pie —el enunciado pide un informe técnico en singular— y por
+eso el informe único no se retira. Lo que se retira es la parte que decía que los semanales **no** se
+entregan.
+
+### El riesgo que la D22 señalaba, y cómo se evita
+
+La D22 avisaba de que «tres documentos que se solapan es peor que uno completo: obliga al lector a
+reconstruir qué versión de cada cifra vale». **Ese riesgo es real y no desaparece por entregar las
+dos formas.**
+
+Se evita por construcción: los documentos semanales **no contienen texto propio de contenido
+técnico**. Son ensamblados de los mismos archivos que el informe final, con la introducción y la
+conclusión de cada semana como único material nuevo. Una cifra vive en un solo lugar; si cambia,
+cambia en los dos documentos al regenerarlos.
+
+Es lo mismo que ya hacía el ensamblador de las semanas 1 y 2, y por eso no hizo falta herramienta
+nueva: `CARPETA_ENTREGA=semana-3 npm run ensamblar --prefix scripts`.
+
+### Lo que había y lo que faltaba
+
+Conviene dejarlo escrito porque el equipo creía que los semanales ya existían:
+
+| Semana | Estado antes de esta decisión |
+|---|---|
+| 1 y 2 | **Existían**, con su `secciones.json` y su Word generado |
+| **3, 4 y 5** | **No existían.** Solo estaba el informe único |
+
+Los issues #41, #42 y #43 —ensamblar y entregar las semanas 3, 4 y 5— estaban abiertos y asignados a
+M0 desde el principio. No era trabajo nuevo: era trabajo que la D22 había dado por innecesario.
+
+### Sobre la fecha
+
+La D22 fijó el **8 de septiembre** para todo, porque el calendario nunca se confirmó. Esta decisión
+**no la cambia**, por el mismo argumento que la D22 dio: si la fecha real de la Semana 5 fuera el 15,
+entregar antes no perjudica; al revés no hay remedio.
+
+**Evidencia:** `docs/entregas/semana-3/`, `docs/entregas/semana-4/`, `docs/entregas/semana-5/`
+
+**Origen:** el profesor, sobre los avances del caso. Es la primera vez que una suposición declarada
+por escrito en este documento se retira porque llegó la respuesta que esperaba, y no por haber
+cambiado de opinión.
