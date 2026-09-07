@@ -1,0 +1,729 @@
+{
+  "ejecutado_utc": "2026-09-07T22:51:42+00:00",
+  "puente": "Fundacional y avanzado cruzan el puente IGUAL: se pronostica la trayectoria y se le aplica etiquetar() del contrato sobre una ventana de 2w+1 centrada en t+h. Si cruzaran distinto, la diferencia entre sus F1 mezclaria el modelo con el puente.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "horizonte_pronosticado": 8,
+    "conjunto": "prueba",
+    "semilla": 0,
+    "semillas": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "modelos": {
+    "chronos_bolt": {
+      "papel": "fundacional (D12)",
+      "repo": "amazon/chronos-bolt-small",
+      "zero_shot": true,
+      "contexto": 512,
+      "filas_sin_historia_suficiente": 0
+    },
+    "itransformer": {
+      "papel": "avanzado (S4-M3-01)",
+      "arquitectura": "iTransformer",
+      "paquete": "iTransformer (implementacion publica de lucidrains)",
+      "zero_shot": false,
+      "lookback": 96,
+      "epocas": 8,
+      "n_parametros": 141656,
+      "segundos_entrenamiento": 32.1,
+      "perdida_final": 1.017503475219431,
+      "n_series": 6,
+      "presupuesto_rnf4_segundos": 7200,
+      "cabe_en_el_presupuesto": true
+    }
+  },
+  "metricas": {
+    "baseline_trivial": {
+      "n": 1960,
+      "f1_macro": 0.31803628601921025,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9122448979591836,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9541088580576307,
+      "modelo": "baseline_trivial",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:44+00:00"
+    },
+    "baseline_mayoritario": {
+      "n": 1960,
+      "f1_macro": 0.31803628601921025,
+      "precision_direccional": 0.0,
+      "exactitud": 0.9122448979591836,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.0,
+      "f1_continuidad": 0.9541088580576307,
+      "modelo": "baseline_mayoritario",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:44+00:00"
+    },
+    "baseline_aleatorio": {
+      "n": 1960,
+      "f1_macro": 0.34354616620670914,
+      "precision_direccional": 0.06395348837209303,
+      "exactitud": 0.8306122448979592,
+      "f1_maximo": 0.07777777777777778,
+      "f1_minimo": 0.0449438202247191,
+      "f1_continuidad": 0.9079169006176305,
+      "modelo": "baseline_aleatorio",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:44+00:00"
+    },
+    "bosque_aleatorio_rezagos_relativos": {
+      "n": 1960,
+      "f1_macro": 0.3785671032002717,
+      "precision_direccional": 0.10465116279069768,
+      "exactitud": 0.8596938775510204,
+      "f1_maximo": 0.046153846153846156,
+      "f1_minimo": 0.16574585635359115,
+      "f1_continuidad": 0.9238016070933777,
+      "modelo": "bosque_aleatorio_rezagos_relativos",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:46:45+00:00"
+    },
+    "chronos_bolt": {
+      "n": 1960,
+      "f1_macro": 0.34999059917527164,
+      "precision_direccional": 0.06395348837209303,
+      "exactitud": 0.8459183673469388,
+      "f1_maximo": 0.06299212598425197,
+      "f1_minimo": 0.0707070707070707,
+      "f1_continuidad": 0.9162726008344924,
+      "modelo": "chronos_bolt",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:47:07+00:00"
+    },
+    "itransformer": {
+      "n": 1960,
+      "f1_macro": 0.3487512632663587,
+      "precision_direccional": 0.09302325581395349,
+      "exactitud": 0.8122448979591836,
+      "f1_maximo": 0.11607142857142858,
+      "f1_minimo": 0.032432432432432434,
+      "f1_continuidad": 0.8977499287952151,
+      "modelo": "itransformer",
+      "conjunto": "prueba",
+      "ejecutado_utc": "2026-09-07T22:47:40+00:00"
+    }
+  },
+  "por_semilla": {
+    "semillas": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "por_modelo": {
+      "baseline_trivial": {
+        "por_semilla": {
+          "0": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "1": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "2": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "3": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "4": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          }
+        },
+        "resumen": {
+          "f1_macro": {
+            "media": 0.31803628601921025,
+            "minimo": 0.31803628601921025,
+            "maximo": 0.31803628601921025,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "precision_direccional": {
+            "media": 0.0,
+            "minimo": 0.0,
+            "maximo": 0.0,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "exactitud": {
+            "media": 0.9122448979591835,
+            "minimo": 0.9122448979591836,
+            "maximo": 0.9122448979591836,
+            "rango": 0.0,
+            "desviacion": 1.1102230246251565e-16
+          },
+          "f1_maximo": {
+            "media": 0.0,
+            "minimo": 0.0,
+            "maximo": 0.0,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_minimo": {
+            "media": 0.0,
+            "minimo": 0.0,
+            "maximo": 0.0,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_continuidad": {
+            "media": 0.9541088580576307,
+            "minimo": 0.9541088580576307,
+            "maximo": 0.9541088580576307,
+            "rango": 0.0,
+            "desviacion": 0.0
+          }
+        },
+        "identico_en_todas": true
+      },
+      "baseline_mayoritario": {
+        "por_semilla": {
+          "0": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "1": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "2": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "3": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          },
+          "4": {
+            "f1_macro": 0.31803628601921025,
+            "precision_direccional": 0.0,
+            "exactitud": 0.9122448979591836,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.0,
+            "f1_continuidad": 0.9541088580576307
+          }
+        },
+        "resumen": {
+          "f1_macro": {
+            "media": 0.31803628601921025,
+            "minimo": 0.31803628601921025,
+            "maximo": 0.31803628601921025,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "precision_direccional": {
+            "media": 0.0,
+            "minimo": 0.0,
+            "maximo": 0.0,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "exactitud": {
+            "media": 0.9122448979591835,
+            "minimo": 0.9122448979591836,
+            "maximo": 0.9122448979591836,
+            "rango": 0.0,
+            "desviacion": 1.1102230246251565e-16
+          },
+          "f1_maximo": {
+            "media": 0.0,
+            "minimo": 0.0,
+            "maximo": 0.0,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_minimo": {
+            "media": 0.0,
+            "minimo": 0.0,
+            "maximo": 0.0,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_continuidad": {
+            "media": 0.9541088580576307,
+            "minimo": 0.9541088580576307,
+            "maximo": 0.9541088580576307,
+            "rango": 0.0,
+            "desviacion": 0.0
+          }
+        },
+        "identico_en_todas": true
+      },
+      "baseline_aleatorio": {
+        "por_semilla": {
+          "0": {
+            "f1_macro": 0.34354616620670914,
+            "precision_direccional": 0.06395348837209303,
+            "exactitud": 0.8306122448979592,
+            "f1_maximo": 0.07777777777777778,
+            "f1_minimo": 0.0449438202247191,
+            "f1_continuidad": 0.9079169006176305
+          },
+          "1": {
+            "f1_macro": 0.3315162527760953,
+            "precision_direccional": 0.046511627906976744,
+            "exactitud": 0.826530612244898,
+            "f1_maximo": 0.054945054945054944,
+            "f1_minimo": 0.03296703296703297,
+            "f1_continuidad": 0.906636670416198
+          },
+          "2": {
+            "f1_macro": 0.3311727986899122,
+            "precision_direccional": 0.046511627906976744,
+            "exactitud": 0.8255102040816327,
+            "f1_maximo": 0.0449438202247191,
+            "f1_minimo": 0.0425531914893617,
+            "f1_continuidad": 0.9060213843556556
+          },
+          "3": {
+            "f1_macro": 0.32424381061452157,
+            "precision_direccional": 0.03488372093023256,
+            "exactitud": 0.826530612244898,
+            "f1_maximo": 0.011299435028248588,
+            "f1_minimo": 0.054945054945054944,
+            "f1_continuidad": 0.9064869418702611
+          },
+          "4": {
+            "f1_macro": 0.3368741815749287,
+            "precision_direccional": 0.05232558139534884,
+            "exactitud": 0.8316326530612245,
+            "f1_maximo": 0.055248618784530384,
+            "f1_minimo": 0.04597701149425287,
+            "f1_continuidad": 0.9093969144460028
+          }
+        },
+        "resumen": {
+          "f1_macro": {
+            "media": 0.3334706419724334,
+            "minimo": 0.32424381061452157,
+            "maximo": 0.34354616620670914,
+            "rango": 0.01930235559218757,
+            "desviacion": 0.006439478367233913
+          },
+          "precision_direccional": {
+            "media": 0.04883720930232559,
+            "minimo": 0.03488372093023256,
+            "maximo": 0.06395348837209303,
+            "rango": 0.029069767441860468,
+            "desviacion": 0.00944655628446042
+          },
+          "exactitud": {
+            "media": 0.8281632653061223,
+            "minimo": 0.8255102040816327,
+            "maximo": 0.8316326530612245,
+            "rango": 0.006122448979591799,
+            "desviacion": 0.002465927749713154
+          },
+          "f1_maximo": {
+            "media": 0.04884294135206616,
+            "minimo": 0.011299435028248588,
+            "maximo": 0.07777777777777778,
+            "rango": 0.06647834274952918,
+            "desviacion": 0.021634284204962557
+          },
+          "f1_minimo": {
+            "media": 0.04427722222408432,
+            "minimo": 0.03296703296703297,
+            "maximo": 0.054945054945054944,
+            "rango": 0.021978021978021976,
+            "desviacion": 0.007043137857867471
+          },
+          "f1_continuidad": {
+            "media": 0.9072917623411495,
+            "minimo": 0.9060213843556556,
+            "maximo": 0.9093969144460028,
+            "rango": 0.0033755300903471896,
+            "desviacion": 0.0012258225724643096
+          }
+        },
+        "identico_en_todas": false
+      },
+      "bosque_aleatorio_rezagos_relativos": {
+        "por_semilla": {
+          "0": {
+            "f1_macro": 0.3785671032002717,
+            "precision_direccional": 0.10465116279069768,
+            "exactitud": 0.8596938775510204,
+            "f1_maximo": 0.046153846153846156,
+            "f1_minimo": 0.16574585635359115,
+            "f1_continuidad": 0.9238016070933777
+          },
+          "1": {
+            "f1_macro": 0.3812207313864773,
+            "precision_direccional": 0.09883720930232558,
+            "exactitud": 0.8642857142857143,
+            "f1_maximo": 0.08,
+            "f1_minimo": 0.13714285714285715,
+            "f1_continuidad": 0.9265193370165746
+          },
+          "2": {
+            "f1_macro": 0.3950125980236241,
+            "precision_direccional": 0.12209302325581395,
+            "exactitud": 0.8683673469387755,
+            "f1_maximo": 0.06504065040650407,
+            "f1_minimo": 0.19101123595505617,
+            "f1_continuidad": 0.928985907709312
+          },
+          "3": {
+            "f1_macro": 0.3835102231272363,
+            "precision_direccional": 0.10465116279069768,
+            "exactitud": 0.8637755102040816,
+            "f1_maximo": 0.06060606060606061,
+            "f1_minimo": 0.16374269005847952,
+            "f1_continuidad": 0.9261819187171689
+          },
+          "4": {
+            "f1_macro": 0.3858768516754947,
+            "precision_direccional": 0.10465116279069768,
+            "exactitud": 0.8683673469387755,
+            "f1_maximo": 0.06504065040650407,
+            "f1_minimo": 0.16374269005847952,
+            "f1_continuidad": 0.9288472145615003
+          }
+        },
+        "resumen": {
+          "f1_macro": {
+            "media": 0.3848375014826208,
+            "minimo": 0.3785671032002717,
+            "maximo": 0.3950125980236241,
+            "rango": 0.01644549482335239,
+            "desviacion": 0.005635129578323481
+          },
+          "precision_direccional": {
+            "media": 0.10697674418604652,
+            "minimo": 0.09883720930232558,
+            "maximo": 0.12209302325581395,
+            "rango": 0.023255813953488372,
+            "desviacion": 0.007886430212936356
+          },
+          "exactitud": {
+            "media": 0.8648979591836735,
+            "minimo": 0.8596938775510204,
+            "maximo": 0.8683673469387755,
+            "rango": 0.00867346938775504,
+            "desviacion": 0.0032493231281817444
+          },
+          "f1_maximo": {
+            "media": 0.06336824151458299,
+            "minimo": 0.046153846153846156,
+            "maximo": 0.08,
+            "rango": 0.033846153846153845,
+            "desviacion": 0.010827505200441675
+          },
+          "f1_minimo": {
+            "media": 0.1642770659136927,
+            "minimo": 0.13714285714285715,
+            "maximo": 0.19101123595505617,
+            "rango": 0.053868378812199025,
+            "desviacion": 0.01705115593668319
+          },
+          "f1_continuidad": {
+            "media": 0.9268671970195868,
+            "minimo": 0.9238016070933777,
+            "maximo": 0.928985907709312,
+            "rango": 0.005184300615934334,
+            "desviacion": 0.001918220997808979
+          }
+        },
+        "identico_en_todas": false
+      },
+      "chronos_bolt": {
+        "por_semilla": {
+          "0": {
+            "f1_macro": 0.34999059917527164,
+            "precision_direccional": 0.06395348837209303,
+            "exactitud": 0.8459183673469388,
+            "f1_maximo": 0.06299212598425197,
+            "f1_minimo": 0.0707070707070707,
+            "f1_continuidad": 0.9162726008344924
+          },
+          "1": {
+            "f1_macro": 0.34999059917527164,
+            "precision_direccional": 0.06395348837209303,
+            "exactitud": 0.8459183673469388,
+            "f1_maximo": 0.06299212598425197,
+            "f1_minimo": 0.0707070707070707,
+            "f1_continuidad": 0.9162726008344924
+          },
+          "2": {
+            "f1_macro": 0.34999059917527164,
+            "precision_direccional": 0.06395348837209303,
+            "exactitud": 0.8459183673469388,
+            "f1_maximo": 0.06299212598425197,
+            "f1_minimo": 0.0707070707070707,
+            "f1_continuidad": 0.9162726008344924
+          },
+          "3": {
+            "f1_macro": 0.34999059917527164,
+            "precision_direccional": 0.06395348837209303,
+            "exactitud": 0.8459183673469388,
+            "f1_maximo": 0.06299212598425197,
+            "f1_minimo": 0.0707070707070707,
+            "f1_continuidad": 0.9162726008344924
+          },
+          "4": {
+            "f1_macro": 0.34999059917527164,
+            "precision_direccional": 0.06395348837209303,
+            "exactitud": 0.8459183673469388,
+            "f1_maximo": 0.06299212598425197,
+            "f1_minimo": 0.0707070707070707,
+            "f1_continuidad": 0.9162726008344924
+          }
+        },
+        "resumen": {
+          "f1_macro": {
+            "media": 0.34999059917527164,
+            "minimo": 0.34999059917527164,
+            "maximo": 0.34999059917527164,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "precision_direccional": {
+            "media": 0.06395348837209303,
+            "minimo": 0.06395348837209303,
+            "maximo": 0.06395348837209303,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "exactitud": {
+            "media": 0.8459183673469388,
+            "minimo": 0.8459183673469388,
+            "maximo": 0.8459183673469388,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_maximo": {
+            "media": 0.06299212598425197,
+            "minimo": 0.06299212598425197,
+            "maximo": 0.06299212598425197,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_minimo": {
+            "media": 0.0707070707070707,
+            "minimo": 0.0707070707070707,
+            "maximo": 0.0707070707070707,
+            "rango": 0.0,
+            "desviacion": 0.0
+          },
+          "f1_continuidad": {
+            "media": 0.9162726008344924,
+            "minimo": 0.9162726008344924,
+            "maximo": 0.9162726008344924,
+            "rango": 0.0,
+            "desviacion": 0.0
+          }
+        },
+        "identico_en_todas": true
+      },
+      "itransformer": {
+        "por_semilla": {
+          "0": {
+            "f1_macro": 0.3487512632663587,
+            "precision_direccional": 0.09302325581395349,
+            "exactitud": 0.8122448979591836,
+            "f1_maximo": 0.11607142857142858,
+            "f1_minimo": 0.032432432432432434,
+            "f1_continuidad": 0.8977499287952151
+          },
+          "1": {
+            "f1_macro": 0.3269500529073693,
+            "precision_direccional": 0.09883720930232558,
+            "exactitud": 0.7464285714285714,
+            "f1_maximo": 0.06514657980456026,
+            "f1_minimo": 0.05982905982905983,
+            "f1_continuidad": 0.8558745190884878
+          },
+          "2": {
+            "f1_macro": 0.3323895959437249,
+            "precision_direccional": 0.09883720930232558,
+            "exactitud": 0.7744897959183673,
+            "f1_maximo": 0.10067114093959731,
+            "f1_minimo": 0.020512820512820513,
+            "f1_continuidad": 0.875984826378757
+          },
+          "3": {
+            "f1_macro": 0.33841249416168134,
+            "precision_direccional": 0.11627906976744186,
+            "exactitud": 0.7642857142857142,
+            "f1_maximo": 0.10067114093959731,
+            "f1_minimo": 0.044642857142857144,
+            "f1_continuidad": 0.8699234844025897
+          },
+          "4": {
+            "f1_macro": 0.3408594168897934,
+            "precision_direccional": 0.0755813953488372,
+            "exactitud": 0.8076530612244898,
+            "f1_maximo": 0.07291666666666667,
+            "f1_minimo": 0.05405405405405406,
+            "f1_continuidad": 0.8956075299486594
+          }
+        },
+        "resumen": {
+          "f1_macro": {
+            "media": 0.3374725646337855,
+            "minimo": 0.3269500529073693,
+            "maximo": 0.3487512632663587,
+            "rango": 0.02180121035898941,
+            "desviacion": 0.007431326964984755
+          },
+          "precision_direccional": {
+            "media": 0.09651162790697673,
+            "minimo": 0.0755813953488372,
+            "maximo": 0.11627906976744186,
+            "rango": 0.040697674418604654,
+            "desviacion": 0.013052293209676541
+          },
+          "exactitud": {
+            "media": 0.7810204081632652,
+            "minimo": 0.7464285714285714,
+            "maximo": 0.8122448979591836,
+            "rango": 0.0658163265306122,
+            "desviacion": 0.025312293520118757
+          },
+          "f1_maximo": {
+            "media": 0.09109539138437003,
+            "minimo": 0.06514657980456026,
+            "maximo": 0.11607142857142858,
+            "rango": 0.050924848766868314,
+            "desviacion": 0.01903154879364636
+          },
+          "f1_minimo": {
+            "media": 0.0422942447942448,
+            "minimo": 0.020512820512820513,
+            "maximo": 0.05982905982905983,
+            "rango": 0.039316239316239315,
+            "desviacion": 0.014303598280735796
+          },
+          "f1_continuidad": {
+            "media": 0.8790280577227417,
+            "minimo": 0.8558745190884878,
+            "maximo": 0.8977499287952151,
+            "rango": 0.04187540970672732,
+            "desviacion": 0.0158343185479339
+          }
+        },
+        "identico_en_todas": false
+      }
+    }
+  },
+  "comparaciones_pareadas": {
+    "chronos_bolt__vs__baseline_trivial": {
+      "diferencia": 0.0319543131560614,
+      "ic_inferior": 0.006599859941128695,
+      "ic_superior": 0.05931017180563264,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 0.993,
+      "remuestras": 1000
+    },
+    "chronos_bolt__vs__baseline_aleatorio": {
+      "diferencia": 0.006444432968562508,
+      "ic_inferior": -0.02911047119849107,
+      "ic_superior": 0.0406394903366466,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.662,
+      "remuestras": 1000
+    },
+    "chronos_bolt__vs__bosque_aleatorio_rezagos_relativos": {
+      "diferencia": -0.02857650402500006,
+      "ic_inferior": -0.069585345658556,
+      "ic_superior": 0.01262310423192228,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.094,
+      "remuestras": 1000
+    },
+    "itransformer__vs__baseline_trivial": {
+      "diferencia": 0.030714977247148445,
+      "ic_inferior": 0.010866584249061378,
+      "ic_superior": 0.05631156898128226,
+      "excluye_el_cero": true,
+      "fraccion_a_favor": 0.999,
+      "remuestras": 1000
+    },
+    "itransformer__vs__baseline_aleatorio": {
+      "diferencia": 0.005205097059649555,
+      "ic_inferior": -0.024581823986277108,
+      "ic_superior": 0.03756930822022383,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.668,
+      "remuestras": 1000
+    },
+    "itransformer__vs__bosque_aleatorio_rezagos_relativos": {
+      "diferencia": -0.029815839933913013,
+      "ic_inferior": -0.06874355262512254,
+      "ic_superior": 0.009680451778648885,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.069,
+      "remuestras": 1000
+    },
+    "itransformer__vs__chronos_bolt": {
+      "diferencia": -0.001239335908912953,
+      "ic_inferior": -0.033131863325018,
+      "ic_superior": 0.03187457485161437,
+      "excluye_el_cero": false,
+      "fraccion_a_favor": 0.488,
+      "remuestras": 1000
+    }
+  },
+  "nota_umbral": "El umbral de 0,02 de la D5 es una convencion del equipo, no un contraste. Cuando el margen y su intervalo discrepen, manda el intervalo.",
+  "veredicto_fundacional_vs_avanzado": {
+    "ganador": "fundacional",
+    "diferencia_f1_macro": -0.001239335908912953,
+    "razon": "diferencia de F1 macro (-0.0012) menor al umbral acordado (0.02); se prefiere el modelo mas simple",
+    "ic_inferior": -0.033131863325018,
+    "ic_superior": 0.03187457485161437,
+    "la_diferencia_excluye_el_cero": false,
+    "lectura_con_d5": "El margen decide segun la seccion 3.3, pero la D5 manda que cuando el margen y su intervalo discrepen, gana el intervalo. Si el intervalo incluye el cero, los dos modelos no se distinguen y se prefiere el mas simple, que es el fundacional porque no se entrena."
+  }
+}

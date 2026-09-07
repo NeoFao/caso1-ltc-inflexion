@@ -1,0 +1,21 @@
+{
+  "que_es": "Constancia de cada sesion de medicion sobre el bloque de prueba. La D18 dice que se toca una sola vez; este archivo hace que repetirlo deje rastro. Una sesion es una corrida del guion, con todos los modelos que haya evaluado.",
+  "corridas": [
+    {
+      "sesion": "b7d28e6e5b5b48c482f1ec8dd471bd60",
+      "cuando_utc": "2026-09-07T22:46:44+00:00",
+      "modelos": [
+        "baseline_aleatorio",
+        "baseline_mayoritario",
+        "baseline_trivial",
+        "bosque_aleatorio_rezagos_relativos",
+        "chronos_bolt",
+        "itransformer"
+      ],
+      "commit": "1426bce26fda6246bceea3bd9b1acfad719da469",
+      "arbol_limpio": true,
+      "motivo": null
+    }
+  ],
+  "n_corridas": 1
+}
