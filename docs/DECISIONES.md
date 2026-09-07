@@ -800,3 +800,80 @@ detección y el reporte final. Su estructura está en `docs/entregas/informe-fin
 **Lo que esta decisión asume, y hay que decirlo en el informe:** que agrupar es aceptable. Si el
 profesor esperaba tres documentos, lo que recibe los contiene a los tres, y eso se declara en la
 introducción en vez de esperar que no se note.
+
+## D23 · Se descongela para tres cambios que no mueven ninguna cifra publicada, y la corrida final se atrasa al lunes 7
+
+**Estado:** vigente desde el 06/09/2026 · aplica el procedimiento que la [D18](#d18) dejó escrito
+
+La D18 congeló el código el viernes 4 y prohibió tocar `contracts/`, `src/` y `docs/evidencias/`.
+También previó este caso: **si hace falta cambiar algo después, se descongela explícitamente y se
+declara el motivo, no se parchea en silencio.** Esto es eso.
+
+### Qué se descongela, y por qué cada uno
+
+| Cambio | Qué toca | Por qué entra |
+|---|---|---|
+| [#97](https://github.com/NeoFao/caso1-ltc-inflexion/pull/97) | `docs/evidencias/`, `src/features/` | Fase 2 del [#92](https://github.com/NeoFao/caso1-ltc-inflexion/issues/92): las seis métricas por semilla del bosque. **Añade claves, no cambia valores** |
+| [#98](https://github.com/NeoFao/caso1-ltc-inflexion/pull/98) | `docs/evidencias/`, `src/modelos/`, `docs/09` | Lo mismo para el avanzado, con la semilla declarada. El [#103](https://github.com/NeoFao/caso1-ltc-inflexion/pull/103) está apilado encima |
+| [#105](https://github.com/NeoFao/caso1-ltc-inflexion/pull/105) | `src/evaluacion/` | **Sin esto la corrida final no se puede hacer**: el pestillo moría en el segundo modelo con la reserva gastada ([#100](https://github.com/NeoFao/caso1-ltc-inflexion/issues/100)) |
+
+**El [#96](https://github.com/NeoFao/caso1-ltc-inflexion/pull/96) no necesita descongelación**, y se
+deja dicho para que no se cite mal: toca solo `app/`, que la congelación nunca cubrió. Lo mismo el
+[#104](https://github.com/NeoFao/caso1-ltc-inflexion/pull/104), que es una sección del informe.
+
+### El criterio, que es lo que hay que poder defender
+
+La congelación existe para que **no se mueva un número que el informe ya cita**. No existe para
+impedir que se añada detalle que faltaba, ni para impedir arreglar el instrumento con el que
+todavía no se ha medido.
+
+Los tres cumplen: **ninguno cambia una cifra publicada.** El #97 y el #98 añaden claves a archivos
+de evidencia sin tocar los valores existentes; el #105 arregla el pestillo, que nunca produjo una
+cifra porque nunca llegó a correr sobre la reserva.
+
+### Lo que esta decisión NO autoriza
+
+Cualquier otro cambio en `contracts/`, `src/` o `docs/evidencias/`. La descongelación es **para
+estos tres y se vuelve a cerrar al fusionarlos.** Si aparece un cuarto, se añade acá antes de
+tocarlo, no después.
+
+### Por qué la corrida del bloque de prueba no se hizo el sábado 5
+
+Queda registrado porque el calendario de la D18 lo fijaba y no se cumplió, y una fecha incumplida
+sin explicación se lee después como descuido.
+
+Al preparar la corrida aparecieron **tres defectos que la habrían roto a mitad de camino**, dos de
+ellos gastando la reserva antes de morir:
+
+1. **El pestillo contaba modelos en vez de corridas.** Moría en el modelo 2 de 6 con el archivo ya
+   escrito, y a partir de ahí cualquier arreglo obligaba a declarar un motivo: el registro habría
+   dicho para siempre que la reserva se tocó dos veces. Lo reportó M3 el 02/09 en el #100.
+2. **El #101 introducía un `KeyError`** justo antes de escribir `m3-modelos-profundos-…-prueba.json`,
+   con los seis modelos ya evaluados y la reserva ya gastada. Se perdían los intervalos pareados y
+   el veredicto, que son las cifras con las que la sección 5 del protocolo aplica las tres
+   condiciones de la [D16](#d16).
+3. **`--sin-variantes` no es obligatorio sobre `prueba`**, así que el cumplimiento de la sección 3
+   del protocolo dependía de que quien corriera se acordara de escribirla.
+
+**Correrla el sábado habría gastado la reserva sin obtener el número.** El atraso cuesta un día de
+redacción; la alternativa costaba la reserva, que es lo único del proyecto que no se puede reponer.
+
+**La fecha nueva es el lunes 7 de septiembre**, y es firme salvo que el defecto 2 siga abierto. Va
+después de un **ensayo en seco sobre validación con las banderas exactas**, que es obligatorio: los
+tres defectos se habrían caído ahí.
+
+El resto del calendario de la D18 no cambia: se entrega el martes 8. La redacción se comprime a un
+día, y eso es el costo aceptado.
+
+### Lo que se aprende, y vale más que los tres arreglos
+
+Los tres defectos estaban **en el camino que solo recorre la corrida final**, y ninguno se veía en
+las pruebas unitarias, que pasaban. El pestillo se había visto fallar en su propia prueba, pero
+nunca en el camino por el que iba a pasar el sábado.
+
+**Un control probado en aislamiento no es un control probado.** Se añade a las reglas del proyecto:
+todo camino que solo se recorre una vez se ensaya entero antes, sobre datos que sí se puedan gastar.
+
+**Origen:** M2 avisó el 06/09 de que la medición no se había corrido, con tres comprobaciones
+independientes de que la reserva seguía intacta, y pidió que se decidiera ese mismo día en vez del
+lunes. Es la misma forma que el #100: traer el problema antes de que sea urgente.
