@@ -71,6 +71,98 @@ documento que se reescribe para parecer que siempre tuvo razón no sirve para ap
 
 ---
 
+## Lo que hicimos después de medir, y qué salió
+
+La corrida sobre el bloque de prueba dejó una pregunta abierta: la ventaja sobre el azar era
+positiva y estable en signo, pero su intervalo incluía el cero. **Investigamos por qué**, sin tocar
+la reserva —ya gastada— y midiendo todo sobre validación.
+
+### El diagnóstico
+
+Medimos **por cuánto le gana cada extremo a su vecino más cercano**, que es qué tan pronunciado es:
+
+**Tabla 1.** Margen del extremo sobre su vecino más cercano.
+
+| Bloque | Máximos | Mínimos |
+|---|---|---|
+| Entrenamiento | 0,6372 % | **0,7498 %** |
+| Validación | 0,6129 % | **0,8334 %** |
+| Prueba | **0,4500 %** | **0,4822 %** |
+
+**Dos hallazgos.** Los mínimos ganan por más margen que los máximos **en los tres bloques**: los
+suelos de este activo son más pronunciados que los techos, y eso explica por qué el modelo detecta
+valles mejor que picos. Se comprobó que la asimetría aparece también dentro del bloque de
+entrenamiento, en tramos que suben, así que **no la causa el régimen del mercado**.
+
+Y en prueba los extremos ganan por un tercio menos: son extremos marginales, decididos por una
+diferencia de precio pequeña, y por eso intrínsecamente menos predecibles.
+
+### Los dos arreglos que probamos, y por qué fallaron
+
+**Exigir un margen mínimo** para llamar extremo a una vela — si un extremo que gana por 0,05 % es
+indistinguible del ruido, etiquetarlo igual que uno que gana por 3 % le pide al modelo aprender algo
+que no está ahí:
+
+| Umbral | Ventaja sobre el azar |
+|---|---|
+| **0 % (lo publicado)** | **+0,0537** |
+| 0,1 % | +0,0339 |
+| 0,3 % | +0,0310 |
+| 0,8 % | +0,0116 |
+
+**Juntar picos y valles** en una sola clase «punto de inflexión», que duplica los ejemplos de la
+clase rara y elimina la asimetría de raíz: la ventaja pasa de **+0,0537** a **−0,0293**.
+
+**Los dos empeoran**, y por la misma razón: filtrar o fusionar no arregla que haya pocos ejemplos de
+la clase rara. Filtrar reduce los máximos de validación de 99 a 27.
+
+### Lo que sí resolvió la pregunta: medir muchas veces en vez de una
+
+El cuello de botella no era el modelo ni el criterio: era que **una sola medición sobre 86 ejemplos
+de cada clase no puede dar un intervalo estrecho**.
+
+Se probó la alternativa correcta para series de tiempo: **validación walk-forward**. En vez de un
+bloque medido una vez, se avanza por la serie entrenando con lo anterior y midiendo en el tramo
+siguiente, con el mismo embargo en cada frontera. El procedimiento se fijó antes de correrlo y no se
+tocó después.
+
+**Tabla 2.** Nueve tramos consecutivos, sobre entrenamiento y validación.
+
+| | |
+|---|---|
+| Tramos en que el bosque supera al azar | **9 de 9** |
+| Ventaja media | **+0,035046** |
+| Ventaja mínima / máxima | +0,005380 / +0,072690 |
+| Probabilidad de 9 de 9 si no hubiera efecto | **1 en 512** |
+
+Los nueve tramos cubren regímenes opuestos, desde uno que cayó un **35,5 %** hasta uno que subió un
+**88,8 %**. **El bosque gana en todos.**
+
+Y hay una coincidencia que importa: la ventaja media del walk-forward (**+0,035046**) y la que dio
+el bloque de prueba (**+0,035021**) coinciden hasta la cuarta cifra decimal. **La reserva no tuvo
+mala suerte** — el efecto era del mismo tamaño en los nueve tramos y en el bloque no visto, y lo que
+faltaba era poder estadístico para distinguirlo del azar.
+
+> **Lo que esto NO demuestra, y hay que decirlo.** El walk-forward **no es una estimación insesgada**:
+> los tramos posteriores entrenan con datos de los anteriores, y el modelo se desarrolló mirando
+> validación. **La única estimación limpia sigue siendo la del bloque de prueba**, y esa es la que el
+> informe reporta en la sección 5. Lo que el walk-forward muestra es que **la ventaja es consistente
+> en signo** a lo largo de nueve períodos y de regímenes opuestos.
+>
+> Por eso **no reemplaza el resultado**: lo explica.
+
+### Lo que se aprende de esto
+
+**El diseño de un solo bloque medido una vez es correcto contra el autoengaño y débil contra el
+ruido.** Protege perfectamente de elegir mirando el resultado —que es el riesgo grande— al precio de
+no poder distinguir un efecto pequeño de la nada.
+
+Un diseño walk-forward con el procedimiento fijado de antemano da las dos cosas: nadie puede elegir
+mirando, y hay potencia suficiente para ver un efecto de este tamaño. **Es la corrección de método
+más importante que salió de este trabajo.**
+
+---
+
 ## Lo que haríamos distinto
 
 **Traer una variable de otra naturaleza.** El problema de los activos de apoyo no es que sean malos

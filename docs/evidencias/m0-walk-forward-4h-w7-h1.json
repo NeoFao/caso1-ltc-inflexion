@@ -1,0 +1,85 @@
+{
+  "que_es": "Validacion walk-forward sobre entrenamiento + validacion: muchos tramos de evaluacion en vez de uno. NO reemplaza la corrida unica sobre el bloque de prueba; muestra como se deberia haber medido desde el diseno.",
+  "no_toca_la_reserva": "Solo usa entrenamiento y validacion. El bloque de prueba se midio una sola vez y esta gastado; aqui no entra.",
+  "lo_que_NO_demuestra": "No es una estimacion insesgada de rendimiento fuera de muestra: los tramos posteriores entrenan con datos de los anteriores, y el modelo y las caracteristicas se desarrollaron mirando validacion. Lo que muestra es que la ventaja es CONSISTENTE en signo a lo largo de nueve periodos y de regimenes opuestos. La unica estimacion limpia sigue siendo la de la reserva.",
+  "procedimiento_fijado_antes": {
+    "n_tramos": 10,
+    "minimo_entrenamiento": 3000,
+    "embargo": 8,
+    "modelo": "bosque_aleatorio_rezagos_relativos, hiperparametros del proyecto"
+  },
+  "tramos": [
+    {
+      "ventaja": 0.04007726120442984,
+      "f1_macro_bosque": 0.39113100489349106,
+      "f1_macro_azar": 0.3510537436890612,
+      "f1_maximo_bosque": 0.0784313725490196,
+      "f1_minimo_bosque": 0.17582417582417584
+    },
+    {
+      "ventaja": 0.029056705960198825,
+      "f1_macro_bosque": 0.33817579663444325,
+      "f1_macro_azar": 0.3091190906742444,
+      "f1_maximo_bosque": 0.08163265306122448,
+      "f1_minimo_bosque": 0.0
+    },
+    {
+      "ventaja": 0.005379988128263347,
+      "f1_macro_bosque": 0.35740289885424575,
+      "f1_macro_azar": 0.3520229107259824,
+      "f1_maximo_bosque": 0.03333333333333333,
+      "f1_minimo_bosque": 0.11764705882352941
+    },
+    {
+      "ventaja": 0.03916414790078321,
+      "f1_macro_bosque": 0.34456937219145645,
+      "f1_macro_azar": 0.30540522429067324,
+      "f1_maximo_bosque": 0.1016949152542373,
+      "f1_minimo_bosque": 0.0
+    },
+    {
+      "ventaja": 0.051671887111248094,
+      "f1_macro_bosque": 0.348425430778372,
+      "f1_macro_azar": 0.2967535436671239,
+      "f1_maximo_bosque": 0.058823529411764705,
+      "f1_minimo_bosque": 0.06666666666666667
+    },
+    {
+      "ventaja": 0.019258440273620614,
+      "f1_macro_bosque": 0.35884940486458516,
+      "f1_macro_azar": 0.33959096459096455,
+      "f1_maximo_bosque": 0.06451612903225806,
+      "f1_minimo_bosque": 0.09090909090909091
+    },
+    {
+      "ventaja": 0.013893600686316898,
+      "f1_macro_bosque": 0.38989273651596124,
+      "f1_macro_azar": 0.37599913582964434,
+      "f1_maximo_bosque": 0.13559322033898305,
+      "f1_minimo_bosque": 0.1111111111111111
+    },
+    {
+      "ventaja": 0.07268959870573077,
+      "f1_macro_bosque": 0.3969823602077946,
+      "f1_macro_azar": 0.3242927615020638,
+      "f1_maximo_bosque": 0.03278688524590164,
+      "f1_minimo_bosque": 0.23684210526315788
+    },
+    {
+      "ventaja": 0.04422082517499759,
+      "f1_macro_bosque": 0.3663895809796014,
+      "f1_macro_azar": 0.3221687558046038,
+      "f1_maximo_bosque": 0.12307692307692308,
+      "f1_minimo_bosque": 0.057971014492753624
+    }
+  ],
+  "agregado": {
+    "tramos_ganados": 9,
+    "de": 9,
+    "ventaja_media": 0.03504582834950991,
+    "ventaja_minima": 0.005379988128263347,
+    "ventaja_maxima": 0.07268959870573077,
+    "desviacion": 0.01952925365880432,
+    "probabilidad_si_no_hubiera_efecto": 0.001953125
+  }
+}
