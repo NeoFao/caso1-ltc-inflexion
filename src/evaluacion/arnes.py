@@ -43,9 +43,16 @@ def evaluar_modelo(
     heredar el default desincronizo dos mitades de un archivo sin que cambiara una
     linea. Si equivocarse es silencioso, el parametro se pide.
 
-    Medir sobre `prueba` pasa por el pestillo de `reserva.py`: la primera vez deja
+    Medir sobre `prueba` pasa por el pestillo de `reserva.py`: la primera SESION deja
     constancia y las siguientes fallan salvo que se pase `motivo_reserva`. Es la D18
     hecha comprobable en vez de afirmada.
+
+    El pestillo se llama desde aqui, y no desde quien orquesta la corrida, porque este
+    modulo es el paso obligatorio: si viviera en `experimento.py`, cualquier otro
+    llamador --`hiperparametros.py`, `hiperparametros_avanzado.py`,
+    `sensibilidad_avanzado.py`-- podria medir sobre la reserva sin dejar rastro, y ese
+    fallo seria silencioso. Se prefiere la unidad correcta en el sitio correcto:
+    `consumir` acumula los modelos de una misma sesion en un solo registro (#100).
     """
     mascaras = {
         "entrenamiento": particion.entrenamiento,

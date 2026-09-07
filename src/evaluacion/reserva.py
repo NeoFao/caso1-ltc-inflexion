@@ -26,11 +26,23 @@ from __future__ import annotations
 
 import json
 import subprocess
+import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
 RUTA_PESTILLO = RAIZ / "docs" / "evidencias" / "prueba-consumida.json"
+
+# La unidad del pestillo es la SESION DE MEDICION, no el modelo. Se genera una vez
+# al importar el modulo, o sea una por proceso, que es lo que la seccion 8 del
+# protocolo llama "una corrida": «la primera corrida sobre prueba escribe [...] los
+# modelos evaluados», en plural y en una sola corrida.
+#
+# Antes la unidad era el modelo, y por eso una corrida sobre seis modelos moria en el
+# segundo: el primero dejaba la constancia y el segundo la encontraba puesta. El
+# pestillo funcionaba y el arnes funcionaba; lo que estaba mal era que median cosas
+# distintas (issue #100).
+SESION = uuid.uuid4().hex
 
 
 class ReservaYaConsumida(RuntimeError):
@@ -93,45 +105,71 @@ def consumir(
     *,
     motivo: str | None = None,
     ruta: Path = RUTA_PESTILLO,
+    sesion: str = SESION,
 ) -> dict:
-    """Registra una evaluacion sobre el bloque de prueba, o falla si ya hubo una.
+    """Registra modelos evaluados sobre el bloque de prueba en la sesion en curso.
 
-    `motivo` es obligatorio a partir de la segunda vez, y se guarda junto al registro
+    La primera llamada de una sesion abre una corrida. Las siguientes de la MISMA
+    sesion le anaden sus modelos, sin volver a preguntar nada: evaluar seis modelos
+    en una corrida es una sola medicion, no seis.
+
+    Una sesion nueva sobre un registro que ya existe es lo que el pestillo tiene que
+    frenar, y ahi `motivo` pasa a ser obligatorio. Se guarda junto al registro
     anterior en vez de reemplazarlo: el valor de este archivo esta en que acumule el
     historial completo, no en que muestre la ultima corrida.
+
+    `sesion` se puede inyectar para que las pruebas simulen un segundo proceso. En
+    produccion nadie lo pasa: sale de SESION, que es una por proceso.
+
+    El archivo se reescribe en CADA llamada, y no al final de la sesion, a proposito.
+    Una corrida que muera a la mitad si toco la reserva --alguien pudo ver esos
+    numeros-- y tiene que dejar constancia de los modelos que alcanzo a medir. Un
+    pestillo que solo se cierra cuando todo sale bien no sirve para el unico caso en
+    que hace falta.
     """
     previo = json.loads(ruta.read_text(encoding="utf-8")) if ruta.exists() else None
+    abierta = previo["corridas"][-1] if previo and previo.get("corridas") else None
 
-    if previo is not None and not motivo:
-        cuando = previo["corridas"][0]["cuando_utc"]
-        raise ReservaYaConsumida(
-            f"El bloque de prueba ya se midio el {cuando} "
-            f"(commit {previo['corridas'][0]['commit'][:8]}, "
-            f"modelos: {', '.join(previo['corridas'][0]['modelos'])}).\n"
-            "\n"
-            "La D18 dice que se toca una sola vez y que el informe reporta la primera "
-            "cifra que salga. Si de verdad hace falta repetirla, pasa motivo='...' "
-            "explicando por que, y queda registrado junto a la anterior.\n"
-            "\n"
-            f"El registro esta en {_mostrar(ruta)}."
-        )
+    if abierta is not None and abierta.get("sesion") == sesion:
+        # Misma corrida: se acumulan los modelos y no se vuelve a exigir motivo.
+        abierta["modelos"] = sorted(set(abierta["modelos"]) | set(modelos))
+        registro = previo
+        corrida = abierta
+    else:
+        if previo is not None and not motivo:
+            primera = previo["corridas"][0]
+            raise ReservaYaConsumida(
+                f"El bloque de prueba ya se midio el {primera['cuando_utc']} "
+                f"(commit {primera['commit'][:8]}, "
+                f"modelos: {', '.join(primera['modelos'])}).\n"
+                "\n"
+                "La D18 dice que se toca una sola vez y que el informe reporta la "
+                "primera cifra que salga. Si de verdad hace falta repetirla, pasa "
+                "motivo='...' explicando por que, y queda registrado junto a la "
+                "anterior.\n"
+                "\n"
+                f"El registro esta en {_mostrar(ruta)}."
+            )
 
-    corrida = {
-        "cuando_utc": datetime.now(UTC).isoformat(timespec="seconds"),
-        "modelos": sorted(modelos),
-        "commit": _commit_actual(),
-        "arbol_limpio": _arbol_limpio(),
-        "motivo": motivo,
-    }
+        corrida = {
+            "sesion": sesion,
+            "cuando_utc": datetime.now(UTC).isoformat(timespec="seconds"),
+            "modelos": sorted(modelos),
+            "commit": _commit_actual(),
+            "arbol_limpio": _arbol_limpio(),
+            "motivo": motivo,
+        }
+        registro = previo or {
+            "que_es": (
+                "Constancia de cada sesion de medicion sobre el bloque de prueba. La "
+                "D18 dice que se toca una sola vez; este archivo hace que repetirlo "
+                "deje rastro. Una sesion es una corrida del guion, con todos los "
+                "modelos que haya evaluado."
+            ),
+            "corridas": [],
+        }
+        registro["corridas"].append(corrida)
 
-    registro = previo or {
-        "que_es": (
-            "Constancia de cada evaluacion sobre el bloque de prueba. La D18 dice que "
-            "se toca una sola vez; este archivo hace que repetirlo deje rastro."
-        ),
-        "corridas": [],
-    }
-    registro["corridas"].append(corrida)
     registro["n_corridas"] = len(registro["corridas"])
 
     ruta.parent.mkdir(parents=True, exist_ok=True)
