@@ -208,6 +208,13 @@ def resumir_por_semilla(por_semilla: dict[int, list[dict]]) -> dict:
     zero-shot-- de los que si. Para aquellos la tercera condicion de la D16 se cumple
     de forma trivial, y conviene que la evidencia lo diga en vez de presentarlo como
     estabilidad del modelo.
+
+    Con UNA sola semilla vale `None` y no `True`. `len(set(f1)) == 1` es trivialmente
+    cierto con un elemento, y una semilla es la ruta por omision: toda corrida de
+    validacion pasa por aqui. Decir `true` ahi es afirmar que las cinco dieron
+    identico cuando no hubo cinco -- y sobre el iTransformer es lo contrario de lo que
+    la D14 midio. `None` dice "no se midio", que no es lo mismo que "se midio y dio
+    igual".
     """
     from src.modelos.sensibilidad_avanzado import METRICAS
 
@@ -236,7 +243,7 @@ def resumir_por_semilla(por_semilla: dict[int, list[dict]]) -> dict:
         resumen[nombre] = {
             "por_semilla": {str(s): filas[s] for s in semillas},
             "resumen": metricas,
-            "identico_en_todas": bool(len(set(f1)) == 1),
+            "identico_en_todas": bool(len(set(f1)) == 1) if len(f1) > 1 else None,
         }
 
     return {"semillas": semillas, "por_modelo": resumen}
