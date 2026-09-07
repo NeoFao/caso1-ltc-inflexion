@@ -1,0 +1,19 @@
+{
+  "documento": "Caso 1 - Semana 4 - Modelo avanzado y comparacion",
+  "introduccion": "m0-introduccion.md",
+  "conclusion": "m0-conclusion.md",
+  "capitulos": [
+    {
+      "archivo": "m2-caracteristicas.md",
+      "titulo": "Ingeniería de Características"
+    },
+    {
+      "archivo": "m3-avanzado.md",
+      "titulo": "El Modelo Avanzado: iTransformer"
+    },
+    {
+      "archivo": "m3-rendimiento.md",
+      "titulo": "Rendimiento Comparado y Lo Que No se Puede Afirmar"
+    }
+  ]
+}
