@@ -66,6 +66,24 @@ Las dos mitades van juntas o ninguna: **aportar no es rescatar.** El avanzado co
 
 El mecanismo está medido y explica el tamaño: los seis activos son fuertemente proporcionales entre sí —de +0,5175 a +0,8300— y **no existe ninguna relación inversa**, así que traen poca información que LTC no tenga (D20).
 
+> ⚠️ **La fila «Avanzado · Sí» tampoco se reproduce, y es la que la D24 fija.** El ensayo en seco del 07/09 volvió a medir validación **con** variantes, dos veces, y aplicó las tres condiciones de la [D16](../../DECISIONES.md) al aporte de los activos de apoyo:
+>
+> | Condición | Comprometido (21/08) | Ensayo, 2.ª corrida (07/09) |
+> |---|---|---|
+> | 1 · La diferencia es positiva | +0,012586 | **+0,021870** · se reproduce |
+> | 2 · El intervalo excluye el cero | [**+0,000434** , +0,044067] · **sí** | [**−0,001736** , +0,045490] · **no** |
+> | 3 · El signo no cambia en cinco semillas | positivo en las cinco | positivo en las cinco · se reproduce |
+>
+> **Dos de las tres se reproducen. La 2 no**, ni en esta corrida ni en la anterior del mismo ensayo. El límite inferior comprometido vive a **0,0004 del cero**.
+>
+> **La causa está identificada.** El remuestreo pareado *sí* está sembrado (`np.random.default_rng(semilla)` en `src/features/incertidumbre.py`), así que el intervalo es determinista **dadas las predicciones**. Lo que se mueve es el iTransformer, que no es determinista al entrenar. Por eso el mismo efecto aparece en dos comparaciones distintas del mismo archivo: esta y la de la limitación 2.
+>
+> **Lo que esto no toca:** el razonamiento de la D24 —que el umbral de la D5 respondía la pregunta equivocada— sigue siendo correcto, y la condición 3, que es la que la propia D24 argumenta como discriminante, **se reproduce**. Lo que no se sostiene es la frase «las tres se cumplen».
+>
+> **Y lo que urge:** sobre el bloque de prueba hay **una sola corrida**. Cualquier veredicto que salga de la condición 2 en un contraste donde entre el iTransformer será un veredicto que una segunda corrida no reproduciría — y no habrá segunda corrida. **Esto lo decide el equipo antes de correr**, no después de ver el número.
+>
+> Evidencia: `m0-ensayo-en-seco-validacion-con-variantes-4h-w7-h1.json`.
+
 > **De dónde salía la contradicción.** El esqueleto declaraba esta limitación en general citando el 0,00078, que es del bosque. La D14 concluía lo mismo sobre el avanzado, pero aplicando el umbral de la D5 —una convención para *elegir* entre modelos— a una pregunta de *distinguibilidad*, que responden las tres condiciones de la D16. La D24 corrige esa lectura sin reescribir la D14, y con la evidencia que la D14 ya tenía delante: no hizo falta medir nada nuevo.
 
 **2. Ningún modelo profundo mejora al bosque clásico.** iTransformer queda entre 0,042894 y 0,044792 por debajo; Chronos-Bolt no se distingue de él. **Esta mitad es sólida**: en las tres corridas que tenemos, la diferencia es negativa y del mismo tamaño, y ningún modelo profundo le gana al bosque en ninguna.
