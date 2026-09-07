@@ -529,6 +529,35 @@ def test_la_ficha_describe_las_dos_variantes_cuando_las_dos_se_evaluan():
     assert fichas["itransformer_solo_ltc"]["n_series"] == 1
 
 
+def _red_de_seguridad(monkeypatch):
+    """Impide que una prueba de las guardas llegue a medir sobre la reserva.
+
+    Las dos pruebas de abajo llaman a `main()` de verdad, con `--conjunto prueba
+    --gastar-prueba`, y lo unico que las detiene es la guarda que estan probando. Eso
+    es una dependencia circular: mientras la guarda funciona la prueba es inofensiva,
+    y el dia que la guarda se rompa la prueba deja de ser una prueba y pasa a ser la
+    corrida final -- sobre el repositorio de quien haya escrito `pytest`, en silencio,
+    e imprimiendo las cifras del bloque de prueba por pantalla.
+
+    Se comprobo: poniendo `if False` en la exigencia de cinco semillas, la suite
+    escribio `prueba-consumida.json` con cuatro modelos reales, anadio cuatro filas
+    con `conjunto=prueba` a `resultados.csv` y dejo un JSON de evidencia nuevo. La
+    prueba que protege la reserva era la que la gastaba.
+
+    Con esta red, una guarda rota falla en rojo y no toca nada. El control deja de
+    depender de lo que controla, que es la unica forma de que sirva el dia que haga
+    falta.
+    """
+    monkeypatch.setattr(
+        "src.modelos.experimento.evaluar_modelo",
+        lambda *a, **k: pytest.fail(
+            "la guarda del protocolo no corto: se llego a evaluar sobre el bloque de "
+            "prueba. Si esto sale en rojo, la guarda regreso -- y sin esta red la "
+            "reserva ya estaria gastada."
+        ),
+    )
+
+
 def test_sobre_prueba_la_bandera_del_protocolo_es_obligatoria(monkeypatch):
     """Un control que depende de que alguien se acuerde no es un control.
 
@@ -538,8 +567,11 @@ def test_sobre_prueba_la_bandera_del_protocolo_es_obligatoria(monkeypatch):
     silencio-- por lo mismo que --gastar-prueba se exige: sobre el unico conjunto que
     no se puede volver a medir, lo que se pide se escribe.
 
-    Corta antes de leer el panel y antes de evaluar nada, asi que no roza la reserva.
+    Corta antes de leer el panel. Y si algun dia dejara de cortar, la red de
+    seguridad de arriba lo convierte en un fallo en rojo en vez de en una corrida.
     """
+    _red_de_seguridad(monkeypatch)
+
     from src.modelos.experimento import main
 
     monkeypatch.setattr(
@@ -621,13 +653,43 @@ def test_el_resumen_marca_los_modelos_que_no_muestrean():
     assert fundacional["resumen"]["f1_macro"]["rango"] == 0.0
 
 
+def test_con_una_sola_semilla_no_se_afirma_que_dio_identico():
+    """`identico_en_todas` no puede decir que si cuando no hubo con que comparar.
+
+    `len(set(f1)) == 1` es trivialmente cierto con un elemento, y la corrida de UNA
+    semilla es la ruta por omision: toda corrida de validacion pasa por aqui. O sea
+    que la evidencia venia diciendo que el iTransformer da identico en todas las
+    semillas, que es lo contrario de lo que la D14 midio de el.
+
+    El campo existe para marcar los modelos que no muestrean --el fundacional es
+    zero-shot y la tercera condicion de la D16 se le cumple sola--. Con una sola
+    semilla no hay nada que marcar, y decir `true` es afirmar de mas en la direccion
+    que hace la conclusion mas redonda. `None` dice "no se midio", que es distinto de
+    "se midio y dio igual".
+
+    `verificar_numeros` no protege de esto porque es un booleano y no un numero: la
+    unica guarda posible es una prueba.
+    """
+    from src.modelos.experimento import resumir_por_semilla
+
+    resumen = resumir_por_semilla({0: [_fila("itransformer", 0.345706)]})
+
+    assert resumen["por_modelo"]["itransformer"]["identico_en_todas"] is None, (
+        "con una semilla no se puede afirmar que las cinco dieran identico. La ruta "
+        "por omision escribiria esa afirmacion en la evidencia de validacion."
+    )
+
+
 def test_sobre_prueba_se_exigen_cinco_semillas(monkeypatch):
     """Una sola corrida no es comparable con las cifras de validacion, que son medias
     de cinco (D16). Y con el pestillo contando sesiones (#105), correr cinco veces
     para conseguirlas serian cinco corridas sobre una reserva que se toca una vez.
 
-    Corta antes de leer el panel, asi que no roza la reserva.
+    Corta antes de leer el panel. Y si algun dia dejara de cortar, la red de
+    seguridad de arriba lo convierte en un fallo en rojo en vez de en una corrida.
     """
+    _red_de_seguridad(monkeypatch)
+
     from src.modelos.experimento import main
 
     monkeypatch.setattr(
