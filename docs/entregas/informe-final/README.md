@@ -68,7 +68,22 @@ El mecanismo está medido y explica el tamaño: los seis activos son fuertemente
 
 > **De dónde salía la contradicción.** El esqueleto declaraba esta limitación en general citando el 0,00078, que es del bosque. La D14 concluía lo mismo sobre el avanzado, pero aplicando el umbral de la D5 —una convención para *elegir* entre modelos— a una pregunta de *distinguibilidad*, que responden las tres condiciones de la D16. La D24 corrige esa lectura sin reescribir la D14, y con la evidencia que la D14 ya tenía delante: no hizo falta medir nada nuevo.
 
-**2. Ningún modelo profundo mejora al bosque clásico.** iTransformer queda 0,0448 por debajo con intervalo que excluye el cero; Chronos-Bolt no se distingue de él.
+**2. Ningún modelo profundo mejora al bosque clásico.** iTransformer queda entre 0,042894 y 0,044792 por debajo; Chronos-Bolt no se distingue de él. **Esta mitad es sólida**: en las tres corridas que tenemos, la diferencia es negativa y del mismo tamaño, y ningún modelo profundo le gana al bosque en ninguna.
+
+> ⚠️ **Lo que no se sostiene es la mitad fuerte: «con intervalo que excluye el cero».** El ensayo en seco del 07/09 volvió a medir validación con el mismo código, los mismos datos y las mismas cinco semillas — **dos veces**, y el intervalo incluyó el cero **las dos**:
+>
+> | Corrida | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
+> |---|---|---|---|
+> | Evidencia comprometida (21/08) | −0,044792 | [−0,085204 , **−0,001457**] | **Sí** |
+> | Ensayo en seco (07/09) | −0,042894 | [−0,081945 , **+0,001996**] | No |
+>
+> La primera corrida del ensayo, veinte minutos antes, dio lo mismo y con la misma conclusión. Se adjunta la evidencia de la segunda en `m0-ensayo-en-seco-validacion-4h-w7-h1.json`, con nombre propio para que **no se confunda con una medición citable**: es un ensayo, no una corrida del protocolo.
+>
+> El límite superior vive a menos de 0,002 del cero, así que el veredicto binario se da vuelta aunque la cifra casi no se mueva. **Un resultado que no se reproduce no se puede presentar como el que se afirma con seguridad**, y la sección de M3 hoy lo llama *«el único resultado de esta tabla que se puede afirmar con seguridad»*.
+>
+> **Queda una alternativa por descartar** antes de atribuirlo del todo a que el iTransformer no es determinista: la corrida del 21/08 incluía las variantes y el ensayo llevaba `--sin-variantes`. La causa la confirma M3; la conclusión para el informe no cambia con ninguna de las dos.
+>
+> Es la misma forma que la limitación 1 y la misma lección de la [D24](../../DECISIONES.md): **la condición 2 de la [D16](../../DECISIONES.md) es un umbral binario, y sobre un límite que roza el cero decide el ruido y no el modelo.**
 
 **3. El puente de trayectoria a etiqueta amplifica diferencias mínimas.** El etiquetador exige catorce comparaciones estrictas, y sobre un pronóstico suave un vecino a 10⁻¹¹ cambia la clase (D15).
 
