@@ -29,8 +29,8 @@ Y por semana:
 | Prueba de detección: sintético | **Hecha** | 187/187 giros recuperados |
 | Prueba de detección: entrenamiento | **Hecha** | F1 macro 0,953353 contra 0,331638 del azar |
 | Prueba de detección: tiempo real | **Hecha** | 500 velas de a una, predicciones idénticas al bloque (D21) |
-| Rendimiento sobre datos no vistos | **Pendiente** | Se mide el sábado 5, una vez (D18) |
-| Informe técnico | **Este documento** | En construcción |
+| Rendimiento sobre datos no vistos | **Pendiente** | Se mide el **lunes 7**, una vez (D18, fecha nueva por [D23](../../DECISIONES.md)) |
+| Informe técnico | **Este documento** | Secciones 2 y 3 escritas; el resto, al rellenar la cifra |
 
 ---
 
@@ -42,11 +42,11 @@ El informe no repite los marcos teóricos ya entregados: los cita. Lo que aporta
 |---|---|---|
 | Introducción | Qué se construyó y qué se puede afirmar hoy | nueva |
 | 1. Diseño | Los tres parámetros, la partición con embargo, y por qué cada decisión | D1–D3, `docs/04` |
-| 2. Ingeniería de características | Las cinco familias, por qué ninguna es precio crudo, y la importancia medida con su piso de ruido | `docs/07`, D6 |
-| 3. Los dos modelos | Fundacional y avanzado: qué son, por qué se eligieron, qué costaron | D12, D14, `semana-2/m3-modelos.md` |
+| 2. Ingeniería de características | Las cinco familias, por qué ninguna es precio crudo, y la importancia medida con su piso de ruido | **escrita**: [`02-ingenieria-de-caracteristicas.md`](02-ingenieria-de-caracteristicas.md) |
+| 3. Los dos modelos | Fundacional y avanzado: qué son, por qué se eligieron, qué costaron | **escrita**: [`m3-modelos.md`](m3-modelos.md) |
 | 4. Pruebas de detección | Las cuatro, incluida la de tiempo real que la D21 desbloqueó | `pruebas-deteccion.json`, D21 |
-| 5. Rendimiento | La comparación sobre validación y **la medición única sobre prueba** | pendiente del sábado |
-| 6. Limitaciones | Lo que el enfoque no puede, incluido el análisis con datos estáticos que pide el enunciado | `docs/06`, D15, D20 |
+| 5. Rendimiento | La comparación sobre validación y **la medición única sobre prueba** | la mitad de modelos, en [`m3-modelos.md`](m3-modelos.md); falta la celda de la corrida |
+| 6. Limitaciones | Lo que el enfoque no puede, incluido el análisis con datos estáticos que pide el enunciado | `docs/06`, D15, D20, **D24** |
 | Conclusiones | Lo que se sostiene y lo que no | nueva |
 
 ---
@@ -55,9 +55,18 @@ El informe no repite los marcos teóricos ya entregados: los cita. Lo que aporta
 
 El enunciado pide explícitamente **«un análisis de las limitaciones del enfoque con datos estáticos»**. Las tres están medidas y no son opiniones:
 
-**1. Los activos de apoyo no aportan de forma distinguible.** Diferencia de 0,00078 en F1 macro, con el signo cambiando entre semillas, y del mismo tamaño que un control que añade columnas duplicadas. El mecanismo está medido: los seis activos son fuertemente proporcionales entre sí —de +0,5175 a +0,8300— y **no existe ninguna relación inversa**, así que traen poca información que LTC no tenga (D20).
+**1. Los activos de apoyo aportan poco, y no lo mismo en las dos familias.** La [D24](../../DECISIONES.md) resolvió esto y la limitación **se declara por familia, no en general**:
 
-> ⚠️ **Esta limitación está redactada de más y hay que decidir cómo se acota antes de usarla.** La cifra de 0,00078 es del **bosque**. Sobre el modelo avanzado, M3 reporta en el [#103](https://github.com/NeoFao/caso1-ltc-inflexion/pull/103) que las tres condiciones de la D16 **sí** se cumplen. Y la propia [D14](../../DECISIONES.md) mide lo mismo con otro número y concluye lo contrario. Las dos lecturas no se pueden sostener a la vez: **hay que reconciliarlas o declarar la limitación solo para el bosque.** Sin resolverlo, la sección 6 afirma de más en un informe cuyo mérito es no afirmar de más.
+| Familia | ¿Se distingue del azar? | Evidencia |
+|---|---|---|
+| **Bosque** | **No.** Diferencia de 0,00078 en F1 macro, con el signo cambiando entre semillas y del mismo tamaño que un control que añade columnas duplicadas | #62, D20 |
+| **Avanzado** | **Sí.** Media +0,012586, intervalo pareado [0,000434 , 0,044067] que excluye el cero, y signo positivo en las cinco semillas | `m3-modelos-profundos-4h-w7-h1.json` |
+
+Las dos mitades van juntas o ninguna: **aportar no es rescatar.** El avanzado con los cinco apoyos sigue quedando por debajo del bosque sin ellos, y la magnitud queda por debajo del umbral de 0,02 con el que preferiríamos una configuración sobre otra (D5).
+
+El mecanismo está medido y explica el tamaño: los seis activos son fuertemente proporcionales entre sí —de +0,5175 a +0,8300— y **no existe ninguna relación inversa**, así que traen poca información que LTC no tenga (D20).
+
+> **De dónde salía la contradicción.** El esqueleto declaraba esta limitación en general citando el 0,00078, que es del bosque. La D14 concluía lo mismo sobre el avanzado, pero aplicando el umbral de la D5 —una convención para *elegir* entre modelos— a una pregunta de *distinguibilidad*, que responden las tres condiciones de la D16. La D24 corrige esa lectura sin reescribir la D14, y con la evidencia que la D14 ya tenía delante: no hizo falta medir nada nuevo.
 
 **2. Ningún modelo profundo mejora al bosque clásico.** iTransformer queda 0,0448 por debajo con intervalo que excluye el cero; Chronos-Bolt no se distingue de él.
 
@@ -67,9 +76,11 @@ El enunciado pide explícitamente **«un análisis de las limitaciones del enfoq
 
 ## Lo que falta para cerrarlo
 
-1. **La medición sobre el bloque de prueba.** Es la única cifra que el informe todavía no tiene. Estaba prevista para el sábado 5 y **no se corrió**; la fecha nueva la decide el equipo.
-2. **Redactar las secciones**, domingo 6 y lunes 7.
+1. **La medición sobre el bloque de prueba.** Es la única cifra que el informe todavía no tiene. Estaba prevista para el sábado 5 y no se corrió por tres defectos en el camino; la [D23](../../DECISIONES.md) la movió al **lunes 7** y los tres están arreglados y medidos (#101, #105).
+2. **Las secciones que faltan**: introducción, 1 (diseño), 4 (pruebas de detección), la celda de prueba en la 5, la 6 y las conclusiones.
 
 Ya no falta ninguna respuesta del profesor: la consulta **no se envía** y las dos preguntas abiertas las resolvió el equipo — qué muestra la vista en tiempo real ([D21](../../DECISIONES.md)) y qué se entrega y cuándo ([D22](../../DECISIONES.md)).
 
-El esqueleto existe para que el domingo sea rellenar y no escribir desde cero.
+Tampoco falta ya resolver la contradicción de la limitación 1: la [D24](../../DECISIONES.md) la declaró por familia.
+
+El esqueleto existe para que rellenar no sea escribir desde cero.
