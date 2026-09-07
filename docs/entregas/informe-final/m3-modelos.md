@@ -115,9 +115,12 @@ filas, porque los dos modelos aciertan y fallan sobre las mismas velas.
 
 - Ninguno de los dos modelos profundos supera al `baseline_aleatorio` de forma distinguible.
   Le ganan en la media y el intervalo incluye el cero.
-- **El iTransformer sí queda por debajo del bosque de forma distinguible**, −0,044792 con intervalo
-  que excluye el cero. Es el único resultado de esta tabla que se puede afirmar con seguridad, y va
-  en contra del modelo más sofisticado.
+- **El iTransformer queda por debajo del bosque en las cinco semillas** — 0,345357 de media contra
+  0,380975 del bosque.
+  El intervalo pareado de *esta* corrida excluye el cero, pero **ese intervalo no se reproduce**:
+  el ensayo en seco volvió a medirlo y dio [−0,081366 , 0,003154]. Lo que sostiene esta fila es el
+  signo estable en las cinco, no el intervalo de una corrida — ver la sección 6 y la
+  [D25](../../DECISIONES.md#d25).
 - Entre fundacional y avanzado **no se distingue nada**. Por la D5, cuando el margen y su intervalo
   discrepan manda el intervalo, así que se prefiere el más simple: el fundacional, que ni se
   entrena.
@@ -167,13 +170,19 @@ esta clase de pregunta.
 | 4 | 0,342398 | 0,339107 | +0,003291 |
 
 Media **+0,010319**, mínima +0,002834, máxima +0,024755, y **el signo no cambia en ninguna de las
-cinco**. La comparación pareada de una corrida da +0,021232 con intervalo [0,000434 , 0,044067], que
-excluye el cero — y estaba en la evidencia que la D14 cita, sin usarse. **Las tres condiciones de
-la D16 se cumplen.**
+cinco**. Un barrido independiente lo repitió: positivo otra vez en las cinco, con el completo en
+0,345357 de media contra 0,330523 del que usa solo LTC.
 
-Lo que separa este aporte del ruido de punto flotante no es la magnitud sino el signo: ese ruido
-**no tiene signo**, y aquí las cinco semillas caen del mismo lado. Si no hubiera efecto, eso tiene
-probabilidad 1 en 16.
+**Y aun así no se puede afirmar que el aporte sea distinguible.** La segunda condición de la D16
+—que el intervalo pareado excluya el cero— **no se reproduce**: la corrida comprometida dio
+[0,000434 , 0,044067] y el ensayo en seco [−0,001736 , 0,045490]. El límite de la primera vivía a
+menos de una milésima del cero. Está en la [D25](../../DECISIONES.md#d25), decidido **antes** de
+tocar el bloque de prueba.
+
+Lo que sí sostiene el signo: el ruido de punto flotante **no tiene signo**, y las cinco semillas
+caen del mismo lado en dos barridos independientes. Si no hubiera efecto, que las cinco coincidan
+tiene probabilidad 1 en 16. Es evidencia de que algo hay; no alcanza el estándar que el equipo fijó
+para afirmarlo.
 
 **Y aun así no rescata nada.** El iTransformer *con* los cinco activos de apoyo sigue quedando por
 debajo del bosque *sin* ellos. Las dos frases son ciertas a la vez y hay que decirlas juntas:
@@ -222,7 +231,7 @@ resultado**, y el informe reporta la primera y única cifra que salga en los tre
 cuarta rama en la que se busque otra configuración.
 
 Dicho sin adornos: sobre validación **ninguno de los dos modelos de M3 supera al azar de forma
-distinguible**, y el avanzado queda por debajo del bosque clásico con intervalo que excluye el cero.
+distinguible**, y el avanzado queda por debajo del bosque clásico en las cinco semillas.
 Esperar que el bloque de prueba mejore eso sería esperar que datos no vistos favorezcan a un modelo
 más que los datos con los que se eligió, que es al revés de como funciona.
 
