@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import { CLASE, type Punto } from "./api";
 
 const NAVY = "#1b2a4a";
-const MAXIMO = "#c0392b";
-const MINIMO = "#1e8449";
+// Exportados para que la leyenda del issue #99 use exactamente estos colores,
+// en vez de duplicarlos a mano y arriesgar que un dia dejen de coincidir.
+export const MAXIMO = "#c0392b";
+export const MINIMO = "#1e8449";
 const GRIS = "#5a6675";
 const REJILLA = "#e3e8ef";
 

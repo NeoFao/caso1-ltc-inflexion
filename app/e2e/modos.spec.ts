@@ -1,10 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 // Los tres modos (issue #90): que el selector cambie la vista y ninguna quede
-// en blanco sin decirlo. "En blanco sin decirlo" es el caso malo: Tiempo real
-// muestra "Pendiente (RF-U3)" a proposito, y eso SI cuenta como no-vacio,
-// porque le dice al usuario por que no hay grafico. Lo que no puede pasar es
-// un contenedor vacio sin ningun texto.
+// en blanco sin decirlo. Tiempo real (D21, issue #28) dejo de ser un mensaje de
+// "pendiente": reutiliza el historico real de LTC y dibuja igual que Historico,
+// con un aviso propio sobre que las ultimas velas no estan confirmadas todavia.
 
 test.describe("los tres modos", () => {
   test("Sintetico dibuja una vista con contenido", async ({ page }) => {
@@ -29,11 +28,18 @@ test.describe("los tres modos", () => {
       .toBeGreaterThan(0);
   });
 
-  test("Tiempo real declara por que esta vacio, en vez de quedar en blanco", async ({ page }) => {
+  test("Tiempo real dibuja una vista con contenido y declara que la cola no esta confirmada", async ({
+    page,
+  }) => {
     await page.goto("/");
     await page.getByRole("button", { name: "Tiempo real", exact: true }).click();
-    const pendiente = page.getByTestId("vista-pendiente");
-    await expect(pendiente).toBeVisible();
-    await expect(pendiente).toContainText("Pendiente");
+    await expect(page.getByTestId("vista")).not.toBeEmpty();
+    await expect
+      .poll(() => page.evaluate(() => (window as any).__grafico?.velas ?? 0))
+      .toBeGreaterThan(0);
+
+    const aviso = page.getByTestId("vista-sin-confirmar");
+    await expect(aviso).toBeVisible();
+    await expect(aviso).toContainText("todavía no");
   });
 });

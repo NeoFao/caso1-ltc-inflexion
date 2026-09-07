@@ -9,40 +9,47 @@ import { expect, test } from "@playwright/test";
 // dibujaba igual: solo con una sexta parte de los giros. Ninguna prueba que
 // solo mirara "¿aparece un grafico?" lo hubiera visto.
 //
-// Se prueba sobre datos/historico-fundacional-LTC.json, no sobre
-// historico-LTC.json: el snapshot de Baseline resulto tener granularidad
-// diaria (una vela por dia, sin colision posible), asi que nunca podria haber
-// tenido el defecto ni puede probar que la deduplicacion funciona. El de
-// Fundacional si trae las seis velas de 4h por dia -- la granularidad real
-// del proyecto -- y es donde una regresion de este tipo se veria.
-//
 // La cuenta de referencia sale del mismo JSON estatico que consume la app, no
 // de un numero copiado a mano: si la evidencia cambia, la prueba se sigue
 // comparando contra si misma.
+//
+// Se prueba sobre los dos snapshots de 4h que sirve la app -- Baseline
+// (historico-LTC.json) y Fundacional (historico-fundacional-LTC.json) --
+// porque hasta el #95 el de Baseline tenia granularidad diaria (una vela por
+// dia, sin colision posible) y no podia probar nada de esto. Regenerado con
+// scripts/exportar_estatico.py contra el contrato vigente (4h), ahora si trae
+// las seis velas de 4h por dia y es el modo por el que entra la mayoria de
+// quien visita el sitio -- vale la pena cubrirlo tambien, no solo Fundacional.
 
-test("cada giro real de los datos llega dibujado al grafico, ninguno se pierde", async ({
-  page,
-  request,
-}) => {
-  const snapshot = await request
-    .get("/datos/historico-fundacional-LTC.json")
-    .then((r) => r.json());
-  const girosEnLosDatos = snapshot.serie.filter(
-    (p: { etiqueta: number | null }) => p.etiqueta === 1 || p.etiqueta === 2,
-  ).length;
-  expect(girosEnLosDatos, "la muestra de prueba no tiene giros; no prueba nada").toBeGreaterThan(0);
+for (const [etiquetaModo, boton, archivo] of [
+  ["Baseline", null, "historico-LTC.json"],
+  ["Fundacional", "Fundacional", "historico-fundacional-LTC.json"],
+] as const) {
+  test(`cada giro real llega dibujado al grafico en ${etiquetaModo}, ninguno se pierde`, async ({
+    page,
+    request,
+  }) => {
+    const snapshot = await request.get(`/datos/${archivo}`).then((r) => r.json());
+    const girosEnLosDatos = snapshot.serie.filter(
+      (p: { etiqueta: number | null }) => p.etiqueta === 1 || p.etiqueta === 2,
+    ).length;
+    expect(
+      girosEnLosDatos,
+      "la muestra de prueba no tiene giros; no prueba nada",
+    ).toBeGreaterThan(0);
 
-  await page.goto("/");
-  await page.getByRole("button", { name: "Histórico", exact: true }).click();
-  await page.getByRole("button", { name: "Fundacional", exact: true }).click();
+    await page.goto("/");
+    await page.getByRole("button", { name: "Histórico", exact: true }).click();
+    if (boton) await page.getByRole("button", { name: boton, exact: true }).click();
 
-  await expect
-    .poll(() => page.evaluate(() => (window as any).__grafico?.velas ?? 0))
-    .toBe(snapshot.serie.length);
+    await expect
+      .poll(() => page.evaluate(() => (window as any).__grafico?.velas ?? 0))
+      .toBe(snapshot.serie.length);
 
-  const giroReales = await page.evaluate(() => (window as any).__grafico?.giroReales ?? -1);
-  expect(giroReales, "marcadores de giros reales dibujados en el grafico").toBe(girosEnLosDatos);
-});
+    const giroReales = await page.evaluate(() => (window as any).__grafico?.giroReales ?? -1);
+    expect(giroReales, "marcadores de giros reales dibujados en el grafico").toBe(girosEnLosDatos);
+  });
+}
 
 test("el modo sintetico tambien conserva todos sus giros al dibujar", async ({ page, request }) => {
   // Sin backend (esta suite corre contra el build de produccion, ver

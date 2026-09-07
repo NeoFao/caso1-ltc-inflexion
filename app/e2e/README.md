@@ -83,10 +83,13 @@ esta suite se truncó a propósito, sobre una copia local, la marca de tiempo de
 el mismo defecto que tenía `f903e62`, reintroducido sobre el snapshot en vez de
 sobre `src/api/`, que no es mía.
 
-`historico-LTC.json` (el respaldo de Baseline) resultó tener granularidad
-diaria — una vela por día, sin colisión posible — así que no sirve para esta
-comprobación; por eso `marcadores.spec.ts` prueba sobre el snapshot de
-Fundacional, que sí trae las seis velas de 4h por día.
+En el momento de escribir esta prueba, `historico-LTC.json` (el respaldo de
+Baseline) tenía granularidad diaria — una vela por día, sin colisión posible,
+porque nadie había regenerado los snapshots desde antes de que el contrato se
+congelara en 4h — así que la comprobación se hizo sobre el snapshot de
+Fundacional, que sí traía las seis velas de 4h por día. Eso era en sí mismo el
+hallazgo del issue #95: corregido, `historico-LTC.json` también tiene
+granularidad de 4h, y `marcadores.spec.ts` ahora prueba los dos snapshots.
 
 Con la fecha truncada, `marcadores.spec.ts` falló así:
 
