@@ -882,8 +882,15 @@ lunes. Es la misma forma que el #100: traer el problema antes de que sea urgente
 
 ## D24 · Qué criterio responde «¿aporta?» y cuál responde «¿lo elegimos?», y la corrección a la D14
 
-**Estado:** propuesta desde el 06/09/2026 · corrige la lectura de la [D14](#d14), que **no se
-reescribe** · pedida por M0 al detectar el choque con la sección de M3 del informe
+**Estado:** **veredicto retirado por la [D25](#d25)** el 07/09/2026 · la corrección de criterio
+que trae **sigue vigente** · corrige la lectura de la [D14](#d14), que **no se reescribe** · pedida
+por M0 al detectar el choque con la sección de M3 del informe
+
+> **Leer con la D25 al lado.** Lo que esta decisión corrigió del criterio —que el umbral de la D5
+> respondía una pregunta de decisión y no de distinguibilidad— sigue en pie. Lo que **no** se
+> sostiene es su veredicto: la condición 2 no se reproduce cuando entra el iTransformer, y la fila
+> «las tres se cumplen» de más abajo quedó retirada. Se deja escrita porque el documento acumula el
+> historial y no lo reescribe.
 
 ### El choque
 
@@ -920,7 +927,7 @@ Las tres condiciones de la D16, sobre el modelo avanzado:
 **Las tres salen de la evidencia que la D14 ya tenía delante.** No hace falta ninguna medición
 nueva para corregir la lectura, y por eso esta decisión no depende de ningún barrido posterior.
 
-**Las tres se cumplen: el aporte es distinguible.**
+**Las tres se cumplen: el aporte es distinguible.** — **RETIRADO por la [D25](#d25):** la condición 2 no se reproduce.
 
 ### El argumento de la D14 que no se sostiene, y por qué
 
@@ -959,9 +966,111 @@ avanzado lo excluye. Presentarlo como confirmación independiente fue afirmar de
 La **limitación 1** del esqueleto no se declara en general. Se declara para el bosque —que es donde
 se midió el 0,00078— y el resultado del avanzado se reporta aparte con su matiz.
 
-**Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-completa-4h-w7-h1.json` y
-`docs/evidencias/m3-modelos-profundos-4h-w7-h1.json`
+**Evidencia:** `docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json` --donde vive el
++0,012586-- y `docs/evidencias/m3-modelos-profundos-4h-w7-h1.json`. El puntero decia
+`-completa-`, que es otro archivo; corregido en la [D25](#d25).
 
 **Origen:** M0 detectó que la D14 y la sección de M3 del informe se contradecían y **no eligió cuál
 valía**: pidió la lectura a quien había escrito las dos. La regla 3, aplicada a una conclusión en
 vez de a un número.
+
+---
+
+## D25 · La condición 2 de la D16 exige predicciones reproducibles, y el iTransformer no lo es
+
+**Estado:** propuesta desde el 07/09/2026 · **retira el veredicto de la [D24](#d24)** y conserva su
+corrección de criterio · se decide **antes** de tocar el bloque de prueba, que es el punto
+
+### Lo que encontró el ensayo en seco
+
+La D24 concluyó que las tres condiciones de la [D16](#d16) se cumplen sobre el aporte de los activos
+de apoyo. El ensayo en seco de M0 volvió a medir validación y **la segunda no se reproduce**:
+
+| Condición | Corrida comprometida | Ensayo en seco |
+|---|---|---|
+| 1 · La diferencia es positiva | +0,012586 | positiva otra vez |
+| 2 · El intervalo excluye el cero | [0,000434 , 0,044067] · **sí** | [−0,001736 , 0,045490] · **no** |
+| 3 · El signo no cambia en las cinco | positivo en las cinco | positivo en las cinco |
+
+El límite de la corrida comprometida vivía a menos de una milésima del cero. **La frase «las tres se
+cumplen» no se sostiene, y era mía.**
+
+### Por qué pasa, y por qué no es mala suerte
+
+`intervalo_diferencia` siembra su generador: el intervalo es determinista **dadas las predicciones**.
+Lo que se mueve son las predicciones del iTransformer, que no es reproducible entre procesos por lo
+que documenta la [D15](#d15).
+
+Y ahí está el fondo del asunto: **la condición 2 y la condición 3 miden incertidumbres distintas.**
+El remuestreo pareado resamplea las **filas** y condiciona en un solo sorteo del entrenamiento; la
+condición 3 mira **cinco sorteos** del entrenamiento. Cuando el sorteo del entrenamiento es la
+fuente dominante, un intervalo de una corrida no es un instrumento frágil: **es el instrumento
+equivocado**, porque su supuesto —predicciones fijas— no se cumple.
+
+Se ve en las medias: el bosque queda en 0,380975 y el iTransformer en 0,345357, y la desventaja
+cae **del mismo lado en las cinco semillas**, mientras el intervalo pareado de una corrida cruza el
+cero.
+
+### Se midió si el iTransformer se puede hacer reproducible. No con lo que hay
+
+La opción de fijar el entrenamiento se probó antes de descartarla, con tres palancas, y la pérdida
+final siguió cambiando entre procesos con las tres:
+
+| Palanca | ¿Reproduce entre procesos? |
+|---|---|
+| `torch.set_num_threads(1)` + `use_deterministic_algorithms(True)` | no |
+| `PYTHONHASHSEED` fijo | no |
+| Semilla fija (lo que ya se hacía) | no |
+
+La D15 se sostiene: es el orden de reducción en punto flotante, y no se elimina con esas palancas.
+
+### La regla principal del protocolo NO está afectada, y conviene decirlo
+
+La sección 5 del protocolo aplica las tres condiciones al **mejor modelo contra el
+`baseline_aleatorio`**. Los dos reproducen bit a bit entre procesos — medido sobre las 1 959 filas
+de validación, con el mismo SHA-256 de las predicciones en dos procesos distintos. El fundacional es
+*zero-shot* y tampoco muestrea.
+
+**El problema está acotado a los contrastes en los que entra el iTransformer.**
+
+### Lo que se decide
+
+1. **Donde entre un modelo no reproducible, la condición 2 se reporta pero no decide.** El peso lo
+   lleva la condición 3, que sí se reproduce. La condición 2 se publica con las dos mediciones a la
+   vista, no con una sola.
+2. **Para todo lo demás la condición 2 queda intacta**, incluida la regla de la sección 5.
+3. **Se retira el veredicto de la D24**: no se puede afirmar que los activos de apoyo aporten de
+   forma distinguible. **Lo que la D24 corrigió del criterio sigue en pie** — el umbral de la D5
+   respondía una pregunta de decisión y no de distinguibilidad, y eso no lo toca este hallazgo.
+4. La conclusión vuelve a coincidir con la de la [D14](#d14), **por una razón distinta de la que la
+   D14 dio**. Que el resultado sea el mismo no vuelve correcto el argumento de entonces.
+
+### Lo que sí se sostiene, y va al informe
+
+> Los activos de apoyo dan una diferencia **positiva en las cinco semillas de dos barridos
+> independientes**, y **no se puede afirmar que sea distinguible del azar** por el estándar que el
+> equipo fijó. El iTransformer queda **por debajo del bosque en las cinco semillas** —0,345357 de
+> media contra 0,380975— y esa desventaja tampoco se afirma por intervalo.
+
+### La forma mejor, que no se adopta hoy
+
+Lo correcto a futuro es aplicar la condición 2 **dentro de cada semilla** y leer en cuántas de las
+cinco excluye el cero: eso respeta el supuesto del remuestreo en vez de violarlo, y cuesta poco
+porque las cinco semillas ya se corren. **No se adopta antes de la corrida final**: obligaría a
+cambiar el guion otra vez y a repetir el ensayo en seco, y a dos días de la entrega el riesgo es
+peor que el beneficio. Queda anotado para el informe como lo que haríamos distinto.
+
+### Corrección de una cita
+
+La D24 pone como evidencia `m3-sensibilidad-avanzado-completa-4h-w7-h1.json`, pero el +0,012586 vive
+en `m3-sensibilidad-avanzado-4h-w7-h1.json`, sin *completa*. La cifra estaba bien medida y bien
+descrita; el nombre del archivo bailó. Se corrige el puntero, que no es una conclusión sino una
+referencia rota.
+
+**Evidencia:** `docs/evidencias/m0-ensayo-en-seco-validacion-con-variantes-4h-w7-h1.json`,
+`docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json` y
+`docs/evidencias/m3-modelos-profundos-4h-w7-h1.json`
+
+**Origen:** M0 encontró que la condición 2 no se reproducía y **no decidió por su cuenta qué hacer
+con una decisión ajena**: trajo la medición y las opciones. La regla 3, otra vez, y esta vez sobre
+una conclusión mía que había que retirar.
