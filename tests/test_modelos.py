@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from contracts.config import ACTIVOS
 from contracts.labeling import Clase, etiquetar, objetivo
 from contracts.metrics import f1_macro
 from contracts.splits import particionar
@@ -402,7 +403,8 @@ def test_sin_variantes_deja_una_configuracion_por_familia():
     panel = panel_correlacionado(n=300, semilla=0)
     argumentos = _argumentos(sin_variantes=True, con_avanzado=True)
     nombres = [
-        m.nombre for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1)
+        m.nombre
+        for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r")
     ]
 
     prohibidas = [n for n in nombres if "solo_ltc" in n or "sin_pesos" in n or "sin_rezagos" in n]
@@ -420,7 +422,8 @@ def test_sin_la_bandera_las_variantes_siguen_estando():
     panel = panel_correlacionado(n=300, semilla=0)
     argumentos = _argumentos(con_avanzado=True)
     nombres = [
-        m.nombre for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1)
+        m.nombre
+        for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r")
     ]
 
     assert nombres == [
@@ -478,3 +481,81 @@ def test_validacion_conserva_el_nombre_que_citan_los_entregables():
         ruta_evidencia("m3-modelos-profundos-4h-w7-h1", "validacion").name
         == "m3-modelos-profundos-4h-w7-h1.json"
     )
+
+
+def test_la_ficha_de_evidencia_recorre_lo_que_se_evaluo_y_no_una_lista_fija():
+    """El bloque de evidencia tiene que sobrevivir a --sin-variantes.
+
+    Recorria ("itransformer", "itransformer_solo_ltc") sin condicion, que estaba bien
+    mientras la variante se anadiera siempre. En cuanto --sin-variantes empezo a
+    quitarla, ese recorrido reventaba con KeyError -- y reventaba TARDE: con los seis
+    modelos ya evaluados, el CSV ya escrito y la reserva ya gastada, justo antes de
+    guardar los intervalos pareados y el veredicto. La seccion 7 prohibe volver a
+    correr, asi que esas cifras no se recuperaban.
+
+    Las otras pruebas de este archivo se detienen en la lista de modelos y por eso no
+    lo habrian visto. Esta baja hasta la ficha.
+    """
+    from src.modelos.experimento import armar_modelos, describir_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(sin_variantes=True, con_avanzado=True)
+    modelos = armar_modelos(
+        argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r"
+    )
+
+    fichas = describir_modelos(modelos)
+
+    assert "itransformer" in fichas
+    assert "itransformer_solo_ltc" not in fichas, (
+        "la ficha describe una variante que no se evaluo"
+    )
+
+
+def test_la_ficha_describe_las_dos_variantes_cuando_las_dos_se_evaluan():
+    """La otra direccion: quitar la lista fija no puede perder la variante cuando si esta."""
+    from src.modelos.experimento import armar_modelos, describir_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    fichas = describir_modelos(
+        armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_aleatorio_r")
+    )
+
+    assert set(fichas) == {"itransformer", "itransformer_solo_ltc"}
+    assert fichas["itransformer"]["n_series"] == len(ACTIVOS)
+    assert fichas["itransformer_solo_ltc"]["n_series"] == 1
+
+
+def test_sobre_prueba_la_bandera_del_protocolo_es_obligatoria(monkeypatch):
+    """Un control que depende de que alguien se acuerde no es un control.
+
+    El PR #101 hizo que --sin-variantes funcione, pero seguia dependiendo de que
+    quien corriera el sabado la escribiera. La seccion 3 no es opcional: sobre la
+    reserva es una configuracion por familia. Se exige explicita --y no se implica en
+    silencio-- por lo mismo que --gastar-prueba se exige: sobre el unico conjunto que
+    no se puede volver a medir, lo que se pide se escribe.
+
+    Corta antes de leer el panel y antes de evaluar nada, asi que no roza la reserva.
+    """
+    from src.modelos.experimento import main
+
+    monkeypatch.setattr(
+        "sys.argv", ["experimento", "--conjunto", "prueba", "--gastar-prueba"]
+    )
+    with pytest.raises(SystemExit, match="sin-variantes"):
+        main()
+
+
+def test_sobre_validacion_no_se_exige_esa_bandera():
+    """Las variantes existen y sobre validacion se miden: son las que respondieron el
+    #62 y las que el informe tiene que explicar. La guarda es solo para la reserva."""
+    from src.modelos.experimento import armar_modelos
+
+    panel = panel_correlacionado(n=300, semilla=0)
+    argumentos = _argumentos(con_avanzado=True)
+    nombres = [
+        m.nombre
+        for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_r")
+    ]
+    assert "itransformer_solo_ltc" in nombres

@@ -191,6 +191,55 @@ def _limpiar_json(datos):
     return _finito(datos)
 
 
+def describir_modelos(modelos) -> dict:
+    """Ficha de cada modelo profundo que se haya evaluado, para la evidencia.
+
+    Recorre **lo que hay** en vez de una lista fija de nombres. Antes recorria
+    ("itransformer", "itransformer_solo_ltc") sin condicion, que era correcto
+    mientras la variante se anadiera siempre; en cuanto `--sin-variantes` empezo a
+    quitarla --el arreglo del PR #101-- ese recorrido reventaba con KeyError en la
+    combinacion exacta de la corrida del sabado.
+
+    Y reventaba **tarde**: despues de evaluar los seis modelos, despues de anadir
+    las filas al CSV y despues de escribir el JSON del clasico, o sea con la reserva
+    ya gastada, y antes de escribir los intervalos pareados y el veredicto. Se
+    perdian justo las cifras con las que la seccion 5 aplica las tres condiciones de
+    la D16, y la seccion 7 prohibe volver a correr.
+
+    El vecino `comparar_fundacional` ya tenia la forma correcta --`if a in
+    predicciones`-- y por eso sobrevivia. Esta es la misma idea: preguntar por lo que
+    se evaluo, no dar por hecho una lista.
+    """
+    fichas = {}
+    for modelo in modelos:
+        if modelo.nombre == "chronos_bolt":
+            fichas[modelo.nombre] = {
+                "papel": "fundacional (D12)",
+                "repo": modelo.repo,
+                "zero_shot": True,
+                "contexto": modelo.contexto,
+                "filas_sin_historia_suficiente": modelo.sin_historia,
+            }
+        elif modelo.nombre.startswith("itransformer"):
+            fichas[modelo.nombre] = {
+                "papel": "avanzado (S4-M3-01)",
+                "arquitectura": "iTransformer",
+                "paquete": "iTransformer (implementacion publica de lucidrains)",
+                "zero_shot": False,
+                "lookback": modelo.lookback,
+                "epocas": modelo.epocas,
+                "n_parametros": modelo.n_parametros,
+                "segundos_entrenamiento": modelo.segundos_entrenamiento,
+                "perdida_final": modelo.perdida_final,
+                "n_series": len(modelo._columnas),
+                "presupuesto_rnf4_segundos": 7200,
+                "cabe_en_el_presupuesto": bool(
+                    (modelo.segundos_entrenamiento or 0) < 7200
+                ),
+            }
+    return fichas
+
+
 def ruta_evidencia(nombre: str, conjunto: str) -> Path:
     """La ruta del JSON de evidencia, con el conjunto en el nombre si no es validacion.
 
@@ -216,7 +265,7 @@ def ruta_evidencia(nombre: str, conjunto: str) -> Path:
     return EVIDENCIAS / f"{nombre}{marca}.json"
 
 
-def armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h) -> list:
+def armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal) -> list:
     """Los modelos que se van a evaluar, segun las banderas.
 
     Existe como funcion y no dentro de `main()` porque `--sin-variantes` es una
@@ -238,7 +287,7 @@ def armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h) -> list:
         BosqueAleatorio(
             n_arboles=argumentos.n_arboles,
             semilla=argumentos.semilla,
-            nombre=f"bosque_aleatorio{sufijo}",
+            nombre=nombre_principal,
         ),
     ]
 
@@ -367,6 +416,20 @@ def main() -> None:
             "--gastar-prueba y dejalo escrito en el informe."
         )
 
+    # La seccion 3 del protocolo no es opcional: sobre la reserva se evalua UNA
+    # configuracion por familia. Hasta aqui eso dependia de que quien corriera se
+    # acordara de escribir la bandera, que es la misma forma de control que venimos
+    # quitando -- el que funciona solo si alguien se acuerda. Se exige explicita en
+    # vez de implicarla en silencio, por lo mismo que --gastar-prueba se exige en vez
+    # de deducirse: sobre la reserva, lo que se pide se escribe.
+    if argumentos.conjunto == "prueba" and not argumentos.sin_variantes:
+        raise SystemExit(
+            "la seccion 3 del protocolo del bloque de prueba evalua UNA configuracion "
+            "por familia: nada de sin_rezagos, solo_LTC ni sin_pesos. Cada variante de "
+            "mas es otra oportunidad de que alguna quede bien por azar sobre el unico "
+            "conjunto que no se puede volver a medir. Agrega --sin-variantes."
+        )
+
     w, h = argumentos.w, argumentos.h
 
     print(f"Modelo clasico de referencia -- intervalo {argumentos.intervalo}, w={w}, h={h}")
@@ -445,7 +508,7 @@ def main() -> None:
 
     # ------------------------------------------------------------------ [5/6]
     nombre_principal = f"bosque_aleatorio{sufijo}"
-    modelos = armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h)
+    modelos = armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal)
 
     print(f"\n[5/6] Evaluacion sobre {argumentos.conjunto}")
     resultados = []
@@ -543,37 +606,7 @@ def main() -> None:
         comparaciones = comparar_fundacional(
             modelos, X, y, particion, argumentos.conjunto, nombre_principal
         )
-        por_modelo = {m.nombre: m for m in modelos}
-
-        modelos_medidos = {}
-        if argumentos.con_fundacional:
-            chronos = por_modelo["chronos_bolt"]
-            modelos_medidos["chronos_bolt"] = {
-                "papel": "fundacional (D12)",
-                "repo": chronos.repo,
-                "zero_shot": True,
-                "contexto": chronos.contexto,
-                "filas_sin_historia_suficiente": chronos.sin_historia,
-            }
-        if argumentos.con_avanzado:
-            for nombre_it in ("itransformer", "itransformer_solo_ltc"):
-                avanzado = por_modelo[nombre_it]
-                modelos_medidos[nombre_it] = {
-                    "papel": "avanzado (S4-M3-01)",
-                    "arquitectura": "iTransformer",
-                    "paquete": "iTransformer (implementacion publica de lucidrains)",
-                    "zero_shot": False,
-                    "lookback": avanzado.lookback,
-                    "epocas": avanzado.epocas,
-                    "n_parametros": avanzado.n_parametros,
-                    "segundos_entrenamiento": avanzado.segundos_entrenamiento,
-                    "perdida_final": avanzado.perdida_final,
-                    "n_series": len(avanzado._columnas),
-                    "presupuesto_rnf4_segundos": 7200,
-                    "cabe_en_el_presupuesto": bool(
-                        (avanzado.segundos_entrenamiento or 0) < 7200
-                    ),
-                }
+        modelos_medidos = describir_modelos(modelos)
 
         evidencia_fundacional = {
             "ejecutado_utc": datetime.now(UTC).isoformat(timespec="seconds"),
