@@ -4,7 +4,8 @@
 sección 5, y las limitaciones 2 y 3.
 
 Todas las cifras son de **validación** y salen de un archivo de evidencia que se regenera con un
-comando. La única celda vacía es el bloque de prueba, que se mide el sábado 5 una sola vez (D18).
+comando. La única celda vacía es el bloque de prueba, que se mide **una sola vez** (D18), el lunes 7 tras
+el atraso que fija la [D23](../../DECISIONES.md#d23).
 
 ---
 
@@ -152,7 +153,7 @@ El informe declara como limitación que los activos de apoyo no aportan de forma
 **Eso se midió sobre el bosque, y sobre el avanzado da distinto.** No es una generalización que
 convenga hacer, porque la arquitectura elegida existe justamente para atender entre series.
 
-La D14 —mía— había concluido lo contrario, y la D23 corrige esa lectura sin reescribirla: la D14
+La D14 —mía— había concluido lo contrario, y la D24 corrige esa lectura sin reescribirla: la D14
 respondió una pregunta de **distinguibilidad** con el umbral de la D5, que es una convención para
 **elegir entre configuraciones**. La sección 5 del protocolo ya decía que ese umbral no aplica a
 esta clase de pregunta.
