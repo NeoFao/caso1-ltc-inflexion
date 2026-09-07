@@ -17,6 +17,7 @@ import pytest
 from contracts.config import ACTIVOS
 from contracts.labeling import Clase, etiquetar, objetivo
 from contracts.metrics import f1_macro
+from contracts.schema import columna
 from contracts.splits import particionar
 from src.evaluacion.arnes import evaluar_modelo, guardar_resultado
 from src.features.base import construir
@@ -381,6 +382,7 @@ def _argumentos(**cambios):
     base = dict(
         semilla=0,
         n_arboles=300,
+        conjunto="validacion",
         sin_variantes=False,
         con_fundacional=False,
         con_avanzado=False,
@@ -541,7 +543,9 @@ def test_sobre_prueba_la_bandera_del_protocolo_es_obligatoria(monkeypatch):
     from src.modelos.experimento import main
 
     monkeypatch.setattr(
-        "sys.argv", ["experimento", "--conjunto", "prueba", "--gastar-prueba"]
+        "sys.argv",
+        ["experimento", "--conjunto", "prueba", "--gastar-prueba",
+         "--semillas", "0,1,2,3,4"],
     )
     with pytest.raises(SystemExit, match="sin-variantes"):
         main()
@@ -559,3 +563,137 @@ def test_sobre_validacion_no_se_exige_esa_bandera():
         for m in armar_modelos(argumentos, panel, ["x_rezago_1"], "_r", 7, 1, "bosque_r")
     ]
     assert "itransformer_solo_ltc" in nombres
+
+
+# ------------------------------------- el bucle de semillas dentro de una sesion
+
+
+def _fila(modelo: str, f1: float) -> dict:
+    """Una fila del arnes con las seis metricas que publica el panel."""
+    return {
+        "modelo": modelo,
+        "f1_macro": f1,
+        "precision_direccional": f1 / 2,
+        "exactitud": 0.8,
+        "f1_maximo": f1 / 3,
+        "f1_minimo": f1 / 4,
+        "f1_continuidad": 0.9,
+    }
+
+
+def test_el_resumen_por_semilla_da_media_y_rango_de_las_seis():
+    """La seccion 4 del protocolo pide cinco semillas con media y rango.
+
+    Se resumen las SEIS metricas y no solo el F1 macro, que es justo lo que la fase 2
+    del #92 arreglo en el barrido de sensibilidad: si el panel publica seis columnas y
+    aca se mide una, la corrida final vuelve a dejar cinco sin media.
+    """
+    from src.modelos.experimento import resumir_por_semilla
+
+    resumen = resumir_por_semilla(
+        {0: [_fila("m", 0.30)], 1: [_fila("m", 0.40)], 2: [_fila("m", 0.35)]}
+    )
+
+    assert resumen["semillas"] == [0, 1, 2]
+    metricas = resumen["por_modelo"]["m"]["resumen"]
+    assert set(metricas) == {
+        "f1_macro", "precision_direccional", "exactitud",
+        "f1_maximo", "f1_minimo", "f1_continuidad",
+    }
+    assert metricas["f1_macro"]["media"] == pytest.approx(0.35)
+    assert metricas["f1_macro"]["rango"] == pytest.approx(0.10)
+    assert not resumen["por_modelo"]["m"]["identico_en_todas"]
+
+
+def test_el_resumen_marca_los_modelos_que_no_muestrean():
+    """El fundacional es zero-shot: las cinco corridas dan identico y la tercera
+    condicion de la D16 se cumple de forma trivial. La evidencia tiene que decirlo en
+    vez de presentarlo como estabilidad del modelo, que es lo que ya dice el
+    protocolo sobre esa fila."""
+    from src.modelos.experimento import resumir_por_semilla
+
+    resumen = resumir_por_semilla(
+        {s: [_fila("chronos_bolt", 0.368589)] for s in (0, 1, 2, 3, 4)}
+    )
+    fundacional = resumen["por_modelo"]["chronos_bolt"]
+
+    assert fundacional["identico_en_todas"]
+    assert fundacional["resumen"]["f1_macro"]["rango"] == 0.0
+
+
+def test_sobre_prueba_se_exigen_cinco_semillas(monkeypatch):
+    """Una sola corrida no es comparable con las cifras de validacion, que son medias
+    de cinco (D16). Y con el pestillo contando sesiones (#105), correr cinco veces
+    para conseguirlas serian cinco corridas sobre una reserva que se toca una vez.
+
+    Corta antes de leer el panel, asi que no roza la reserva.
+    """
+    from src.modelos.experimento import main
+
+    monkeypatch.setattr(
+        "sys.argv",
+        ["experimento", "--conjunto", "prueba", "--gastar-prueba", "--sin-variantes"],
+    )
+    with pytest.raises(SystemExit, match="CINCO semillas"):
+        main()
+
+
+def test_el_bucle_de_semillas_evalua_todo_con_cada_una():
+    """La ruta de varias semillas no se puede ensayar sobre prueba: gastarla es el
+    unico modo. Por eso el bucle sale de main() y se prueba aca, con baselines --que
+    no entrenan nada pesado-- pero recorriendo el mismo codigo que el lunes.
+
+    Se comprueban las dos cosas que importan: que cada semilla produzca su propia
+    tanda, y que la de referencia sea la PRIMERA, porque de sus modelos salen los
+    intervalos pareados y el veredicto.
+    """
+    from src.modelos.experimento import evaluar_en_todas_las_semillas
+
+    panel = panel_correlacionado(n=400, semilla=0)
+    X = construir(panel)
+    y = objetivo(etiquetar(panel[columna(ACTIVOS[0], "cierre")], 7), 1)
+    particion = particionar(n=len(y), w=7, h=1)
+    argumentos = _argumentos(sin_variantes=True, n_arboles=5)
+
+    por_semilla, modelos, resultados = evaluar_en_todas_las_semillas(
+        argumentos, panel, [], "_r", 7, 1, "bosque_aleatorio_r",
+        X, y, particion, [0, 1, 2],
+    )
+
+    assert sorted(por_semilla) == [0, 1, 2]
+    assert resultados == por_semilla[0], "la referencia tiene que ser la primera semilla"
+    assert all(len(filas) == len(modelos) for filas in por_semilla.values())
+
+    # El aleatorio depende de la semilla y el trivial no. Si el bucle no propagara la
+    # semilla, los tres darian identico y esto lo dice.
+    aleatorios = {
+        next(r["f1_macro"] for r in filas if r["modelo"] == "baseline_aleatorio")
+        for filas in por_semilla.values()
+    }
+    triviales = {
+        next(r["f1_macro"] for r in filas if r["modelo"] == "baseline_trivial")
+        for filas in por_semilla.values()
+    }
+    assert len(aleatorios) > 1, "la semilla no llego a los modelos que la usan"
+    assert len(triviales) == 1
+
+
+def test_con_una_sola_semilla_el_bucle_no_cambia_nada():
+    """El camino por omision tiene que quedar identico: una vuelta, los mismos
+    modelos, los mismos resultados. Si no, cambiarian cifras ya publicadas."""
+    from src.modelos.experimento import evaluar_en_todas_las_semillas
+
+    panel = panel_correlacionado(n=400, semilla=0)
+    X = construir(panel)
+    y = objetivo(etiquetar(panel[columna(ACTIVOS[0], "cierre")], 7), 1)
+    particion = particionar(n=len(y), w=7, h=1)
+    argumentos = _argumentos(sin_variantes=True, n_arboles=5)
+
+    por_semilla, modelos, resultados = evaluar_en_todas_las_semillas(
+        argumentos, panel, [], "_r", 7, 1, "bosque_aleatorio_r",
+        X, y, particion, [0],
+    )
+
+    assert list(por_semilla) == [0]
+    assert resultados == por_semilla[0]
+    assert argumentos.semilla == 0

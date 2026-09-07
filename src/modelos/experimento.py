@@ -191,6 +191,100 @@ def _limpiar_json(datos):
     return _finito(datos)
 
 
+def resumir_por_semilla(por_semilla: dict[int, list[dict]]) -> dict:
+    """Media y rango de cada metrica, por modelo, sobre varias semillas.
+
+    La seccion 4 del protocolo pide **cinco semillas, reportando media y rango**
+    sobre el bloque de prueba. Hasta aqui el guion tomaba una `--semilla` por
+    invocacion, asi que cumplirlo exigia cinco invocaciones -- y con el pestillo
+    contando sesiones (#105), cinco invocaciones son cinco corridas registradas
+    sobre una reserva que se toca una vez. El bucle tiene que estar ADENTRO.
+
+    Se resumen las SEIS metricas que publica el panel, importadas de donde ya estan
+    declaradas, para que anadir una columna alla y no medirla aca siga siendo
+    imposible sin que alguien lo note (fase 2 del #92).
+
+    `identico_en_todas` distingue los modelos que no muestrean --el fundacional es
+    zero-shot-- de los que si. Para aquellos la tercera condicion de la D16 se cumple
+    de forma trivial, y conviene que la evidencia lo diga en vez de presentarlo como
+    estabilidad del modelo.
+    """
+    from src.modelos.sensibilidad_avanzado import METRICAS
+
+    semillas = sorted(por_semilla)
+    nombres = [r["modelo"] for r in por_semilla[semillas[0]]]
+
+    resumen = {}
+    for nombre in nombres:
+        filas = {}
+        for semilla in semillas:
+            fila = next(r for r in por_semilla[semilla] if r["modelo"] == nombre)
+            filas[semilla] = {m: fila[m] for m in METRICAS}
+
+        metricas = {}
+        for m in METRICAS:
+            serie = np.array([filas[s][m] for s in semillas], dtype=float)
+            metricas[m] = {
+                "media": float(np.nanmean(serie)),
+                "minimo": float(np.nanmin(serie)),
+                "maximo": float(np.nanmax(serie)),
+                "rango": float(np.nanmax(serie) - np.nanmin(serie)),
+                "desviacion": float(np.nanstd(serie)),
+            }
+
+        f1 = [filas[s]["f1_macro"] for s in semillas]
+        resumen[nombre] = {
+            "por_semilla": {str(s): filas[s] for s in semillas},
+            "resumen": metricas,
+            "identico_en_todas": bool(len(set(f1)) == 1),
+        }
+
+    return {"semillas": semillas, "por_modelo": resumen}
+
+
+def evaluar_en_todas_las_semillas(
+    argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal,
+    X, y, particion, semillas,
+):
+    """Evalua todos los modelos con cada semilla, dentro de UNA sola corrida.
+
+    Devuelve `(por_semilla, modelos_de_referencia, resultados_de_referencia)`.
+
+    La primera semilla es la de referencia: sus modelos son los que alimentan los
+    intervalos pareados y el veredicto, igual que antes de existir este bucle. Las
+    otras existen para la dispersion, que mide **otro eje**: el intervalo pareado
+    mide la incertidumbre sobre las FILAS y el rango entre semillas la del
+    ENTRENAMIENTO. Mezclarlas seria reportar dos veces la misma cosa.
+
+    Va como funcion y no dentro de `main()` por la misma razon por la que se extrajo
+    `armar_modelos`: sobre `prueba` este camino no se puede ensayar, y armado adentro
+    de main la unica forma de probarlo seria gastar la reserva. Con una semilla el
+    bucle da una vuelta y el comportamiento es identico al anterior.
+    """
+    por_semilla: dict[int, list[dict]] = {}
+    modelos = armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal)
+    modelos_referencia, resultados = modelos, []
+
+    for semilla in semillas:
+        if semilla != semillas[0]:
+            argumentos.semilla = semilla
+            modelos = armar_modelos(
+                argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal
+            )
+        filas = []
+        for numero, modelo in enumerate(modelos, start=1):
+            filas.append(
+                evaluar_modelo(modelo, X, y, particion, conjunto=argumentos.conjunto)
+            )
+            print(f"      semilla {semilla}  [{numero}/{len(modelos)}] {modelo.nombre}")
+        por_semilla[semilla] = filas
+        if semilla == semillas[0]:
+            modelos_referencia, resultados = modelos, filas
+
+    argumentos.semilla = semillas[0]
+    return por_semilla, modelos_referencia, resultados
+
+
 def describir_modelos(modelos) -> dict:
     """Ficha de cada modelo profundo que se haya evaluado, para la evidencia.
 
@@ -406,6 +500,16 @@ def main() -> None:
         ),
     )
     parser.add_argument("--semilla", type=int, default=HIPERPARAMETROS["random_state"])
+    parser.add_argument(
+        "--semillas",
+        default=None,
+        help=(
+            "lista separada por comas, p. ej. 0,1,2,3,4. La seccion 4 del protocolo "
+            "pide cinco semillas sobre prueba, con media y rango. El bucle va ADENTRO "
+            "de la corrida: con el pestillo contando sesiones, cinco invocaciones "
+            "serian cinco corridas sobre una reserva que se toca una vez."
+        ),
+    )
     parser.add_argument("--n-arboles", type=int, default=HIPERPARAMETROS["n_estimators"])
     argumentos = parser.parse_args()
 
@@ -422,13 +526,36 @@ def main() -> None:
     # quitando -- el que funciona solo si alguien se acuerda. Se exige explicita en
     # vez de implicarla en silencio, por lo mismo que --gastar-prueba se exige en vez
     # de deducirse: sobre la reserva, lo que se pide se escribe.
-    if argumentos.conjunto == "prueba" and not argumentos.sin_variantes:
-        raise SystemExit(
-            "la seccion 3 del protocolo del bloque de prueba evalua UNA configuracion "
-            "por familia: nada de sin_rezagos, solo_LTC ni sin_pesos. Cada variante de "
-            "mas es otra oportunidad de que alguna quede bien por azar sobre el unico "
-            "conjunto que no se puede volver a medir. Agrega --sin-variantes."
-        )
+    semillas = (
+        [int(s) for s in argumentos.semillas.split(",")]
+        if argumentos.semillas
+        else [argumentos.semilla]
+    )
+    # Las dos exigencias del protocolo sobre la reserva se comprueban JUNTAS y se
+    # reportan juntas. Encadenadas, arreglar una descubre la otra: sobre un conjunto
+    # que se mide una sola vez, enterarse de los requisitos de a uno es la forma de
+    # llegar al tercer intento con la reserva ya gastada.
+    if argumentos.conjunto == "prueba":
+        faltan = []
+        if not argumentos.sin_variantes:
+            faltan.append(
+                "  --sin-variantes  ->  la seccion 3 evalua UNA configuracion por "
+                "familia: nada de sin_rezagos, solo_LTC ni sin_pesos. Cada variante "
+                "de mas es otra oportunidad de que alguna quede bien por azar."
+            )
+        if len(semillas) < 5:
+            faltan.append(
+                "  --semillas 0,1,2,3,4  ->  la seccion 4 pide CINCO semillas, con "
+                "media y rango (D16). Una sola corrida no es comparable con las "
+                "cifras de validacion, que son medias de cinco."
+            )
+        if faltan:
+            separador = "\n\n"
+            raise SystemExit(
+                "faltan banderas que el protocolo del bloque de prueba exige:"
+                + separador
+                + separador.join(faltan)
+            )
 
     w, h = argumentos.w, argumentos.h
 
@@ -508,13 +635,12 @@ def main() -> None:
 
     # ------------------------------------------------------------------ [5/6]
     nombre_principal = f"bosque_aleatorio{sufijo}"
-    modelos = armar_modelos(argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal)
 
     print(f"\n[5/6] Evaluacion sobre {argumentos.conjunto}")
-    resultados = []
-    for numero, modelo in enumerate(modelos, start=1):
-        resultados.append(evaluar_modelo(modelo, X, y, particion, conjunto=argumentos.conjunto))
-        print(f"      [{numero}/{len(modelos)}] {modelo.nombre}")
+    por_semilla, modelos, resultados = evaluar_en_todas_las_semillas(
+        argumentos, panel, columnas_rezago, sufijo, w, h, nombre_principal,
+        X, y, particion, semillas,
+    )
 
     print()
     print(comparar(resultados).to_string(index=False))
@@ -628,9 +754,15 @@ def main() -> None:
                 # avanzado se entrena, asi que sin la semilla la cifra no se puede
                 # ubicar aunque el numero sea correcto.
                 "semilla": argumentos.semilla,
+                "semillas": semillas,
             },
             "modelos": modelos_medidos,
             "metricas": {r["modelo"]: r for r in resultados},
+            # La seccion 4 pide media y rango sobre cinco semillas. Con una sola el
+            # bloque igual sale, con el rango en cero, para que la forma del archivo
+            # no dependa de con cuantas se corrio: quien lo lea encuentra siempre la
+            # misma clave y ve en `semillas` cuantas hubo.
+            "por_semilla": resumir_por_semilla(por_semilla),
             "comparaciones_pareadas": comparaciones,
             "nota_umbral": (
                 "El umbral de 0,02 de la D5 es una convencion del equipo, no un "
