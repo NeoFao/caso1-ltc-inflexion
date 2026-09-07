@@ -1148,3 +1148,76 @@ entregar antes no perjudica; al revés no hay remedio.
 **Origen:** el profesor, sobre los avances del caso. Es la primera vez que una suposición declarada
 por escrito en este documento se retira porque llegó la respuesta que esperaba, y no por haber
 cambiado de opinión.
+
+---
+
+## D27 · La regresión logística de la ablación se llama «sonda lineal», y deja de llamarse modelo
+
+**Estado:** vigente desde el 07/09/2026 · resuelve el [#86](https://github.com/NeoFao/caso1-ltc-inflexion/issues/86) · **el vocabulario del bosque no cambia**, porque está en una entrega hecha (D13)
+
+### El choque
+
+`docs/entregas/semana-2/m0-procedimiento.md` define el vocabulario y lo define explícitamente:
+
+> En todo este documento **baseline** designa a los tres triviales y **modelo de referencia**
+> designa **al bosque**; no se usan como sinónimos.
+
+Pero en `src/features/ablacion.py` y en `docs/06-aporte-multivariante.md`, «modelo de referencia»
+designa **la regresión logística fija de la ablación**, que no es un modelo del proyecto sino un
+instrumento de medición.
+
+Con el término compartido, el repositorio dice las dos cosas a la vez:
+
+| Dónde | Qué dice | De qué habla |
+|---|---|---|
+| `m0-conclusion.md` (**entregado**) | «el modelo de referencia **supera** al azar de forma distinguible» | el bosque |
+| `docs/06-aporte-multivariante.md` | «el modelo de referencia **no le gana** al azar» | la regresión logística |
+
+**Las dos frases son correctas sobre lo que cada una midió.** Leídas con el mismo término se
+contradicen de frente, y la que está en la entrega es la que un lector externo va a tomar como
+definición, porque es la única que se molesta en darla.
+
+### Se decide: **sonda lineal**
+
+M2 propuso tres nombres —«modelo lineal de contraste», «modelo lineal de ablación» e «instrumento
+lineal»— y pidió que eligiera quien fijó el vocabulario, sin inclinarse fuerte por ninguno.
+
+**Los tres resuelven el choque. Ninguno quita la palabra que lo causó.**
+
+El problema no fue que dos cosas compartieran el adjetivo «de referencia»: fue que las dos se
+llamaban **modelo**. Un lector que hojea ve «modelo lineal de contraste» y sigue leyendo un modelo
+del proyecto — uno más, en una lista donde ya hay nueve. Añadir adjetivos hace el nombre más largo
+sin cambiar a qué categoría parece pertenecer.
+
+**«Sonda» sí lo cambia**, y de paso es el término estándar: en la literatura, usar un clasificador
+simple y fijo para medir cuánta información lleva un conjunto de características se llama
+*linear probing*. Así que el nombre no es una invención del equipo y se puede defender si preguntan.
+
+| | |
+|---|---|
+| **Modelo de referencia** | El bosque aleatorio. **No cambia**: está definido en una entrega hecha (D13) |
+| **Baseline** | Los tres triviales. No cambia |
+| **Sonda lineal** | La regresión logística fija de la ablación. **Nombre nuevo** |
+
+### Qué se renombra, y qué no
+
+Todo cae en carpetas de M2. **`docs/entregas/` no se toca**: sus seis apariciones son correctas,
+porque ahí el término designa al bosque.
+
+Los dos JSON y los dos CSV de evidencia **se regeneran, no se editan**: las claves llevan el término
+dentro. M2 comprobó que nadie fuera de su carpeta los cita por esas claves.
+
+### Por qué esto es una decisión y no un arreglo
+
+Porque el que tiene que ceder no es quien lo reportó. M2 podía haber renombrado su lado en cinco
+minutos y no lo hizo: el vocabulario lo fijó M0 en un documento entregado, y elegir por su cuenta el
+término nuevo habría vuelto a repartir el diccionario sin acordarlo.
+
+Es el mismo defecto que el proyecto viene catalogando —una etiqueta que no describe lo que hay
+debajo— con la diferencia de que esta vez no estaba en un dato sino **en el diccionario**.
+
+**Evidencia:** `docs/evidencias/m2-ablacion.json` y
+`docs/evidencias/m2-incertidumbre-vigente-4h-w7-h1.json`
+
+**Origen:** M2 detectó el choque, midió su alcance —13 apariciones, todas en su carpeta— y **no
+eligió el nombre**: trajo tres opciones y pidió que decidiera quien había fijado el otro término.
