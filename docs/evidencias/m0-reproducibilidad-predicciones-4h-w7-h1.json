@@ -1,0 +1,11 @@
+{
+  "que_es": "Huella SHA-256 de las predicciones sobre validacion. Dos corridas en procesos distintos con la misma huella quiere decir que el modelo reproduce bit a bit, que es lo que la condicion 2 de la D16 necesita para tener sentido (D25).",
+  "conjunto": "validacion",
+  "n_filas": 1959,
+  "semilla": 0,
+  "cuando_utc": "2026-09-07T19:28:36+00:00",
+  "huellas": {
+    "bosque_aleatorio_rezagos_relativos": "d27cf6c16797ebac06baa82248254fd80679ebb59259bc97dac5faa14a0e356a",
+    "baseline_aleatorio": "09434d520e3d4e8071822bca5fb76dedd62696245c93202d41ed738f17d682b8"
+  }
+}

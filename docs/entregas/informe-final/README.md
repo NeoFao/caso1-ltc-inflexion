@@ -83,6 +83,10 @@ El mecanismo está medido y explica el tamaño: los seis activos son fuertemente
 > **Y lo que urge:** sobre el bloque de prueba hay **una sola corrida**. Cualquier veredicto que salga de la condición 2 en un contraste donde entre el iTransformer será un veredicto que una segunda corrida no reproduciría — y no habrá segunda corrida. **Esto lo decide el equipo antes de correr**, no después de ver el número.
 >
 > Evidencia: `m0-ensayo-en-seco-validacion-con-variantes-4h-w7-h1.json`.
+>
+> **Resuelto por la [D25](../../DECISIONES.md).** Donde entre un modelo que no reproduce, la condición 2 **se reporta pero no decide**, y el peso lo lleva la condición 3. El veredicto de la D24 queda retirado; su corrección de criterio sigue en pie.
+>
+> **Y el alcance está acotado, medido:** el bosque y el `baseline_aleatorio` reproducen **bit a bit entre procesos** —misma huella SHA-256 de las 1 959 predicciones de validación en tres procesos distintos, en `m0-reproducibilidad-predicciones-4h-w7-h1.json`—. La regla de la sección 5 del protocolo, que es la que decide el veredicto del proyecto, **no está afectada**. El problema vive solo en los contrastes donde entra el iTransformer.
 
 > **De dónde salía la contradicción.** El esqueleto declaraba esta limitación en general citando el 0,00078, que es del bosque. La D14 concluía lo mismo sobre el avanzado, pero aplicando el umbral de la D5 —una convención para *elegir* entre modelos— a una pregunta de *distinguibilidad*, que responden las tres condiciones de la D16. La D24 corrige esa lectura sin reescribir la D14, y con la evidencia que la D14 ya tenía delante: no hizo falta medir nada nuevo.
 
@@ -97,7 +101,7 @@ El mecanismo está medido y explica el tamaño: los seis activos son fuertemente
 >
 > La primera corrida del ensayo, veinte minutos antes, dio lo mismo y con la misma conclusión. Se adjunta la evidencia de la segunda en `m0-ensayo-en-seco-validacion-4h-w7-h1.json`, con nombre propio para que **no se confunda con una medición citable**: es un ensayo, no una corrida del protocolo.
 >
-> El límite superior vive a menos de 0,002 del cero, así que el veredicto binario se da vuelta aunque la cifra casi no se mueva. **Un resultado que no se reproduce no se puede presentar como el que se afirma con seguridad**, y la sección de M3 hoy lo llama *«el único resultado de esta tabla que se puede afirmar con seguridad»*.
+> El límite superior vive a menos de 0,002 del cero, así que el veredicto binario se da vuelta aunque la cifra casi no se mueva. **Un resultado que no se reproduce no se puede presentar como el que se afirma con seguridad.** La sección de M3 lo llamaba *«el único resultado de esta tabla que se puede afirmar con seguridad»*; **ya no**: la [D25](../../DECISIONES.md) lo corrigió y ahora lo que sostiene esa fila es el signo estable en las cinco semillas, no el intervalo de una corrida.
 >
 > **Queda una alternativa por descartar** antes de atribuirlo del todo a que el iTransformer no es determinista: la corrida del 21/08 incluía las variantes y el ensayo llevaba `--sin-variantes`. La causa la confirma M3; la conclusión para el informe no cambia con ninguna de las dos.
 >
