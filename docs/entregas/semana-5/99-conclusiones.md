@@ -271,6 +271,40 @@ ni siquiera con cuatro veces más datos. Su intervalo incluye el cero.
 > establece no es *cuánto* detecta el sistema, sino **que la ausencia de detección que reportó la
 > corrida única se explica por el tamaño de la muestra y no por la ausencia del efecto**.
 
+### Y lo que la potencia corrige de un resultado central del informe
+
+La misma pregunta se le puede hacer a los modelos profundos. El informe afirma que **ninguno de los
+dos supera al azar de forma distinguible** — y eso se midió sobre 1 960 filas, con la potencia que
+la tabla 6 acaba de mostrar.
+
+**Tabla 7.** Los tres modelos contra el azar, sobre las 7 311 filas agregadas.
+
+| Modelo | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
+|---|---|---|---|
+| Bosque aleatorio | +0,038699 | [+0,019699 , +0,058595] | **Sí** |
+| **Chronos-Bolt** (fundacional) | **+0,027769** | **[+0,011976 , +0,045189]** | **Sí** |
+| iTransformer (avanzado) | +0,006386 | [−0,008267 , +0,019878] | **No** |
+
+**Con potencia suficiente los dos modelos profundos dejan de comportarse igual, y esa frase del
+informe resulta medio falsa: el fundacional sí supera al azar de forma distinguible.**
+
+Sobre el bloque de prueba los dos parecían lo mismo —ninguno se distinguía— y no lo eran. Chronos-
+Bolt tenía una ventaja real que 1 960 filas no alcanzaban a mostrar.
+
+**Y el resultado del iTransformer se vuelve mucho más fuerte, no más débil.** No se distingue del
+azar **ni con cuatro veces más datos**. Ahí no es un problema de muestra: es que la ventaja, si
+existe, es demasiado pequeña para importar.
+
+> La cifra del iTransformer sale de una corrida de un modelo que **no reproduce entre procesos**
+> (D15, D25): repetir el experimento mueve ese número en la tercera cifra decimal. **El intervalo
+> incluye el cero en las dos corridas que se hicieron**, así que la conclusión no depende de cuál se
+> tome — pero el valor exacto sí, y por eso se declara en vez de presentarlo como fijo.
+
+**Esto no cambia lo que la sección 5 reporta.** El veredicto del protocolo se aplicó como estaba
+escrito, sobre el bloque de prueba, y esa sigue siendo la única estimación limpia. Lo que cambia es
+qué se puede decir **sobre por qué** salió así, y en un caso —el fundacional— la explicación es que
+faltaba muestra y no efecto.
+
 ### Lo que se aprende de esto
 
 **El diseño de un solo bloque medido una vez es correcto contra el autoengaño y débil contra el

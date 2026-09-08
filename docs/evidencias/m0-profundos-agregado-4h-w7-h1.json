@@ -1,0 +1,70 @@
+{
+  "que_es": "Los cuatro modelos sobre las predicciones agregadas de los nueve tramos: 7.311 filas, cuatro veces el bloque de prueba. Responde si el 'ninguno de los dos profundos supera al azar' del informe era ausencia de efecto o ausencia de muestra.",
+  "lo_que_NO_es": "No es una estimacion insesgada fuera de muestra ni reemplaza la cifra del bloque de prueba, que sigue siendo la unica limpia. Cambia como se LEE ese resultado, no cual es.",
+  "n_filas": 7311,
+  "metricas": {
+    "azar": {
+      "n": 7311.0,
+      "f1_macro": 0.33028603936398443,
+      "precision_direccional": 0.0476878612716763,
+      "exactitud": 0.8146628368212283,
+      "f1_maximo": 0.03504043126684636,
+      "f1_minimo": 0.056417489421720736,
+      "f1_continuidad": 0.8994001974033863
+    },
+    "bosque": {
+      "n": 7311.0,
+      "f1_macro": 0.36898529521692175,
+      "precision_direccional": 0.07658959537572255,
+      "exactitud": 0.8582957187799206,
+      "f1_maximo": 0.07865168539325842,
+      "f1_minimo": 0.10509031198686371,
+      "f1_continuidad": 0.9232138882706432
+    },
+    "chronos": {
+      "n": 7311.0,
+      "f1_macro": 0.35805482892212953,
+      "precision_direccional": 0.07658959537572255,
+      "exactitud": 0.838052250034195,
+      "f1_maximo": 0.060221870047543584,
+      "f1_minimo": 0.10240963855421686,
+      "f1_continuidad": 0.9115329781646282
+    },
+    "itransformer": {
+      "n": 7311.0,
+      "f1_macro": 0.336672451895762,
+      "precision_direccional": 0.08236994219653179,
+      "exactitud": 0.7816988100123102,
+      "f1_maximo": 0.07168458781362007,
+      "f1_minimo": 0.05818965517241379,
+      "f1_continuidad": 0.8801431127012522
+    }
+  },
+  "contra_el_azar": {
+    "bosque": {
+      "diferencia": 0.03869925585293732,
+      "ic_inferior": 0.019698605321801572,
+      "ic_superior": 0.05859491518163702,
+      "excluye_el_cero": 1.0,
+      "fraccion_a_favor": 1.0,
+      "remuestras": 1000.0
+    },
+    "chronos": {
+      "diferencia": 0.0277687895581451,
+      "ic_inferior": 0.011975951938326027,
+      "ic_superior": 0.04518885063345127,
+      "excluye_el_cero": 1.0,
+      "fraccion_a_favor": 0.998,
+      "remuestras": 1000.0
+    },
+    "itransformer": {
+      "diferencia": 0.006386412531777574,
+      "ic_inferior": -0.008266720844579719,
+      "ic_superior": 0.019878176642882706,
+      "excluye_el_cero": 0.0,
+      "fraccion_a_favor": 0.824,
+      "remuestras": 1000.0
+    }
+  },
+  "conclusion": "Con potencia suficiente los tres NO se comportan igual. El bosque y Chronos-Bolt superan al azar con intervalo que EXCLUYE el cero; el iTransformer no, ni con cuatro veces mas datos. La frase 'ninguno de los dos modelos profundos supera al azar de forma distinguible' era cierta sobre 1.960 filas y es medio falsa con 7.311: el fundacional si."
+}
