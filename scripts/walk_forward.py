@@ -50,6 +50,7 @@ from src.modelos.clasico import HIPERPARAMETROS, BosqueAleatorio  # noqa: E402
 
 # --- el procedimiento, fijado antes de mirar nada ---
 N_TRAMOS = 10
+CON_AVANZADO = "--con-avanzado" in sys.argv
 MINIMO_ENTRENAMIENTO = 3000  # velas antes del primer tramo evaluable
 
 panel = pd.read_parquet(RAIZ / "data" / "processed" / "panel_4h_v1.parquet")
@@ -80,6 +81,7 @@ print(
 )
 
 filas = []
+profundos: list[float] = []
 for i, tramo in enumerate(tramos):
     corte = tramo[0] - embargo
     entrenar_en = idx[idx < corte]
@@ -97,6 +99,18 @@ for i, tramo in enumerate(tramos):
 
     mb = evaluar(y.iloc[tramo], bosque.predecir(X.iloc[tramo]))
     ma = evaluar(y.iloc[tramo], azar.predecir(X.iloc[tramo]))
+
+    # El avanzado, para comprobar si "ningun modelo profundo mejora al bosque" --que
+    # hoy se apoya en UNA medicion-- aguanta a lo largo de los tramos.
+    if CON_AVANZADO:
+        from src.modelos.avanzado import ITransformerAvanzado, cierres_del_panel
+
+        it = ITransformerAvanzado(
+            cierres_del_panel(panel), w=w, h=h, semilla=HIPERPARAMETROS["random_state"]
+        )
+        it.entrenar(X.iloc[entrenar_en], y.iloc[entrenar_en])
+        mi = evaluar(y.iloc[tramo], it.predecir(X.iloc[tramo]))
+        profundos.append(mi["f1_macro"] - mb["f1_macro"])
     ventaja = mb["f1_macro"] - ma["f1_macro"]
     p = precio.iloc[tramo]
     cambio = (p.iloc[-1] / p.iloc[0] - 1) * 100
@@ -120,6 +134,16 @@ print(f"  desviacion entre tramos       {ventajas.std():.4f}")
 print()
 print("  Referencia: la corrida unica sobre el bloque de prueba dio una ventaja de")
 print("  +0,0350 con un intervalo que incluia el cero, sostenida por 86 ejemplos.")
+
+if profundos:
+    pr = np.array(profundos)
+    print()
+    print("=" * 82)
+    print("EL AVANZADO CONTRA EL BOSQUE, EN LOS MISMOS TRAMOS")
+    print("=" * 82)
+    print(f"  el iTransformer queda por DEBAJO del bosque en {int((pr < 0).sum())} de {len(pr)}")
+    print(f"  diferencia media                 {pr.mean():+.6f}")
+    print(f"  minima / maxima                  {pr.min():+.6f} / {pr.max():+.6f}")
 
 salida = RAIZ / "docs" / "evidencias" / "m0-walk-forward-4h-w7-h1.json"
 salida.write_text(
@@ -158,6 +182,16 @@ salida.write_text(
                 }
                 for v, mb, ma in filas
             ],
+            "avanzado_contra_bosque": (
+                {
+                    "por_tramo": [float(x) for x in profundos],
+                    "tramos_por_debajo": int(sum(1 for x in profundos if x < 0)),
+                    "de": len(profundos),
+                    "media": float(np.mean(profundos)),
+                }
+                if profundos
+                else None
+            ),
             "agregado": {
                 "tramos_ganados": gano,
                 "de": len(ventajas),
