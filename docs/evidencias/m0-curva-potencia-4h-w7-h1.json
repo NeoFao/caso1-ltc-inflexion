@@ -1,0 +1,18 @@
+{
+  "que_es": "Curva de potencia empirica: en que fraccion de submuestras de tamano n el intervalo pareado del modelo contra el azar excluye el cero. Responde de que tamano tenia que ser el bloque de prueba.",
+  "como": "Se toman submuestras sin reemplazo de las predicciones agregadas de los nueve tramos y se calcula el intervalo en cada una. No entrena nada ni toca la reserva: reusa predicciones ya producidas.",
+  "lo_que_supone": "La curva se calcula con el efecto que se observa en el agregado (~+0,051). El bloque de prueba observo +0,035021, mas chico, asi que su potencia real fue MENOR que la que esta tabla indica para su tamano.",
+  "n_base": 7311,
+  "repeticiones_por_tamano": 40,
+  "curva": {
+    "1000": 0.425,
+    "1960": 0.8,
+    "3000": 1.0,
+    "4000": 1.0,
+    "5000": 1.0,
+    "6000": 1.0,
+    "7000": 1.0
+  },
+  "n_del_bloque_de_prueba": 1960,
+  "conclusion": "Con 1.960 filas la potencia es del 80 %, que es el umbral convencional: el diseno era defendible pero SIN MARGEN, y la corrida cayo en el 20 % que no lo detecta. Con 3.000 filas la potencia llega al 100 %."
+}
