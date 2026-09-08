@@ -1022,6 +1022,14 @@ final siguió cambiando entre procesos con las tres:
 | `PYTHONHASHSEED` fijo | no |
 | Semilla fija (lo que ya se hacía) | no |
 
+Tres procesos por palanca, comparando la **pérdida final** y no el F1 —el F1 pasa por `etiquetar()`,
+cuyas desigualdades estrictas pueden tapar o inventar una diferencia—. Se vuelve a medir con
+`uv run python -m src.modelos.determinismo_avanzado`, la constancia está en
+`docs/evidencias/m3-determinismo-avanzado.json`, y `tests/test_determinismo_avanzado.py` falla en
+rojo el día que alguna pase a reproducir. **Es la contraparte del guion de M0**, que fija lo
+contrario sobre el bosque y el azar: las dos juntas son las que sostienen que el problema está
+acotado.
+
 La D15 se sostiene: es el orden de reducción en punto flotante, y no se elimina con esas palancas.
 
 ### La regla principal del protocolo NO está afectada, y conviene decirlo
@@ -1068,6 +1076,7 @@ descrita; el nombre del archivo bailó. Se corrige el puntero, que no es una con
 referencia rota.
 
 **Evidencia:** `docs/evidencias/m0-ensayo-en-seco-validacion-con-variantes-4h-w7-h1.json`,
+`docs/evidencias/m3-determinismo-avanzado.json` --las tres palancas--,
 `docs/evidencias/m3-sensibilidad-avanzado-4h-w7-h1.json` y
 `docs/evidencias/m3-modelos-profundos-4h-w7-h1.json`
 
