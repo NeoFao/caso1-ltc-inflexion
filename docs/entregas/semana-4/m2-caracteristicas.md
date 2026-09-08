@@ -113,6 +113,16 @@ caída con el mismo procedimiento. **El piso es la mayor de las cinco: 0,006500*
 
 Con ese piso, **46 de las 63 columnas lo superan** y 17 no.
 
+La **Figura 1** deja ver esa lectura de un vistazo: las veinte columnas de mayor caída, cada una con
+su intervalo, y el piso de ruido como línea de corte. Lo que la figura hace evidente y la tabla no es
+**cuánto se solapan los intervalos**: entre la tercera y la vigésima no hay separación limpia, así que
+el orden dentro de ese tramo no se puede leer como un ranking.
+
+![Importancia por permutación con el piso de ruido](../../evidencias/m2-importancia-permutacion.png)
+
+**Figura 1.** Importancia por permutación de las 20 primeras columnas de 63, con la línea del piso de
+ruido. Fuente: `docs/evidencias/m2-importancia-permutacion.png`.
+
 El propio experimento cuantifica lo que cuestan las columnas que no informan. Añadir **cinco**
 centinelas casi no mueve el modelo —F1 macro 0,389590 contra 0,390498 del real—, pero con **quince**
 el modelo auxiliar sí se degrada: **0,366391**. Con 420 ejemplos de la clase minoritaria, cada
