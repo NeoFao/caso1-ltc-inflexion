@@ -98,6 +98,45 @@ las preguntas que el informe responde midiendo (secciones 2 y 6).
 
 ---
 
+## 1.3 bis De dónde salen los datos, y qué hubo que limpiar
+
+El caso pide documentar el proceso de diseño, y eso empieza antes del modelo.
+
+**Extracción.** Los seis activos se descargan de una API pública, con velas de 4 horas, y se
+consolidan en un único panel alineado por instante. La consolidación es donde aparecen los
+problemas: cada activo tiene su propia fecha de inicio y sus propios huecos.
+
+**Tabla 4.** Cobertura por activo antes de recortar al período común.
+
+| Activo | Observadas | Esperadas | Huecos | Desde |
+|---|---|---|---|---|
+| LTC | 18 931 | 18 947 | 16 | 13/12/2017 |
+| BTC | 19 638 | 19 654 | 16 | 17/08/2017 |
+| ETH | 19 638 | 19 654 | 16 | 17/08/2017 |
+| **SOL** | **13 114** | **13 114** | **0** | **11/08/2020** |
+| XRP | 18 084 | 18 093 | 9 | 04/05/2018 |
+| ADA | 18 187 | 18 196 | 9 | 17/04/2018 |
+
+**Dos cosas se deciden aquí, y las dos condicionan todo lo demás.**
+
+**Solana acota el período común.** Es el activo con menos historia —empieza en agosto de 2020— y el
+panel multivariante no puede empezar antes de que existan las seis series. Eso deja **13 114 velas**
+en vez de las 19 654 que tendría BTC solo. Es el precio de que el problema sea multivariante, y el
+enunciado lo pide multivariante.
+
+**Los huecos se descartan, no se rellenan.** Entre 9 y 16 velas faltan por activo. Rellenarlas por
+interpolación crearía precios que nunca existieron, y sobre esos precios el etiquetador declararía
+máximos y mínimos **inventados**. En una serie donde la etiqueta se define por comparación con los
+vecinos, un valor interpolado no es un dato con ruido: es un vecino falso. Se descarta el instante
+completo en los seis activos, para que el panel siga alineado.
+
+**Y quedan 30 filas con algún nulo** después de construir las características, todas al principio de
+la serie: son las que no tienen suficiente historia hacia atrás para calcular una media móvil de 30
+velas o una correlación de 30. El arnés las excluye por `y.notna()`, y el imputador de la mediana
+del modelo se calcula **solo con las filas de entrenamiento**, para que no haya fuga.
+
+---
+
 ## 1.4 La partición, y el embargo
 
 Los datos se parten en tres bloques **cronológicos** —nunca al azar—, porque en una serie temporal
@@ -125,7 +164,7 @@ este tipo de proyecto.
 **Figura 1.** Partición cronológica del panel, con embargo en cada frontera.
 Fuente: `docs/evidencias/informe-f2-particion.png`.
 
-**Tabla 4.** La partición del panel de 13 114 velas.
+**Tabla 5.** La partición del panel de 13 114 velas.
 
 | Bloque | Velas | Para qué |
 |---|---|---|
