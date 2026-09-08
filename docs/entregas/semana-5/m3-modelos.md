@@ -261,6 +261,19 @@ modelo detecta cuando lo que hace es compensar.
 No se saca de aquí ninguna configuración nueva ni se propone combinarlos: la sección 7 del protocolo
 lo prohíbe y esto se reporta como lo que es, una lectura de la única corrida.
 
+**Y hay que decir cuánto pesa esa advertencia, porque está medida.** El walk-forward de los nueve
+tramos comprobó, sobre el bosque, que la asimetría entre las dos clases extremas **no es estable**:
+el F1 de mínimos supera al de máximos en **5 de 9** tramos, que es lo que daría una moneda. En **dos**
+de los nueve, una de las dos clases dio **0,000000** exacto — con menos de cien ejemplos por clase, la
+métrica por clase puede colapsar entera.
+
+Los modelos profundos **no se midieron por clase en los nueve tramos**, así que no hay forma de saber
+si el patrón de esta tabla se repetiría. Lo que dice esta sección es qué pasó **en el bloque de
+prueba**, que es la única estimación limpia que tenemos y también un solo bloque. Leerlo como una
+propiedad de los modelos —«el avanzado detecta máximos y el bosque mínimos»— sería exactamente el
+salto que la corrección de la sección de conclusiones tuvo que deshacer: de una diferencia medida a
+una explicación que suena bien.
+
 ---
 
 ## 8. La celda que faltaba, y las tres lecturas escritas de antemano
