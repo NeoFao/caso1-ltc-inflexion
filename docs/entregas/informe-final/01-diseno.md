@@ -116,6 +116,15 @@ dice sin rodeos:
 
 Por eso se descartan `w + h` velas en cada frontera: el **embargo**.
 
+La **Figura 1.1** muestra la partición completa. El embargo no se ve, y **que no se vea es el
+punto**: son 16 velas de 13 114, poco más de una décima de por ciento, y evitan el error más caro de
+este tipo de proyecto.
+
+![Partición cronológica con embargo](../../evidencias/informe-f2-particion.png)
+
+**Figura 1.1.** Partición cronológica del panel, con embargo en cada frontera.
+Fuente: `docs/evidencias/informe-f2-particion.png`.
+
 **Tabla 1.4.** La partición del panel de 13 114 velas.
 
 | Bloque | Velas | Para qué |
