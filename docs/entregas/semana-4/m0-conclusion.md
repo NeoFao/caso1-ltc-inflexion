@@ -2,14 +2,25 @@
 
 ## El resultado central de esta semana, sin adornos
 
-**Ningún modelo profundo mejora al bosque aleatorio clásico**, y **ninguno de los dos supera al
-`baseline_aleatorio` de forma distinguible**.
+**Ningún modelo profundo mejora al bosque aleatorio clásico.**
 
 - El **bosque clásico** queda primero, con F1 macro **0,390498** y precisión direccional
   **0,103627**.
 - **Chronos-Bolt** queda 0,021908 por debajo del bosque, con intervalo que incluye el cero: no se
   distingue de él.
 - **iTransformer** queda por debajo del bosque en las cinco semillas.
+
+**Y sobre este bloque, ninguno de los dos profundos supera al azar de forma distinguible.** Le ganan
+en la media y el intervalo incluye el cero en los dos casos.
+
+> **Esa última frase se acotó después, y conviene decirlo acá.** Medida sobre nueve tramos
+> consecutivos —**7 311 observaciones** en vez de 1 959— la lectura **se parte en dos**:
+> Chronos-Bolt **sí** supera al azar (+0,027769, intervalo que excluye el cero) y el iTransformer
+> **sigue sin superarlo** ni con cuatro veces más observaciones.
+>
+> Lo que era «ninguno de los dos» resultó ser **uno de cada**. Y la mitad que queda más fuerte es la
+> del avanzado: no superar al azar con 7 311 observaciones dice bastante más que no superarlo con
+> 1 959. Está desarrollado en el informe final.
 
 El enunciado sugiere que un modelo fundacional y un Transformer son las herramientas para este
 problema. Medido con el mismo arnés, la misma partición y el mismo piso, no le ganan a un bosque
