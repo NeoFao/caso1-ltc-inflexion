@@ -1,0 +1,61 @@
+{
+  "que_es": "Arreglos 6 y 7 probados despues de la corrida. El 6 cambia de FAMILIA de modelo (gradient boosting por histogramas, nunca probado). El 7 pesa cada extremo por su margen en vez de filtrarlo, que es el arreglo 1 sin su defecto: filtrar quitaba ejemplos, pesar no pierde ninguno.",
+  "resultado": "Ninguno se establece. El boosting queda por debajo del bosque y el pesado por margen empata. Los dos intervalos incluyen el cero.",
+  "n_filas": 7311,
+  "metricas": {
+    "azar": {
+      "n": 7311.0,
+      "f1_macro": 0.33028603936398443,
+      "precision_direccional": 0.0476878612716763,
+      "exactitud": 0.8146628368212283,
+      "f1_maximo": 0.03504043126684636,
+      "f1_minimo": 0.056417489421720736,
+      "f1_continuidad": 0.8994001974033863
+    },
+    "bosque": {
+      "n": 7311.0,
+      "f1_macro": 0.36898529521692175,
+      "precision_direccional": 0.07658959537572255,
+      "exactitud": 0.8582957187799206,
+      "f1_maximo": 0.07865168539325842,
+      "f1_minimo": 0.10509031198686371,
+      "f1_continuidad": 0.9232138882706432
+    },
+    "boosting": {
+      "n": 7311.0,
+      "f1_macro": 0.36149632072113175,
+      "precision_direccional": 0.06358381502890173,
+      "exactitud": 0.8614416632471618,
+      "f1_maximo": 0.08014571948998178,
+      "f1_minimo": 0.07885304659498207,
+      "f1_continuidad": 0.9254901960784314
+    },
+    "pesado": {
+      "n": 7311.0,
+      "f1_macro": 0.3700866685981798,
+      "precision_direccional": 0.06069364161849711,
+      "exactitud": 0.8797702092736972,
+      "f1_maximo": 0.08993576017130621,
+      "f1_minimo": 0.0846774193548387,
+      "f1_continuidad": 0.9356468262683945
+    }
+  },
+  "contra_el_bosque": {
+    "boosting": {
+      "diferencia": -0.007488974495790002,
+      "ic_inferior": -0.02823224171951919,
+      "ic_superior": 0.013658170972196926,
+      "excluye_el_cero": 0.0,
+      "fraccion_a_favor": 0.257,
+      "remuestras": 1000.0
+    },
+    "pesado": {
+      "diferencia": 0.0011013733812580417,
+      "ic_inferior": -0.01506742645655404,
+      "ic_superior": 0.018139028406842107,
+      "excluye_el_cero": 0.0,
+      "fraccion_a_favor": 0.562,
+      "remuestras": 1000.0
+    }
+  }
+}
