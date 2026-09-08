@@ -184,9 +184,9 @@ informe no lo afirma.
 | 4 | El puente de trayectoria a etiqueta amplifica ruido numérico | sí | sí — catorce comparaciones estrictas |
 
 Las cuatro se encontraron **midiendo**, y tres de ellas **contradiciendo lo que el equipo esperaba o
-había afirmado antes**. Ese es el argumento de que la lista está completa hasta donde se pudo mirar:
-no es una lista de precauciones escritas al final, es lo que quedó después de que cada afirmación
-cómoda se cayera al comprobarla.
+había afirmado antes**. Eso no prueba que la lista esté completa —nada lo probaría—, pero sí que el
+método encuentra cosas que a nadie le convenía encontrar: no es una lista de precauciones escritas
+al final, es lo que quedó después de que cada afirmación cómoda se cayera al comprobarla.
 
 ---
 

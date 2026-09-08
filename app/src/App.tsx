@@ -476,6 +476,17 @@ export default function App() {
             Las métricas provienen de <code>contracts/metrics.py</code>. Esta aplicación no calcula
             ninguna: si lo hiciera, tarde o temprano darían distinto que el informe.
           </p>
+          {/* El logotipo de la esquina del grafico lo dibuja la propia libreria y es su
+              atribucion obligatoria. Se deja donde esta -- quitarlo seria incumplir su
+              licencia -- pero sin esta linea se lee como que los precios salen de ahi,
+              que es lo primero que pregunto quien vio la aplicacion. */}
+          <p className="mt-1">
+            El gráfico se dibuja con <strong>Lightweight Charts™ de TradingView</strong>, y el
+            logotipo de su esquina es la atribución que esa biblioteca exige.{" "}
+            <strong>Los precios no vienen de TradingView:</strong> se descargan de la API pública de Binance
+            (<code>api.binance.com/api/v3/klines</code>) con <code>src/panel/descarga.py</code>.
+            TradingView aquí es solo cómo se dibuja, no de dónde salen los datos.
+          </p>
           {configuracion?.panel && (
             <p className="mt-1">
               Panel completo: {configuracion.panel.filas_totales.toLocaleString("es-CR")}{" "}
