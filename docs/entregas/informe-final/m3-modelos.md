@@ -215,8 +215,19 @@ Las seis métricas que publica el panel, medidas sobre cinco semillas:
 | **F1 Máximo** | **0,073585** | **0,075013** |
 
 **El F1 de la clase Máximo recorre más que su propia media.** Una media suelta en esa columna no
-significa gran cosa, y por eso las tres métricas por clase se reportan siempre con su rango. Sobre
-el bloque de prueba será peor: tiene 86 ejemplos por clase extrema, contra los 94 de validación.
+significa gran cosa, y por eso las tres métricas por clase se reportan siempre con su rango.
+
+Y sobre el bloque de prueba es peor, porque hay menos de donde medir. Los conteos, que **no son
+simétricos** y conviene no redondearlos:
+
+| Bloque | Máximos | Mínimos |
+|---|---|---|
+| Validación | **99** | 94 |
+| Prueba | **86** | 86 |
+
+Para la clase Máximo —la de la fila conflictiva— se pasa de 99 a 86. Que la métrica por clase pueda
+colapsar con esos tamaños no es una precaución retórica: el walk-forward lo midió, y en **2** de sus
+nueve tramos una de las dos clases dio **0,000000** exacto.
 
 ### El puente amplifica diferencias que no deberían importar
 
