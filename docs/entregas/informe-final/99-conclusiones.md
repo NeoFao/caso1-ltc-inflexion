@@ -333,6 +333,52 @@ medida sobre las dos clases que importan— tiene un intervalo que **incluye el 
 **Van cinco arreglos y ninguno se establece.** Eso ya no es una serie de intentos fallidos: es
 evidencia consistente de que el límite está en los datos y no en el modelado.
 
+### Los dos últimos: otra familia de modelo, y pesar en vez de filtrar
+
+**Sexto: cambiar de familia.** Todo lo anterior cambia la etiqueta, la decisión o los datos, pero
+siempre con un bosque aleatorio. Se probó *gradient boosting* por histogramas, que suele ir mejor
+en datos tabulares y no se había probado ni una vez.
+
+**Séptimo: pesar los extremos por su margen, en vez de filtrarlos.** El primer arreglo falló porque
+filtrar quitaba ejemplos de una clase ya diminuta —de 99 máximos a 27—. Pero la intuición de fondo
+seguía en pie: un extremo que gana por 0,05 % es menos fiable que uno que gana por 3 %. La forma
+correcta de usar eso no es tirar la fila, es **decirle al modelo cuánto confiar en ella**. Es el
+arreglo 1 sin su defecto.
+
+**Tabla 10.** Los dos últimos, sobre las 7 311 filas agregadas.
+
+| | F1 macro | Contra el bosque | ¿Excluye el cero? |
+|---|---|---|---|
+| Bosque (lo actual) | 0,368985 | — | — |
+| Gradient boosting | 0,361496 | −0,007489 | No |
+| Bosque pesado por margen | **0,370087** | +0,001101 | No |
+
+**Ninguno se establece.** El boosting queda por debajo y el pesado empata.
+
+### El balance de los siete intentos
+
+**Tabla 11.** Todo lo que se probó, y en qué eje.
+
+| # | Qué se cambió | Eje | Resultado |
+|---|---|---|---|
+| 1 | Umbral de margen mínimo | la etiqueta | peor |
+| 2 | Juntar máximos y mínimos | la estructura de clases | peor |
+| 3 | Corregir por frecuencia base | la regla de decisión | no cambia |
+| 4 | Apilar los seis activos | el volumen de datos | mejora, **6 de 9** |
+| 5 | Combinar los tres modelos | la agregación | no se establece |
+| 6 | Gradient boosting | la familia de modelo | no se establece |
+| 7 | Pesar por margen | la confianza por ejemplo | no se establece |
+
+**Siete intervenciones, en siete ejes distintos, y ninguna produce una mejora que se sostenga.**
+
+Eso ya no es una lista de intentos fallidos. Es evidencia consistente de que **el límite de este
+sistema no está en el modelado**: está en cuánta señal hay en estos datos, con esta definición de
+punto de inflexión y esta cantidad de ejemplos.
+
+Y encaja con todo lo demás que se midió hoy: el efecto **existe** y es **estable** —el bosque le
+gana al azar en los nueve tramos y con intervalos que excluyen el cero— pero es **pequeño**, y
+ningún cambio de modelado lo agranda.
+
 ### Y una observación sobre la métrica, que sí queda
 
 La unión de extremos se ve **mal** en F1 macro y **mejor que todo lo demás** en las dos clases
