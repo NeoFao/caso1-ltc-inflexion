@@ -1,0 +1,63 @@
+{
+  "que_es": "Cada modelo contra el azar POR CLASE, sobre las 7.311 filas agregadas de los nueve tramos. Responde si la lectura mas severa del informe --ningun modelo supera al azar en las dos clases-- era un hecho o un artefacto de tener 86 ejemplos por clase en el bloque de prueba.",
+  "lo_que_NO_es": "No reemplaza la cifra del bloque de prueba, que sigue siendo la unica estimacion limpia. Cambia como se LEE, no cual es.",
+  "n_filas": 7311,
+  "por_modelo": {
+    "bosque": {
+      "Maximo": {
+        "diferencia": 0.04361125412641206,
+        "ic_inferior": 0.00998321691917067,
+        "ic_superior": 0.08310655037679067,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.994,
+        "remuestras": 1000.0
+      },
+      "Minimo": {
+        "diferencia": 0.04867282256514297,
+        "ic_inferior": 0.006744110329288456,
+        "ic_superior": 0.09223893861785333,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.992,
+        "remuestras": 1000.0
+      }
+    },
+    "chronos": {
+      "Maximo": {
+        "diferencia": 0.025181438780697223,
+        "ic_inferior": -0.0033069830321887927,
+        "ic_superior": 0.053814584076399954,
+        "excluye_el_cero": 0.0,
+        "fraccion_a_favor": 0.954,
+        "remuestras": 1000.0
+      },
+      "Minimo": {
+        "diferencia": 0.04599214913249613,
+        "ic_inferior": 0.009794971129979447,
+        "ic_superior": 0.08730122165116594,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.994,
+        "remuestras": 1000.0
+      }
+    },
+    "itransformer": {
+      "Maximo": {
+        "diferencia": 0.03400718778077269,
+        "ic_inferior": 0.007095686045058812,
+        "ic_superior": 0.06042473114190053,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.997,
+        "remuestras": 1000.0
+      },
+      "Minimo": {
+        "diferencia": 0.0034115704073390957,
+        "ic_inferior": -0.025805587835750324,
+        "ic_superior": 0.032276827752279316,
+        "excluye_el_cero": 0.0,
+        "fraccion_a_favor": 0.565,
+        "remuestras": 1000.0
+      }
+    }
+  },
+  "conclusion": "El bosque supera al azar de forma distinguible en LAS DOS clases extremas. Chronos-Bolt solo en Minimo y el iTransformer solo en Maximo. Sobre el bloque de prueba el bosque salia PEOR que el azar en Maximo; con 7.311 filas le gana y el intervalo excluye el cero. La lectura mas severa del informe era un artefacto de muestra pequena.",
+  "advertencia_itransformer": "Las cifras del avanzado salen de un modelo que no reproduce entre procesos (D15, D25): repetir mueve los numeros. Las del bosque y Chronos-Bolt si reproducen."
+}

@@ -305,6 +305,44 @@ escrito, sobre el bloque de prueba, y esa sigue siendo la única estimación lim
 qué se puede decir **sobre por qué** salió así, y en un caso —el fundacional— la explicación es que
 faltaba muestra y no efecto.
 
+### La corrección más grande: el bosque sí detecta las dos clases
+
+El bloque de prueba dejó la lectura más dura de todo el trabajo: **ningún modelo supera al azar en
+las dos clases extremas.** El bosque ganaba en Mínimo y quedaba **por debajo del azar en Máximo**.
+
+Pero el F1 de una clase con **86 ejemplos** es la cifra más ruidosa del informe — en dos de los
+nueve tramos del walk-forward una clase dio **0,000000** exacto. Así que esa lectura podía ser un
+hecho o podía ser lo que 86 casos dejan ver.
+
+**Tabla 8.** Cada modelo contra el azar, por clase, sobre las 7 311 filas agregadas.
+
+| Modelo | Clase | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
+|---|---|---|---|---|
+| **Bosque** | **Máximo** | **+0,043611** | [+0,009983 , +0,083107] | **Sí** |
+| **Bosque** | **Mínimo** | **+0,048673** | [+0,006744 , +0,092239] | **Sí** |
+| Chronos-Bolt | Máximo | +0,025181 | [−0,003307 , +0,053815] | No |
+| Chronos-Bolt | Mínimo | +0,045992 | [+0,009795 , +0,087301] | Sí |
+| iTransformer | Máximo | +0,034007 | [+0,007096 , +0,060425] | Sí |
+| iTransformer | Mínimo | +0,003412 | [−0,025806 , +0,032277] | No |
+
+**El bosque supera al azar de forma distinguible en las dos clases.** Sobre el bloque de prueba
+salía *peor que el azar* detectando máximos; sobre 7 311 filas le gana por +0,043611 con un
+intervalo que excluye el cero.
+
+**La lectura más severa del informe era un artefacto de muestra pequeña.**
+
+Y los otros dos siguen repartidos, cada uno con una sola clase: el fundacional detecta mínimos, el
+avanzado detecta máximos. Esa asimetría entre ellos **sí** sobrevive a la potencia — no así la del
+bosque.
+
+> Las cifras del iTransformer salen de un modelo que **no reproduce entre procesos** (D15, D25).
+> Las del bosque y Chronos-Bolt sí reproducen.
+
+> **Y esto tampoco cambia lo que la sección 5 reporta.** El veredicto se aplicó como estaba escrito
+> sobre el bloque de prueba, y ahí el bosque quedó por debajo del azar en Máximo. Eso pasó y queda
+> reportado. Lo que esta tabla añade es **qué significa**: no que el modelo no detecte máximos, sino
+> que 86 ejemplos no alcanzan para verlo.
+
 ### Lo que se aprende de esto
 
 **El diseño de un solo bloque medido una vez es correcto contra el autoengaño y débil contra el
