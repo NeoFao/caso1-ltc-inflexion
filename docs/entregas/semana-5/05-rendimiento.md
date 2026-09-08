@@ -95,9 +95,12 @@ los intervalos individuales.
 
 **Lo que dice esta tabla, en orden de incomodidad:**
 
-1. **Ninguno de los dos modelos profundos supera al azar de forma distinguible.** Le ganan en la
-   media, y el intervalo incluye el cero en los dos casos. Es el resultado central del informe y va
-   sin adornos.
+1. **Sobre este bloque, ninguno de los dos modelos profundos supera al azar de forma
+   distinguible.** Le ganan en la media, y el intervalo incluye el cero en los dos casos.
+
+   **Con la potencia de los nueve tramos esta lectura se parte en dos:** Chronos-Bolt **sí** lo
+   supera —+0,027769, con intervalo que excluye el cero— y el iTransformer **sigue sin superarlo**
+   ni con cuatro veces más observaciones. Ver la 5.4 y las conclusiones.
 2. **Entre el fundacional y el avanzado no se distingue nada.** Por la D5, cuando el margen y el
    intervalo discrepan manda el intervalo, y se prefiere el más simple: el fundacional, que ni se
    entrena.
