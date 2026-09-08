@@ -81,7 +81,7 @@ mejor, no por evidencia.
 
 ---
 
-## 1.3 Los datos
+## 1.3 Los datos: qué se descarga
 
 **Tabla 1.3.** El panel.
 
@@ -98,7 +98,7 @@ las preguntas que el informe responde midiendo (secciones 2 y 6).
 
 ---
 
-## 1.3 bis De dónde salen los datos, y qué hubo que limpiar
+## 1.4 De dónde salen, y qué hubo que limpiar
 
 El caso pide documentar el proceso de diseño, y eso empieza antes del modelo.
 
@@ -137,7 +137,7 @@ del modelo se calcula **solo con las filas de entrenamiento**, para que no haya 
 
 ---
 
-## 1.4 La partición, y el embargo
+## 1.5 La partición, y el embargo
 
 Los datos se parten en tres bloques **cronológicos** —nunca al azar—, porque en una serie temporal
 mezclar el orden permitiría entrenar con el futuro y evaluar con el pasado.
@@ -178,7 +178,7 @@ comparado con lo que evita.
 
 ---
 
-## 1.5 El bloque de prueba se toca una vez, y eso es comprobable
+## 1.6 El bloque de prueba se toca una vez, y eso es comprobable
 
 El bloque de prueba no se mira mientras se toman decisiones. Es la regla más fácil de romper sin
 querer: basta correr el experimento «para ver cómo va» y ya está gastado, porque todo criterio que se
