@@ -163,6 +163,18 @@ validación es la que cabe esperar cuando se elige mirando uno de los dos conjun
 pasa de 0,390498 en validación a 0,378567 en prueba — una caída pequeña; lo que se
 estrecha es la **ventaja sobre el azar**, porque el baseline aleatorio sube de 0,336784 a 0,343546.
 
+> **Y hay algo que se midió después, y que cambia cómo se lee esta tabla.** La condición 2 falló
+> con **1 960 filas**. Repitiendo la medición sobre **7 311** —las predicciones de nueve tramos
+> consecutivos, juntas— la ventaja del mismo modelo sobre el azar es **+0,051285** con intervalo
+> **[+0,033296 , +0,070146]**, que **sí excluye el cero**.
+>
+> El efecto es prácticamente el mismo que aquí (+0,035021). **Lo que faltaba era muestra, no
+> efecto.** Está en las conclusiones, con lo que no demuestra escrito al lado.
+>
+> **Esto no cambia lo que esta sección reporta.** La cifra de arriba sigue siendo la única
+> estimación limpia, y el veredicto del protocolo se aplicó como estaba escrito. Lo que añade es la
+> explicación de *por qué* falló, que es distinta de una excusa: está medida.
+
 ### El criterio de aceptación falla, y por una razón que no es la del intervalo
 
 Hay un segundo veredicto en la evidencia, y es más severo:

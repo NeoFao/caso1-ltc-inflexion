@@ -234,11 +234,53 @@ faltaba era poder estadístico para distinguirlo del azar.
 >
 > Por eso **no reemplaza el resultado**: lo explica.
 
+### La medición que cierra la pregunta: era potencia, y ahora está demostrado
+
+Contar «9 de 9» o «6 de 9» tira a la basura la magnitud de cada tramo y se queda solo con el signo.
+Y cada tramo evalúa sobre unas 810 filas con ~40 ejemplos por clase extrema: el mismo problema de
+potencia que hizo fallar la condición 2 sobre el bloque de prueba, un piso más abajo.
+
+Lo correcto es **juntar las predicciones de los nueve tramos** —que son de períodos distintos y no se
+solapan— y medir una sola vez sobre el conjunto completo.
+
+**Tabla 5.** Las predicciones de los nueve tramos, juntas: **7 311 filas**, con 347 máximos y 345
+mínimos reales. Cuatro veces el bloque de prueba.
+
+| Comparación | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
+|---|---|---|---|
+| **El modelo del proyecto − el azar** | **+0,051285** | **[+0,033296 , +0,070146]** | **SÍ** |
+| Los seis apilados − el azar | +0,061545 | [+0,042448 , +0,079764] | **Sí** |
+| Los seis apilados − solo LTC | +0,010260 | [−0,007997 , +0,027271] | no |
+
+**La primera fila es el resultado más importante de esta investigación.**
+
+Sobre el bloque de prueba, con **1 960 filas**, la ventaja del modelo sobre el azar era positiva y
+su intervalo **incluía** el cero. Sobre **7 311 filas**, la misma ventaja —de tamaño casi idéntico,
++0,051285 contra +0,035021— tiene un intervalo que **excluye** el cero con holgura.
+
+**El efecto no cambió. Cambió cuánta evidencia había para verlo.** El resultado negativo de la
+corrida única era un problema de **potencia estadística**, y ahora está demostrado en vez de
+conjeturado.
+
+Y la tercera fila confirma la cautela de la sección anterior: **el apilado sigue sin establecerse**
+ni siquiera con cuatro veces más datos. Su intervalo incluye el cero.
+
+> **Lo que esto NO cambia.** La cifra que el informe reporta en la sección 5 **sigue siendo la del
+> bloque de prueba**, y sigue siendo la única estimación limpia: estos 7 311 casos vienen de
+> períodos que el modelo y las características usaron para desarrollarse. Lo que esta medición
+> establece no es *cuánto* detecta el sistema, sino **que la ausencia de detección que reportó la
+> corrida única se explica por el tamaño de la muestra y no por la ausencia del efecto**.
+
 ### Lo que se aprende de esto
 
 **El diseño de un solo bloque medido una vez es correcto contra el autoengaño y débil contra el
 ruido.** Protege perfectamente de elegir mirando el resultado —que es el riesgo grande— al precio de
 no poder distinguir un efecto pequeño de la nada.
+
+Y ahora se puede poner número a ese precio: **con 1 960 filas el intervalo incluye el cero; con
+7 311, sobre el mismo efecto, lo excluye.** El diseño no midió mal: midió con una muestra
+insuficiente para el tamaño del efecto que había que detectar. Eso es algo que se puede calcular
+**antes** de apartar el bloque, y no se hizo.
 
 Un diseño walk-forward con el procedimiento fijado de antemano da las dos cosas: nadie puede elegir
 mirando, y hay potencia suficiente para ver un efecto de este tamaño. **Es la corrección de método

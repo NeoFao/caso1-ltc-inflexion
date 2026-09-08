@@ -1,0 +1,64 @@
+{
+  "que_es": "Las predicciones de los nueve tramos del walk-forward, JUNTAS, y medidas una sola vez sobre 7.311 filas -- cuatro veces el bloque de prueba. Contar tramos ganados tira la magnitud y se queda con el signo; juntarlos usa toda la informacion.",
+  "por_que": "Cada tramo evalua sobre ~810 filas con unos 40 ejemplos por clase extrema. Con eso el signo de un tramo es casi una moneda aunque el efecto sea real: el mismo problema de potencia que hizo fallar la condicion 2 sobre el bloque de prueba, un piso mas abajo.",
+  "lo_que_NO_es": "No es una estimacion insesgada fuera de muestra: los tramos posteriores entrenan con datos de los anteriores, y el modelo se desarrollo mirando validacion. La unica estimacion limpia sigue siendo la del bloque de prueba. Esto muestra que con MUESTRA SUFICIENTE la ventaja se distingue del azar.",
+  "n_filas": 7311,
+  "maximos_reales": 347,
+  "minimos_reales": 345,
+  "metricas": {
+    "azar": {
+      "n": 7311.0,
+      "f1_macro": 0.33028603936398443,
+      "precision_direccional": 0.0476878612716763,
+      "exactitud": 0.8146628368212283,
+      "f1_maximo": 0.03504043126684636,
+      "f1_minimo": 0.056417489421720736,
+      "f1_continuidad": 0.8994001974033863
+    },
+    "solo LTC": {
+      "n": 7311.0,
+      "f1_macro": 0.3815714301053184,
+      "precision_direccional": 0.17052023121387283,
+      "exactitud": 0.7894952810832991,
+      "f1_maximo": 0.11940298507462686,
+      "f1_minimo": 0.14442013129102846,
+      "f1_continuidad": 0.8808911739502999
+    },
+    "los seis apilados": {
+      "n": 7311.0,
+      "f1_macro": 0.39183144562172695,
+      "precision_direccional": 0.16473988439306358,
+      "exactitud": 0.8104226508001642,
+      "f1_maximo": 0.1357142857142857,
+      "f1_minimo": 0.14578005115089515,
+      "f1_continuidad": 0.894
+    }
+  },
+  "intervalos": {
+    "apilado_menos_solo_ltc": {
+      "diferencia": 0.010260015516408538,
+      "ic_inferior": -0.0079970869616939,
+      "ic_superior": 0.02727137625248185,
+      "excluye_el_cero": 0.0,
+      "fraccion_a_favor": 0.865,
+      "remuestras": 1000.0
+    },
+    "apilado_menos_azar": {
+      "diferencia": 0.06154540625774252,
+      "ic_inferior": 0.042448397687748114,
+      "ic_superior": 0.0797639405630062,
+      "excluye_el_cero": 1.0,
+      "fraccion_a_favor": 1.0,
+      "remuestras": 1000.0
+    },
+    "solo_ltc_menos_azar": {
+      "diferencia": 0.05128539074133398,
+      "ic_inferior": 0.033295748177873785,
+      "ic_superior": 0.07014573972184876,
+      "excluye_el_cero": 1.0,
+      "fraccion_a_favor": 1.0,
+      "remuestras": 1000.0
+    }
+  },
+  "conclusion": "Con 7.311 filas, la ventaja del modelo sobre el azar EXCLUYE el cero (+0,051285, IC [+0,033296, +0,070146]). Sobre el bloque de prueba, con 1.960 filas, no lo excluia. El resultado negativo de la corrida unica era un problema de POTENCIA y no de efecto. El apilado de los seis activos sigue sin establecerse: su intervalo incluye el cero."
+}
