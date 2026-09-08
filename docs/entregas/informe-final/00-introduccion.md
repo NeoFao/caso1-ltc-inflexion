@@ -36,7 +36,7 @@ potente—, la del bloque fresco —la más limpia, y la más pequeña— y la d
 
 **Las tres apuntan al mismo lado y la explicación está medida.** El bloque de prueba tiene 1 960 velas, y
 con ese tamaño la detección de un efecto como este sale bien **el 80 % de las veces**. Nos tocó el
-20 % restante. Con 3 000 velas habría salido siempre (sección 6 y conclusiones, Figura 4).
+20 % restante. Con 3 000 velas habría salido siempre (sección 6 y conclusiones, Figura C.1).
 
 > **Por qué no se vuelve a medir para que dé positivo.** El bloque de prueba vale exactamente porque
 > se tocó una vez y se reportó lo que salió. Repetirlo hasta que gane convertiría la cifra en «el

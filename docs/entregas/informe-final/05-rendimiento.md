@@ -7,10 +7,10 @@ cifras salen de `docs/evidencias/`.**
 
 Esta sección tiene dos partes que **no** significan lo mismo:
 
-- **5.1 a 5.3 · Validación.** Sobre estos datos se compararon modelos y se tomaron decisiones. Se
+- **5.1 a 5.4 · Validación.** Sobre estos datos se compararon modelos y se tomaron decisiones. Se
   pudieron mirar tantas veces como hizo falta, y por eso mismo **no son una estimación honesta del
   rendimiento futuro**: elegir mirando estos números los infla.
-- **5.4 · El bloque de prueba.** Se mide **una sola vez** y es la única cifra del informe que estima
+- **5.5 · El bloque de prueba.** Se mide **una sola vez** y es la única cifra del informe que estima
   qué haría el sistema con datos que nadie usó para decidir nada.
 
 ---
@@ -35,7 +35,7 @@ macro. Todos entrenados solo con el bloque de entrenamiento y medidos por el mis
 Tres lecturas inmediatas:
 
 **El mejor modelo es el clásico.** Ni el fundacional ni el avanzado le ganan. Lo dice la tabla y lo
-confirman los intervalos de 5.2.
+confirman los intervalos de 5.3.
 
 **Los tres modelos que dan 0,316063 exactos están empatados con no hacer nada.** El baseline trivial,
 el mayoritario y el bosque sin pesos de clase producen el mismo número porque hacen lo mismo:
@@ -47,7 +47,7 @@ trivial (0,0). Y baja. La sección 6 dice qué se puede y qué no se puede concl
 
 ---
 
-## 5.1 bis Qué es la Precisión Direccional aquí, y por qué hubo que decidirlo
+## 5.2 Qué es la Precisión Direccional aquí, y por qué hubo que decidirlo
 
 El caso pide reportar **Precisión Direccional** y no dice qué significa en un problema de **tres**
 clases. En un pronóstico de dirección clásico —sube o baja— la definición es obvia. Aquí no, porque
@@ -74,7 +74,7 @@ acertar; un cero se leería como fracaso del modelo cuando no lo es.
 > (`contracts/metrics.py`): si la lectura correcta fuera otra, se cambia ahí y todas las cifras del
 > informe se regeneran solas.
 
-## 5.2 Comparar medias no alcanza: los intervalos
+## 5.3 Comparar medias no alcanza: los intervalos
 
 Una diferencia de F1 macro entre dos modelos puede venir de que uno sea mejor o de qué velas cayeron
 en el bloque. Para separarlo se usa **remuestreo pareado**: se remuestrean las **mismas filas** para
@@ -91,7 +91,7 @@ los intervalos individuales.
 | Chronos-Bolt − azar | +0,031805 | [−0,002956 , +0,065236] | **no** |
 | iTransformer − azar | +0,008922 | [−0,024084 , +0,044635] | **no** |
 | Chronos-Bolt − bosque | −0,021908 | [−0,064249 , +0,020264] | **no** |
-| iTransformer − bosque | −0,044792 | [−0,085204 , −0,001457] | sí, **pero ver 5.3** |
+| iTransformer − bosque | −0,044792 | [−0,085204 , −0,001457] | sí, **pero ver 5.4** |
 
 **Lo que dice esta tabla, en orden de incomodidad:**
 
@@ -106,7 +106,7 @@ los intervalos individuales.
 
 ---
 
-## 5.3 Un intervalo de esta tabla no se reproduce, y se declara
+## 5.4 Un intervalo de esta tabla no se reproduce, y se declara
 
 La última fila de la tabla 5.2 excluye el cero. **Ese resultado no se reproduce.**
 
@@ -144,22 +144,22 @@ no se afirma.
 
 ---
 
-## 5.4 El bloque de prueba
+## 5.5 El bloque de prueba
 
 **Medido el 07/09/2026, una sola vez**, sobre el commit `1426bce` con el árbol limpio. El pestillo
 lo registra con `n_corridas: 1`, seis modelos, cinco semillas, en una sola sesión.
 
-La **Figura 1** muestra qué hace el sistema sobre esos datos: los giros reales van como marcadores
+La **Figura 5.1** muestra qué hace el sistema sobre esos datos: los giros reales van como marcadores
 rellenos y los que el modelo predijo como marcadores huecos encima. Se ve dónde acierta —los
 extremos grandes del 10 de octubre— y dónde predice de más, en racimos alrededor de un solo giro
 real.
 
 ![Giros reales y detectados sobre el bloque de prueba](../../evidencias/informe-f1-prueba-giros.png)
 
-**Figura 1.** Bloque de prueba: giros reales y detectados por el modelo, en las primeras 200 velas.
+**Figura 5.1.** Bloque de prueba: giros reales y detectados por el modelo, en las primeras 200 velas.
 Fuente: `docs/evidencias/informe-f1-prueba-giros.png`.
 
-**Tabla 5.** Las 1 960 velas del bloque de prueba, semilla de referencia.
+**Tabla 5.3.** Las 1 960 velas del bloque de prueba, semilla de referencia.
 
 | Modelo | F1 macro | Precisión direccional | F1 máximo | F1 mínimo |
 |---|---|---|---|---|
@@ -172,12 +172,12 @@ Fuente: `docs/evidencias/informe-f1-prueba-giros.png`.
 
 El orden es **el mismo que en validación**: gana el bosque, y ningún modelo profundo lo supera.
 
-La **Figura 2** pone esa tabla en perspectiva: las barras invitan a leer un orden, y el rango entre
+La **Figura 5.2** pone esa tabla en perspectiva: las barras invitan a leer un orden, y el rango entre
 las cinco semillas —dibujado encima— muestra cuánto de ese orden aguanta. La línea roja es el azar.
 
 ![Los cinco modelos con su rango entre semillas](../../evidencias/informe-f3-modelos-prueba.png)
 
-**Figura 2.** Los cinco modelos sobre el bloque de prueba, con su rango entre cinco semillas y el
+**Figura 5.2.** Los cinco modelos sobre el bloque de prueba, con su rango entre cinco semillas y el
 piso del azar. Fuente: `docs/evidencias/informe-f3-modelos-prueba.png`.
 
 ### La regla de decisión, aplicada
@@ -185,7 +185,7 @@ piso del azar. Fuente: `docs/evidencias/informe-f3-modelos-prueba.png`.
 La sección 5 del protocolo declara que el proyecto **detecta puntos de inflexión** si el mejor
 modelo cumple **las tres** condiciones de la D16 contra el `baseline_aleatorio`.
 
-**Tabla 6.** Las tres condiciones sobre el bloque de prueba.
+**Tabla 5.4.** Las tres condiciones sobre el bloque de prueba.
 
 | Condición | Resultado | ¿Se cumple? |
 |---|---|---|

@@ -92,7 +92,7 @@ Salieron dos investigaciones distintas, y conviene leerlas por separado:
 
 Medimos **por cuánto le gana cada extremo a su vecino más cercano**, que es qué tan pronunciado es:
 
-**Tabla 1.** Margen del extremo sobre su vecino más cercano.
+**Tabla C.1.** Margen del extremo sobre su vecino más cercano.
 
 | Bloque | Máximos | Mínimos |
 |---|---|---|
@@ -129,7 +129,7 @@ bloque medido una vez, se avanza por la serie entrenando con lo anterior y midie
 siguiente, con el mismo embargo en cada frontera. El procedimiento se fijó antes de correrlo y no se
 tocó después.
 
-**Tabla 2.** Nueve tramos consecutivos, sobre entrenamiento y validación.
+**Tabla C.2.** Nueve tramos consecutivos, sobre entrenamiento y validación.
 
 | | |
 |---|---|
@@ -144,7 +144,7 @@ Los nueve tramos cubren regímenes opuestos, desde uno que cayó un **35,5 %** h
 **Y el mismo procedimiento resuelve la limitación 2**, que había quedado debilitada porque su
 intervalo no se reproducía:
 
-**Tabla 3.** El iTransformer contra el bosque, en los mismos nueve tramos.
+**Tabla C.3.** El iTransformer contra el bosque, en los mismos nueve tramos.
 
 | | |
 |---|---|
@@ -178,7 +178,7 @@ potencia que hizo fallar la condición 2 sobre el bloque de prueba, un piso más
 Lo correcto es **juntar las predicciones de los nueve tramos** —que son de períodos distintos y no se
 solapan— y medir una sola vez sobre el conjunto completo.
 
-**Tabla 5.** Las predicciones de los nueve tramos, juntas: **7 311 filas**, con 347 máximos y 345
+**Tabla C.4.** Las predicciones de los nueve tramos, juntas: **7 311 filas**, con 347 máximos y 345
 mínimos reales. Cuatro veces el bloque de prueba.
 
 | Comparación | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
@@ -215,7 +215,7 @@ Pero el F1 de una clase con **86 ejemplos** es la cifra más ruidosa del informe
 nueve tramos del walk-forward una clase dio **0,000000** exacto. Así que esa lectura podía ser un
 hecho o podía ser lo que 86 casos dejan ver.
 
-**Tabla 8.** Cada modelo contra el azar, por clase, sobre las 7 311 filas agregadas.
+**Tabla C.5.** Cada modelo contra el azar, por clase, sobre las 7 311 filas agregadas.
 
 | Modelo | Clase | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
 |---|---|---|---|---|
@@ -248,9 +248,9 @@ bosque.
 
 La misma pregunta se le puede hacer a los modelos profundos. El informe afirma que **ninguno de los
 dos supera al azar de forma distinguible** — y eso se midió sobre 1 960 filas, con la potencia que
-la tabla 6 acaba de mostrar.
+la tabla C.12 acaba de mostrar.
 
-**Tabla 7.** Los tres modelos contra el azar, sobre las 7 311 filas agregadas.
+**Tabla C.6.** Los tres modelos contra el azar, sobre las 7 311 filas agregadas.
 
 | Modelo | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
 |---|---|---|---|
@@ -289,7 +289,7 @@ El panel del proyecto termina el **05/08/2026**. El 08/09 se descargaron las vel
 produjo desde entonces —**200 velas, 192 evaluables**— y se le pidieron al modelo **sin
 reentrenarlo**.
 
-**Tabla 12.** El bloque fresco: velas posteriores a la construcción del modelo.
+**Tabla C.7.** El bloque fresco: velas posteriores a la construcción del modelo.
 
 | | F1 macro | F1 máximo | F1 mínimo | Precisión direccional |
 |---|---|---|---|---|
@@ -301,7 +301,7 @@ bloque de prueba (+0,035021) y que la del agregado de nueve tramos (+0,051285). 
 **las dos clases**, y **duplica** la precisión direccional.
 
 **Y su intervalo incluye el cero:** [−0,043087 , +0,194589]. Con 192 velas y nueve ejemplos de cada
-clase extrema no podía ser de otra manera — la curva de potencia de la Figura 4 dice que ni siquiera
+clase extrema no podía ser de otra manera — la curva de potencia de la Figura C.1 dice que ni siquiera
 con mil velas se llega al 50 % de probabilidad de detectarlo.
 
 > **Lo que esta prueba podía hacer y lo que no.** No podía confirmar detección: no tiene tamaño para
@@ -363,7 +363,7 @@ ejemplos etiquetados.
 Se probó. Seis tandas apiladas, **54 990 filas de entrenamiento en vez de 9 165**, prediciendo sobre
 LTC como siempre.
 
-**Tabla 4.** Entrenar solo con LTC contra entrenar con los seis, sobre validación.
+**Tabla C.8.** Entrenar solo con LTC contra entrenar con los seis, sobre validación.
 
 | | F1 macro | F1 máximo | F1 mínimo | Ventaja sobre el azar |
 |---|---|---|---|---|
@@ -398,7 +398,7 @@ Que Chronos-Bolt detecte mínimos y el iTransformer detecte máximos **no lo dij
 salió de medir. Si es real, combinarlos debería detectar las dos cosas. Es la única hipótesis nueva
 que los datos propusieron, y se probó de tres formas.
 
-**Tabla 9.** Las combinaciones, sobre las 7 311 filas agregadas.
+**Tabla C.9.** Las combinaciones, sobre las 7 311 filas agregadas.
 
 | | F1 macro | F1 de las dos clases extremas |
 |---|---|---|
@@ -432,7 +432,7 @@ seguía en pie: un extremo que gana por 0,05 % es menos fiable que uno que gana 
 correcta de usar eso no es tirar la fila, es **decirle al modelo cuánto confiar en ella**. Es el
 arreglo 1 sin su defecto.
 
-**Tabla 10.** Los dos últimos, sobre las 7 311 filas agregadas.
+**Tabla C.10.** Los dos últimos, sobre las 7 311 filas agregadas.
 
 | | F1 macro | Contra el bosque | ¿Excluye el cero? |
 |---|---|---|---|
@@ -444,7 +444,7 @@ arreglo 1 sin su defecto.
 
 ### El balance de los siete intentos
 
-**Tabla 11.** Todo lo que se probó, y en qué eje.
+**Tabla C.11.** Todo lo que se probó, y en qué eje.
 
 | # | Qué se cambió | Eje | Resultado |
 |---|---|---|---|
@@ -486,14 +486,14 @@ ruido.** Protege perfectamente de elegir mirando el resultado —que es el riesg
 no poder distinguir un efecto pequeño de la nada.
 
 Y ahora se puede poner número a ese precio, midiéndolo en vez de afirmarlo. Tomando submuestras de
-tamaño *n* de las predicciones agregadas y contando en cuántas el intervalo excluye el cero (**Figura 4**):
+tamaño *n* de las predicciones agregadas y contando en cuántas el intervalo excluye el cero (**Figura C.1**):
 
 ![Curva de potencia](../../evidencias/informe-f4-curva-potencia.png)
 
-**Figura 4.** Cuánta muestra hacía falta para ver el efecto que hay. El bloque que se usó cae
+**Figura C.1.** Cuánta muestra hacía falta para ver el efecto que hay. El bloque que se usó cae
 exactamente sobre el 80 %. Fuente: `docs/evidencias/informe-f4-curva-potencia.png`.
 
-**Tabla 6.** Curva de potencia: probabilidad de detectar el efecto, según el tamaño del bloque.
+**Tabla C.12.** Curva de potencia: probabilidad de detectar el efecto, según el tamaño del bloque.
 
 | Velas en el bloque | Probabilidad de detectarlo |
 |---|---|
