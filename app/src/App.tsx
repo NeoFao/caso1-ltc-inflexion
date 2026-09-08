@@ -97,16 +97,27 @@ export default function App() {
     // hasta ese instante. Grafico.tsx ya distingue las dos cosas sin cambios: sin
     // etiqueta no hay circulo (no hay giro confirmado que marcar), pero la flecha
     // de la prediccion se dibuja igual.
+    //
+    // El orden de este encadenado importa y ya se equivocó una vez (#144). El
+    // selector de modelo solo se dibuja en Historico, pero `modeloElegido` es
+    // estado del componente y sobrevive al cambio de modo: si se preguntaba por
+    // el antes que por el modo, el camino Historico -> Fundacional -> Tiempo
+    // real servia el precalculado del fundacional, con su fecha vieja, bajo el
+    // aviso de que los datos son de hoy. Y sin forma de volver, porque en Tiempo
+    // real el selector no esta.
+    //
+    // Cada modo decide primero de donde saca el dato; el modelo elegido solo
+    // interviene donde la interfaz deja elegirlo.
     const peticion =
       modo === "sintetico"
         ? obtenerSintetico(300)
-        : modeloElegido === "fundacional"
-          ? obtenerHistoricoFundacional().then((datos) => ({
-              datos,
-              origen: "precalculado" as Origen,
-            }))
-          : modo === "tiempo-real"
-            ? obtenerHistorico("LTC")
+        : modo === "tiempo-real"
+          ? obtenerHistorico("LTC")
+          : modeloElegido === "fundacional"
+            ? obtenerHistoricoFundacional().then((datos) => ({
+                datos,
+                origen: "precalculado" as Origen,
+              }))
             : obtenerHistorico(activo, desde, hasta);
     peticion
       .then((r) => {
