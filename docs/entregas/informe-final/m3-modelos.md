@@ -118,8 +118,13 @@ filas, porque los dos modelos aciertan y fallan sobre las mismas velas.
 
 **Lo que esto dice, en orden de incomodidad:**
 
-- Ninguno de los dos modelos profundos supera al `baseline_aleatorio` de forma distinguible.
-  Le ganan en la media y el intervalo incluye el cero.
+- Sobre **este bloque**, ninguno de los dos modelos profundos supera al `baseline_aleatorio` de
+  forma distinguible: le ganan en la media y el intervalo incluye el cero. **Esa lectura cambió al
+  medir con más potencia**, y hay que decirlo aquí para que la tabla no se lea sola: sobre las 7 311
+  filas agregadas de los nueve tramos, **Chronos-Bolt sí supera al azar** —+0,027769, intervalo
+  [0,011976 , 0,045189], que excluye el cero— mientras que el **iTransformer sigue sin superarlo**
+  —+0,006386, intervalo [−0,008267 , 0,019878]— **ni con cuatro veces más observaciones**. Lo que
+  era «ninguno de los dos» resultó ser uno de cada.
 - **El iTransformer queda por debajo del bosque en las cinco semillas** — 0,345357 de media contra
   0,380975 del bosque.
   El intervalo pareado de *esta* corrida excluye el cero, pero **ese intervalo no se reproduce**:
@@ -242,11 +247,14 @@ avanzado se reporta como valor puntual.
 
 ---
 
-## 7. Sobre el bloque de prueba: los dos modelos fallan en clases opuestas
+## 7. Por clase: lo que el bloque de prueba sugirió y lo que la potencia confirmó
 
-Esto no aparece al mirar el F1 macro, y es lo más preciso que se puede decir del resultado final.
+Aquí hay dos mediciones y **la segunda corrige a la primera**. Van juntas porque la diferencia entre
+ellas es el hallazgo, no un detalle de método.
 
-**Tabla.** F1 por clase extrema sobre el bloque de prueba, contra el piso del azar.
+### Lo que se vio en el bloque de prueba
+
+**Tabla 7.1.** F1 por clase extrema sobre el bloque de prueba, contra el piso del azar.
 
 | Modelo | F1 Máximo | F1 Mínimo |
 |---|---|---|
@@ -255,35 +263,45 @@ Esto no aparece al mirar el F1 macro, y es lo más preciso que se puede decir de
 | `chronos_bolt` | 0,062992 | 0,070707 |
 | `itransformer` | **0,116071** | 0,032432 |
 
-Dos lecturas que conviene no separar:
+Leído solo, dice que **ningún modelo supera al azar en las dos clases** y que el bosque queda por
+debajo del azar en Máximo. Con 86 ejemplos por clase, esa lectura era la más severa posible del
+resultado.
 
-**Ningún modelo supera al azar en las dos clases extremas.** El bosque le gana holgadamente en
-Mínimo y queda **por debajo del azar** en Máximo; el fundacional queda por debajo en Máximo; y el
-avanzado queda por debajo en Mínimo. Es la forma más exacta del resultado negativo, y más severa que
-mirar solo el F1 macro: no es que el sistema detecte poco, es que **ningún modelo detecta las dos
-cosas que hay que detectar**.
+### Lo que dice la agregación de los nueve tramos
 
-**Y el único que supera al azar en Máximo es el avanzado**, que es el que pierde en F1 macro. La
-clase donde el mejor modelo falla es justamente donde el modelo que el enunciado pedía no falla.
-Decirlo importa en las dos direcciones: es un punto a favor del profundo que el F1 macro esconde, y
-es la razón por la que promediar las dos clases en una sola métrica puede hacer parecer que un
-modelo detecta cuando lo que hace es compensar.
+Sobre **7 311 filas**, con intervalo pareado en cada celda:
 
-No se saca de aquí ninguna configuración nueva ni se propone combinarlos: la sección 7 del protocolo
-lo prohíbe y esto se reporta como lo que es, una lectura de la única corrida.
+**Tabla 7.2.** Diferencia contra el azar por clase, y si el intervalo excluye el cero.
 
-**Y hay que decir cuánto pesa esa advertencia, porque está medida.** El walk-forward de los nueve
-tramos comprobó, sobre el bosque, que la asimetría entre las dos clases extremas **no es estable**:
-el F1 de mínimos supera al de máximos en **5 de 9** tramos, que es lo que daría una moneda. En **dos**
-de los nueve, una de las dos clases dio **0,000000** exacto — con menos de cien ejemplos por clase, la
-métrica por clase puede colapsar entera.
+| Modelo | Máximo | ¿Excluye el cero? | Mínimo | ¿Excluye el cero? |
+|---|---|---|---|---|
+| Bosque | +0,043611 | **sí** | +0,048673 | **sí** |
+| Chronos-Bolt | +0,025181 | no | +0,045992 | **sí** |
+| iTransformer | +0,034007 | **sí** | +0,003412 | no |
 
-Los modelos profundos **no se midieron por clase en los nueve tramos**, así que no hay forma de saber
-si el patrón de esta tabla se repetiría. Lo que dice esta sección es qué pasó **en el bloque de
-prueba**, que es la única estimación limpia que tenemos y también un solo bloque. Leerlo como una
-propiedad de los modelos —«el avanzado detecta máximos y el bosque mínimos»— sería exactamente el
-salto que la corrección de la sección de conclusiones tuvo que deshacer: de una diferencia medida a
-una explicación que suena bien.
+**El bosque sí supera al azar en las dos clases.** Lo que parecía el resultado más severo del informe
+—que ninguno detectara las dos— era un **artefacto de tener 86 ejemplos por clase**, no un hecho
+sobre los modelos. Con cuatro veces más observaciones, la clase Máximo del bosque pasa de estar por
+debajo del azar a superarlo con intervalo que excluye el cero.
+
+**Lo que sí sobrevive, y ahora con intervalo:** los dos modelos profundos detectan **clases
+opuestas**. El iTransformer supera al azar en Máximo y no en Mínimo; Chronos-Bolt, al revés. No es la
+lectura de un bloque: se sostiene con potencia.
+
+### Por qué esto importa más allá de la tabla
+
+Es la segunda vez en este informe que una lectura por clase sobre un solo bloque no aguanta al
+volver a medirla —la primera fue la asimetría picos/valles, **5 de 9** tramos— y las dos veces el
+tamaño de la clase rara fue la causa. En **dos** de los nueve tramos una de las dos clases dio
+**0,000000** exacto: con menos de cien ejemplos, la métrica por clase puede colapsar entera.
+
+**La lección es del método y es reutilizable:** una métrica por clase sobre 86 ejemplos no distingue
+un modelo que no detecta de uno que no tuvo con qué demostrarlo. Y como la regla de decisión del
+proyecto miraba el F1 macro, no habría atrapado ninguna de las dos cosas — ni el falso negativo por
+clase, ni que un modelo compense una clase con la otra.
+
+No se saca de aquí ninguna configuración nueva ni se propone combinar modelos: la sección 7 del
+protocolo lo prohíbe, y la cifra oficial sigue siendo la del bloque de prueba.
 
 ---
 
@@ -296,8 +314,10 @@ Las tres lecturas posibles ya están escritas en la sección 6 del protocolo, **
 resultado**, y el informe reporta la primera y única cifra que salga en los tres casos. No hay una
 cuarta rama en la que se busque otra configuración.
 
-Dicho sin adornos: sobre validación **ninguno de los dos modelos de M3 supera al azar de forma
-distinguible**, y el avanzado queda por debajo del bosque clásico en las cinco semillas.
+Dicho sin adornos: **sobre validación** ninguno de los dos modelos de M3 supera al azar de forma
+distinguible, y el avanzado queda por debajo del bosque clásico en las cinco semillas. Con la
+potencia de los nueve tramos esa primera mitad se parte —Chronos-Bolt sí lo supera, el iTransformer
+no— y la segunda se refuerza: por debajo del bosque en **9 de 9** tramos.
 
 **La expectativa se escribió antes y se cumplió.** Aquí decía que esperar que el bloque de prueba
 mejorara lo de validación sería esperar que datos no vistos favorezcan a un modelo más que los datos
