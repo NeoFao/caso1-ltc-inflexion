@@ -1,0 +1,173 @@
+{
+  "que_es": "Investigacion POSTERIOR a la corrida unica: por que el bloque de prueba no alcanzo, y dos arreglos probados. Medido sobre entrenamiento y validacion; la reserva no se toca y la cifra reportada no cambia.",
+  "margen_de_los_extremos": {
+    "entrenamiento": {
+      "maximos": {
+        "n": 420,
+        "media": 0.6371732547021216
+      },
+      "minimos": {
+        "n": 431,
+        "media": 0.7498033875895596
+      }
+    },
+    "validacion": {
+      "maximos": {
+        "n": 99,
+        "media": 0.6129112867657439
+      },
+      "minimos": {
+        "n": 94,
+        "media": 0.8334281124607923
+      }
+    },
+    "prueba": {
+      "maximos": {
+        "n": 86,
+        "media": 0.45000224753611
+      },
+      "minimos": {
+        "n": 86,
+        "media": 0.482187247129869
+      }
+    }
+  },
+  "arreglo_1_umbral_de_margen": {
+    "0.0": {
+      "bosque": {
+        "n": 1959.0,
+        "f1_macro": 0.390497720487045,
+        "precision_direccional": 0.10362694300518134,
+        "exactitud": 0.8580908626850434,
+        "f1_maximo": 0.10810810810810811,
+        "f1_minimo": 0.14035087719298245,
+        "f1_continuidad": 0.9230341761600445
+      },
+      "azar": {
+        "n": 1959.0,
+        "f1_macro": 0.3367840908780229,
+        "precision_direccional": 0.05181347150259067,
+        "exactitud": 0.8223583460949464,
+        "f1_maximo": 0.05181347150259067,
+        "f1_minimo": 0.053763440860215055,
+        "f1_continuidad": 0.904775360271263
+      },
+      "ventaja": 0.053713629609022095
+    },
+    "0.1": {
+      "bosque": {
+        "n": 1959.0,
+        "f1_macro": 0.36932741339565656,
+        "precision_direccional": 0.0658682634730539,
+        "exactitud": 0.8825931597753957,
+        "f1_maximo": 0.05042016806722689,
+        "f1_minimo": 0.12030075187969924,
+        "f1_continuidad": 0.9372613202400436
+      },
+      "azar": {
+        "n": 1959.0,
+        "f1_macro": 0.33538474477625785,
+        "precision_direccional": 0.041916167664670656,
+        "exactitud": 0.8468606431852986,
+        "f1_maximo": 0.03614457831325301,
+        "f1_minimo": 0.050955414012738856,
+        "f1_continuidad": 0.9190542420027816
+      },
+      "ventaja": 0.03394266861939871
+    },
+    "0.2": {
+      "bosque": {
+        "n": 1959.0,
+        "f1_macro": 0.3764145550076072,
+        "precision_direccional": 0.06802721088435375,
+        "exactitud": 0.9030117406840225,
+        "f1_maximo": 0.0425531914893617,
+        "f1_minimo": 0.13793103448275862,
+        "f1_continuidad": 0.9487594390507011
+      },
+      "azar": {
+        "n": 1959.0,
+        "f1_macro": 0.3382459622773872,
+        "precision_direccional": 0.04081632653061224,
+        "exactitud": 0.8657478305257784,
+        "f1_maximo": 0.041666666666666664,
+        "f1_minimo": 0.043478260869565216,
+        "f1_continuidad": 0.9295929592959296
+      },
+      "ventaja": 0.03816859273022
+    },
+    "0.3": {
+      "bosque": {
+        "n": 1959.0,
+        "f1_macro": 0.36626743751576024,
+        "precision_direccional": 0.056451612903225805,
+        "exactitud": 0.9132210311383359,
+        "f1_maximo": 0.0,
+        "f1_minimo": 0.14432989690721648,
+        "f1_continuidad": 0.9544724156400642
+      },
+      "azar": {
+        "n": 1959.0,
+        "f1_macro": 0.33525102127682377,
+        "precision_direccional": 0.03225806451612903,
+        "exactitud": 0.8836140888208269,
+        "f1_maximo": 0.03278688524590164,
+        "f1_minimo": 0.03361344537815126,
+        "f1_continuidad": 0.9393527332064183
+      },
+      "ventaja": 0.031016416238936473
+    },
+    "0.5": {
+      "bosque": {
+        "n": 1959.0,
+        "f1_macro": 0.3623517511667445,
+        "precision_direccional": 0.047058823529411764,
+        "exactitud": 0.9382337927514037,
+        "f1_maximo": 0.034482758620689655,
+        "f1_minimo": 0.08450704225352113,
+        "f1_continuidad": 0.9680654526260227
+      },
+      "azar": {
+        "n": 1959.0,
+        "f1_macro": 0.3337291167096201,
+        "precision_direccional": 0.023529411764705882,
+        "exactitud": 0.9137314956610516,
+        "f1_maximo": 0.023809523809523808,
+        "f1_minimo": 0.021739130434782608,
+        "f1_continuidad": 0.9556386958845537
+      },
+      "ventaja": 0.02862263445712443
+    },
+    "0.8": {
+      "bosque": {
+        "n": 1959.0,
+        "f1_macro": 0.3583901113220895,
+        "precision_direccional": 0.034482758620689655,
+        "exactitud": 0.9606942317508933,
+        "f1_maximo": 0.0,
+        "f1_minimo": 0.09523809523809523,
+        "f1_continuidad": 0.979932238728173
+      },
+      "azar": {
+        "n": 1959.0,
+        "f1_macro": 0.3467876535249112,
+        "precision_direccional": 0.034482758620689655,
+        "exactitud": 0.9433384379785605,
+        "f1_maximo": 0.037037037037037035,
+        "f1_minimo": 0.03225806451612903,
+        "f1_continuidad": 0.9710678590215676
+      },
+      "ventaja": 0.011602457797178278
+    }
+  },
+  "arreglo_2_dos_clases": {
+    "bosque": {
+      "f1_macro": 0.47853951121566424
+    },
+    "azar": {
+      "f1_macro": 0.5077966511118848
+    },
+    "ventaja": -0.02925713989622053
+  },
+  "conclusion": "Los dos arreglos empeoran. El cuello de botella no es el criterio ni el modelo: es la cantidad de ejemplos de la clase rara. Lo que si resolvio la pregunta fue medir muchas veces en vez de una (ver m0-walk-forward-4h-w7-h1.json)."
+}
