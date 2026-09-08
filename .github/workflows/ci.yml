@@ -31,3 +31,31 @@ jobs:
 
       - name: Pruebas
         run: uv run pytest -q
+
+  # Las pruebas de extremo a extremo de la aplicacion existian desde el #90 pero
+  # no corrian en ninguna parte automaticamente: solo cuando alguien se acordaba
+  # de lanzarlas. El #144 -- Tiempo real mostrando el fundacional precalculado --
+  # llego hasta la revision previa a la entrega justamente asi.
+  #
+  # No necesitan backend ni red: playwright.config.ts construye la app y la sirve
+  # con `vite preview`, y los datos salen del respaldo estatico versionado en
+  # app/public/datos/. Un fallo aqui significa siempre "alguien rompio algo".
+  aplicacion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci --prefix app
+
+      - name: Instalar el navegador
+        run: npx --prefix app playwright install --with-deps chromium
+
+      - name: Pruebas de extremo a extremo
+        run: npm run test:e2e --prefix app
