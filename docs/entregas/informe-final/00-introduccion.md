@@ -7,7 +7,7 @@
 
 ## Resumen ejecutivo
 
-**El sistema detecta puntos de inflexión mejor que el azar, y está demostrado.** Sobre **7 311
+**El sistema detecta puntos de inflexión mejor que el azar.** Está demostrado sobre **7 311
 observaciones fuera de muestra**, repartidas en nueve períodos consecutivos que cubren desde una
 caída del 35 % hasta una subida del 89 %:
 
@@ -19,7 +19,7 @@ caída del 35 % hasta una subida del 89 %:
 
 Las tres condiciones que el equipo fijó **en agosto**, antes de medir nada, se cumplen.
 
-**Y hay una tercera medición que no depende de la disciplina de nadie.** El 08/09 se descargaron
+**Y hay una segunda medición que no depende de la disciplina de nadie.** El 08/09 se descargaron
 las **200 velas** que el mercado produjo *después* de que el modelo estuviera construido — datos que
 no existían cuando se eligieron las características ni los parámetros. Sobre ellas el modelo saca
 **+0,066181** de ventaja sobre el azar: **la mayor de todo el informe**. Su intervalo incluye el
@@ -30,7 +30,11 @@ medido **una sola vez** el 07/09— cumple **dos de las tres**: la ventaja es po
 intervalo incluye el cero. **Ese es el resultado que este informe reporta como oficial**, sin
 suavizarlo.
 
-**Las dos cosas son ciertas y la explicación está medida.** El bloque de prueba tiene 1 960 velas, y
+**Son tres mediciones distintas y conviene no confundirlas:** la de arriba —nueve períodos, la más
+potente—, la del bloque fresco —la más limpia, y la más pequeña— y la del bloque de prueba —**la
+única oficial**, y la que el informe reporta—.
+
+**Las tres apuntan al mismo lado y la explicación está medida.** El bloque de prueba tiene 1 960 velas, y
 con ese tamaño la detección de un efecto como este sale bien **el 80 % de las veces**. Nos tocó el
 20 % restante. Con 3 000 velas habría salido siempre (sección 6 y conclusiones, Figura 4).
 
