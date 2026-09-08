@@ -108,7 +108,7 @@ diferencia de precio pequeña, y por eso intrínsecamente menos predecibles.
 > exactamente **0,0000**. Con menos de cien ejemplos por clase, la métrica por clase puede colapsar
 > a cero por completo. Es la forma más clara del cuello de botella.
 
-### Los tres arreglos que probamos, y por qué fallaron
+### Los cuatro arreglos que probamos
 
 **Exigir un margen mínimo** para llamar extremo a una vela — si un extremo que gana por 0,05 % es
 indistinguible del ruido, etiquetarlo igual que uno que gana por 3 % le pide al modelo aprender algo
@@ -144,6 +144,45 @@ la clase rara. Filtrar reduce los máximos de validación de 99 a 27.
 Visto con lo del recuadro de arriba, el fracaso tiene más sentido: los arreglos atacaban una
 asimetría que **no es estable**. Se diseñaron a partir de una lectura del bloque de prueba que las
 nueve mediciones no confirman.
+
+### El cuarto arreglo: la única vía que sí mejora, y por qué aun así no se afirma
+
+Si el cuello de botella es la cantidad de ejemplos, la vía directa es conseguir más. Los puntos de
+inflexión de BTC, ETH, SOL, XRP y ADA son **el mismo fenómeno** que los de LTC: si se construyen las
+mismas familias de características centradas en cada activo, cada uno aporta su propia tanda de
+ejemplos etiquetados.
+
+Se probó. Seis tandas apiladas, **54 990 filas de entrenamiento en vez de 9 165**, prediciendo sobre
+LTC como siempre.
+
+**Tabla 4.** Entrenar solo con LTC contra entrenar con los seis, sobre validación.
+
+| | F1 macro | F1 máximo | F1 mínimo | Ventaja sobre el azar |
+|---|---|---|---|---|
+| Solo LTC | 0,3815 | 0,1158 | 0,1350 | +0,0447 |
+| **Los seis apilados** | **0,4047** | **0,1455** | **0,1667** | **+0,0679** |
+
+**Mejora las dos clases extremas**, que era exactamente lo que fallaba. Es el único de los cuatro
+arreglos que mejora algo.
+
+> ⚠️ **Y aun así no se afirma, por el criterio del propio proyecto.** Repetido sobre los nueve
+> tramos del walk-forward, el apilado mejora en **6 de 9**, con una mejora media de **+0,010678** y
+> un rango que va de **−0,022268** a **+0,036688**.
+>
+> La tercera condición de la [D16](../../DECISIONES.md) pide que **el signo no cambie**. Aquí cambia
+> en tres de nueve. **Seis de nueve es lo que el azar produce con facilidad.**
+>
+> Reportar solo el resultado de la partición única —que es claro y favorable— sería exactamente el
+> error que este informe dedica seis páginas a describir. Se reporta con las dos cifras: la que
+> favorece y la que no.
+
+Lo que sí se puede decir: **es la vía más prometedora de las cuatro**, tiene un mecanismo claro, y su
+efecto medio sobre los nueve tramos es positivo — la ventaja sobre el azar sube de **+0,049712** a
+**+0,060391**. Es la recomendación principal para quien continúe.
+
+Y notar una decisión que hubo que tomar: **la correlación cruzada queda fuera del juego común**. Sus
+columnas nombran a los otros activos, así que «correlación con BTC» significa algo distinto según de
+quién sea la tanda. Apilarlas mezclaría cosas que no son la misma.
 
 ### Lo que sí resolvió la pregunta: medir muchas veces en vez de una
 
