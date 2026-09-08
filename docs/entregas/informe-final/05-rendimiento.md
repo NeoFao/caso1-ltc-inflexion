@@ -122,6 +122,16 @@ no se afirma.
 **Medido el 07/09/2026, una sola vez**, sobre el commit `1426bce` con el árbol limpio. El pestillo
 lo registra con `n_corridas: 1`, seis modelos, cinco semillas, en una sola sesión.
 
+La **Figura 1** muestra qué hace el sistema sobre esos datos: los giros reales van como marcadores
+rellenos y los que el modelo predijo como marcadores huecos encima. Se ve dónde acierta —los
+extremos grandes del 10 de octubre— y dónde predice de más, en racimos alrededor de un solo giro
+real.
+
+![Giros reales y detectados sobre el bloque de prueba](../../evidencias/informe-f1-prueba-giros.png)
+
+**Figura 1.** Bloque de prueba: giros reales y detectados por el modelo, en las primeras 200 velas.
+Fuente: `docs/evidencias/informe-f1-prueba-giros.png`.
+
 **Tabla 5.** Las 1 960 velas del bloque de prueba, semilla de referencia.
 
 | Modelo | F1 macro | Precisión direccional | F1 máximo | F1 mínimo |
@@ -134,6 +144,14 @@ lo registra con `n_corridas: 1`, seis modelos, cinco semillas, en una sola sesi�
 | Baseline trivial | 0,318036 | 0,000000 | 0,000000 | 0,000000 |
 
 El orden es **el mismo que en validación**: gana el bosque, y ningún modelo profundo lo supera.
+
+La **Figura 2** pone esa tabla en perspectiva: las barras invitan a leer un orden, y el rango entre
+las cinco semillas —dibujado encima— muestra cuánto de ese orden aguanta. La línea roja es el azar.
+
+![Los cinco modelos con su rango entre semillas](../../evidencias/informe-f3-modelos-prueba.png)
+
+**Figura 2.** Los cinco modelos sobre el bloque de prueba, con su rango entre cinco semillas y el
+piso del azar. Fuente: `docs/evidencias/informe-f3-modelos-prueba.png`.
 
 ### La regla de decisión, aplicada
 
