@@ -1,0 +1,39 @@
+{
+  "que_es": "Bloque de evaluacion con velas descargadas DESPUES de construir el modelo: no existian cuando se eligieron caracteristicas, w, h ni granularidad. Es la unica evidencia que no depende de la disciplina de nadie.",
+  "no_reemplaza_la_reserva": "El bloque de prueba se midio una sola vez el 07/09 y su cifra es la que el informe reporta. Este bloque es ADICIONAL y se publica salga como salga.",
+  "limitacion": "Son pocas velas y unos nueve ejemplos por clase extrema. La curva de potencia del proyecto dice que a ese tamano no cabe esperar que el intervalo excluya el cero aunque el efecto exista. Esto NO puede confirmar deteccion; si podria desmentirla.",
+  "el_modelo_no_se_reentrena": "Se entrena con el mismo bloque de entrenamiento de siempre y se le pide predecir las velas nuevas.",
+  "panel_viejo_termina": "2026-08-05 16:00:00+00:00",
+  "n_velas_nuevas": 200,
+  "n_evaluables": 192,
+  "maximos_reales": 9,
+  "minimos_reales": 8,
+  "metricas": {
+    "bosque": {
+      "n": 192.0,
+      "f1_macro": 0.39015151515151514,
+      "precision_direccional": 0.11764705882352941,
+      "exactitud": 0.8541666666666666,
+      "f1_maximo": 0.125,
+      "f1_minimo": 0.125,
+      "f1_continuidad": 0.9204545454545454
+    },
+    "azar": {
+      "n": 192.0,
+      "f1_macro": 0.32397075798383995,
+      "precision_direccional": 0.058823529411764705,
+      "exactitud": 0.7864583333333334,
+      "f1_maximo": 0.0,
+      "f1_minimo": 0.08695652173913043,
+      "f1_continuidad": 0.8849557522123894
+    }
+  },
+  "contra_el_azar": {
+    "diferencia": 0.06618075716767519,
+    "ic_inferior": -0.04308684514392379,
+    "ic_superior": 0.1945894419490201,
+    "excluye_el_cero": 0.0,
+    "fraccion_a_favor": 0.853,
+    "remuestras": 1000.0
+  }
+}

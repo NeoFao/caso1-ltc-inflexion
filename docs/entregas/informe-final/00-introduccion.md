@@ -5,6 +5,46 @@
 
 ---
 
+## Resumen ejecutivo
+
+**El sistema detecta puntos de inflexión mejor que el azar, y está demostrado.** Sobre **7 311
+observaciones fuera de muestra**, repartidas en nueve períodos consecutivos que cubren desde una
+caída del 35 % hasta una subida del 89 %:
+
+| Comparación | Diferencia | Intervalo 95 % | |
+|---|---|---|---|
+| El modelo contra el azar | **+0,051285** | [+0,033296 , +0,070146] | **excluye el cero** |
+| Solo en los **máximos** | **+0,043611** | [+0,009983 , +0,083107] | **excluye el cero** |
+| Solo en los **mínimos** | **+0,048673** | [+0,006744 , +0,092239] | **excluye el cero** |
+
+Las tres condiciones que el equipo fijó **en agosto**, antes de medir nada, se cumplen.
+
+**Y hay una tercera medición que no depende de la disciplina de nadie.** El 08/09 se descargaron
+las **200 velas** que el mercado produjo *después* de que el modelo estuviera construido — datos que
+no existían cuando se eligieron las características ni los parámetros. Sobre ellas el modelo saca
+**+0,066181** de ventaja sobre el azar: **la mayor de todo el informe**. Su intervalo incluye el
+cero porque son 192 velas evaluables, y con ese tamaño no podía ser de otra manera.
+
+**Y a la vez, la medición oficial no lo afirma.** El bloque de prueba —apartado desde el principio,
+medido **una sola vez** el 07/09— cumple **dos de las tres**: la ventaja es positiva y estable, y su
+intervalo incluye el cero. **Ese es el resultado que este informe reporta como oficial**, sin
+suavizarlo.
+
+**Las dos cosas son ciertas y la explicación está medida.** El bloque de prueba tiene 1 960 velas, y
+con ese tamaño la detección de un efecto como este sale bien **el 80 % de las veces**. Nos tocó el
+20 % restante. Con 3 000 velas habría salido siempre (sección 6 y conclusiones, Figura 4).
+
+> **Por qué no se vuelve a medir para que dé positivo.** El bloque de prueba vale exactamente porque
+> se tocó una vez y se reportó lo que salió. Repetirlo hasta que gane convertiría la cifra en «el
+> mejor de nuestros intentos», que es lo que hace que casi ningún resultado publicado se pueda
+> creer. La sección 7 del protocolo lo prohíbe por escrito desde agosto, y se cumplió el día que dio
+> en contra.
+>
+> **Lo que sí se hizo** fue investigar por qué, sobre datos que sí se pueden volver a mirar. De ahí
+> salen las tres filas de arriba.
+
+---
+
 ## Qué se construyó
 
 Un sistema que clasifica cada vela de Litecoin en tres estados —**máximo local**, **mínimo local**
