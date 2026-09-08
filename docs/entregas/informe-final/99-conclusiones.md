@@ -428,6 +428,40 @@ bosque.
 > reportado. Lo que esta tabla añade es **qué significa**: no que el modelo no detecte máximos, sino
 > que 86 ejemplos no alcanzan para verlo.
 
+### La prueba que no dependía de nuestra disciplina
+
+Todo lo anterior —el bloque de prueba, el walk-forward, la curva de potencia— depende de que el
+equipo se haya comportado: de que nadie mirara la reserva antes de tiempo, de que las
+características se eligieran sin espiar. Hay una forma de evidencia que **no depende de eso**:
+medir sobre datos que **no existían** cuando se tomaron las decisiones.
+
+El panel del proyecto termina el **05/08/2026**. El 08/09 se descargaron las velas que el mercado
+produjo desde entonces —**200 velas, 192 evaluables**— y se le pidieron al modelo **sin
+reentrenarlo**.
+
+**Tabla 12.** El bloque fresco: velas posteriores a la construcción del modelo.
+
+| | F1 macro | F1 máximo | F1 mínimo | Precisión direccional |
+|---|---|---|---|---|
+| **Bosque** | **0,390152** | **0,125000** | **0,125000** | **0,117647** |
+| Azar | 0,323971 | 0,000000 | 0,086957 | 0,058824 |
+
+**La diferencia es +0,066181**, la mayor de todas las que este informe reporta: mayor que la del
+bloque de prueba (+0,035021) y que la del agregado de nueve tramos (+0,051285). Le gana al azar en
+**las dos clases**, y **duplica** la precisión direccional.
+
+**Y su intervalo incluye el cero:** [−0,043087 , +0,194589]. Con 192 velas y nueve ejemplos de cada
+clase extrema no podía ser de otra manera — la curva de potencia de la Figura 4 dice que ni siquiera
+con mil velas se llega al 50 % de probabilidad de detectarlo.
+
+> **Lo que esta prueba podía hacer y lo que no.** No podía confirmar detección: no tiene tamaño para
+> eso, y se dijo **antes** de mirar el resultado. Lo que sí podía era **desmentirla** — si el modelo
+> hubiera salido claramente por debajo del azar sobre datos frescos, habría sido informativo y
+> habría que reportarlo.
+>
+> No la desmintió. Sobre datos que nadie pudo haber usado para ajustar nada, el modelo se comporta
+> **al menos tan bien como en todo lo demás**.
+
 ### Lo que se aprende de esto
 
 **El diseño de un solo bloque medido una vez es correcto contra el autoengaño y débil contra el
