@@ -1,0 +1,136 @@
+{
+  "que_es": "Quinto arreglo probado: combinar los tres modelos. La idea salio de medir que cada uno detecta una mitad distinta -- Chronos los minimos y el iTransformer los maximos-- asi que combinarlos deberia detectar las dos. Se probaron tres formas.",
+  "resultado": "Ninguna se establece. Las tres empeoran el F1 macro. La union de extremos es la mejor medida sobre las DOS clases extremas (0,109630 contra 0,091871 del bosque), pero su intervalo incluye el cero.",
+  "n_filas": 7311,
+  "metricas": {
+    "azar": {
+      "n": 7311.0,
+      "f1_macro": 0.33028603936398443,
+      "precision_direccional": 0.0476878612716763,
+      "exactitud": 0.8146628368212283,
+      "f1_maximo": 0.03504043126684636,
+      "f1_minimo": 0.056417489421720736,
+      "f1_continuidad": 0.8994001974033863
+    },
+    "bosque (el mejor)": {
+      "n": 7311.0,
+      "f1_macro": 0.36898529521692175,
+      "precision_direccional": 0.07658959537572255,
+      "exactitud": 0.8582957187799206,
+      "f1_maximo": 0.07865168539325842,
+      "f1_minimo": 0.10509031198686371,
+      "f1_continuidad": 0.9232138882706432
+    },
+    "chronos": {
+      "n": 7311.0,
+      "f1_macro": 0.35805482892212953,
+      "precision_direccional": 0.07658959537572255,
+      "exactitud": 0.838052250034195,
+      "f1_maximo": 0.060221870047543584,
+      "f1_minimo": 0.10240963855421686,
+      "f1_continuidad": 0.9115329781646282
+    },
+    "itransformer": {
+      "n": 7311.0,
+      "f1_macro": 0.33727391165358767,
+      "precision_direccional": 0.0838150289017341,
+      "exactitud": 0.7814252496238545,
+      "f1_maximo": 0.07211538461538461,
+      "f1_minimo": 0.059893048128342244,
+      "f1_continuidad": 0.8798133022170361
+    },
+    "1. voto por mayoria": {
+      "n": 7311.0,
+      "f1_macro": 0.33449999104661443,
+      "precision_direccional": 0.01878612716763006,
+      "exactitud": 0.8901655040350157,
+      "f1_maximo": 0.020202020202020204,
+      "f1_minimo": 0.041379310344827586,
+      "f1_continuidad": 0.9419186425929954
+    },
+    "2. union de extremos": {
+      "n": 7311.0,
+      "f1_macro": 0.3464690925141602,
+      "precision_direccional": 0.21242774566473988,
+      "exactitud": 0.6895089591027219,
+      "f1_maximo": 0.10526315789473684,
+      "f1_minimo": 0.11868131868131868,
+      "f1_continuidad": 0.8154628009664251
+    },
+    "3. especialistas": {
+      "n": 7311.0,
+      "f1_macro": 0.35634762264328873,
+      "precision_direccional": 0.08815028901734104,
+      "exactitud": 0.8180823416769252,
+      "f1_maximo": 0.07211538461538461,
+      "f1_minimo": 0.09627329192546584,
+      "f1_continuidad": 0.9006541913890157
+    }
+  },
+  "f1_de_los_extremos": {
+    "azar": 0.045728960344283545,
+    "bosque (el mejor)": 0.09187099869006107,
+    "chronos": 0.08131575430088023,
+    "itransformer": 0.06600421637186343,
+    "1. voto por mayoria": 0.030790665273423896,
+    "2. union de extremos": 0.11197223828802776,
+    "3. especialistas": 0.08419433827042522
+  },
+  "contra_el_bosque": {
+    "1. voto por mayoria": {
+      "f1_macro": {
+        "diferencia": -0.03448530417030732,
+        "ic_inferior": -0.050538522837431384,
+        "ic_superior": -0.019792276776507335,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.0,
+        "remuestras": 1000.0
+      },
+      "solo_extremos": {
+        "diferencia": -0.06108033341663718,
+        "ic_inferior": -0.08486117847074537,
+        "ic_superior": -0.03960302420554995,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.0,
+        "remuestras": 1000.0
+      }
+    },
+    "2. union de extremos": {
+      "f1_macro": {
+        "diferencia": -0.022516202702761556,
+        "ic_inferior": -0.037039844015114266,
+        "ic_superior": -0.00767417321836258,
+        "excluye_el_cero": 1.0,
+        "fraccion_a_favor": 0.001,
+        "remuestras": 1000.0
+      },
+      "solo_extremos": {
+        "diferencia": 0.020101239597966683,
+        "ic_inferior": -4.699792113842854e-05,
+        "ic_superior": 0.041370166495189695,
+        "excluye_el_cero": 0.0,
+        "fraccion_a_favor": 0.974,
+        "remuestras": 1000.0
+      }
+    },
+    "3. especialistas": {
+      "f1_macro": {
+        "diferencia": -0.012637672573633019,
+        "ic_inferior": -0.032811657425060106,
+        "ic_superior": 0.008008638636698368,
+        "excluye_el_cero": 0.0,
+        "fraccion_a_favor": 0.129,
+        "remuestras": 1000.0
+      },
+      "solo_extremos": {
+        "diferencia": -0.007676660419635856,
+        "ic_inferior": -0.036834294007454436,
+        "ic_superior": 0.02217108419650318,
+        "excluye_el_cero": 0.0,
+        "fraccion_a_favor": 0.326,
+        "remuestras": 1000.0
+      }
+    }
+  },
+  "lo_que_si_aporta": "El F1 macro promedia las TRES clases, y Continuidad es el 90,7 % de las velas y no es lo que el enunciado pide detectar. La union de extremos se ve mal en macro y bien en las extremas: la eleccion de metrica cambia que modelo parece mejor. Ninguna de las dos lecturas establece la mejora."
+}

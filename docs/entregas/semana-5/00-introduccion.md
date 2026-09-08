@@ -33,18 +33,31 @@ Esta es la parte incómoda del informe, y va al principio a propósito.
 - El circuito completo **funciona y no tiene fuga**. Las cuatro pruebas de detección pasan, incluida
   la que alimenta el modelo vela a vela y comprueba que predice **exactamente lo mismo** que
   procesando el bloque entero: 500 velas, **cero discrepancias** (sección 4).
-- El bosque **detecta las dos clases extremas mejor que el azar** sobre validación, con el criterio
-  fijado antes de medir: F1 máximo 0,108108 contra 0,051813 del azar, F1 mínimo 0,140351 contra
-  0,053763 (sección 5).
-- **Ningún modelo profundo mejora al bosque clásico.** Ni el fundacional ni el avanzado.
+- **El bosque detecta las dos clases extremas mejor que el azar**, con el criterio fijado antes de
+  medir. Sobre validación: F1 máximo 0,108108 contra 0,051813 del azar, F1 mínimo 0,140351 contra
+  0,053763 (sección 5). Y sobre 7 311 mediciones independientes, con intervalos que **excluyen el
+  cero en las dos clases** (conclusiones).
+- **El modelo fundacional también supera al azar** de forma distinguible, cuando se lo mide con
+  muestra suficiente.
+- **Ningún modelo profundo mejora al bosque clásico.** Ni el fundacional ni el avanzado, y el
+  avanzado queda por debajo en los **nueve** períodos medidos.
 
 **No se puede afirmar:**
 
 - Que el sistema sirva para operar. La precisión direccional del mejor modelo sobre validación es
   **0,103627**. Es mejor que el azar y sigue siendo baja.
+- **Que detecte mejor que el azar sobre el bloque de prueba.** Es la única medición limpia del
+  informe, se hizo una sola vez, y cumple **dos de las tres** condiciones que el equipo fijó de
+  antemano (sección 5). Que con más datos la misma ventaja sí se distinga **no cambia esa cifra**:
+  la explica.
 - Que los cinco activos de apoyo aporten de forma distinguible (secciones 2 y 6).
-- Que el modelo avanzado quede por debajo del bosque *de forma distinguible por intervalo* — el
-  intervalo que decía eso **no se reproduce entre corridas** (D25, sección 6).
+- Que el **iTransformer** supere al azar. No lo hace ni con cuatro veces más mediciones — ahí no
+  falta muestra.
+
+> **La tensión entre las dos listas es real y no se esconde.** El resultado que se reporta como
+> oficial es el del bloque de prueba, y es el más conservador. Todo lo demás se midió **después**,
+> sobre datos que sí se pueden volver a mirar, y sirve para explicar por qué ese resultado salió
+> como salió — no para reemplazarlo. Las conclusiones lo desarrollan.
 
 ---
 
