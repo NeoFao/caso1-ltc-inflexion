@@ -486,12 +486,7 @@ ruido.** Protege perfectamente de elegir mirando el resultado —que es el riesg
 no poder distinguir un efecto pequeño de la nada.
 
 Y ahora se puede poner número a ese precio, midiéndolo en vez de afirmarlo. Tomando submuestras de
-tamaño *n* de las predicciones agregadas y contando en cuántas el intervalo excluye el cero (**Figura C.1**):
-
-![Curva de potencia](../../evidencias/informe-f4-curva-potencia.png)
-
-**Figura C.1.** Cuánta muestra hacía falta para ver el efecto que hay. El bloque que se usó cae
-exactamente sobre el 80 %. Fuente: `docs/evidencias/informe-f4-curva-potencia.png`.
+tamaño *n* de las predicciones agregadas y contando en cuántas el intervalo excluye el cero (ver la **Figura 6.1** de la sección 6):
 
 **Tabla C.12.** Curva de potencia: probabilidad de detectar el efecto, según el tamaño del bloque.
 
