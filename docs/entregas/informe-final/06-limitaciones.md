@@ -177,3 +177,37 @@ Las cuatro se encontraron **midiendo**, y tres de ellas **contradiciendo lo que 
 había afirmado antes**. Ese es el argumento de que la lista está completa hasta donde se pudo mirar:
 no es una lista de precauciones escritas al final, es lo que quedó después de que cada afirmación
 cómoda se cayera al comprobarla.
+
+---
+
+## Referencias
+
+Ansari, A. F., Stella, L., Turkmen, C., Zhang, X., Mercado, P., Shen, H., Shchur, O.,
+Rangapuram, S. S., Pineda Arango, S., Kapoor, S., Zschiegner, J., Maddix, D. C.,
+Wang, H., Mahoney, M. W., Torkkola, K., Wilson, A. G., Bohlke-Schneider, M., &
+Wang, Y. (2024). *Chronos: Learning the language of time series* (Preprint). arXiv.
+https://doi.org/10.48550/arXiv.2403.07815
+
+Breiman, L. (2001). Random forests. *Machine Learning, 45*(1), 5–32.
+https://doi.org/10.1023/A:1010933404324
+
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L.,
+& Polosukhin, I. (2017). *Attention is all you need* (Preprint). arXiv.
+https://doi.org/10.48550/arXiv.1706.03762
+
+Wang, P. (2024). *iTransformer* (Versión 0.8.1) [Software]. GitHub.
+https://github.com/lucidrains/iTransformer
+
+Zeng, A., Chen, M., Zhang, L., & Xu, Q. (2023). Are Transformers effective for time
+series forecasting? *Proceedings of the AAAI Conference on Artificial Intelligence,
+37*(9), 11121–11128. https://doi.org/10.1609/aaai.v37i9.26317
+
+> **Sobre esta lista.** Son las fuentes que el informe **usa**, no las que revisó: el marco
+> teórico completo está en los avances 1 y 2, con veintitantas referencias verificadas contra
+> Crossref. Aquí van solo las que sostienen una afirmación de este documento.
+>
+> **Lo que falta y se declara:** la implementación del modelo avanzado se cita por su
+> **software** (Wang, 2024), que es lo que de verdad se ejecutó. El artículo original de
+> iTransformer no se cita porque **no está verificado en este repositorio**, y este proyecto no
+> añade una referencia de memoria. Queda pendiente de que M3 la confirme — es su modelo y su
+> fuente.

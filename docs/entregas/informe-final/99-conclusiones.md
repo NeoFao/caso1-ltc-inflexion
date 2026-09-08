@@ -540,3 +540,4 @@ de que ahí el modelo ya vio las respuestas.
 
 No se hizo, y las reglas que lo impidieron están escritas y son comprobables. **El aporte de este
 trabajo no es el modelo: es poder decir con precisión qué no se puede afirmar con él.**
+
