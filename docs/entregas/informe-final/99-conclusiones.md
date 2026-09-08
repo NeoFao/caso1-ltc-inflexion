@@ -89,13 +89,24 @@ Medimos **por cuánto le gana cada extremo a su vecino más cercano**, que es qu
 | Validación | 0,6129 % | **0,8334 %** |
 | Prueba | **0,4500 %** | **0,4822 %** |
 
-**Dos hallazgos.** Los mínimos ganan por más margen que los máximos **en los tres bloques**: los
-suelos de este activo son más pronunciados que los techos, y eso explica por qué el modelo detecta
-valles mejor que picos. Se comprobó que la asimetría aparece también dentro del bloque de
-entrenamiento, en tramos que suben, así que **no la causa el régimen del mercado**.
+**Los mínimos ganan por más margen que los máximos en los tres bloques.** Los suelos de este activo
+son más pronunciados que los techos, y esa diferencia es consistente.
 
-Y en prueba los extremos ganan por un tercio menos: son extremos marginales, decididos por una
+**Y en prueba los extremos ganan por un tercio menos**: son extremos marginales, decididos por una
 diferencia de precio pequeña, y por eso intrínsecamente menos predecibles.
+
+> ⚠️ **Lo que esta tabla NO explica, y conviene decirlo porque es tentador concluirlo.** Es natural
+> saltar de «los suelos son más pronunciados» a «por eso el modelo detecta valles mejor que picos».
+> **Ese salto no se sostiene.** Comprobado sobre los nueve tramos del walk-forward: el F1 de mínimos
+> supera al de máximos en **5 de 9** — que es lo que daría una moneda.
+>
+> La diferencia de margen es real y consistente. **Que se traduzca en mejor detección, no.** Lo que
+> se observó en el bloque de prueba —valles bien, picos por debajo del azar— es un resultado de ese
+> bloque, no una propiedad estable del activo.
+>
+> Y hay una señal de cuán ruidoso es esto: en **dos** de los nueve tramos el F1 de mínimos dio
+> exactamente **0,0000**. Con menos de cien ejemplos por clase, la métrica por clase puede colapsar
+> a cero por completo. Es la forma más clara del cuello de botella.
 
 ### Los dos arreglos que probamos, y por qué fallaron
 
@@ -115,6 +126,10 @@ clase rara y elimina la asimetría de raíz: la ventaja pasa de **+0,0537** a **
 
 **Los dos empeoran**, y por la misma razón: filtrar o fusionar no arregla que haya pocos ejemplos de
 la clase rara. Filtrar reduce los máximos de validación de 99 a 27.
+
+Visto con lo del recuadro de arriba, el fracaso tiene más sentido: los dos arreglos atacaban una
+asimetría que **no es estable**. Se diseñaron a partir de una lectura del bloque de prueba que las
+nueve mediciones no confirman.
 
 ### Lo que sí resolvió la pregunta: medir muchas veces en vez de una
 
@@ -137,6 +152,21 @@ tocó después.
 
 Los nueve tramos cubren regímenes opuestos, desde uno que cayó un **35,5 %** hasta uno que subió un
 **88,8 %**. **El bosque gana en todos.**
+
+**Y el mismo procedimiento resuelve la limitación 2**, que había quedado debilitada porque su
+intervalo no se reproducía:
+
+**Tabla 3.** El iTransformer contra el bosque, en los mismos nueve tramos.
+
+| | |
+|---|---|
+| Tramos en que el avanzado queda **por debajo** del bosque | **9 de 9** |
+| Diferencia media | **−0,031591** |
+| Diferencia mínima / máxima | −0,054415 / −0,017886 |
+
+**Nunca queda por encima, en ningún tramo.** La D25 había establecido que, donde entra un modelo no
+reproducible, el peso lo lleva la estabilidad del signo y no el intervalo. Nueve períodos con el
+mismo signo es una forma mucho más fuerte de esa condición que cinco semillas sobre un solo bloque.
 
 Y hay una coincidencia que importa: la ventaja media del walk-forward (**+0,035046**) y la que dio
 el bloque de prueba (**+0,035021**) coinciden hasta la cuarta cifra decimal. **La reserva no tuvo

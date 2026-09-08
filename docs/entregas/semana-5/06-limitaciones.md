@@ -55,6 +55,13 @@ Es la limitación más incómoda porque contradice lo que el enunciado sugiere e
 intervalo que decía eso no se reproduce (6.3). Lo que sostiene la fila es el signo estable, no el
 intervalo de una corrida.
 
+**Y ese signo resultó ser mucho más estable de lo que se pensaba.** Medido después de la corrida
+sobre nueve tramos consecutivos, con validación walk-forward: el iTransformer queda por debajo del
+bosque en **9 de 9**, con diferencia media **−0,031591** y sin quedar por encima en ninguno. Es
+exactamente la forma de evidencia que la [D25](../../DECISIONES.md) dijo que debía llevar el peso
+cuando el intervalo no aplica — y nueve períodos pesan más que cinco semillas sobre un solo bloque.
+Ver las conclusiones.
+
 **Una hipótesis honesta sobre por qué.** Estos modelos están construidos para pronosticar **valores**
 de una serie, y aquí se les pide **clasificar** un estado definido por catorce comparaciones
 estrictas sobre los vecinos. La sección 6.4 mide por qué ese puente es caro. No es una explicación
