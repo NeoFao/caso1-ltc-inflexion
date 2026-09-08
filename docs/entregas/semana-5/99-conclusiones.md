@@ -108,7 +108,7 @@ diferencia de precio pequeña, y por eso intrínsecamente menos predecibles.
 > exactamente **0,0000**. Con menos de cien ejemplos por clase, la métrica por clase puede colapsar
 > a cero por completo. Es la forma más clara del cuello de botella.
 
-### Los dos arreglos que probamos, y por qué fallaron
+### Los tres arreglos que probamos, y por qué fallaron
 
 **Exigir un margen mínimo** para llamar extremo a una vela — si un extremo que gana por 0,05 % es
 indistinguible del ruido, etiquetarlo igual que uno que gana por 3 % le pide al modelo aprender algo
@@ -124,10 +124,24 @@ que no está ahí:
 **Juntar picos y valles** en una sola clase «punto de inflexión», que duplica los ejemplos de la
 clase rara y elimina la asimetría de raíz: la ventaja pasa de **+0,0537** a **−0,0293**.
 
-**Los dos empeoran**, y por la misma razón: filtrar o fusionar no arregla que haya pocos ejemplos de
+**Corregir la regla de decisión, no el entrenamiento.** `predecir()` elige la clase más probable, y
+con un 90,7 % de «continuidad» esa clase casi siempre gana aunque el modelo tenga información útil
+sobre las raras. Se probó elegir la clase que más se aparta de su frecuencia base —el arreglo
+estándar para clases desbalanceadas— con un solo parámetro, **elegido mirando únicamente datos de
+entrenamiento** y aplicado después a validación una sola vez.
+
+**El procedimiento eligió no cambiar nada.** Corregir por frecuencia al decidir hace caer el F1
+macro de 0,3672 a 0,1023 sobre los datos de calibración, así que el parámetro óptimo resultó ser
+cero. La razón es que `class_weight="balanced"` **ya** corrige por frecuencia al entrenar: hacerlo
+otra vez al decidir duplica la corrección y destruye la precisión de las clases raras.
+
+Es un resultado útil aunque sea negativo: dice que la elección de `class_weight` que el proyecto
+hizo en la Semana 2 ya estaba haciendo ese trabajo, y que ahí no queda margen.
+
+**Los tres empeoran o no cambian nada**, y por la misma razón: filtrar o fusionar no arregla que haya pocos ejemplos de
 la clase rara. Filtrar reduce los máximos de validación de 99 a 27.
 
-Visto con lo del recuadro de arriba, el fracaso tiene más sentido: los dos arreglos atacaban una
+Visto con lo del recuadro de arriba, el fracaso tiene más sentido: los arreglos atacaban una
 asimetría que **no es estable**. Se diseñaron a partir de una lectura del bloque de prueba que las
 nueve mediciones no confirman.
 

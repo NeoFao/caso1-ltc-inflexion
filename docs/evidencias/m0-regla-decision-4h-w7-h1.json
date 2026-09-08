@@ -1,0 +1,49 @@
+{
+  "que_es": "Tercer arreglo probado despues de la corrida unica: corregir la REGLA DE DECISION por la frecuencia base de cada clase, en vez del entrenamiento. El parametro se eligio mirando solo datos de entrenamiento y se aplico a validacion una sola vez.",
+  "por_que": "predecir() usa argmax. Con 90,7 % de continuidad, esa clase casi siempre gana aunque el modelo tenga informacion util sobre las raras.",
+  "frecuencias_base": {
+    "1": 0.045603495357728015,
+    "2": 0.04669579464773348,
+    "3": 0.9077007099945386
+  },
+  "alfa_por_calibracion": {
+    "0.0": 0.36715988385438186,
+    "0.25": 0.28427210761284494,
+    "0.5": 0.12581986614542148,
+    "0.75": 0.10345435558062793,
+    "1.0": 0.1023028441696644,
+    "1.25": 0.10186449019932131,
+    "1.5": 0.10187427136579678
+  },
+  "alfa_elegido": 0.0,
+  "validacion": {
+    "argmax": {
+      "n": 1959.0,
+      "f1_macro": 0.390497720487045,
+      "precision_direccional": 0.10362694300518134,
+      "exactitud": 0.8580908626850434,
+      "f1_maximo": 0.10810810810810811,
+      "f1_minimo": 0.14035087719298245,
+      "f1_continuidad": 0.9230341761600445
+    },
+    "regla_nueva": {
+      "n": 1959.0,
+      "f1_macro": 0.390497720487045,
+      "precision_direccional": 0.10362694300518134,
+      "exactitud": 0.8580908626850434,
+      "f1_maximo": 0.10810810810810811,
+      "f1_minimo": 0.14035087719298245,
+      "f1_continuidad": 0.9230341761600445
+    },
+    "azar": {
+      "n": 1959.0,
+      "f1_macro": 0.3367840908780229,
+      "precision_direccional": 0.05181347150259067,
+      "exactitud": 0.8223583460949464,
+      "f1_maximo": 0.05181347150259067,
+      "f1_minimo": 0.053763440860215055,
+      "f1_continuidad": 0.904775360271263
+    }
+  },
+  "conclusion": "El procedimiento eligio alfa = 0, o sea no cambiar nada. class_weight='balanced' ya corrige por frecuencia al entrenar; hacerlo otra vez al decidir duplica la correccion y destruye la precision. No queda margen por esta via."
+}
