@@ -108,7 +108,7 @@ diferencia de precio pequeña, y por eso intrínsecamente menos predecibles.
 > exactamente **0,0000**. Con menos de cien ejemplos por clase, la métrica por clase puede colapsar
 > a cero por completo. Es la forma más clara del cuello de botella.
 
-### Los cuatro arreglos que probamos
+### Los arreglos que probamos
 
 **Exigir un margen mínimo** para llamar extremo a una vela — si un extremo que gana por 0,05 % es
 indistinguible del ruido, etiquetarlo igual que uno que gana por 3 % le pide al modelo aprender algo
@@ -304,6 +304,45 @@ existe, es demasiado pequeña para importar.
 escrito, sobre el bloque de prueba, y esa sigue siendo la única estimación limpia. Lo que cambia es
 qué se puede decir **sobre por qué** salió así, y en un caso —el fundacional— la explicación es que
 faltaba muestra y no efecto.
+
+### El quinto arreglo, que la propia evidencia sugirió
+
+Que Chronos-Bolt detecte mínimos y el iTransformer detecte máximos **no lo dijo nadie de antemano**:
+salió de medir. Si es real, combinarlos debería detectar las dos cosas. Es la única hipótesis nueva
+que los datos propusieron, y se probó de tres formas.
+
+**Tabla 9.** Las combinaciones, sobre las 7 311 filas agregadas.
+
+| | F1 macro | F1 de las dos clases extremas |
+|---|---|---|
+| Azar | 0,330286 | 0,045729 |
+| **Bosque** (el mejor individual) | **0,368985** | 0,091871 |
+| Voto por mayoría | 0,334500 | 0,030791 |
+| **Unión de extremos** | 0,346469 | **0,111972** |
+| Especialistas | 0,356348 | 0,084194 |
+
+**Ninguna se establece.** Las tres empeoran el F1 macro, y la unión de extremos —que es la mejor
+medida sobre las dos clases que importan— tiene un intervalo que **incluye el cero por muy poco**:
++0,020101, con límite inferior en −0,000047.
+
+> Las cifras de F1 macro de esta tabla dependen del iTransformer, que **no reproduce entre
+> procesos** (D15, D25): repetir el experimento las mueve en la tercera decimal. **Ninguna
+> conclusión cambia** — las tres siguen por debajo del bosque — pero los valores exactos sí, y por
+> eso se dice.
+
+**Van cinco arreglos y ninguno se establece.** Eso ya no es una serie de intentos fallidos: es
+evidencia consistente de que el límite está en los datos y no en el modelado.
+
+### Y una observación sobre la métrica, que sí queda
+
+La unión de extremos se ve **mal** en F1 macro y **mejor que todo lo demás** en las dos clases
+extremas. La diferencia no está en el modelo: está en que **el F1 macro promedia las tres clases, y
+«continuidad» es el 90,7 % de las velas y no es lo que el enunciado pide detectar.**
+
+Una métrica que promedie **solo las dos clases extremas** habría ordenado los modelos de otro modo.
+No se cambia —está fijada desde la Semana 1 y cambiarla ahora sería elegir la métrica después de ver
+los resultados, que es exactamente lo que este informe no hace— pero **queda anotado que la elección
+de métrica no fue neutral**, y esa es una decisión que conviene tomar mirándola de frente.
 
 ### La corrección más grande: el bosque sí detecta las dos clases
 
