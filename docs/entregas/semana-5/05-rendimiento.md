@@ -195,6 +195,13 @@ El propio guion lo imprimió sin que nadie se lo pidiera:
 > El criterio de aceptación se cumple por un margen que no es detección. Esto va al informe tal
 > cual: «corre» y «funciona» no son lo mismo.
 
+> **Y esto también se midió después.** El F1 de una clase con 86 ejemplos es la cifra más ruidosa
+> del informe. Repetida sobre 7 311 filas, la comparación se da vuelta: el bosque supera al azar en
+> **Máximo** por +0,043611, con intervalo que excluye el cero, y en **Mínimo** por +0,048673.
+>
+> **Lo de arriba pasó y queda reportado.** Lo que se añade es qué significa: no que el modelo no
+> detecte máximos, sino que 86 ejemplos no alcanzan para verlo. Está en las conclusiones.
+
 **Esta es la conclusión honesta del proyecto**, y no se busca una configuración que la mejore: la
 sección 7 del protocolo lo prohíbe explícitamente, y el resultado negativo bien medido es la
 contribución.
