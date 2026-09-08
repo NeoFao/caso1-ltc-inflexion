@@ -47,6 +47,33 @@ trivial (0,0). Y baja. La sección 6 dice qué se puede y qué no se puede concl
 
 ---
 
+## 5.1 bis Qué es la Precisión Direccional aquí, y por qué hubo que decidirlo
+
+El caso pide reportar **Precisión Direccional** y no dice qué significa en un problema de **tres**
+clases. En un pronóstico de dirección clásico —sube o baja— la definición es obvia. Aquí no, porque
+la tercera clase es «no pasa nada», y acertar que no pasa nada no es acertar una dirección.
+
+**La definición que se adoptó:** de todas las velas que **de verdad** fueron máximo o mínimo, la
+fracción cuyo tipo se predijo correctamente. Las velas de continuidad se ignoran por completo.
+
+```
+Precisión Direccional = aciertos entre los extremos reales / total de extremos reales
+```
+
+**Por qué esta y no otra.** La alternativa natural —contar también los aciertos de continuidad—
+haría que un modelo que responde siempre «continuidad» sacara más de 0,90, exactamente el mismo
+problema que hace inútil la exactitud (sección 1.1). Una métrica que premia no detectar nada no
+puede llamarse «direccional».
+
+**Y devuelve indefinido, no cero, si en el período no hubo ningún extremo real.** No hubo nada que
+acertar; un cero se leería como fracaso del modelo cuando no lo es.
+
+> **Esta definición fue una decisión del equipo, no del enunciado.** Estaba marcada como provisional
+> a la espera de una consulta al profesor que —por la [D22](../../DECISIONES.md)— **no se envió**, así
+> que se entrega con la interpretación de arriba. Está aislada en una sola función
+> (`contracts/metrics.py`): si la lectura correcta fuera otra, se cambia ahí y todas las cifras del
+> informe se regeneran solas.
+
 ## 5.2 Comparar medias no alcanza: los intervalos
 
 Una diferencia de F1 macro entre dos modelos puede venir de que uno sea mejor o de qué velas cayeron
