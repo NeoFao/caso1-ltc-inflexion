@@ -12,7 +12,7 @@ el bloque de prueba lo contamina: despues, el resultado final del proyecto estar
 reportado sobre datos que ya se usaron para decidir. El bloque de prueba se toca una
 vez, al final, y para nada mas.
 
-**2. El modelo lineal de contraste NO es el modelo del proyecto.** Es una regresion
+**2. La sonda lineal NO es un modelo del proyecto.** Es una regresion
 logistica regularizada, fija y documentada, que existe solo para que las familias se
 comparen entre si en igualdad de condiciones. Un numero de este archivo dice "esta
 familia aporta", no "el sistema rinde asi". El rendimiento del sistema sale del
@@ -22,12 +22,19 @@ Se eligio un modelo lineal a proposito: es determinista, entrena en segundos, y 
 tiene la varianza entre corridas que tendria un bosque, que en una ablacion se
 confunde facil con el efecto que se quiere medir.
 
-Aqui se llamaba "modelo de referencia", y ese nombre ya estaba tomado:
-`docs/entregas/semana-2/m0-procedimiento.md` lo define de forma explicita y designa
-con el **al bosque**. Con el termino compartido, dos documentos del proyecto decian lo
-contrario con las mismas palabras --que el modelo de referencia le gana al azar y que
-no-- siendo las dos ciertas sobre lo que cada una midio. Lo resolvio la D19. No volver
-a llamarlo "de referencia".
+**Se llama "sonda lineal" y no "modelo" de nada**, y el nombre importa por dos
+razones. La primera: aqui se llamaba "modelo de referencia", y ese nombre ya estaba
+tomado --`docs/entregas/semana-2/m0-procedimiento.md` lo define explicitamente y designa
+con el **al bosque**--, asi que dos documentos del proyecto decian lo contrario con las
+mismas palabras, siendo las dos ciertas sobre lo que cada una midio.
+
+La segunda es la que cerro la D27: el problema no era el adjetivo, era la palabra
+**modelo**. Un lector que hojea ve "modelo lineal de algo" y sigue leyendo un modelo del
+proyecto, uno mas en una lista donde ya hay nueve. "Sonda" cambia la categoria, y ademas
+es el termino estandar: usar un clasificador simple y fijo para medir cuanta informacion
+lleva un conjunto de caracteristicas se llama *linear probing*.
+
+No volver a llamarlo "modelo" de nada.
 
 **3. El escalador se ajusta dentro de cada corrida, solo con entrenamiento.** Si se
 ajustara una vez sobre el panel completo y se reutilizara, cada ablacion heredaria
@@ -53,7 +60,7 @@ from src.features.escalado import Escalador, familia_de
 SEMILLA = 0
 
 
-def _modelo_de_contraste():
+def _sonda_lineal():
     from sklearn.linear_model import LogisticRegression
 
     return LogisticRegression(
@@ -81,7 +88,7 @@ def evaluar_conjunto(
     particion,
     nombre: str = "conjunto",
 ) -> dict:
-    """Entrena el modelo lineal de contraste con un conjunto de columnas y mide en validacion."""
+    """Entrena la sonda lineal con un conjunto de columnas y mide en validacion."""
     if X.shape[1] == 0:
         raise ValueError(f"el conjunto {nombre!r} no tiene ninguna columna")
 
@@ -91,7 +98,7 @@ def evaluar_conjunto(
     X_entrena, y_entrena = _matriz_limpia(X_escalado, y, particion.entrenamiento)
     X_valida, y_valida = _matriz_limpia(X_escalado, y, particion.validacion)
 
-    modelo = _modelo_de_contraste().fit(X_entrena, y_entrena)
+    modelo = _sonda_lineal().fit(X_entrena, y_entrena)
     predicciones = modelo.predict(X_valida)
 
     resultado = {"conjunto": nombre, "n_columnas": int(X.shape[1])}
@@ -196,10 +203,10 @@ def con_baselines(tabla: pd.DataFrame, panel: pd.DataFrame, w: int, h: int) -> p
     return pd.concat([tabla, pd.DataFrame(filas)], ignore_index=True)
 
 
-def comparar_modelos_de_contraste(
+def comparar_sondas(
     panel: pd.DataFrame, w: int, h: int, *, rezagos_relativos: bool
 ) -> pd.DataFrame:
-    """Cuatro modelos de contraste sobre el conjunto completo, medidos en validacion.
+    """Cuatro sondas sobre el conjunto completo, medidas en validacion.
 
     `rezagos_relativos` es obligatorio y no tiene valor por omision, a proposito.
     Antes lo heredaba del default de `construir()`, y cuando el PR #58 cambio ese
@@ -214,7 +221,7 @@ def comparar_modelos_de_contraste(
     eso hay que separar dos explicaciones muy distintas:
 
     - que las caracteristicas no informen, o
-    - que el modelo lineal de contraste no sea capaz de usarlas.
+    - que la sonda lineal no sea capaz de usarlas.
 
     Se comparan lineal y de arboles, cada uno con y sin compensacion de clases. Si
     todos colapsan a Continuidad, la conclusion no es sobre el modelo lineal: es
@@ -302,17 +309,17 @@ def generar_evidencia(directorio=None, w: int | None = None, h: int | None = Non
         tabla.round(4).to_csv(destino / nombre, index=False)
 
     modelos = {
-        etiqueta: comparar_modelos_de_contraste(
+        etiqueta: comparar_sondas(
             panel, w=w, h=h, rezagos_relativos=relativo
         )
         for etiqueta, relativo in (("rezagos_en_nivel", False), ("rezagos_relativos", True))
     }
     for etiqueta, tabla in modelos.items():
-        nombre = f"m2-modelos-contraste-{etiqueta.replace('_', '-')}.csv"
+        nombre = f"m2-sondas-{etiqueta.replace('_', '-')}.csv"
         tabla.round(4).to_csv(destino / nombre, index=False)
 
     # El invariante que habria cazado la desincronizacion del #58 el mismo dia:
-    # `logistica_balanceada` en el bloque de modelos de contraste y `completo` en la
+    # `logistica_balanceada` en el bloque de sondas y `completo` en la
     # ablacion son literalmente el mismo modelo sobre las mismas columnas. Si no dan
     # lo mismo, las dos mitades del archivo estan midiendo representaciones distintas
     # y ninguna cifra de aqui significa lo que dice su etiqueta.
@@ -334,19 +341,19 @@ def generar_evidencia(directorio=None, w: int | None = None, h: int | None = Non
 
     evidencia = {
         "representacion_vigente": "rezagos_relativos",
-        "modelos_de_contraste_rezagos_en_nivel": modelos["rezagos_en_nivel"]
+        "sondas_rezagos_en_nivel": modelos["rezagos_en_nivel"]
         .round(6)
         .to_dict(orient="records"),
-        "modelos_de_contraste_rezagos_relativos": modelos["rezagos_relativos"]
+        "sondas_rezagos_relativos": modelos["rezagos_relativos"]
         .round(6)
         .to_dict(orient="records"),
         "parametros": {
             "panel": GRANULARIDAD, "w": w, "h": h,
             "conjunto_de_medicion": "validacion",
-            "modelo_lineal_de_contraste": "LogisticRegression(class_weight='balanced'), semilla 0",
+            "sonda_lineal": "LogisticRegression(class_weight='balanced'), semilla 0",
             "nota": (
                 "Cada bloque dice en su nombre con que representacion se midio. Antes "
-                "habia un unico bloque 'modelos_de_contraste' que heredaba el default "
+                "habia un unico bloque 'sondas' que heredaba el default "
                 "de construir(), y al cambiar ese default en el #58 quedo midiendo una "
                 "representacion distinta de la del bloque 'resultados' del mismo archivo."
             ),
@@ -360,7 +367,7 @@ def generar_evidencia(directorio=None, w: int | None = None, h: int | None = Non
             "issues": ["S2-M2-02", "S4-M2-01"],
             "advertencia": (
                 "Estos numeros comparan FAMILIAS DE CARACTERISTICAS entre si con un "
-                "modelo lineal de contraste fijo. No son el rendimiento del sistema: ese sale "
+                "sonda lineal fijo. No son el rendimiento del sistema: ese sale "
                 "del modelo de M3 por el arnes de M0, y sobre el bloque de prueba, que "
                 "aqui no se toca."
             ),
@@ -387,8 +394,8 @@ if __name__ == "__main__":
     presentes = [c for c in columnas if c in relativos.columns]
     print(relativos[presentes].round(4).to_string(index=False))
     print()
-    print("===== modelos de contraste, rezagos RELATIVOS (la representacion vigente) =====")
-    modelos = pd.DataFrame(salida["modelos_de_contraste_rezagos_relativos"])
+    print("===== sondas, rezagos RELATIVOS (la representacion vigente) =====")
+    modelos = pd.DataFrame(salida["sondas_rezagos_relativos"])
     print(
         modelos[
             ["modelo", "f1_macro", "precision_direccional", "exactitud",
