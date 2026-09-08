@@ -75,7 +75,18 @@ documento que se reescribe para parecer que siempre tuvo razón no sirve para ap
 
 La corrida sobre el bloque de prueba dejó una pregunta abierta: la ventaja sobre el azar era
 positiva y estable en signo, pero su intervalo incluía el cero. **Investigamos por qué**, sin tocar
-la reserva —ya gastada— y midiendo todo sobre validación.
+la reserva —ya gastada— y midiendo todo sobre datos que sí se pueden volver a mirar.
+
+Salieron dos investigaciones distintas, y conviene leerlas por separado:
+
+| | Qué preguntaba | Qué respondió |
+|---|---|---|
+| **A** | ¿Por qué el bloque de prueba no lo mostró? | **Era potencia.** El efecto existe y se distingue con muestra suficiente |
+| **B** | ¿Se puede mejorar el modelo? | **Siete intentos, ninguno se sostiene.** El límite está en los datos |
+
+---
+
+# A. Por qué el bloque de prueba no alcanzó
 
 ### El diagnóstico
 
@@ -107,82 +118,6 @@ diferencia de precio pequeña, y por eso intrínsecamente menos predecibles.
 > Y hay una señal de cuán ruidoso es esto: en **dos** de los nueve tramos el F1 de mínimos dio
 > exactamente **0,0000**. Con menos de cien ejemplos por clase, la métrica por clase puede colapsar
 > a cero por completo. Es la forma más clara del cuello de botella.
-
-### Los arreglos que probamos
-
-**Exigir un margen mínimo** para llamar extremo a una vela — si un extremo que gana por 0,05 % es
-indistinguible del ruido, etiquetarlo igual que uno que gana por 3 % le pide al modelo aprender algo
-que no está ahí:
-
-| Umbral | Ventaja sobre el azar |
-|---|---|
-| **0 % (lo publicado)** | **+0,0537** |
-| 0,1 % | +0,0339 |
-| 0,3 % | +0,0310 |
-| 0,8 % | +0,0116 |
-
-**Juntar picos y valles** en una sola clase «punto de inflexión», que duplica los ejemplos de la
-clase rara y elimina la asimetría de raíz: la ventaja pasa de **+0,0537** a **−0,0293**.
-
-**Corregir la regla de decisión, no el entrenamiento.** `predecir()` elige la clase más probable, y
-con un 90,7 % de «continuidad» esa clase casi siempre gana aunque el modelo tenga información útil
-sobre las raras. Se probó elegir la clase que más se aparta de su frecuencia base —el arreglo
-estándar para clases desbalanceadas— con un solo parámetro, **elegido mirando únicamente datos de
-entrenamiento** y aplicado después a validación una sola vez.
-
-**El procedimiento eligió no cambiar nada.** Corregir por frecuencia al decidir hace caer el F1
-macro de 0,3672 a 0,1023 sobre los datos de calibración, así que el parámetro óptimo resultó ser
-cero. La razón es que `class_weight="balanced"` **ya** corrige por frecuencia al entrenar: hacerlo
-otra vez al decidir duplica la corrección y destruye la precisión de las clases raras.
-
-Es un resultado útil aunque sea negativo: dice que la elección de `class_weight` que el proyecto
-hizo en la Semana 2 ya estaba haciendo ese trabajo, y que ahí no queda margen.
-
-**Los tres empeoran o no cambian nada**, y por la misma razón: filtrar o fusionar no arregla que haya pocos ejemplos de
-la clase rara. Filtrar reduce los máximos de validación de 99 a 27.
-
-Visto con lo del recuadro de arriba, el fracaso tiene más sentido: los arreglos atacaban una
-asimetría que **no es estable**. Se diseñaron a partir de una lectura del bloque de prueba que las
-nueve mediciones no confirman.
-
-### El cuarto arreglo: la única vía que sí mejora, y por qué aun así no se afirma
-
-Si el cuello de botella es la cantidad de ejemplos, la vía directa es conseguir más. Los puntos de
-inflexión de BTC, ETH, SOL, XRP y ADA son **el mismo fenómeno** que los de LTC: si se construyen las
-mismas familias de características centradas en cada activo, cada uno aporta su propia tanda de
-ejemplos etiquetados.
-
-Se probó. Seis tandas apiladas, **54 990 filas de entrenamiento en vez de 9 165**, prediciendo sobre
-LTC como siempre.
-
-**Tabla 4.** Entrenar solo con LTC contra entrenar con los seis, sobre validación.
-
-| | F1 macro | F1 máximo | F1 mínimo | Ventaja sobre el azar |
-|---|---|---|---|---|
-| Solo LTC | 0,3815 | 0,1158 | 0,1350 | +0,0447 |
-| **Los seis apilados** | **0,4047** | **0,1455** | **0,1667** | **+0,0679** |
-
-**Mejora las dos clases extremas**, que era exactamente lo que fallaba. Es el único de los cuatro
-arreglos que mejora algo.
-
-> ⚠️ **Y aun así no se afirma, por el criterio del propio proyecto.** Repetido sobre los nueve
-> tramos del walk-forward, el apilado mejora en **6 de 9**, con una mejora media de **+0,010678** y
-> un rango que va de **−0,022268** a **+0,036688**.
->
-> La tercera condición de la [D16](../../DECISIONES.md) pide que **el signo no cambie**. Aquí cambia
-> en tres de nueve. **Seis de nueve es lo que el azar produce con facilidad.**
->
-> Reportar solo el resultado de la partición única —que es claro y favorable— sería exactamente el
-> error que este informe dedica seis páginas a describir. Se reporta con las dos cifras: la que
-> favorece y la que no.
-
-Lo que sí se puede decir: **es la vía más prometedora de las cuatro**, tiene un mecanismo claro, y su
-efecto medio sobre los nueve tramos es positivo — la ventaja sobre el azar sube de **+0,049712** a
-**+0,060391**. Es la recomendación principal para quien continúe.
-
-Y notar una decisión que hubo que tomar: **la correlación cruzada queda fuera del juego común**. Sus
-columnas nombran a los otros activos, así que «correlación con BTC» significa algo distinto según de
-quién sea la tanda. Apilarlas mezclaría cosas que no son la misma.
 
 ### Lo que sí resolvió la pregunta: medir muchas veces en vez de una
 
@@ -262,14 +197,52 @@ su intervalo **incluía** el cero. Sobre **7 311 filas**, la misma ventaja —de
 corrida única era un problema de **potencia estadística**, y ahora está demostrado en vez de
 conjeturado.
 
-Y la tercera fila confirma la cautela de la sección anterior: **el apilado sigue sin establecerse**
-ni siquiera con cuatro veces más datos. Su intervalo incluye el cero.
+Y la tercera fila adelanta algo que la **parte B** desarrolla: **el apilado de los seis activos
+sigue sin establecerse** ni siquiera con cuatro veces más datos. Su intervalo incluye el cero.
 
 > **Lo que esto NO cambia.** La cifra que el informe reporta en la sección 5 **sigue siendo la del
 > bloque de prueba**, y sigue siendo la única estimación limpia: estos 7 311 casos vienen de
 > períodos que el modelo y las características usaron para desarrollarse. Lo que esta medición
 > establece no es *cuánto* detecta el sistema, sino **que la ausencia de detección que reportó la
 > corrida única se explica por el tamaño de la muestra y no por la ausencia del efecto**.
+
+### La corrección más grande: el bosque sí detecta las dos clases
+
+El bloque de prueba dejó la lectura más dura de todo el trabajo: **ningún modelo supera al azar en
+las dos clases extremas.** El bosque ganaba en Mínimo y quedaba **por debajo del azar en Máximo**.
+
+Pero el F1 de una clase con **86 ejemplos** es la cifra más ruidosa del informe — en dos de los
+nueve tramos del walk-forward una clase dio **0,000000** exacto. Así que esa lectura podía ser un
+hecho o podía ser lo que 86 casos dejan ver.
+
+**Tabla 8.** Cada modelo contra el azar, por clase, sobre las 7 311 filas agregadas.
+
+| Modelo | Clase | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
+|---|---|---|---|---|
+| **Bosque** | **Máximo** | **+0,043611** | [+0,009983 , +0,083107] | **Sí** |
+| **Bosque** | **Mínimo** | **+0,048673** | [+0,006744 , +0,092239] | **Sí** |
+| Chronos-Bolt | Máximo | +0,025181 | [−0,003307 , +0,053815] | No |
+| Chronos-Bolt | Mínimo | +0,045992 | [+0,009795 , +0,087301] | Sí |
+| iTransformer | Máximo | +0,034007 | [+0,007096 , +0,060425] | Sí |
+| iTransformer | Mínimo | +0,003412 | [−0,025806 , +0,032277] | No |
+
+**El bosque supera al azar de forma distinguible en las dos clases.** Sobre el bloque de prueba
+salía *peor que el azar* detectando máximos; sobre 7 311 filas le gana por +0,043611 con un
+intervalo que excluye el cero.
+
+**La lectura más severa del informe era un artefacto de muestra pequeña.**
+
+Y los otros dos siguen repartidos, cada uno con una sola clase: el fundacional detecta mínimos, el
+avanzado detecta máximos. Esa asimetría entre ellos **sí** sobrevive a la potencia — no así la del
+bosque.
+
+> Las cifras del iTransformer salen de un modelo que **no reproduce entre procesos** (D15, D25).
+> Las del bosque y Chronos-Bolt sí reproducen.
+
+> **Y esto tampoco cambia lo que la sección 5 reporta.** El veredicto se aplicó como estaba escrito
+> sobre el bloque de prueba, y ahí el bosque quedó por debajo del azar en Máximo. Eso pasó y queda
+> reportado. Lo que esta tabla añade es **qué significa**: no que el modelo no detecte máximos, sino
+> que 86 ejemplos no alcanzan para verlo.
 
 ### Y lo que la potencia corrige de un resultado central del informe
 
@@ -304,6 +277,120 @@ existe, es demasiado pequeña para importar.
 escrito, sobre el bloque de prueba, y esa sigue siendo la única estimación limpia. Lo que cambia es
 qué se puede decir **sobre por qué** salió así, y en un caso —el fundacional— la explicación es que
 faltaba muestra y no efecto.
+
+### La prueba que no dependía de nuestra disciplina
+
+Todo lo anterior —el bloque de prueba, el walk-forward, la curva de potencia— depende de que el
+equipo se haya comportado: de que nadie mirara la reserva antes de tiempo, de que las
+características se eligieran sin espiar. Hay una forma de evidencia que **no depende de eso**:
+medir sobre datos que **no existían** cuando se tomaron las decisiones.
+
+El panel del proyecto termina el **05/08/2026**. El 08/09 se descargaron las velas que el mercado
+produjo desde entonces —**200 velas, 192 evaluables**— y se le pidieron al modelo **sin
+reentrenarlo**.
+
+**Tabla 12.** El bloque fresco: velas posteriores a la construcción del modelo.
+
+| | F1 macro | F1 máximo | F1 mínimo | Precisión direccional |
+|---|---|---|---|---|
+| **Bosque** | **0,390152** | **0,125000** | **0,125000** | **0,117647** |
+| Azar | 0,323971 | 0,000000 | 0,086957 | 0,058824 |
+
+**La diferencia es +0,066181**, la mayor de todas las que este informe reporta: mayor que la del
+bloque de prueba (+0,035021) y que la del agregado de nueve tramos (+0,051285). Le gana al azar en
+**las dos clases**, y **duplica** la precisión direccional.
+
+**Y su intervalo incluye el cero:** [−0,043087 , +0,194589]. Con 192 velas y nueve ejemplos de cada
+clase extrema no podía ser de otra manera — la curva de potencia de la Figura 4 dice que ni siquiera
+con mil velas se llega al 50 % de probabilidad de detectarlo.
+
+> **Lo que esta prueba podía hacer y lo que no.** No podía confirmar detección: no tiene tamaño para
+> eso, y se dijo **antes** de mirar el resultado. Lo que sí podía era **desmentirla** — si el modelo
+> hubiera salido claramente por debajo del azar sobre datos frescos, habría sido informativo y
+> habría que reportarlo.
+>
+> No la desmintió. Sobre datos que nadie pudo haber usado para ajustar nada, el modelo se comporta
+> **al menos tan bien como en todo lo demás**.
+
+---
+
+# B. Qué intentamos para mejorar el modelo, y qué pasó
+
+### Los arreglos que probamos
+
+**Exigir un margen mínimo** para llamar extremo a una vela — si un extremo que gana por 0,05 % es
+indistinguible del ruido, etiquetarlo igual que uno que gana por 3 % le pide al modelo aprender algo
+que no está ahí:
+
+| Umbral | Ventaja sobre el azar |
+|---|---|
+| **0 % (lo publicado)** | **+0,0537** |
+| 0,1 % | +0,0339 |
+| 0,3 % | +0,0310 |
+| 0,8 % | +0,0116 |
+
+**Juntar picos y valles** en una sola clase «punto de inflexión», que duplica los ejemplos de la
+clase rara y elimina la asimetría de raíz: la ventaja pasa de **+0,0537** a **−0,0293**.
+
+**Corregir la regla de decisión, no el entrenamiento.** `predecir()` elige la clase más probable, y
+con un 90,7 % de «continuidad» esa clase casi siempre gana aunque el modelo tenga información útil
+sobre las raras. Se probó elegir la clase que más se aparta de su frecuencia base —el arreglo
+estándar para clases desbalanceadas— con un solo parámetro, **elegido mirando únicamente datos de
+entrenamiento** y aplicado después a validación una sola vez.
+
+**El procedimiento eligió no cambiar nada.** Corregir por frecuencia al decidir hace caer el F1
+macro de 0,3672 a 0,1023 sobre los datos de calibración, así que el parámetro óptimo resultó ser
+cero. La razón es que `class_weight="balanced"` **ya** corrige por frecuencia al entrenar: hacerlo
+otra vez al decidir duplica la corrección y destruye la precisión de las clases raras.
+
+Es un resultado útil aunque sea negativo: dice que la elección de `class_weight` que el proyecto
+hizo en la Semana 2 ya estaba haciendo ese trabajo, y que ahí no queda margen.
+
+**Los tres empeoran o no cambian nada**, y por la misma razón: filtrar o fusionar no arregla que
+haya pocos ejemplos de la clase rara. Filtrar reduce los máximos de validación de 99 a 27.
+
+Visto con lo que la **parte A** midió, el fracaso tiene más sentido: los dos arreglos atacaban una
+asimetría entre picos y valles que **no es estable** —aparece en 5 de 9 tramos, que es una moneda—.
+Se diseñaron a partir de una lectura del bloque de prueba que las nueve mediciones no confirman.
+
+### El cuarto arreglo: la única vía que sí mejora, y por qué aun así no se afirma
+
+Si el cuello de botella es la cantidad de ejemplos, la vía directa es conseguir más. Los puntos de
+inflexión de BTC, ETH, SOL, XRP y ADA son **el mismo fenómeno** que los de LTC: si se construyen las
+mismas familias de características centradas en cada activo, cada uno aporta su propia tanda de
+ejemplos etiquetados.
+
+Se probó. Seis tandas apiladas, **54 990 filas de entrenamiento en vez de 9 165**, prediciendo sobre
+LTC como siempre.
+
+**Tabla 4.** Entrenar solo con LTC contra entrenar con los seis, sobre validación.
+
+| | F1 macro | F1 máximo | F1 mínimo | Ventaja sobre el azar |
+|---|---|---|---|---|
+| Solo LTC | 0,3815 | 0,1158 | 0,1350 | +0,0447 |
+| **Los seis apilados** | **0,4047** | **0,1455** | **0,1667** | **+0,0679** |
+
+**Mejora las dos clases extremas**, que era exactamente lo que fallaba. Es el único de los cuatro
+arreglos que mejora algo.
+
+> ⚠️ **Y aun así no se afirma, por el criterio del propio proyecto.** Repetido sobre los nueve
+> tramos del walk-forward, el apilado mejora en **6 de 9**, con una mejora media de **+0,010678** y
+> un rango que va de **−0,022268** a **+0,036688**.
+>
+> La tercera condición de la [D16](../../DECISIONES.md) pide que **el signo no cambie**. Aquí cambia
+> en tres de nueve. **Seis de nueve es lo que el azar produce con facilidad.**
+>
+> Reportar solo el resultado de la partición única —que es claro y favorable— sería exactamente el
+> error que este informe dedica seis páginas a describir. Se reporta con las dos cifras: la que
+> favorece y la que no.
+
+Lo que sí se puede decir: **es la vía más prometedora de las cuatro**, tiene un mecanismo claro, y su
+efecto medio sobre los nueve tramos es positivo — la ventaja sobre el azar sube de **+0,049712** a
+**+0,060391**. Es la recomendación principal para quien continúe.
+
+Y notar una decisión que hubo que tomar: **la correlación cruzada queda fuera del juego común**. Sus
+columnas nombran a los otros activos, así que «correlación con BTC» significa algo distinto según de
+quién sea la tanda. Apilarlas mezclaría cosas que no son la misma.
 
 ### El quinto arreglo, que la propia evidencia sugirió
 
@@ -390,77 +477,7 @@ No se cambia —está fijada desde la Semana 1 y cambiarla ahora sería elegir l
 los resultados, que es exactamente lo que este informe no hace— pero **queda anotado que la elección
 de métrica no fue neutral**, y esa es una decisión que conviene tomar mirándola de frente.
 
-### La corrección más grande: el bosque sí detecta las dos clases
-
-El bloque de prueba dejó la lectura más dura de todo el trabajo: **ningún modelo supera al azar en
-las dos clases extremas.** El bosque ganaba en Mínimo y quedaba **por debajo del azar en Máximo**.
-
-Pero el F1 de una clase con **86 ejemplos** es la cifra más ruidosa del informe — en dos de los
-nueve tramos del walk-forward una clase dio **0,000000** exacto. Así que esa lectura podía ser un
-hecho o podía ser lo que 86 casos dejan ver.
-
-**Tabla 8.** Cada modelo contra el azar, por clase, sobre las 7 311 filas agregadas.
-
-| Modelo | Clase | Diferencia | Intervalo 95 % | ¿Excluye el cero? |
-|---|---|---|---|---|
-| **Bosque** | **Máximo** | **+0,043611** | [+0,009983 , +0,083107] | **Sí** |
-| **Bosque** | **Mínimo** | **+0,048673** | [+0,006744 , +0,092239] | **Sí** |
-| Chronos-Bolt | Máximo | +0,025181 | [−0,003307 , +0,053815] | No |
-| Chronos-Bolt | Mínimo | +0,045992 | [+0,009795 , +0,087301] | Sí |
-| iTransformer | Máximo | +0,034007 | [+0,007096 , +0,060425] | Sí |
-| iTransformer | Mínimo | +0,003412 | [−0,025806 , +0,032277] | No |
-
-**El bosque supera al azar de forma distinguible en las dos clases.** Sobre el bloque de prueba
-salía *peor que el azar* detectando máximos; sobre 7 311 filas le gana por +0,043611 con un
-intervalo que excluye el cero.
-
-**La lectura más severa del informe era un artefacto de muestra pequeña.**
-
-Y los otros dos siguen repartidos, cada uno con una sola clase: el fundacional detecta mínimos, el
-avanzado detecta máximos. Esa asimetría entre ellos **sí** sobrevive a la potencia — no así la del
-bosque.
-
-> Las cifras del iTransformer salen de un modelo que **no reproduce entre procesos** (D15, D25).
-> Las del bosque y Chronos-Bolt sí reproducen.
-
-> **Y esto tampoco cambia lo que la sección 5 reporta.** El veredicto se aplicó como estaba escrito
-> sobre el bloque de prueba, y ahí el bosque quedó por debajo del azar en Máximo. Eso pasó y queda
-> reportado. Lo que esta tabla añade es **qué significa**: no que el modelo no detecte máximos, sino
-> que 86 ejemplos no alcanzan para verlo.
-
-### La prueba que no dependía de nuestra disciplina
-
-Todo lo anterior —el bloque de prueba, el walk-forward, la curva de potencia— depende de que el
-equipo se haya comportado: de que nadie mirara la reserva antes de tiempo, de que las
-características se eligieran sin espiar. Hay una forma de evidencia que **no depende de eso**:
-medir sobre datos que **no existían** cuando se tomaron las decisiones.
-
-El panel del proyecto termina el **05/08/2026**. El 08/09 se descargaron las velas que el mercado
-produjo desde entonces —**200 velas, 192 evaluables**— y se le pidieron al modelo **sin
-reentrenarlo**.
-
-**Tabla 12.** El bloque fresco: velas posteriores a la construcción del modelo.
-
-| | F1 macro | F1 máximo | F1 mínimo | Precisión direccional |
-|---|---|---|---|---|
-| **Bosque** | **0,390152** | **0,125000** | **0,125000** | **0,117647** |
-| Azar | 0,323971 | 0,000000 | 0,086957 | 0,058824 |
-
-**La diferencia es +0,066181**, la mayor de todas las que este informe reporta: mayor que la del
-bloque de prueba (+0,035021) y que la del agregado de nueve tramos (+0,051285). Le gana al azar en
-**las dos clases**, y **duplica** la precisión direccional.
-
-**Y su intervalo incluye el cero:** [−0,043087 , +0,194589]. Con 192 velas y nueve ejemplos de cada
-clase extrema no podía ser de otra manera — la curva de potencia de la Figura 4 dice que ni siquiera
-con mil velas se llega al 50 % de probabilidad de detectarlo.
-
-> **Lo que esta prueba podía hacer y lo que no.** No podía confirmar detección: no tiene tamaño para
-> eso, y se dijo **antes** de mirar el resultado. Lo que sí podía era **desmentirla** — si el modelo
-> hubiera salido claramente por debajo del azar sobre datos frescos, habría sido informativo y
-> habría que reportarlo.
->
-> No la desmintió. Sobre datos que nadie pudo haber usado para ajustar nada, el modelo se comporta
-> **al menos tan bien como en todo lo demás**.
+---
 
 ### Lo que se aprende de esto
 
