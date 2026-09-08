@@ -277,10 +277,34 @@ ni siquiera con cuatro veces más datos. Su intervalo incluye el cero.
 ruido.** Protege perfectamente de elegir mirando el resultado —que es el riesgo grande— al precio de
 no poder distinguir un efecto pequeño de la nada.
 
-Y ahora se puede poner número a ese precio: **con 1 960 filas el intervalo incluye el cero; con
-7 311, sobre el mismo efecto, lo excluye.** El diseño no midió mal: midió con una muestra
-insuficiente para el tamaño del efecto que había que detectar. Eso es algo que se puede calcular
-**antes** de apartar el bloque, y no se hizo.
+Y ahora se puede poner número a ese precio, midiéndolo en vez de afirmarlo. Tomando submuestras de
+tamaño *n* de las predicciones agregadas y contando en cuántas el intervalo excluye el cero:
+
+**Tabla 6.** Curva de potencia: probabilidad de detectar el efecto, según el tamaño del bloque.
+
+| Velas en el bloque | Probabilidad de detectarlo |
+|---|---|
+| 1 000 | 42 % |
+| **1 960** — *el tamaño que usamos* | **80 %** |
+| 3 000 | 100 % |
+| 5 000 | 100 % |
+
+**Y esto corrige lo que parecía la conclusión obvia.** El bloque de prueba **no era insuficiente**:
+1 960 velas dan un **80 %** de probabilidad de detectar este efecto, que es exactamente el umbral
+convencional. El diseño era defendible.
+
+Lo que no tenía era **margen**. Con un 80 % de potencia, una de cada cinco veces el resultado sale
+negativo aunque el efecto exista — y nos tocó esa. Con **3 000 velas**, un 50 % más, la detección
+habría sido segura.
+
+> **Un matiz que hay que decir:** esta curva se calcula con el efecto que se observa en el agregado
+> (≈ +0,051). El bloque de prueba observó **+0,035021**, más chico, así que su potencia real fue
+> **menor** que ese 80 %. O tuvo mala suerte con el efecto, o el efecto en ese período era
+> genuinamente más débil; con una sola medición no se puede separar.
+
+**La lección, entonces, no es «apartamos poco».** Es que **el tamaño del bloque se puede calcular
+antes de apartarlo**, a partir del efecto que uno espera detectar, y nosotros lo elegimos por
+proporción —un tercio de los datos— sin hacer esa cuenta. Salió razonable por suerte, y sin margen.
 
 Un diseño walk-forward con el procedimiento fijado de antemano da las dos cosas: nadie puede elegir
 mirando, y hay potencia suficiente para ver un efecto de este tamaño. **Es la corrección de método
