@@ -201,6 +201,10 @@ https://doi.org/10.48550/arXiv.2403.07815
 Breiman, L. (2001). Random forests. *Machine Learning, 45*(1), 5–32.
 https://doi.org/10.1023/A:1010933404324
 
+Liu, Y., Hu, T., Zhang, H., Wu, H., Wang, S., Ma, L., & Long, M. (2023). *iTransformer:
+Inverted transformers are effective for time series forecasting* (Preprint). arXiv.
+https://doi.org/10.48550/arXiv.2310.06625
+
 Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L.,
 & Polosukhin, I. (2017). *Attention is all you need* (Preprint). arXiv.
 https://doi.org/10.48550/arXiv.1706.03762
@@ -216,8 +220,11 @@ series forecasting? *Proceedings of the AAAI Conference on Artificial Intelligen
 > teórico completo está en los avances 1 y 2, con veintitantas referencias verificadas contra
 > Crossref. Aquí van solo las que sostienen una afirmación de este documento.
 >
-> **Lo que falta y se declara:** la implementación del modelo avanzado se cita por su
-> **software** (Wang, 2024), que es lo que de verdad se ejecutó. El artículo original de
-> iTransformer no se cita porque **no está verificado en este repositorio**, y este proyecto no
-> añade una referencia de memoria. Queda pendiente de que M3 la confirme — es su modelo y su
-> fuente.
+> **Por qué el iTransformer aparece dos veces.** Se cita el **artículo** (Liu et al., 2023),
+> que es la arquitectura, y el **software** (Wang, 2024), que es la implementación que de verdad
+> se ejecutó. No son la misma fuente y el proyecto ejecutó la segunda.
+>
+> El artículo estuvo fuera de esta lista hasta que M3 lo verificó contra la página del propio
+> artículo, con el DOI comprobado: mientras no lo estuvo, no se añadió de memoria. **Se cita por
+> su DOI de arXiv y no como ICLR 2024**, que es como suele verse, porque la página del artículo
+> no declara sede de publicación y eso no se verificó.

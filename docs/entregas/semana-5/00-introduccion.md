@@ -49,6 +49,23 @@ con ese tamaño la detección de un efecto como este sale bien **el 80 % de las 
 
 ---
 
+## Los dos entregables, y dónde está cada uno
+
+El caso pide dos cosas: este **informe técnico** y el **modelo de clasificación entrenado**. El
+segundo no cabe en un documento, así que va donde se puede ejecutar y auditar:
+
+| Entregable | Dónde |
+|---|---|
+| Informe técnico | Este documento |
+| **Modelo entrenado, código y evidencias** | https://github.com/NeoFao/caso1-ltc-inflexion |
+| Aplicación web funcionando | https://neofao.github.io/caso1-ltc-inflexion/ |
+
+El repositorio es **público** e incluye `docs/evidencias/`, de donde sale cada cifra de este
+informe, y `docs/DECISIONES.md`, con los criterios fechados antes de cada medición. Cualquier
+número de aquí se puede rastrear hasta el archivo que lo produjo.
+
+---
+
 ## Qué se construyó
 
 Un sistema que clasifica cada vela de Litecoin en tres estados —**máximo local**, **mínimo local**

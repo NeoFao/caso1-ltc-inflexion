@@ -201,6 +201,30 @@ const celda = (texto, opciones = {}) => new TableCell({
  * Los bordes hay que anularlos tambien a nivel de tabla: los de celda no bastan
  * porque la tabla dibuja los suyos por encima.
  */
+/**
+ * Con `numero === null` se emite solo la rejilla, sin las dos lineas de pie.
+ * Lo necesitan la introduccion y las conclusiones: alli los pies no llevan numero
+ * correlativo sino uno propio ("Tabla C.1"), que el tokenizador no reconoce como
+ * pie y ya llega emitido como parrafo. Sin esta variante habria que elegir entre
+ * perder la tabla o rotularla dos veces.
+ */
+/** Una imagen sin pie propio: lo usa la introduccion, donde el pie ya es un parrafo. */
+function imagenSola(rutaImagen) {
+  const { ancho, alto, contenido } = dimensiones(rutaImagen);
+  return [new Paragraph({
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 120 },
+    children: [new ImageRun({
+      data: contenido,
+      type: 'png',
+      transformation: {
+        width: ANCHO_IMAGEN,
+        height: Math.round(ANCHO_IMAGEN * (alto / ancho)),
+      },
+    })],
+  })];
+}
+
 function tabla(numero, tituloTabla, encabezados, filas, nota) {
   const columnas = encabezados.length;
   const ancho = Math.floor(ANCHO_UTIL / columnas);
@@ -209,7 +233,7 @@ function tabla(numero, tituloTabla, encabezados, filas, nota) {
 
   const alineacion = (i) => (i === 0 ? AlignmentType.LEFT : AlignmentType.CENTER);
 
-  const bloques = [
+  const pie = numero === null ? [] : [
     new Paragraph({
       keepNext: true,
       spacing: { line: DOBLE, lineRule: LineRuleType.AUTO, before: 240, after: 0 },
@@ -222,6 +246,10 @@ function tabla(numero, tituloTabla, encabezados, filas, nota) {
       spacing: { line: DOBLE, lineRule: LineRuleType.AUTO, after: 60 },
       children: runs(tituloTabla, { italics: true }),
     }),
+  ];
+
+  const bloques = [
+    ...pie,
     new Table({
       columnWidths: anchos,
       width: { size: ANCHO_UTIL, type: WidthType.DXA },
@@ -302,7 +330,7 @@ const propiedadesPagina = () => ({
 module.exports = {
   FUENTE, TAM, DOBLE, SANGRIA, NEGRO, GRIS, ANCHO_UTIL,
   fechaLarga, runs, parrafo, citaEnBloque, aviso, titulo,
-  figura, tabla, notaDebajo, referencia,
+  figura, imagenSola, tabla, notaDebajo, referencia,
   encabezadoPagina, estilosDocumento, propiedadesPagina,
   PageBreak,
 };

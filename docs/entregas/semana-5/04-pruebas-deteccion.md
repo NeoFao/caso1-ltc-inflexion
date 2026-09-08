@@ -11,6 +11,15 @@ un fallo en la sintética no dice dónde está el problema.
 **Cada prueba tiene su criterio escrito antes de correrla.** Están en el propio archivo de evidencia,
 en el campo `criterio_preregistrado`, no en un documento aparte donde se pudieran ajustar después.
 
+> **Con qué modelo se corrieron, y qué queda fuera.** Las cuatro son pruebas **del circuito** —
+> etiquetado, camino de datos, ausencia de fuga — y se corrieron con el **modelo clásico**: en
+> `pruebas-deteccion.json` las claves son `f1_macro_bosque`, `f1_maximo_bosque` y `f1_minimo_bosque`.
+>
+> **No se repitieron sobre los dos modelos profundos.** El enunciado las nombra en las semanas 3 y 4,
+> así que tenerlas también sobre el fundacional y el avanzado sería una mejora — y no está hecha. Lo
+> que las cuatro verifican no cambia por el modelo que las corra, pero eso es un argumento, no una
+> medición, y por eso queda declarado aquí en vez de resuelto en silencio.
+
 ---
 
 ## 4.1 Qué demuestra cada una

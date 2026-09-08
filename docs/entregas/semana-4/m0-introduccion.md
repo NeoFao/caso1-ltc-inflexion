@@ -1,7 +1,17 @@
 # Introducción
 
 Esta entrega cubre la **Semana 4** del enunciado: el desarrollo del **modelo avanzado** —un
-Transformer— y las mismas pruebas de detección, ahora sobre él.
+Transformer—, la ingeniería de características que reciben los tres modelos y la comparación entre
+ellos sobre validación.
+
+> **Las pruebas de detección no se repiten aquí, y conviene decir por qué.** Las cuatro son pruebas
+> **del circuito**, no de un modelo: comprueban que el etiquetado es correcto, que el camino de
+> datos no tiene fuga y que alimentar el sistema vela a vela da lo mismo que procesar el bloque
+> entero. Se corrieron con el **modelo clásico** y se reportan en la **Semana 3**.
+>
+> Correrlas de nuevo sobre el avanzado mediría otra vez el mismo circuito. Sería una mejora tenerlas
+> también sobre los dos modelos profundos —el enunciado las nombra en las dos semanas— y **no se
+> hizo**: decirlo es más barato que insinuar que están.
 
 Se entrega por separado, como avance propio, además de estar integrada en el informe final.
 
@@ -14,7 +24,7 @@ Se entrega por separado, como avance propio, además de estar integrada en el in
 | Modelo avanzado entrenado | **Hecho** — iTransformer, `src/modelos/avanzado.py` |
 | Ingeniería de características | **Hecha** — 63 columnas, ninguna en nivel de precio |
 | Comparación de los tres modelos sobre validación | **Hecha** — con intervalos pareados |
-| Pruebas de detección sobre el avanzado | **Hechas** — el mismo arnés de la Semana 3 |
+| Pruebas de detección | **En la Semana 3** — son del circuito, no de un modelo, y se corrieron con el clásico |
 
 ---
 

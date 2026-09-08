@@ -214,7 +214,7 @@ function partirPie(texto) {
 function emitir(doc, carpeta, avisos) {
   const salida = [];
   let imagenPendiente = null;
-  let tablaPendiente = null;
+  let piePendiente = null;
 
   for (const bloque of doc.cuerpo) {
     switch (bloque.tipo) {
@@ -236,19 +236,38 @@ function emitir(doc, carpeta, avisos) {
         break;
 
       case 'tabla':
-        tablaPendiente = bloque;
+        // El pie de tabla va ARRIBA, asi que cuando llega la rejilla su pie ya
+        // paso. Emparejarla con el pie *siguiente*, que es lo que se hacia,
+        // rotulaba cada tabla con el titulo de la que venia despues -- y en el
+        // informe entregado las dieciocho salieron corridas una posicion.
+        if (piePendiente) {
+          const { titulo, nota } = partirPie(piePendiente.texto);
+          salida.push(...apa.tabla(
+            piePendiente.global, titulo, bloque.encabezados, bloque.filas, nota,
+          ));
+          piePendiente = null;
+        } else {
+          // Sin pie no se descarta, pero tampoco se le inventa uno: varias tablas
+          // del informe son rejillas de dos columnas dentro de un parrafo, y
+          // rotularlas "Tabla N" las anunciaria como algo que no son.
+          salida.push(...apa.tabla(null, '', bloque.encabezados, bloque.filas, null));
+        }
         break;
 
       case 'pie': {
         const { titulo, nota } = partirPie(bloque.texto);
+        // La figura es al reves que la tabla: la imagen va antes y el pie la
+        // cierra. Por eso una espera a la otra en sentidos opuestos.
         if (bloque.clase === 'Figura' && imagenPendiente) {
           salida.push(...apa.figura(bloque.global, titulo, imagenPendiente, nota));
           imagenPendiente = null;
-        } else if (bloque.clase === 'Tabla' && tablaPendiente) {
-          salida.push(...apa.tabla(
-            bloque.global, titulo, tablaPendiente.encabezados, tablaPendiente.filas, nota,
-          ));
-          tablaPendiente = null;
+        } else if (bloque.clase === 'Tabla') {
+          // Dos pies de tabla seguidos significan que uno se quedo sin rejilla.
+          // Se emite como parrafo en vez de desaparecer.
+          if (piePendiente) salida.push(apa.parrafo(`**Tabla ${piePendiente.global}.** ${partirPie(piePendiente.texto).titulo}`));
+          piePendiente = bloque;
+        } else {
+          salida.push(apa.parrafo(`**${bloque.clase} ${bloque.global ?? bloque.numero}.** ${titulo}`));
         }
         break;
       }
@@ -272,13 +291,11 @@ function emitir(doc, carpeta, avisos) {
       default:
         salida.push(apa.parrafo(bloque.texto));
     }
-    // Una tabla sin pie se emite igual, para no perderla.
-    if (tablaPendiente && bloque.tipo === 'tabla') continue;
   }
 
-  if (tablaPendiente) {
-    salida.push(...apa.tabla('—', 'Tabla sin pie en el original',
-      tablaPendiente.encabezados, tablaPendiente.filas, null));
+  // Un pie que se quedo sin rejilla al final del capitulo tampoco se descarta.
+  if (piePendiente) {
+    salida.push(apa.parrafo(`**Tabla ${piePendiente.global}.** ${partirPie(piePendiente.texto).titulo}`));
   }
   return salida;
 }
@@ -326,16 +343,35 @@ function seccionSuelta(nombre) {
 }
 
 /**
- * La introduccion y las conclusiones no llevan figuras ni tablas, asi que no pasan
- * por la renumeracion. Pero SI pueden tener bloques sin redactar, y hasta ahora
- * este camino los descartaba en silencio: no aparecian en el documento ni en el
- * recuento, de modo que el guion anunciaba "sin bloques pendientes" con las
- * conclusiones todavia en esqueleto. Casi se entrega asi.
+ * La introduccion y las conclusiones no pasan por la renumeracion, porque sus pies
+ * llevan numeracion propia ("Tabla C.1") en vez de correlativa.
+ *
+ * Este camino ha descartado cosas en silencio dos veces, y las dos llegaron a un
+ * entregable. La primera fueron los bloques sin redactar: no aparecian ni en el
+ * documento ni en el recuento, asi que el guion anunciaba "sin bloques pendientes"
+ * con las conclusiones todavia en esqueleto.
+ *
+ * La segunda fueron **las tablas y las imagenes**, que este camino no contemplaba
+ * porque cuando se escribio la introduccion no tenia ninguna. Cuando empezo a
+ * tenerlas, desaparecieron sin aviso: en el informe entregado, la tabla del resumen
+ * ejecutivo -- la de los tres intervalos, que es el resultado principal del
+ * trabajo -- y las diez de las conclusiones se perdieron, dejando sus pies
+ * colgando sobre nada.
+ *
+ * De ahi que ahora se emita todo tipo de bloque conocido y que el `else` final
+ * avise en vez de callar.
  */
 function emitirSuelta(nombre, cuerpo, avisos) {
   for (const bloque of seccionSuelta(nombre)) {
     if (bloque.tipo === 'titulo') cuerpo.push(apa.titulo(Math.min(bloque.nivel, 3), bloque.texto));
-    else if (bloque.tipo === 'parrafo') cuerpo.push(apa.parrafo(bloque.texto));
+    else if (bloque.tipo === 'tabla') {
+      // Sin numero: el pie ya viene como parrafo justo encima, con su "Tabla C.1".
+      cuerpo.push(...apa.tabla(null, '', bloque.encabezados, bloque.filas, null));
+    } else if (bloque.tipo === 'imagen') {
+      cuerpo.push(...apa.imagenSola(path.resolve(ENTREGA, bloque.ruta)));
+    } else if (bloque.tipo === 'pie') {
+      cuerpo.push(apa.parrafo(`**${bloque.clase} ${bloque.numero}.** ${partirPie(bloque.texto).titulo}`));
+    } else if (bloque.tipo === 'parrafo') cuerpo.push(apa.parrafo(bloque.texto));
     else if (bloque.tipo === 'lista') {
       for (const p of bloque.puntos) {
         cuerpo.push(apa.parrafo(`• ${p}`, { sinSangria: true, indent: { left: apa.SANGRIA } }));
@@ -348,6 +384,13 @@ function emitirSuelta(nombre, cuerpo, avisos) {
       } else {
         cuerpo.push(apa.citaEnBloque(bloque.texto));
       }
+    } else {
+      // Ningun tipo de bloque se descarta ya sin decirlo. Si aparece uno nuevo,
+      // que falle el ensamblado y no el entregable.
+      throw new Error(
+        `emitirSuelta no sabe emitir un bloque "${bloque.tipo}" (en ${nombre}). `
+        + 'Anadirlo aqui: callarselo es como se perdieron las tablas del resumen ejecutivo.',
+      );
     }
   }
 }
