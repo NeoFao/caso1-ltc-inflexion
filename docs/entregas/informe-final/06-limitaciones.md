@@ -91,6 +91,16 @@ fijas no se cumple.
 tres fallan: hilos fijos con algoritmos deterministas, semilla de *hash* fija, y semilla fija — con
 las tres, la pérdida final sigue cambiando entre procesos.
 
+**Y hay una segunda mitad de esta limitación, que es de tamaño y no de instrumento.** Aun cuando la
+condición se puede aplicar, hace falta muestra suficiente para que signifique algo. La Figura 6.1 lo
+cuantifica: con las **1 960 velas** del bloque de prueba, un efecto como el que este sistema tiene se
+detecta **el 80 % de las veces**. Es el umbral convencional — defendible, pero sin margen.
+
+![Curva de potencia](../../evidencias/informe-f4-curva-potencia.png)
+
+**Figura 6.1.** Cuánta muestra hacía falta para ver el efecto que hay. El bloque que se usó cae
+exactamente sobre el 80 %. Fuente: `docs/evidencias/informe-f4-curva-potencia.png`.
+
 **Y el alcance está acotado, también medido:** el bosque y el `baseline_aleatorio` reproducen **bit a
 bit entre procesos**, con la misma huella SHA-256 de las 1 959 predicciones. La comparación de la que
 depende el veredicto del proyecto no está afectada.
