@@ -1,0 +1,289 @@
+{
+  "ejecutado_utc": "2026-09-14T21:31:10+00:00",
+  "que_mide": "Si anadir seis columnas derivadas del volumen aporta sobre las 63 de siempre. El panel trae el volumen de los seis activos y ninguna de las 63 columnas actuales lo usa.",
+  "las_seis_columnas": [
+    "LTC_volumen_rel_7",
+    "LTC_volumen_rel_24",
+    "LTC_volumen_z_24",
+    "LTC_volumen_cambio_1",
+    "LTC_volumen_posicion_24",
+    "LTC_corr_retorno_volumen_24"
+  ],
+  "por_que_seis_y_solo_LTC": "Por la razon que documenta src/features/base.py: con 420 ejemplos de la clase minoritaria, anadir cien columnas garantiza el sobreajuste. Si seis no mueven nada, sesenta tampoco lo habrian movido por la via limpia.",
+  "no_cambia_el_contrato": "Las caracteristicas son el modulo de M2. Este guion mide; no toca src/features/base.py. Adoptarlo es decision de M2.",
+  "criterio_preregistrado": "La ventaja del bosque con volumen sobre el bosque sin volumen es positiva en F1 macro Y el signo es estable en los nueve tramos. El umbral de la D5 no aplica: es una convencion para elegir entre configuraciones, no para responder si algo aporta.",
+  "expectativa_declarada_antes": "Se esperaba que NO aporte de forma estable: siete de los nueve ejes probados no dieron nada y los dos que dieron no tocaban las caracteristicas. Ademas m2-importancia-permutacion ya midio que 17 de las 63 columnas no superan el piso de ruido.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "resultados": {
+    "exacto": {
+      "objetivo": "exacto",
+      "velas_de_margen": 0,
+      "sin_volumen": {
+        "columnas": 63,
+        "f1_macro": 0.381008,
+        "f1_macro_azar": 0.336389,
+        "ventaja_sobre_azar": 0.044619,
+        "por_tramo": [
+          {
+            "tramo": 0,
+            "f1_macro": 0.336645,
+            "f1_maximo": 0.088235,
+            "f1_minimo": 0.0
+          },
+          {
+            "tramo": 1,
+            "f1_macro": 0.389948,
+            "f1_maximo": 0.125,
+            "f1_minimo": 0.126984
+          },
+          {
+            "tramo": 2,
+            "f1_macro": 0.372472,
+            "f1_maximo": 0.043478,
+            "f1_minimo": 0.149254
+          },
+          {
+            "tramo": 3,
+            "f1_macro": 0.372711,
+            "f1_maximo": 0.085106,
+            "f1_minimo": 0.103448
+          },
+          {
+            "tramo": 4,
+            "f1_macro": 0.375287,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.202899
+          },
+          {
+            "tramo": 5,
+            "f1_macro": 0.404296,
+            "f1_maximo": 0.137931,
+            "f1_minimo": 0.153846
+          },
+          {
+            "tramo": 6,
+            "f1_macro": 0.396294,
+            "f1_maximo": 0.095238,
+            "f1_minimo": 0.172414
+          },
+          {
+            "tramo": 7,
+            "f1_macro": 0.372917,
+            "f1_maximo": 0.042553,
+            "f1_minimo": 0.151515
+          },
+          {
+            "tramo": 8,
+            "f1_macro": 0.408498,
+            "f1_maximo": 0.109091,
+            "f1_minimo": 0.190476
+          }
+        ]
+      },
+      "con_volumen": {
+        "columnas": 69,
+        "f1_macro": 0.371025,
+        "f1_macro_azar": 0.336389,
+        "ventaja_sobre_azar": 0.034636,
+        "por_tramo": [
+          {
+            "tramo": 0,
+            "f1_macro": 0.342786,
+            "f1_maximo": 0.0625,
+            "f1_minimo": 0.042553
+          },
+          {
+            "tramo": 1,
+            "f1_macro": 0.369065,
+            "f1_maximo": 0.0625,
+            "f1_minimo": 0.129032
+          },
+          {
+            "tramo": 2,
+            "f1_macro": 0.354074,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.133333
+          },
+          {
+            "tramo": 3,
+            "f1_macro": 0.381069,
+            "f1_maximo": 0.117647,
+            "f1_minimo": 0.088889
+          },
+          {
+            "tramo": 4,
+            "f1_macro": 0.367678,
+            "f1_maximo": 0.036364,
+            "f1_minimo": 0.149254
+          },
+          {
+            "tramo": 5,
+            "f1_macro": 0.370461,
+            "f1_maximo": 0.068966,
+            "f1_minimo": 0.125
+          },
+          {
+            "tramo": 6,
+            "f1_macro": 0.364902,
+            "f1_maximo": 0.071429,
+            "f1_minimo": 0.101695
+          },
+          {
+            "tramo": 7,
+            "f1_macro": 0.388625,
+            "f1_maximo": 0.0,
+            "f1_minimo": 0.233333
+          },
+          {
+            "tramo": 8,
+            "f1_macro": 0.400565,
+            "f1_maximo": 0.074074,
+            "f1_minimo": 0.2
+          }
+        ]
+      },
+      "diferencia_media": -0.009983,
+      "tramos_a_favor": 3,
+      "tramos_medidos": 9,
+      "signo_estable": false,
+      "aporta": false
+    },
+    "proximidad_1_vela": {
+      "objetivo": "proximidad_1_vela",
+      "velas_de_margen": 1,
+      "sin_volumen": {
+        "columnas": 63,
+        "f1_macro": 0.567778,
+        "f1_macro_azar": 0.337697,
+        "ventaja_sobre_azar": 0.230081,
+        "por_tramo": [
+          {
+            "tramo": 0,
+            "f1_macro": 0.54813,
+            "f1_maximo": 0.483019,
+            "f1_minimo": 0.436214
+          },
+          {
+            "tramo": 1,
+            "f1_macro": 0.597128,
+            "f1_maximo": 0.512111,
+            "f1_minimo": 0.547619
+          },
+          {
+            "tramo": 2,
+            "f1_macro": 0.560526,
+            "f1_maximo": 0.450593,
+            "f1_minimo": 0.510638
+          },
+          {
+            "tramo": 3,
+            "f1_macro": 0.54508,
+            "f1_maximo": 0.421769,
+            "f1_minimo": 0.520661
+          },
+          {
+            "tramo": 4,
+            "f1_macro": 0.57922,
+            "f1_maximo": 0.492063,
+            "f1_minimo": 0.516364
+          },
+          {
+            "tramo": 5,
+            "f1_macro": 0.578993,
+            "f1_maximo": 0.487805,
+            "f1_minimo": 0.52549
+          },
+          {
+            "tramo": 6,
+            "f1_macro": 0.557883,
+            "f1_maximo": 0.468254,
+            "f1_minimo": 0.482759
+          },
+          {
+            "tramo": 7,
+            "f1_macro": 0.574106,
+            "f1_maximo": 0.482759,
+            "f1_minimo": 0.486692
+          },
+          {
+            "tramo": 8,
+            "f1_macro": 0.568931,
+            "f1_maximo": 0.483607,
+            "f1_minimo": 0.466102
+          }
+        ]
+      },
+      "con_volumen": {
+        "columnas": 69,
+        "f1_macro": 0.567984,
+        "f1_macro_azar": 0.337697,
+        "ventaja_sobre_azar": 0.230287,
+        "por_tramo": [
+          {
+            "tramo": 0,
+            "f1_macro": 0.547819,
+            "f1_maximo": 0.479401,
+            "f1_minimo": 0.436975
+          },
+          {
+            "tramo": 1,
+            "f1_macro": 0.600334,
+            "f1_maximo": 0.518771,
+            "f1_minimo": 0.548387
+          },
+          {
+            "tramo": 2,
+            "f1_macro": 0.55151,
+            "f1_maximo": 0.4375,
+            "f1_minimo": 0.508834
+          },
+          {
+            "tramo": 3,
+            "f1_macro": 0.545409,
+            "f1_maximo": 0.416961,
+            "f1_minimo": 0.514768
+          },
+          {
+            "tramo": 4,
+            "f1_macro": 0.585062,
+            "f1_maximo": 0.471545,
+            "f1_minimo": 0.537879
+          },
+          {
+            "tramo": 5,
+            "f1_macro": 0.572802,
+            "f1_maximo": 0.479167,
+            "f1_minimo": 0.517928
+          },
+          {
+            "tramo": 6,
+            "f1_macro": 0.556664,
+            "f1_maximo": 0.462151,
+            "f1_minimo": 0.484615
+          },
+          {
+            "tramo": 7,
+            "f1_macro": 0.580444,
+            "f1_maximo": 0.491379,
+            "f1_minimo": 0.492188
+          },
+          {
+            "tramo": 8,
+            "f1_macro": 0.571811,
+            "f1_maximo": 0.506122,
+            "f1_minimo": 0.452991
+          }
+        ]
+      },
+      "diferencia_media": 0.000206,
+      "tramos_a_favor": 5,
+      "tramos_medidos": 9,
+      "signo_estable": false,
+      "aporta": false
+    }
+  },
+  "veredicto": {
+    "exacto": "no aporta",
+    "proximidad_1_vela": "no aporta"
+  }
+}

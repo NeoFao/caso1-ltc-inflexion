@@ -593,6 +593,103 @@ informe llegó a insinuar— **también lo sería**: es igual de infundado, solo
 cómoda. Lo que se puede sostener es lo único que se midió: **detecta, con un margen pequeño pero
 estable, y sus errores caen cerca.**
 
+#### El noveno eje, y el que más mueve: preguntarle otra cosa
+
+La medición de tolerancia dejó una consecuencia que había que probar. Si los errores del modelo caen
+**alrededor** del giro, entonces el modelo ya contesta bien *«¿estamos cerca de un giro?»* — y este
+proyecto lo ha estado puntuando durante cinco semanas por *«¿es **esta** vela el giro?»*.
+
+Así que se le cambió la pregunta: **una vela es Máximo si hay un máximo real a `k` velas o menos.**
+Con `k = 0` es exactamente la etiqueta de siempre, lo que sirve de control del experimento.
+
+**Tabla C.14.** Entrenar y evaluar con el objetivo de proximidad, nueve tramos.
+
+| Margen | Horas | Velas con giro | F1 macro del modelo | F1 macro del azar | Ventaja | Tramos |
+|---|---|---|---|---|---|---|
+| 0 velas | 0 | 9,29 % | 0,381008 | 0,336389 | +0,044619 | 9 de 9 |
+| **1 vela** | **4** | 27,47 % | **0,567778** | 0,337697 | **+0,230081** | 9 de 9 |
+| 2 velas | 8 | 44,13 % | 0,553873 | 0,338043 | +0,215829 | 9 de 9 |
+| 3 velas | 12 | 58,13 % | 0,538214 | 0,338467 | +0,199747 | 9 de 9 |
+
+#### Por qué esto no es hacer la tarea más fácil y llamarlo mejora
+
+Es la objeción obvia y hay que contestarla con la tabla, no con palabras: **predecir «hay giro cerca»
+es más fácil que predecir «es aquí»**, así que el F1 tenía que subir de todos modos.
+
+**Lo que decide es la columna del azar.** El `baseline_aleatorio` se entrena y se mide sobre la misma
+etiqueta, y va de **0,336389** a **0,338467**: se mueve **dos milésimas** mientras el modelo sube
+**diecinueve centésimas**.
+
+Si la tarea se hubiera vuelto más fácil *para todos*, el azar habría subido con él. No lo hace. **La
+mejora es del modelo, no de la tarea.**
+
+Y por eso el criterio escrito de antemano no pedía que el F1 subiera —eso estaba garantizado— sino
+que **la ventaja sobre el azar creciera**. Crece de **+0,044619** a **+0,230081**: **más de cinco
+veces**, con el signo estable en los nueve tramos y positiva en las dos clases extremas.
+
+#### Dónde está el óptimo, y por qué no es el margen más ancho
+
+**El mejor punto es una vela: cuatro horas.** A partir de ahí la ventaja **baja** —+0,230081, luego
++0,215829, luego +0,199747— aunque el F1 absoluto siga pareciendo alto.
+
+La razón es que a `k = 3` el **58,13 %** de las velas ya cuentan como «cerca de un giro». La clase
+deja de ser rara, la pregunta deja de ser interesante y responder «sí» casi siempre empieza a ser una
+estrategia. **Un margen más ancho no es un modelo mejor: es una pregunta más floja.**
+
+#### Qué significa, y qué no
+
+**Significa que el sistema tiene bastante más señal de la que este informe le atribuía**, y que buena
+parte de lo que parecía error del modelo era **exigencia del instrumento**. Con la pregunta a cuatro
+horas, el F1 macro pasa de 0,381008 a **0,567778**.
+
+**No significa que el resultado del informe cambie.** El enunciado define el punto de inflexión como
+la vela exacta, y esa es la medición que este informe reporta, incluida la del bloque de prueba.
+Esto es un **problema distinto**, se reporta al lado y no en su lugar.
+
+**Y no se puede validar como se validó aquello.** El bloque de prueba se gastó el 07/09 y no vuelve:
+esta medición vive sobre nueve tramos de validación deslizante. Es evidencia fuera de muestra y con
+potencia, pero **no es una medición limpia de un solo disparo**, y esa distinción no se puede
+recuperar.
+
+> **La lectura honesta de los nueve ejes.** Siete intentos de mejorar el modelo no dieron nada. El
+> octavo —dejar que se calle— dio algo. El noveno —cambiar la pregunta— dio cinco veces más que
+> todos los anteriores juntos.
+>
+> Los tres que funcionaron tienen algo en común y vale la pena decirlo: **ninguno toca el modelo.**
+> Cambian qué se le pregunta y cuándo se le hace caso. El límite nunca estuvo en el modelado, y las
+> primeras siete intervenciones lo estaban buscando en el sitio equivocado — incluidas las mías.
+
+#### El décimo eje: el volumen, que estaba ahí sin usar
+
+Revisando qué no se había probado apareció un hueco de los que dan vergüenza: **el panel trae el
+volumen de los seis activos y ninguna de las 63 columnas lo usa.** Todas derivan del precio.
+
+Y el volumen es la señal de manual para giros: **agotamiento** en techos —el precio sigue subiendo
+con volumen cada vez menor— y **capitulación** en suelos —la caída termina con un pico—.
+
+Se probaron **seis columnas**, solo sobre LTC: volumen sobre su media a 7 y a 24 velas, su
+`z`-score, su variación, su posición dentro del rango reciente, y la correlación entre retorno y
+volumen. Seis y no sesenta por la razón que el propio módulo de características documenta: con
+**420 ejemplos** de la clase minoritaria, cien columnas nuevas garantizan el sobreajuste.
+
+**Tabla C.15.** El bosque con y sin las seis columnas de volumen, nueve tramos.
+
+| Objetivo | Sin volumen | Con volumen | Diferencia | Tramos a favor |
+|---|---|---|---|---|
+| Exacto | 0,381008 | 0,371025 | **−0,009983** | 3 de 9 |
+| Proximidad a 1 vela | 0,567778 | 0,567984 | +0,000206 | 5 de 9 |
+
+**No aporta, y en el objetivo exacto empeora.** Con la etiqueta de proximidad la diferencia es de
+dos diezmilésimas y gana en cinco tramos de nueve, que es una moneda.
+
+**La expectativa estaba escrita antes y era esta**, por dos razones que ya estaban medidas: los dos
+únicos ejes que funcionaron no tocaban las características, y la importancia por permutación ya
+había medido que **17 de las 63 columnas actuales no superan el piso de ruido**. El problema nunca
+pareció ser falta de columnas, y el volumen lo confirma.
+
+Sirve para cerrar la pregunta. Deja de ser «algo que no probamos» y pasa a ser **algo que probamos y
+no está**.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -607,9 +704,15 @@ estable, y sus errores caen cerca.**
 | 6 | Gradient boosting | la familia de modelo | no se establece |
 | 7 | Pesar por margen | la confianza por ejemplo | no se establece |
 | **8** | **Dejar que se calle** | **el punto de operación** | **se sostiene, 9 de 9** |
+| **9** | **Preguntarle «hay giro cerca»** | **la pregunta** | **se sostiene, y da 5× más** |
+| 10 | Añadir el volumen | las características | **no aporta**, y empeora el exacto |
 
-**Siete de las ocho intervenciones no producen una mejora que se sostenga.** La octava sí, y es la
-única que no toca el modelo: cambia **cuándo contesta**, no **qué** contesta.
+**Ocho de las diez intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
+algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
+**cuándo contesta** y la otra **qué se le pregunta**.
+
+El límite nunca estuvo en el modelado. Las siete primeras intervenciones lo estaban buscando en el
+sitio equivocado.
 
 Eso ya no es una lista de intentos fallidos. Es evidencia consistente de que **el límite de este
 sistema no está en el modelado**: está en cuánta señal hay en estos datos, con esta definición de
