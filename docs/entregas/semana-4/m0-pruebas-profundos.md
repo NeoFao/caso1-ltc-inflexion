@@ -107,14 +107,40 @@ sobre la serie construida **no identifica un solo máximo**. El azar también da
 el criterio —que exige superarlo **estrictamente**— no se cumple por un empate en cero. Mínimos sí
 los detecta, 0,080000 contra 0,000000.
 
-**Que falle así, y no con un número bajo, apunta al puente y no al canal.** El canal es el mismo que
-el clásico recorre sacando 0,411765 en esa misma clase y sobre esos mismos datos. Lo que cambia es
-cómo se llega a la etiqueta: el avanzado **pronostica una trayectoria** y después se le aplica el
-etiquetador. Una trayectoria demasiado suave **nunca produce un máximo estricto** —hacen falta
-catorce desigualdades encadenadas— y el resultado es cero máximos, no pocos máximos.
+> **Aquí había una explicación nuestra que resultó ser falsa, y la desmontó M3 midiendo.**
+>
+> Esta sección decía que una trayectoria suave **nunca produce un máximo estricto**, y que por eso
+> el resultado era cero máximos. Sonaba bien y no se había comprobado.
+>
+> **El iTransformer predice 29 máximos** sobre esas 442 velas, y **36 mínimos**, que exigen las
+> mismas catorce desigualdades. **El puente sí produce extremos estrictos.** Lo que pasa es otra
+> cosa: **ninguno de los 29 cae sobre un máximo real.**
 
-Es la misma causa que la Semana 4 ya documenta en la sección del modelo avanzado, medida ahora desde
-otro lado y sobre datos donde la respuesta correcta la fijamos nosotros.
+**Tabla 4.** Dónde caen los máximos que cada modelo anuncia, sobre 14 máximos reales.
+
+| Modelo | Máximos predichos | Exactos | A una vela o menos |
+|---|---|---|---|
+| `bosque_aleatorio` | 54 | **14** | **38** |
+| `chronos_bolt` | 30 | 9 | 21 |
+| `itransformer` | 29 | **0** | **1** |
+
+*Nota.* Medido por M3 en `docs/evidencias/m3-desfase-puente-sintetico.json`, reproduciendo la prueba
+2 con las funciones de este mismo guion y **deteniéndose si el F1 recalculado no coincidiera con el
+publicado**. Coincidió en los tres modelos.
+
+**Lo que la medición sí sostiene** es más preciso y más útil que lo que habíamos escrito: los fallos
+del bosque y de Chronos **caen cerca del giro** —38 de 54 y 21 de 30 a una vela o menos— y los del
+iTransformer **no**: **1 de 29**. Marca giros, pero lejos, y tiende a marcarlos **después** del real.
+
+**Y una cautela sobre el propio cero.** Con **14 máximos reales**, acertar cero contra acertar dos no
+son situaciones distinguibles. El F1 de 0,000000 es exacto como cifra, pero **no autoriza a decir
+«nunca»**: autoriza a decir que no acertó ninguno de catorce.
+
+> **Por qué se cuenta el error en vez de corregirlo en silencio.** Porque la explicación falsa era
+> **nuestra y cómoda**: cerraba la sección con una causa elegante. La medición que la desmonta la
+> pidió M0 y la hizo M3 sobre su propio módulo, buscando confirmarla. Es el mismo patrón que las
+> cuatro limitaciones de la sección 6: lo que corrige este informe aparece **midiendo**, no
+> revisando la redacción.
 
 ### Lo que no dicen
 

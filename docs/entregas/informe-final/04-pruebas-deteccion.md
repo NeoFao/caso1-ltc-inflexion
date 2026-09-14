@@ -22,10 +22,14 @@ en el campo `criterio_preregistrado`, no en un documento aparte donde se pudiera
 > - **Chronos-Bolt pasa las tres.** En la sintética casi empata con el clásico en el F1 de máximos,
 >   0,409091 contra 0,411765. En el bloque de entrenamiento pasa por **0,000666** de margen, que es
 >   cumplir el criterio y no es holgura.
-> - **El iTransformer falla la sintética**, con un F1 de máximos de **exactamente cero**: no
->   identifica un solo máximo, y el azar también da cero, así que no lo supera estrictamente.
->   Fallar así —cero, no poco— apunta al **puente**: una trayectoria suave nunca produce las catorce
->   desigualdades encadenadas que exige un máximo estricto.
+> - **El iTransformer falla la sintética**, con un F1 de máximos de **exactamente cero**: no acierta
+>   ninguno de los **14** máximos reales, y el azar también da cero, así que no lo supera
+>   estrictamente. **Aquí el informe dio antes una explicación que resultó falsa** —que una
+>   trayectoria suave no llega a producir las catorce desigualdades encadenadas—. M3 lo midió: el
+>   iTransformer **predice 29 máximos y 36 mínimos**, así que el puente **sí** los produce.
+>   **Ninguno de los 29 cae sobre un máximo real**, y solo **1 de 29** cae a una vela o menos,
+>   frente a **38 de 54** del bosque. Marca giros, pero lejos. Y con 14 casos, cero aciertos contra
+>   dos no son distinguibles: la cifra es exacta, pero no autoriza a decir «nunca».
 > - **Los tres dan cero discrepancias en la de tiempo real.** Eso comprueba algo que antes no estaba
 >   comprobado: los dos profundos leen su contexto de la serie de precios **por posición**, y ese
 >   contexto es **causal**. Bastaría una vela de más hacia adelante para que ninguna métrica lo
