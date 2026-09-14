@@ -442,6 +442,85 @@ arreglo 1 sin su defecto.
 
 **Ninguno se establece.** El boosting queda por debajo y el pesado empata.
 
+### El octavo eje: dejar que el sistema se calle
+
+Los siete intentos anteriores comparten algo que no se hizo explícito hasta el final: **los siete
+miden con el sistema respondiendo en todas las velas.** `predecir()` elige siempre la clase más
+probable, así que el sistema **nunca se calla**. El intento 3 cambió *qué clase* gana; ninguno probó
+**no contestar**.
+
+Ese es un eje distinto, y es el único que dio algo.
+
+#### La pregunta que el informe no tenía respondida
+
+La precisión direccional de este informe —**0,103627** sobre validación— responde: *de los giros que
+ocurrieron, ¿a cuántos les acertó el tipo?* Es una medida sobre los giros.
+
+Falta el complemento, que es lo que le importaría a cualquiera que usara esto: **de las veces que el
+sistema avisa, ¿cuántas acierta?** Sobre los nueve tramos, con **6 550 observaciones**:
+
+**Tabla C.12.** Precisión del aviso al subir el umbral, y cobertura que cuesta.
+
+| Umbral | Avisos | Cobertura | Precisión del aviso | Azar a esa cobertura | Tramos a favor |
+|---|---|---|---|---|---|
+| 0,00 *(hoy)* | 6 550 | 100,00 % | **0,081374** | 0,048244 | 9 de 9 |
+| 0,25 | 5 015 | 76,56 % | 0,094317 | 0,049452 | 9 de 9 |
+| 0,30 | 4 083 | 62,34 % | 0,095518 | 0,044575 | 9 de 9 |
+| 0,35 | 2 915 | 44,50 % | 0,098456 | 0,046998 | 9 de 9 |
+| **0,40** | **1 766** | **26,96 %** | **0,099660** | **0,049830** | **9 de 9** |
+| 0,45 | 831 | 12,69 % | 0,115523 | 0,050542 | 8 de 9 |
+| 0,50 | 285 | 4,35 % | 0,129825 | 0,059649 | 9 de 9 |
+
+*Nota.* La frecuencia base de giros es **0,093740**. El criterio, escrito antes de correr, exigía
+superarla, superar al azar a la misma cobertura y que el signo aguantara en los nueve tramos.
+
+#### Lo primero que hay que decir es incómodo
+
+**Tal como funciona hoy, el aviso es peor que inútil como alarma.** Avisando en todas las velas
+acierta el **8,1 %**, y la frecuencia base de giros es **9,4 %**: quien reaccionara a cada aviso lo
+haría peor que reaccionando al azar con la misma frecuencia. Que supere al `baseline_aleatorio`
+—0,081374 contra 0,048244— no lo arregla, porque ese piso también nombra el tipo al azar.
+
+Eso no contradice nada de lo medido antes. Dice que **la métrica que el informe reporta y la que un
+usuario necesita no son la misma**, y que la segunda faltaba.
+
+#### Callarse sí funciona, y aguanta el criterio
+
+La precisión sube de forma sostenida al subir el umbral, y desde **0,25** en adelante cumple las
+tres condiciones. **El punto defendible es 0,40:**
+
+- Avisa en el **26,96 %** de las velas y acierta el **0,099660**, que es **exactamente el doble** del
+  azar a esa misma cobertura (0,049830).
+- Gana en **los nueve tramos**, con entre **150 y 225 avisos por tramo**: suficientes para que el
+  resultado no dependa de un puñado de casos.
+
+**Y no elegimos 0,50 aunque su cifra sea más alta.** Da 0,129825, pero con **285 avisos en total** y
+entre 20 y 46 por tramo; su «9 de 9» incluye un tramo donde gana solo porque al azar le tocó
+**exactamente cero aciertos**. Con esos conteos, una racha no es un resultado. El umbral 0,45, que
+está en medio, ya falla el criterio con **8 de 9**.
+
+Esa no monotonía entre 0,40, 0,45 y 0,50 es la señal de que ahí el ruido manda, y es la razón de
+quedarse en el punto con más datos y no en el de la cifra mayor.
+
+#### Qué cambia esto, y qué no
+
+**Cambia lo que el sistema puede ofrecer.** En vez de un aviso en cada vela que acierta el 8 %, un
+aviso en una de cada cuatro velas que acierta el 10 % y dobla al azar. Es un cambio de **punto de
+operación**, no de modelo: el bosque es el mismo y no se reentrenó nada.
+
+**No cambia ninguna cifra de este informe.** La comparación de modelos, el bloque de prueba y las
+tres condiciones de la D16 se miden con cobertura del 100 %, como estaban.
+
+**Y no convierte esto en un sistema con el que operar.** Acertar 1 de cada 10 avisos, doblando al
+azar, sigue siendo un margen pequeño; lo que cambia es que ahora está medido por el lado que
+importa y que existe una perilla —el umbral— que hace explícito el canje entre avisar mucho y
+acertar poco, o poco y acertar algo más.
+
+**La Tabla C.11 pasa a tener ocho filas, y la octava es la primera que se sostiene.** Y refuerza, no
+contradice, lo que las otras siete dijeron: el límite sigue estando en los datos. Lo que se ganó no
+salió de modelar mejor, sino de **admitir que el sistema no tiene nada que decir en tres de cada
+cuatro velas**.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -455,8 +534,10 @@ arreglo 1 sin su defecto.
 | 5 | Combinar los tres modelos | la agregación | no se establece |
 | 6 | Gradient boosting | la familia de modelo | no se establece |
 | 7 | Pesar por margen | la confianza por ejemplo | no se establece |
+| **8** | **Dejar que se calle** | **el punto de operación** | **se sostiene, 9 de 9** |
 
-**Siete intervenciones, en siete ejes distintos, y ninguna produce una mejora que se sostenga.**
+**Siete de las ocho intervenciones no producen una mejora que se sostenga.** La octava sí, y es la
+única que no toca el modelo: cambia **cuándo contesta**, no **qué** contesta.
 
 Eso ya no es una lista de intentos fallidos. Es evidencia consistente de que **el límite de este
 sistema no está en el modelado**: está en cuánta señal hay en estos datos, con esta definición de

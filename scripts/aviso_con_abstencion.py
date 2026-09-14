@@ -217,6 +217,10 @@ def main() -> None:
             "aciertos": aciertos,
             "precision": round(prec, 6) if prec is not None else None,
             "cobertura": round(n_avisos / len(verdad_total), 6),
+            # En por ciento tambien, porque asi es como se lee en el documento y el
+            # verificador exige que el numero citado exista aqui, no una conversion
+            # hecha a mano al escribir la tabla.
+            "cobertura_por_ciento": round(100 * n_avisos / len(verdad_total), 2),
             "precision_azar_misma_cobertura": round(prec_az, 6) if prec_az is not None else None,
             "supera_frecuencia_base": bool(prec is not None and prec > frecuencia_base),
             "supera_al_azar": bool(prec is not None and prec_az is not None and prec > prec_az),

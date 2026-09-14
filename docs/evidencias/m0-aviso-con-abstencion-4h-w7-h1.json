@@ -1,0 +1,941 @@
+{
+  "ejecutado_utc": "2026-09-14T19:49:33+00:00",
+  "que_mide": "De las veces que el sistema AVISA, cuantas acierta. El informe reporta el complemento -- de los giros reales, a cuantos les acerto -- y esta cifra faltaba. Se obtiene dejando que el sistema se calle cuando no esta seguro.",
+  "por_que_no_es_ninguno_de_los_siete": "Los siete intentos de la Tabla C.11 miden con cobertura del 100 %. El intento 3 corregia por frecuencia base QUE CLASE gana, con el sistema respondiendo siempre. Aqui la opcion nueva es NO RESPONDER.",
+  "criterio_preregistrado": "Para decir que abstenerse sirve tiene que existir un umbral donde se cumplan las tres: (1) la precision del aviso supera la frecuencia base de giros, (2) supera la del baseline_aleatorio a la MISMA cobertura, y (3) el signo de esa ventaja es estable en los nueve tramos.",
+  "expectativa_declarada_antes": "Se esperaba que la precision suba al bajar la cobertura. No se sabia si sube lo suficiente para ser util ni si aguanta el criterio 3. Si sube pero no aguanta los nueve tramos, la conclusion es que no se establece.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante. El bloque de prueba se gasto el 07/09 y no se vuelve a medir. Ninguna cifra del informe cambia.",
+  "no_se_reentrena": "Es el mismo bosque de siempre; solo se le piden las probabilidades.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "n_tramos": 9,
+    "umbrales": [
+      0.0,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.6
+    ]
+  },
+  "n_observaciones": 6550,
+  "frecuencia_base_de_giros": 0.09374,
+  "agregado": {
+    "0.00": {
+      "avisos": 6550,
+      "aciertos": 533,
+      "precision": 0.081374,
+      "cobertura": 1.0,
+      "precision_azar_misma_cobertura": 0.048244,
+      "supera_frecuencia_base": false,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 100.0
+    },
+    "0.10": {
+      "avisos": 6527,
+      "aciertos": 533,
+      "precision": 0.081661,
+      "cobertura": 0.996489,
+      "precision_azar_misma_cobertura": 0.047189,
+      "supera_frecuencia_base": false,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 99.65
+    },
+    "0.15": {
+      "avisos": 6386,
+      "aciertos": 529,
+      "precision": 0.082837,
+      "cobertura": 0.974962,
+      "precision_azar_misma_cobertura": 0.045568,
+      "supera_frecuencia_base": false,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 97.5
+    },
+    "0.20": {
+      "avisos": 5883,
+      "aciertos": 514,
+      "precision": 0.08737,
+      "cobertura": 0.898168,
+      "precision_azar_misma_cobertura": 0.047595,
+      "supera_frecuencia_base": false,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 89.82
+    },
+    "0.25": {
+      "avisos": 5015,
+      "aciertos": 473,
+      "precision": 0.094317,
+      "cobertura": 0.765649,
+      "precision_azar_misma_cobertura": 0.049452,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 76.56
+    },
+    "0.30": {
+      "avisos": 4083,
+      "aciertos": 390,
+      "precision": 0.095518,
+      "cobertura": 0.623359,
+      "precision_azar_misma_cobertura": 0.044575,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 62.34
+    },
+    "0.35": {
+      "avisos": 2915,
+      "aciertos": 287,
+      "precision": 0.098456,
+      "cobertura": 0.445038,
+      "precision_azar_misma_cobertura": 0.046998,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 44.5
+    },
+    "0.40": {
+      "avisos": 1766,
+      "aciertos": 176,
+      "precision": 0.09966,
+      "cobertura": 0.269618,
+      "precision_azar_misma_cobertura": 0.04983,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 26.96
+    },
+    "0.45": {
+      "avisos": 831,
+      "aciertos": 96,
+      "precision": 0.115523,
+      "cobertura": 0.12687,
+      "precision_azar_misma_cobertura": 0.050542,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": true,
+      "tramos_a_favor": 8,
+      "tramos_medidos": 9,
+      "signo_estable": false,
+      "cobertura_por_ciento": 12.69
+    },
+    "0.50": {
+      "avisos": 285,
+      "aciertos": 37,
+      "precision": 0.129825,
+      "cobertura": 0.043511,
+      "precision_azar_misma_cobertura": 0.059649,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": true,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "cobertura_por_ciento": 4.35
+    },
+    "0.60": {
+      "avisos": 16,
+      "aciertos": 2,
+      "precision": 0.125,
+      "cobertura": 0.002443,
+      "precision_azar_misma_cobertura": 0.1875,
+      "supera_frecuencia_base": true,
+      "supera_al_azar": false,
+      "tramos_a_favor": 0,
+      "tramos_medidos": 6,
+      "signo_estable": false,
+      "cobertura_por_ciento": 0.24
+    }
+  },
+  "por_tramo": [
+    {
+      "tramo": 0,
+      "n": 727,
+      "giros_reales": 69,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 59,
+          "precision": 0.081155,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.050894
+        },
+        "0.10": {
+          "avisos": 727,
+          "aciertos": 59,
+          "precision": 0.081155,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.03989
+        },
+        "0.15": {
+          "avisos": 721,
+          "aciertos": 59,
+          "precision": 0.081831,
+          "cobertura": 0.991747,
+          "precision_azar_misma_cobertura": 0.042996
+        },
+        "0.20": {
+          "avisos": 680,
+          "aciertos": 58,
+          "precision": 0.085294,
+          "cobertura": 0.935351,
+          "precision_azar_misma_cobertura": 0.041176
+        },
+        "0.25": {
+          "avisos": 580,
+          "aciertos": 52,
+          "precision": 0.089655,
+          "cobertura": 0.797799,
+          "precision_azar_misma_cobertura": 0.051724
+        },
+        "0.30": {
+          "avisos": 459,
+          "aciertos": 42,
+          "precision": 0.091503,
+          "cobertura": 0.631362,
+          "precision_azar_misma_cobertura": 0.041394
+        },
+        "0.35": {
+          "avisos": 296,
+          "aciertos": 27,
+          "precision": 0.091216,
+          "cobertura": 0.407153,
+          "precision_azar_misma_cobertura": 0.047297
+        },
+        "0.40": {
+          "avisos": 150,
+          "aciertos": 12,
+          "precision": 0.08,
+          "cobertura": 0.206327,
+          "precision_azar_misma_cobertura": 0.053333
+        },
+        "0.45": {
+          "avisos": 61,
+          "aciertos": 3,
+          "precision": 0.04918,
+          "cobertura": 0.083906,
+          "precision_azar_misma_cobertura": 0.098361
+        },
+        "0.50": {
+          "avisos": 20,
+          "aciertos": 1,
+          "precision": 0.05,
+          "cobertura": 0.02751,
+          "precision_azar_misma_cobertura": 0.0
+        },
+        "0.60": {
+          "avisos": 0,
+          "aciertos": 0,
+          "precision": null,
+          "cobertura": 0.0,
+          "precision_azar_misma_cobertura": null
+        }
+      }
+    },
+    {
+      "tramo": 1,
+      "n": 727,
+      "giros_reales": 76,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 67,
+          "precision": 0.09216,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.03989
+        },
+        "0.10": {
+          "avisos": 726,
+          "aciertos": 67,
+          "precision": 0.092287,
+          "cobertura": 0.998624,
+          "precision_azar_misma_cobertura": 0.055096
+        },
+        "0.15": {
+          "avisos": 713,
+          "aciertos": 67,
+          "precision": 0.093969,
+          "cobertura": 0.980743,
+          "precision_azar_misma_cobertura": 0.057504
+        },
+        "0.20": {
+          "avisos": 658,
+          "aciertos": 66,
+          "precision": 0.100304,
+          "cobertura": 0.905089,
+          "precision_azar_misma_cobertura": 0.056231
+        },
+        "0.25": {
+          "avisos": 547,
+          "aciertos": 59,
+          "precision": 0.107861,
+          "cobertura": 0.752407,
+          "precision_azar_misma_cobertura": 0.062157
+        },
+        "0.30": {
+          "avisos": 440,
+          "aciertos": 48,
+          "precision": 0.109091,
+          "cobertura": 0.605227,
+          "precision_azar_misma_cobertura": 0.047727
+        },
+        "0.35": {
+          "avisos": 307,
+          "aciertos": 32,
+          "precision": 0.104235,
+          "cobertura": 0.422283,
+          "precision_azar_misma_cobertura": 0.061889
+        },
+        "0.40": {
+          "avisos": 183,
+          "aciertos": 25,
+          "precision": 0.136612,
+          "cobertura": 0.251719,
+          "precision_azar_misma_cobertura": 0.071038
+        },
+        "0.45": {
+          "avisos": 81,
+          "aciertos": 11,
+          "precision": 0.135802,
+          "cobertura": 0.111417,
+          "precision_azar_misma_cobertura": 0.074074
+        },
+        "0.50": {
+          "avisos": 33,
+          "aciertos": 6,
+          "precision": 0.181818,
+          "cobertura": 0.045392,
+          "precision_azar_misma_cobertura": 0.060606
+        },
+        "0.60": {
+          "avisos": 1,
+          "aciertos": 0,
+          "precision": 0.0,
+          "cobertura": 0.001376,
+          "precision_azar_misma_cobertura": 0.0
+        }
+      }
+    },
+    {
+      "tramo": 2,
+      "n": 727,
+      "giros_reales": 70,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 61,
+          "precision": 0.083906,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.056396
+        },
+        "0.10": {
+          "avisos": 726,
+          "aciertos": 61,
+          "precision": 0.084022,
+          "cobertura": 0.998624,
+          "precision_azar_misma_cobertura": 0.046832
+        },
+        "0.15": {
+          "avisos": 717,
+          "aciertos": 61,
+          "precision": 0.085077,
+          "cobertura": 0.986245,
+          "precision_azar_misma_cobertura": 0.048815
+        },
+        "0.20": {
+          "avisos": 669,
+          "aciertos": 59,
+          "precision": 0.088191,
+          "cobertura": 0.92022,
+          "precision_azar_misma_cobertura": 0.049327
+        },
+        "0.25": {
+          "avisos": 571,
+          "aciertos": 55,
+          "precision": 0.096322,
+          "cobertura": 0.78542,
+          "precision_azar_misma_cobertura": 0.042032
+        },
+        "0.30": {
+          "avisos": 456,
+          "aciertos": 46,
+          "precision": 0.100877,
+          "cobertura": 0.627235,
+          "precision_azar_misma_cobertura": 0.046053
+        },
+        "0.35": {
+          "avisos": 319,
+          "aciertos": 32,
+          "precision": 0.100313,
+          "cobertura": 0.43879,
+          "precision_azar_misma_cobertura": 0.053292
+        },
+        "0.40": {
+          "avisos": 186,
+          "aciertos": 18,
+          "precision": 0.096774,
+          "cobertura": 0.255846,
+          "precision_azar_misma_cobertura": 0.080645
+        },
+        "0.45": {
+          "avisos": 72,
+          "aciertos": 8,
+          "precision": 0.111111,
+          "cobertura": 0.099037,
+          "precision_azar_misma_cobertura": 0.013889
+        },
+        "0.50": {
+          "avisos": 25,
+          "aciertos": 3,
+          "precision": 0.12,
+          "cobertura": 0.034388,
+          "precision_azar_misma_cobertura": 0.08
+        },
+        "0.60": {
+          "avisos": 1,
+          "aciertos": 0,
+          "precision": 0.0,
+          "cobertura": 0.001376,
+          "precision_azar_misma_cobertura": 0.0
+        }
+      }
+    },
+    {
+      "tramo": 3,
+      "n": 727,
+      "giros_reales": 58,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 55,
+          "precision": 0.075653,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.030261
+        },
+        "0.10": {
+          "avisos": 725,
+          "aciertos": 55,
+          "precision": 0.075862,
+          "cobertura": 0.997249,
+          "precision_azar_misma_cobertura": 0.04
+        },
+        "0.15": {
+          "avisos": 714,
+          "aciertos": 55,
+          "precision": 0.077031,
+          "cobertura": 0.982118,
+          "precision_azar_misma_cobertura": 0.040616
+        },
+        "0.20": {
+          "avisos": 662,
+          "aciertos": 53,
+          "precision": 0.08006,
+          "cobertura": 0.910591,
+          "precision_azar_misma_cobertura": 0.034743
+        },
+        "0.25": {
+          "avisos": 599,
+          "aciertos": 51,
+          "precision": 0.085142,
+          "cobertura": 0.823934,
+          "precision_azar_misma_cobertura": 0.048414
+        },
+        "0.30": {
+          "avisos": 501,
+          "aciertos": 44,
+          "precision": 0.087824,
+          "cobertura": 0.689133,
+          "precision_azar_misma_cobertura": 0.03992
+        },
+        "0.35": {
+          "avisos": 366,
+          "aciertos": 34,
+          "precision": 0.092896,
+          "cobertura": 0.503439,
+          "precision_azar_misma_cobertura": 0.035519
+        },
+        "0.40": {
+          "avisos": 217,
+          "aciertos": 16,
+          "precision": 0.073733,
+          "cobertura": 0.298487,
+          "precision_azar_misma_cobertura": 0.02765
+        },
+        "0.45": {
+          "avisos": 91,
+          "aciertos": 9,
+          "precision": 0.098901,
+          "cobertura": 0.125172,
+          "precision_azar_misma_cobertura": 0.021978
+        },
+        "0.50": {
+          "avisos": 30,
+          "aciertos": 4,
+          "precision": 0.133333,
+          "cobertura": 0.041265,
+          "precision_azar_misma_cobertura": 0.066667
+        },
+        "0.60": {
+          "avisos": 0,
+          "aciertos": 0,
+          "precision": null,
+          "cobertura": 0.0,
+          "precision_azar_misma_cobertura": null
+        }
+      }
+    },
+    {
+      "tramo": 4,
+      "n": 727,
+      "giros_reales": 72,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 66,
+          "precision": 0.090784,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.046768
+        },
+        "0.10": {
+          "avisos": 723,
+          "aciertos": 66,
+          "precision": 0.091286,
+          "cobertura": 0.994498,
+          "precision_azar_misma_cobertura": 0.052559
+        },
+        "0.15": {
+          "avisos": 695,
+          "aciertos": 65,
+          "precision": 0.093525,
+          "cobertura": 0.955983,
+          "precision_azar_misma_cobertura": 0.041727
+        },
+        "0.20": {
+          "avisos": 616,
+          "aciertos": 61,
+          "precision": 0.099026,
+          "cobertura": 0.847318,
+          "precision_azar_misma_cobertura": 0.051948
+        },
+        "0.25": {
+          "avisos": 526,
+          "aciertos": 58,
+          "precision": 0.110266,
+          "cobertura": 0.723521,
+          "precision_azar_misma_cobertura": 0.047529
+        },
+        "0.30": {
+          "avisos": 425,
+          "aciertos": 46,
+          "precision": 0.108235,
+          "cobertura": 0.584594,
+          "precision_azar_misma_cobertura": 0.037647
+        },
+        "0.35": {
+          "avisos": 321,
+          "aciertos": 37,
+          "precision": 0.115265,
+          "cobertura": 0.441541,
+          "precision_azar_misma_cobertura": 0.043614
+        },
+        "0.40": {
+          "avisos": 204,
+          "aciertos": 21,
+          "precision": 0.102941,
+          "cobertura": 0.280605,
+          "precision_azar_misma_cobertura": 0.058824
+        },
+        "0.45": {
+          "avisos": 105,
+          "aciertos": 12,
+          "precision": 0.114286,
+          "cobertura": 0.144429,
+          "precision_azar_misma_cobertura": 0.038095
+        },
+        "0.50": {
+          "avisos": 35,
+          "aciertos": 4,
+          "precision": 0.114286,
+          "cobertura": 0.048143,
+          "precision_azar_misma_cobertura": 0.057143
+        },
+        "0.60": {
+          "avisos": 4,
+          "aciertos": 1,
+          "precision": 0.25,
+          "cobertura": 0.005502,
+          "precision_azar_misma_cobertura": 0.25
+        }
+      }
+    },
+    {
+      "tramo": 5,
+      "n": 727,
+      "giros_reales": 71,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 59,
+          "precision": 0.081155,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.050894
+        },
+        "0.10": {
+          "avisos": 721,
+          "aciertos": 59,
+          "precision": 0.081831,
+          "cobertura": 0.991747,
+          "precision_azar_misma_cobertura": 0.044383
+        },
+        "0.15": {
+          "avisos": 703,
+          "aciertos": 59,
+          "precision": 0.083926,
+          "cobertura": 0.966988,
+          "precision_azar_misma_cobertura": 0.054054
+        },
+        "0.20": {
+          "avisos": 651,
+          "aciertos": 58,
+          "precision": 0.089094,
+          "cobertura": 0.895461,
+          "precision_azar_misma_cobertura": 0.053763
+        },
+        "0.25": {
+          "avisos": 567,
+          "aciertos": 56,
+          "precision": 0.098765,
+          "cobertura": 0.779917,
+          "precision_azar_misma_cobertura": 0.061728
+        },
+        "0.30": {
+          "avisos": 474,
+          "aciertos": 45,
+          "precision": 0.094937,
+          "cobertura": 0.651994,
+          "precision_azar_misma_cobertura": 0.050633
+        },
+        "0.35": {
+          "avisos": 345,
+          "aciertos": 32,
+          "precision": 0.092754,
+          "cobertura": 0.474553,
+          "precision_azar_misma_cobertura": 0.04058
+        },
+        "0.40": {
+          "avisos": 213,
+          "aciertos": 21,
+          "precision": 0.098592,
+          "cobertura": 0.292985,
+          "precision_azar_misma_cobertura": 0.037559
+        },
+        "0.45": {
+          "avisos": 112,
+          "aciertos": 15,
+          "precision": 0.133929,
+          "cobertura": 0.154058,
+          "precision_azar_misma_cobertura": 0.026786
+        },
+        "0.50": {
+          "avisos": 37,
+          "aciertos": 5,
+          "precision": 0.135135,
+          "cobertura": 0.050894,
+          "precision_azar_misma_cobertura": 0.081081
+        },
+        "0.60": {
+          "avisos": 4,
+          "aciertos": 1,
+          "precision": 0.25,
+          "cobertura": 0.005502,
+          "precision_azar_misma_cobertura": 0.25
+        }
+      }
+    },
+    {
+      "tramo": 6,
+      "n": 727,
+      "giros_reales": 65,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 55,
+          "precision": 0.075653,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.048143
+        },
+        "0.10": {
+          "avisos": 721,
+          "aciertos": 55,
+          "precision": 0.076283,
+          "cobertura": 0.991747,
+          "precision_azar_misma_cobertura": 0.04577
+        },
+        "0.15": {
+          "avisos": 697,
+          "aciertos": 53,
+          "precision": 0.07604,
+          "cobertura": 0.958735,
+          "precision_azar_misma_cobertura": 0.032999
+        },
+        "0.20": {
+          "avisos": 644,
+          "aciertos": 52,
+          "precision": 0.080745,
+          "cobertura": 0.885832,
+          "precision_azar_misma_cobertura": 0.054348
+        },
+        "0.25": {
+          "avisos": 538,
+          "aciertos": 44,
+          "precision": 0.081784,
+          "cobertura": 0.740028,
+          "precision_azar_misma_cobertura": 0.039033
+        },
+        "0.30": {
+          "avisos": 449,
+          "aciertos": 36,
+          "precision": 0.080178,
+          "cobertura": 0.617607,
+          "precision_azar_misma_cobertura": 0.040089
+        },
+        "0.35": {
+          "avisos": 326,
+          "aciertos": 27,
+          "precision": 0.082822,
+          "cobertura": 0.448418,
+          "precision_azar_misma_cobertura": 0.030675
+        },
+        "0.40": {
+          "avisos": 225,
+          "aciertos": 18,
+          "precision": 0.08,
+          "cobertura": 0.309491,
+          "precision_azar_misma_cobertura": 0.04
+        },
+        "0.45": {
+          "avisos": 116,
+          "aciertos": 10,
+          "precision": 0.086207,
+          "cobertura": 0.15956,
+          "precision_azar_misma_cobertura": 0.060345
+        },
+        "0.50": {
+          "avisos": 46,
+          "aciertos": 5,
+          "precision": 0.108696,
+          "cobertura": 0.063274,
+          "precision_azar_misma_cobertura": 0.043478
+        },
+        "0.60": {
+          "avisos": 4,
+          "aciertos": 0,
+          "precision": 0.0,
+          "cobertura": 0.005502,
+          "precision_azar_misma_cobertura": 0.0
+        }
+      }
+    },
+    {
+      "tramo": 7,
+      "n": 727,
+      "giros_reales": 69,
+      "umbrales": {
+        "0.00": {
+          "avisos": 727,
+          "aciertos": 57,
+          "precision": 0.078404,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.060523
+        },
+        "0.10": {
+          "avisos": 725,
+          "aciertos": 57,
+          "precision": 0.078621,
+          "cobertura": 0.997249,
+          "precision_azar_misma_cobertura": 0.056552
+        },
+        "0.15": {
+          "avisos": 707,
+          "aciertos": 56,
+          "precision": 0.079208,
+          "cobertura": 0.97249,
+          "precision_azar_misma_cobertura": 0.045262
+        },
+        "0.20": {
+          "avisos": 640,
+          "aciertos": 54,
+          "precision": 0.084375,
+          "cobertura": 0.88033,
+          "precision_azar_misma_cobertura": 0.04375
+        },
+        "0.25": {
+          "avisos": 536,
+          "aciertos": 48,
+          "precision": 0.089552,
+          "cobertura": 0.737276,
+          "precision_azar_misma_cobertura": 0.052239
+        },
+        "0.30": {
+          "avisos": 439,
+          "aciertos": 39,
+          "precision": 0.088838,
+          "cobertura": 0.603851,
+          "precision_azar_misma_cobertura": 0.05467
+        },
+        "0.35": {
+          "avisos": 310,
+          "aciertos": 30,
+          "precision": 0.096774,
+          "cobertura": 0.42641,
+          "precision_azar_misma_cobertura": 0.064516
+        },
+        "0.40": {
+          "avisos": 192,
+          "aciertos": 17,
+          "precision": 0.088542,
+          "cobertura": 0.264099,
+          "precision_azar_misma_cobertura": 0.036458
+        },
+        "0.45": {
+          "avisos": 86,
+          "aciertos": 10,
+          "precision": 0.116279,
+          "cobertura": 0.118294,
+          "precision_azar_misma_cobertura": 0.046512
+        },
+        "0.50": {
+          "avisos": 25,
+          "aciertos": 4,
+          "precision": 0.16,
+          "cobertura": 0.034388,
+          "precision_azar_misma_cobertura": 0.08
+        },
+        "0.60": {
+          "avisos": 2,
+          "aciertos": 0,
+          "precision": 0.0,
+          "cobertura": 0.002751,
+          "precision_azar_misma_cobertura": 0.5
+        }
+      }
+    },
+    {
+      "tramo": 8,
+      "n": 734,
+      "giros_reales": 64,
+      "umbrales": {
+        "0.00": {
+          "avisos": 734,
+          "aciertos": 54,
+          "precision": 0.073569,
+          "cobertura": 1.0,
+          "precision_azar_misma_cobertura": 0.050409
+        },
+        "0.10": {
+          "avisos": 733,
+          "aciertos": 54,
+          "precision": 0.07367,
+          "cobertura": 0.998638,
+          "precision_azar_misma_cobertura": 0.043656
+        },
+        "0.15": {
+          "avisos": 719,
+          "aciertos": 54,
+          "precision": 0.075104,
+          "cobertura": 0.979564,
+          "precision_azar_misma_cobertura": 0.045897
+        },
+        "0.20": {
+          "avisos": 663,
+          "aciertos": 53,
+          "precision": 0.07994,
+          "cobertura": 0.90327,
+          "precision_azar_misma_cobertura": 0.043741
+        },
+        "0.25": {
+          "avisos": 551,
+          "aciertos": 50,
+          "precision": 0.090744,
+          "cobertura": 0.750681,
+          "precision_azar_misma_cobertura": 0.039927
+        },
+        "0.30": {
+          "avisos": 440,
+          "aciertos": 44,
+          "precision": 0.1,
+          "cobertura": 0.599455,
+          "precision_azar_misma_cobertura": 0.043182
+        },
+        "0.35": {
+          "avisos": 325,
+          "aciertos": 36,
+          "precision": 0.110769,
+          "cobertura": 0.442779,
+          "precision_azar_misma_cobertura": 0.049231
+        },
+        "0.40": {
+          "avisos": 196,
+          "aciertos": 28,
+          "precision": 0.142857,
+          "cobertura": 0.26703,
+          "precision_azar_misma_cobertura": 0.05102
+        },
+        "0.45": {
+          "avisos": 107,
+          "aciertos": 18,
+          "precision": 0.168224,
+          "cobertura": 0.145777,
+          "precision_azar_misma_cobertura": 0.084112
+        },
+        "0.50": {
+          "avisos": 34,
+          "aciertos": 5,
+          "precision": 0.147059,
+          "cobertura": 0.046322,
+          "precision_azar_misma_cobertura": 0.058824
+        },
+        "0.60": {
+          "avisos": 0,
+          "aciertos": 0,
+          "precision": null,
+          "cobertura": 0.0,
+          "precision_azar_misma_cobertura": null
+        }
+      }
+    }
+  ],
+  "umbrales_que_cumplen_las_tres": [
+    "0.25",
+    "0.30",
+    "0.35",
+    "0.40",
+    "0.50"
+  ],
+  "veredicto": "Abstenerse SI mejora el aviso y aguanta el criterio."
+}
