@@ -1,0 +1,46 @@
+{
+  "ejecutado_utc": "2026-09-14T18:15:11+00:00",
+  "que_es": "Los modelos entrenados, guardados como archivo y comprobados: cada uno se vuelve a cargar desde el disco y se verifica que predice exactamente lo mismo, por huella SHA-256 de las predicciones sobre validacion.",
+  "por_que": "El caso pide el modelo de clasificacion entrenado como entregable. Antes de esto se entregaba el codigo que lo reentrena, que no es lo mismo.",
+  "chronos_bolt": {
+    "se_guarda": false,
+    "por_que": "Es zero-shot: no hay nada ajustado por nosotros que guardar. Lo que lo hace reproducible es el repositorio y la revision de los pesos.",
+    "repo": "amazon/chronos-bolt-small"
+  },
+  "modelos": {
+    "bosque_aleatorio": {
+      "archivo": "bosque_aleatorio.joblib",
+      "formato": "joblib (objeto BosqueAleatorio con su Pipeline de scikit-learn)",
+      "megabytes": 6.37,
+      "sha256_archivo": "8a6442878e12038503ae09db13759ff288ec6c6a5d3c075b5011440ab6b21c06",
+      "n_entrenamiento": 9165,
+      "hiperparametros": {
+        "n_estimators": "300",
+        "min_samples_leaf": "5",
+        "max_depth": "None",
+        "class_weight": "balanced",
+        "random_state": "0"
+      },
+      "huella_predicciones_en_memoria": "d27cf6c16797ebac06baa82248254fd80679ebb59259bc97dac5faa14a0e356a",
+      "huella_predicciones_recargado": "d27cf6c16797ebac06baa82248254fd80679ebb59259bc97dac5faa14a0e356a",
+      "el_archivo_predice_igual": true,
+      "f1_macro_validacion": 0.390498,
+      "precision_direccional_validacion": 0.103627,
+      "como_se_usa": "import joblib; modelo = joblib.load('modelos_entrenados/bosque_aleatorio.joblib'); modelo.predecir(X)"
+    },
+    "itransformer": {
+      "archivo": "itransformer.pt",
+      "formato": "torch.save con state_dict y los parametros del constructor",
+      "megabytes": 0.56,
+      "sha256_archivo": "25cb27f69ae3d5abef49cd7090854a5d35b150427f61bf3f1ac883bae51e25f7",
+      "n_parametros": 141656,
+      "segundos_entrenamiento": 36.5,
+      "perdida_final": 1.016722,
+      "huella_predicciones_en_memoria": "7d26ffdbdb47e63167c8e69147d820b47f2f765ccf42ac1c45c856b093c5e12d",
+      "huella_predicciones_recargado": "7d26ffdbdb47e63167c8e69147d820b47f2f765ccf42ac1c45c856b093c5e12d",
+      "el_archivo_predice_igual": true,
+      "f1_macro_validacion": 0.344835,
+      "lo_que_esto_arregla": "La D25 documenta que este modelo no reproduce ENTRE PROCESOS: reentrenarlo da pesos distintos. El archivo lo arregla para quien lo reciba, porque lo que no reproduce es el entrenamiento y la inferencia con pesos fijos si es determinista. Cargar este archivo da siempre las mismas predicciones."
+    }
+  }
+}

@@ -11,14 +11,27 @@ un fallo en la sintética no dice dónde está el problema.
 **Cada prueba tiene su criterio escrito antes de correrla.** Están en el propio archivo de evidencia,
 en el campo `criterio_preregistrado`, no en un documento aparte donde se pudieran ajustar después.
 
-> **Con qué modelo se corrieron, y qué queda fuera.** Las cuatro son pruebas **del circuito** —
-> etiquetado, camino de datos, ausencia de fuga — y se corrieron con el **modelo clásico**: en
+> **Con qué modelo se corrieron.** Las cifras de esta sección son del **modelo clásico**: en
 > `pruebas-deteccion.json` las claves son `f1_macro_bosque`, `f1_maximo_bosque` y `f1_minimo_bosque`.
 >
-> **No se repitieron sobre los dos modelos profundos.** El enunciado las nombra en las semanas 3 y 4,
-> así que tenerlas también sobre el fundacional y el avanzado sería una mejora — y no está hecha. Lo
-> que las cuatro verifican no cambia por el modelo que las corra, pero eso es un argumento, no una
-> medición, y por eso queda declarado aquí en vez de resuelto en silencio.
+> **Las tres pruebas que dependen del modelo se repitieron después sobre el fundacional y el
+> avanzado**, con el criterio escrito antes de correrlas y el clásico como control —que reprodujo
+> estas mismas cifras—. El resultado, en
+> `docs/evidencias/pruebas-deteccion-profundos.json`:
+>
+> - **Chronos-Bolt pasa las tres.** En la sintética casi empata con el clásico en el F1 de máximos,
+>   0,409091 contra 0,411765. En el bloque de entrenamiento pasa por **0,000666** de margen, que es
+>   cumplir el criterio y no es holgura.
+> - **El iTransformer falla la sintética**, con un F1 de máximos de **exactamente cero**: no
+>   identifica un solo máximo, y el azar también da cero, así que no lo supera estrictamente.
+>   Fallar así —cero, no poco— apunta al **puente**: una trayectoria suave nunca produce las catorce
+>   desigualdades encadenadas que exige un máximo estricto.
+> - **Los tres dan cero discrepancias en la de tiempo real.** Eso comprueba algo que antes no estaba
+>   comprobado: los dos profundos leen su contexto de la serie de precios **por posición**, y ese
+>   contexto es **causal**. Bastaría una vela de más hacia adelante para que ninguna métrica lo
+>   delatara.
+>
+> La sección 4 de la Semana 4 lo desarrolla. Nada de eso tocó el bloque de prueba.
 
 ---
 

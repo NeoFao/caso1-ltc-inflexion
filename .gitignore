@@ -22,10 +22,21 @@ data/raw/*
 data/cache/
 
 # Salidas de modelo: pesan y se regeneran entrenando.
-modelos_entrenados/
+#
+# Con dos excepciones, y son entregables del caso, no conveniencia nuestra. El
+# enunciado pide "el modelo de clasificacion entrenado", y hasta que existieron
+# estos dos archivos lo que se entregaba era el codigo que lo reentrena. Caben:
+# 6,4 MB el bosque y menos de 1 MB los pesos del avanzado.
+#
+# El avanzado ademas gana algo con estar versionado: la D25 dice que no reproduce
+# entre procesos, asi que sin el archivo nadie puede obtener las predicciones que
+# el informe reporta. Con el archivo si.
+modelos_entrenados/*
 *.pt
 *.ckpt
 *.safetensors
+!modelos_entrenados/bosque_aleatorio.joblib
+!modelos_entrenados/itransformer.pt
 
 .DS_Store
 Thumbs.db
