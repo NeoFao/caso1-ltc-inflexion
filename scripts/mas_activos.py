@@ -146,10 +146,19 @@ def construir_para(panel: pd.DataFrame, activo: str) -> pd.DataFrame:
     return X
 
 
-def mini_panel(crudo: pd.DataFrame, activo: str, indice: pd.Index) -> pd.DataFrame:
-    """Un panel de un solo activo, realineado al indice del panel de 4 horas."""
+def mini_panel(crudo: pd.DataFrame, indice: pd.Index) -> pd.DataFrame:
+    """Un panel de un solo activo, realineado al indice del panel de 4 horas.
+
+    Las columnas llevan el prefijo de LTC **a proposito**, aunque los datos sean de
+    otro activo: `contracts/schema.py` valida el nombre contra la lista congelada de
+    seis, y un experimento no parchea un contrato congelado.
+
+    No cambia nada del calculo. `construir_para` deriva las caracteristicas de las
+    columnas OHLCV que recibe y despues les quita el prefijo, asi que el resultado es
+    identico llamen como se llamen las columnas de entrada.
+    """
     columnas = {
-        f"{activo}_{campo}": crudo[campo]
+        f"{ACTIVO_OBJETIVO}_{campo}": crudo[campo]
         for campo in ("apertura", "maximo", "minimo", "cierre", "volumen")
     }
     return pd.DataFrame(columnas).reindex(indice)
@@ -177,8 +186,8 @@ def main() -> None:
             crudo.to_parquet(archivo)
         else:
             crudo = pd.read_parquet(archivo)
-        mp = mini_panel(crudo, a, panel.index)
-        cubiertas = int(mp[f"{a}_cierre"].notna().sum())
+        mp = mini_panel(crudo, panel.index)
+        cubiertas = int(mp[f"{ACTIVO_OBJETIVO}_cierre"].notna().sum())
         cobertura[a] = {
             "velas_descargadas": int(len(crudo)),
             "velas_alineadas_al_panel": cubiertas,
@@ -189,7 +198,10 @@ def main() -> None:
             f"  {a}: {len(crudo)} velas, cubre {cobertura[a]['por_ciento_del_panel']} % del panel",
             flush=True,
         )
-        tandas[a] = (construir_para(mp, a), objetivo(etiquetar(cierre(mp, a), w), h))
+        tandas[a] = (
+            construir_para(mp, ACTIVO_OBJETIVO),
+            objetivo(etiquetar(cierre(mp, ACTIVO_OBJETIVO), w), h),
+        )
 
     XL, yL = tandas[ACTIVO_OBJETIVO]
     validos = np.flatnonzero(yL.notna().to_numpy())

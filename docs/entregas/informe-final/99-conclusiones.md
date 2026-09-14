@@ -741,6 +741,62 @@ años **no se pueden extraer más** por mucho que se afine el muestreo.
 carencia que el informe declaraba. Salió al revés, y el resultado es **más fuerte** que si hubiera
 salido como esperábamos.
 
+#### El duodécimo eje: doce activos en vez de seis
+
+La medición de granularidad dejaba una salida: si el límite es el **número de eventos**, y de seis
+años no se pueden sacar más, entonces hay que traerlos de **otros activos**. Cada activo nuevo aporta
+sus propios ~1 200 giros.
+
+Se descargaron seis más —DOGE, LINK, TRX, BCH, XLM y ATOM— elegidos por un criterio único y
+declarado de antemano: **cotizar en Binance contra USDT desde antes de agosto de 2020**, que es donde
+empieza el panel. No por rendimiento, que sería elegir la respuesta. Los seis cubren el **100 %** del
+panel.
+
+Se entrena apilando las filas de N activos y **se evalúa siempre sobre LTC**.
+
+**Tabla C.17.** Apilar más activos, evaluando siempre sobre LTC.
+
+| Apilado | Filas de entrenamiento | F1 macro | F1 del azar | Ventaja | Tramos |
+|---|---|---|---|---|---|
+| Solo LTC | 12 358 | 0,383911 | 0,336389 | +0,047522 | 8 de 9 |
+| **Los 6 del panel** | 74 148 | **0,388672** | 0,336282 | **+0,052391** | **9 de 9** |
+| Los 12 | 148 296 | 0,380690 | 0,335295 | +0,045396 | 9 de 9 |
+
+#### Seis ayuda. Doce estorba.
+
+**Pasar de uno a seis sube la ventaja** —de +0,047522 a +0,052391— y además la vuelve estable en los
+nueve tramos. Eso confirma, con un montaje más limpio, lo único que había mostrado señal entre los
+siete primeros intentos.
+
+**Pasar de seis a doce la baja**, a +0,045396, **por debajo incluso de entrenar solo con LTC**. Se
+duplicaron las filas de entrenamiento —de 74 148 a 148 296— y el resultado empeoró.
+
+#### Por qué, y estaba escrito antes de correrlo
+
+Porque **los criptoactivos grandes se mueven juntos**. La correlación entre los quince pares del
+panel va de **+0,517489** a **+0,829963**, y no hay un solo par inversamente proporcional. Los seis
+nuevos son más de lo mismo: sus giros ocurren **en los mismos instantes**.
+
+**Mil doscientos giros repetidos no son dos mil cuatrocientos giros distintos.** Son los mismos
+mil doscientos vistos seis veces más, y lo que aportan es peso —más filas diciendo lo mismo— sin
+información nueva. A partir de cierto punto eso deja de ayudar y empieza a sesgar el modelo hacia el
+comportamiento medio del sector, que no es el de LTC.
+
+#### La conclusión, afilada por tercera vez en el día
+
+El argumento del informe ha ido estrechándose a base de medirlo:
+
+| Se decía | Después de medir |
+|---|---|
+| «El límite está en los datos» | Por eliminación: siete intentos de modelado sin resultado |
+| «El límite es el número de **eventos**, no de observaciones» | 4× velas → 26 giros más, y la ventaja **baja** |
+| **«El límite es el número de eventos INDEPENDIENTES»** | 2× activos → 2× filas, y la ventaja **baja** |
+
+**Esa última frase es la que el proyecto puede defender**, y es bastante más útil que la primera:
+dice que para mejorar esto no hacen falta ni mejores modelos, ni más resolución, ni más
+criptoactivos. Hacen falta **más años**, o activos que **giren en momentos distintos** — y esos, por
+definición, no son cripto.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -758,8 +814,9 @@ salido como esperábamos.
 | **9** | **Preguntarle «hay giro cerca»** | **la pregunta** | **se sostiene, y da 5× más** |
 | 10 | Añadir el volumen | las características | **no aporta**, y empeora el exacto |
 | 11 | Bajar a velas de 1 hora | el volumen de datos | **perjudica**: +0,013731 contra +0,044619 |
+| 12 | Apilar doce activos en vez de seis | el número de eventos | **perjudica**: +0,045396 contra +0,052391 |
 
-**Nueve de las once intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
+**Diez de las doce intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
 algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
 **cuándo contesta** y la otra **qué se le pregunta**.
 
