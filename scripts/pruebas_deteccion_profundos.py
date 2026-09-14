@@ -123,6 +123,21 @@ def _fabricas(panel: pd.DataFrame) -> dict:
     }
 
 
+def margenes(medida: dict) -> dict:
+    """Cuanto le gana al azar en cada clase.
+
+    Es una **resta** de dos cifras de la misma corrida, no una medicion nueva. Se
+    guarda en la evidencia porque el verificador exige que todo numero citado exista
+    ahi, y citar una resta hecha a mano en un documento es exactamente por donde se
+    colaron errores antes.
+    """
+    return {
+        "f1_macro": round(medida["f1_macro"] - medida["f1_macro_azar"], 6),
+        "f1_maximo": round(medida["f1_maximo"] - medida["f1_maximo_azar"], 6),
+        "f1_minimo": round(medida["f1_minimo"] - medida["f1_minimo_azar"], 6),
+    }
+
+
 def _medir(modelo, X, y, entrenables, evaluables) -> dict:
     """Entrena con `entrenables` y evalua sobre `evaluables`, contra el azar."""
     verdad_entrenamiento = y[entrenables].astype(int).to_numpy()
@@ -137,7 +152,7 @@ def _medir(modelo, X, y, entrenables, evaluables) -> dict:
     r_modelo = evaluar(verdad, np.asarray(modelo.predecir(X[evaluables]), dtype=int))
     r_azar = evaluar(verdad, np.asarray(azar.predecir(X[evaluables]), dtype=int))
 
-    return {
+    medida = {
         "n": int(evaluables.sum()),
         "segundos_entrenamiento": round(segundos, 1),
         "f1_macro": round(r_modelo["f1_macro"], 6),
@@ -149,6 +164,8 @@ def _medir(modelo, X, y, entrenables, evaluables) -> dict:
         "precision_direccional": round(r_modelo["precision_direccional"], 6),
         "supera": bool(detecta_mejor_que_azar(r_modelo, r_azar)),
     }
+    medida["margen_sobre_azar"] = margenes(medida)
+    return medida
 
 
 def prueba_2_sintetico(fabrica) -> dict:

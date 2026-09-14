@@ -1,17 +1,18 @@
 # Introducción
 
 Esta entrega cubre la **Semana 4** del enunciado: el desarrollo del **modelo avanzado** —un
-Transformer—, la ingeniería de características que reciben los tres modelos y la comparación entre
-ellos sobre validación.
+Transformer—, la ingeniería de características que reciben los tres modelos, la comparación entre
+ellos sobre validación y **las pruebas de detección corridas sobre los modelos profundos**.
 
-> **Las pruebas de detección no se repiten aquí, y conviene decir por qué.** Las cuatro son pruebas
-> **del circuito**, no de un modelo: comprueban que el etiquetado es correcto, que el camino de
-> datos no tiene fuga y que alimentar el sistema vela a vela da lo mismo que procesar el bloque
-> entero. Se corrieron con el **modelo clásico** y se reportan en la **Semana 3**.
+> **Esa última sección es nueva, y antes esta introducción decía lo contrario.** Decía que las
+> pruebas de detección se habían corrido solo con el modelo clásico y que repetirlas sobre los
+> profundos sería una mejora **no hecha**. El enunciado las pide en las semanas 3 **y** 4, así que se
+> hicieron. Están en la sección 4 de este documento, con su criterio fijado por escrito antes de
+> correrlas.
 >
-> Correrlas de nuevo sobre el avanzado mediría otra vez el mismo circuito. Sería una mejora tenerlas
-> también sobre los dos modelos profundos —el enunciado las nombra en las dos semanas— y **no se
-> hizo**: decirlo es más barato que insinuar que están.
+> Lo que encontraron no es lo que esperábamos: **Chronos-Bolt pasa las tres**, y el **iTransformer
+> falla la sintética** con cero máximos detectados. Y las tres confirman que el contexto que los dos
+> profundos leen de la serie de precios es **causal**, que hasta ahora no estaba comprobado.
 
 Se entrega por separado, como avance propio, además de estar integrada en el informe final.
 
@@ -24,7 +25,7 @@ Se entrega por separado, como avance propio, además de estar integrada en el in
 | Modelo avanzado entrenado | **Hecho** — iTransformer, `src/modelos/avanzado.py` |
 | Ingeniería de características | **Hecha** — 63 columnas, ninguna en nivel de precio |
 | Comparación de los tres modelos sobre validación | **Hecha** — con intervalos pareados |
-| Pruebas de detección | **En la Semana 3** — son del circuito, no de un modelo, y se corrieron con el clásico |
+| Pruebas de detección sobre los profundos | **Hechas** — las tres que dependen del modelo, sobre el fundacional y el avanzado |
 
 ---
 

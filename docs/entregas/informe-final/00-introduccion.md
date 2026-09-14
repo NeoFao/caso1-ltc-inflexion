@@ -57,12 +57,27 @@ segundo no cabe en un documento, así que va donde se puede ejecutar y auditar:
 | Entregable | Dónde |
 |---|---|
 | Informe técnico | Este documento |
-| **Modelo entrenado, código y evidencias** | https://github.com/NeoFao/caso1-ltc-inflexion |
+| **El modelo entrenado, como archivo** | `modelos_entrenados/bosque_aleatorio.joblib` (6,37 MB) y `modelos_entrenados/itransformer.pt` (0,56 MB) |
+| Código, evidencias y decisiones | https://github.com/NeoFao/caso1-ltc-inflexion |
 | Aplicación web funcionando | https://neofao.github.io/caso1-ltc-inflexion/ |
 
 El repositorio es **público** e incluye `docs/evidencias/`, de donde sale cada cifra de este
 informe, y `docs/DECISIONES.md`, con los criterios fechados antes de cada medición. Cualquier
 número de aquí se puede rastrear hasta el archivo que lo produjo.
+
+> **Los dos archivos del modelo están comprobados, no solo guardados.** `scripts/guardar_modelo.py`
+> los escribe, los **vuelve a cargar desde el disco** y verifica que predicen exactamente lo mismo,
+> comparando la huella SHA-256 de las predicciones sobre validación; si no coincidiera, el guion
+> falla y no deja el archivo como bueno. Un artefacto que parece el modelo y no lo es sería peor que
+> no tenerlo.
+>
+> **Chronos-Bolt no se guarda**, y no es un olvido: es *zero-shot*, no hay nada ajustado por nosotros
+> que guardar. Lo que lo hace reproducible es el repositorio de pesos, `amazon/chronos-bolt-small`.
+>
+> **Para el avanzado el archivo arregla algo real.** La sección 5 documenta que el iTransformer no
+> reproduce entre procesos: reentrenarlo da pesos distintos. Lo que no reproduce es el
+> **entrenamiento** —la inferencia con pesos fijos es determinista—, así que sin el archivo nadie
+> podía obtener las predicciones que este informe reporta, y con el archivo sí.
 
 ---
 

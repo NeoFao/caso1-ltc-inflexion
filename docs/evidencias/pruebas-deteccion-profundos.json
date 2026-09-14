@@ -1,0 +1,167 @@
+{
+  "ejecutado_utc": "2026-09-14T18:14:06+00:00",
+  "que_es": "Las pruebas de deteccion 2, 3 y 4 corridas sobre el modelo fundacional y el avanzado, que hasta ahora solo se habian corrido con el clasico. El clasico se incluye como control de este guion.",
+  "no_se_repite_la_1": "La prueba 1 (el etiquetador solo, 187/187) no interviene ningun modelo: repetirla mediria lo mismo. Sigue en pruebas-deteccion.json.",
+  "criterio_preregistrado": "El modelo supera al baseline_aleatorio de la MISMA corrida en el F1 de las dos clases extremas (guardarrail del #51: '> 0' no alcanza). Es el mismo criterio que se le aplico al clasico, sin aflojarlo.",
+  "expectativa_declarada_antes": "Se esperaba que los dos profundos fallaran la 2 o la 3, o las dos, porque sobre validacion ninguno supera al azar de forma distinguible con 1 959 observaciones. Un fallo ahi senala EL PUENTE -- pronosticar trayectoria y etiquetarla -- y no el canal, que es el mismo que el clasico recorre con exito. Se esperaba que los dos pasaran la 4, porque su contexto esta construido para ser causal.",
+  "no_toca_la_reserva": "Todo esto es sintetico, entrenamiento y validacion. El bloque de prueba se gasto el 07/09 y no se vuelve a medir. Ninguna cifra del informe cambia.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "n_sintetico": 3000,
+    "n_tiempo_real": 200,
+    "por_que_200_y_no_500": "El clasico simulo 500 velas. Chronos-Bolt infiere vela a vela sobre el panel completo, asi que 500 multiplicarian el costo sin cambiar lo que la prueba responde: una sola discrepancia ya la haria fallar."
+  },
+  "resultados": {
+    "bosque_aleatorio": {
+      "2_sintetico_modelo_completo": {
+        "n": 442,
+        "segundos_entrenamiento": 0.5,
+        "f1_macro": 0.540146,
+        "f1_macro_azar": 0.308567,
+        "f1_maximo": 0.411765,
+        "f1_maximo_azar": 0.0,
+        "f1_minimo": 0.333333,
+        "f1_minimo_azar": 0.0,
+        "precision_direccional": 0.964286,
+        "supera": true,
+        "margen_sobre_azar": {
+          "f1_macro": 0.231579,
+          "f1_maximo": 0.411765,
+          "f1_minimo": 0.333333
+        }
+      },
+      "3_entrenamiento": {
+        "n": 9165,
+        "segundos_entrenamiento": 1.0,
+        "f1_macro": 0.953353,
+        "f1_macro_azar": 0.331638,
+        "f1_maximo": 0.961098,
+        "f1_maximo_azar": 0.049704,
+        "f1_minimo": 0.906414,
+        "f1_minimo_azar": 0.037825,
+        "precision_direccional": 1.0,
+        "supera": true,
+        "advertencia": "Alto aqui NO es evidencia de que el modelo sirva: el modelo ya vio estas etiquetas. Lo informativo seria un resultado bajo.",
+        "margen_sobre_azar": {
+          "f1_macro": 0.621715,
+          "f1_maximo": 0.911394,
+          "f1_minimo": 0.868589
+        }
+      },
+      "4_tiempo_real": {
+        "que_comprueba": "Que el modelo predice lo mismo recibiendo las velas de a una que procesando el bloque. En los profundos esto comprueba ademas que el contexto que leen de la serie de precios es causal: si tomaran una sola vela de mas hacia adelante, las dos formas no coincidirian.",
+        "n_velas_simuladas": 200,
+        "predicciones_identicas": true,
+        "discrepancias": 0,
+        "latencia_de_confirmacion_velas": 8,
+        "supera": true
+      }
+    },
+    "chronos_bolt": {
+      "2_sintetico_modelo_completo": {
+        "n": 442,
+        "segundos_entrenamiento": 8.5,
+        "f1_macro": 0.526095,
+        "f1_macro_azar": 0.308567,
+        "f1_maximo": 0.409091,
+        "f1_maximo_azar": 0.0,
+        "f1_minimo": 0.254545,
+        "f1_minimo_azar": 0.0,
+        "precision_direccional": 0.571429,
+        "supera": true,
+        "margen_sobre_azar": {
+          "f1_macro": 0.217528,
+          "f1_maximo": 0.409091,
+          "f1_minimo": 0.254545
+        }
+      },
+      "3_entrenamiento": {
+        "n": 9165,
+        "segundos_entrenamiento": 0.8,
+        "f1_macro": 0.352284,
+        "f1_macro_azar": 0.331638,
+        "f1_maximo": 0.05037,
+        "f1_maximo_azar": 0.049704,
+        "f1_minimo": 0.089157,
+        "f1_minimo_azar": 0.037825,
+        "precision_direccional": 0.063455,
+        "supera": true,
+        "advertencia": "Alto aqui NO es evidencia de que el modelo sirva: el modelo ya vio estas etiquetas. Lo informativo seria un resultado bajo.",
+        "margen_sobre_azar": {
+          "f1_macro": 0.020646,
+          "f1_maximo": 0.000666,
+          "f1_minimo": 0.051332
+        }
+      },
+      "4_tiempo_real": {
+        "que_comprueba": "Que el modelo predice lo mismo recibiendo las velas de a una que procesando el bloque. En los profundos esto comprueba ademas que el contexto que leen de la serie de precios es causal: si tomaran una sola vela de mas hacia adelante, las dos formas no coincidirian.",
+        "n_velas_simuladas": 200,
+        "predicciones_identicas": true,
+        "discrepancias": 0,
+        "latencia_de_confirmacion_velas": 8,
+        "supera": true
+      }
+    },
+    "itransformer": {
+      "2_sintetico_modelo_completo": {
+        "n": 442,
+        "segundos_entrenamiento": 8.6,
+        "f1_macro": 0.32418,
+        "f1_macro_azar": 0.308567,
+        "f1_maximo": 0.0,
+        "f1_maximo_azar": 0.0,
+        "f1_minimo": 0.08,
+        "f1_minimo_azar": 0.0,
+        "precision_direccional": 0.071429,
+        "supera": false,
+        "margen_sobre_azar": {
+          "f1_macro": 0.015613,
+          "f1_maximo": 0.0,
+          "f1_minimo": 0.08
+        }
+      },
+      "3_entrenamiento": {
+        "n": 9165,
+        "segundos_entrenamiento": 32.8,
+        "f1_macro": 0.351343,
+        "f1_macro_azar": 0.331638,
+        "f1_maximo": 0.087452,
+        "f1_maximo_azar": 0.049704,
+        "f1_minimo": 0.067836,
+        "f1_minimo_azar": 0.037825,
+        "precision_direccional": 0.088132,
+        "supera": true,
+        "advertencia": "Alto aqui NO es evidencia de que el modelo sirva: el modelo ya vio estas etiquetas. Lo informativo seria un resultado bajo.",
+        "margen_sobre_azar": {
+          "f1_macro": 0.019705,
+          "f1_maximo": 0.037748,
+          "f1_minimo": 0.030011
+        }
+      },
+      "4_tiempo_real": {
+        "que_comprueba": "Que el modelo predice lo mismo recibiendo las velas de a una que procesando el bloque. En los profundos esto comprueba ademas que el contexto que leen de la serie de precios es causal: si tomaran una sola vela de mas hacia adelante, las dos formas no coincidirian.",
+        "n_velas_simuladas": 200,
+        "predicciones_identicas": true,
+        "discrepancias": 0,
+        "latencia_de_confirmacion_velas": 8,
+        "supera": true
+      }
+    }
+  },
+  "veredicto": {
+    "causalidad_los_tres": true,
+    "detectan_sobre_sintetico": {
+      "bosque_aleatorio": true,
+      "chronos_bolt": true,
+      "itransformer": false
+    },
+    "detectan_sobre_entrenamiento": {
+      "bosque_aleatorio": true,
+      "chronos_bolt": true,
+      "itransformer": true
+    }
+  },
+  "margenes_son_derivados": "margen_sobre_azar es una resta de dos cifras de la misma corrida, calculada por margenes() en scripts/pruebas_deteccion_profundos.py. No es una medicion nueva."
+}
