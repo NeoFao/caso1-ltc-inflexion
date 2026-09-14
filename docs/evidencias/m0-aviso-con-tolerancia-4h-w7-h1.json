@@ -1,0 +1,308 @@
+{
+  "ejecutado_utc": "2026-09-14T20:23:49+00:00",
+  "que_mide": "Si los avisos que fallan fallan por mucho o por una vela. Precision del aviso admitiendo una tolerancia de k velas, en el umbral 0,40.",
+  "por_que_el_piso_se_mueve": "Ampliar la ventana sube la precision de cualquiera, incluido el azar: con k=3 cada aviso tiene siete velas para acertar en vez de una. Por eso el baseline_aleatorio se mide con la MISMA tolerancia y cobertura. Lo que importa no es que el numero suba, sino si sube mas que el del azar.",
+  "criterio_preregistrado": "Para decir que la tolerancia cambia algo, para algun k>=1: (1) la precision supera a la del azar con la misma tolerancia y cobertura, (2) la VENTAJA sobre el azar es mayor que la de k=0, y (3) el signo es estable en los nueve tramos. Si la ventaja no crece, los fallos no son por poco.",
+  "lo_que_no_responde": "No dice si el sistema sirve para operar. Operar exige entradas, salidas y costos, y nada de eso se ha simulado. Esto sigue siendo medir deteccion.",
+  "parametros": {
+    "umbral": 0.4,
+    "tolerancias": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_tramos": 9,
+    "intervalo": "4h",
+    "horas_por_vela": 4
+  },
+  "agregado": {
+    "0": {
+      "precision": 0.09966,
+      "precision_azar": 0.048697,
+      "ventaja": 0.050963,
+      "veces_el_azar": 2.0465,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "1": {
+      "precision": 0.3641,
+      "precision_azar": 0.135334,
+      "ventaja": 0.228766,
+      "veces_el_azar": 2.6904,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "2": {
+      "precision": 0.472254,
+      "precision_azar": 0.236693,
+      "ventaja": 0.235561,
+      "veces_el_azar": 1.9952,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "3": {
+      "precision": 0.553794,
+      "precision_azar": 0.344281,
+      "ventaja": 0.209513,
+      "veces_el_azar": 1.6086,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    }
+  },
+  "por_tramo": [
+    {
+      "tramo": 0,
+      "n": 727,
+      "avisos": 150,
+      "tolerancias": {
+        "0": {
+          "precision": 0.08,
+          "precision_azar": 0.046667,
+          "ventaja": 0.033333
+        },
+        "1": {
+          "precision": 0.333333,
+          "precision_azar": 0.133333,
+          "ventaja": 0.2
+        },
+        "2": {
+          "precision": 0.44,
+          "precision_azar": 0.233333,
+          "ventaja": 0.206667
+        },
+        "3": {
+          "precision": 0.506667,
+          "precision_azar": 0.333333,
+          "ventaja": 0.173333
+        }
+      }
+    },
+    {
+      "tramo": 1,
+      "n": 727,
+      "avisos": 183,
+      "tolerancias": {
+        "0": {
+          "precision": 0.136612,
+          "precision_azar": 0.060109,
+          "ventaja": 0.076503
+        },
+        "1": {
+          "precision": 0.415301,
+          "precision_azar": 0.163934,
+          "ventaja": 0.251366
+        },
+        "2": {
+          "precision": 0.502732,
+          "precision_azar": 0.284153,
+          "ventaja": 0.218579
+        },
+        "3": {
+          "precision": 0.584699,
+          "precision_azar": 0.377049,
+          "ventaja": 0.20765
+        }
+      }
+    },
+    {
+      "tramo": 2,
+      "n": 727,
+      "avisos": 186,
+      "tolerancias": {
+        "0": {
+          "precision": 0.096774,
+          "precision_azar": 0.021505,
+          "ventaja": 0.075269
+        },
+        "1": {
+          "precision": 0.376344,
+          "precision_azar": 0.096774,
+          "ventaja": 0.27957
+        },
+        "2": {
+          "precision": 0.473118,
+          "precision_azar": 0.188172,
+          "ventaja": 0.284946
+        },
+        "3": {
+          "precision": 0.543011,
+          "precision_azar": 0.333333,
+          "ventaja": 0.209677
+        }
+      }
+    },
+    {
+      "tramo": 3,
+      "n": 727,
+      "avisos": 217,
+      "tolerancias": {
+        "0": {
+          "precision": 0.073733,
+          "precision_azar": 0.036866,
+          "ventaja": 0.036866
+        },
+        "1": {
+          "precision": 0.313364,
+          "precision_azar": 0.092166,
+          "ventaja": 0.221198
+        },
+        "2": {
+          "precision": 0.410138,
+          "precision_azar": 0.170507,
+          "ventaja": 0.239631
+        },
+        "3": {
+          "precision": 0.493088,
+          "precision_azar": 0.276498,
+          "ventaja": 0.21659
+        }
+      }
+    },
+    {
+      "tramo": 4,
+      "n": 727,
+      "avisos": 204,
+      "tolerancias": {
+        "0": {
+          "precision": 0.102941,
+          "precision_azar": 0.053922,
+          "ventaja": 0.04902
+        },
+        "1": {
+          "precision": 0.372549,
+          "precision_azar": 0.147059,
+          "ventaja": 0.22549
+        },
+        "2": {
+          "precision": 0.519608,
+          "precision_azar": 0.264706,
+          "ventaja": 0.254902
+        },
+        "3": {
+          "precision": 0.612745,
+          "precision_azar": 0.372549,
+          "ventaja": 0.240196
+        }
+      }
+    },
+    {
+      "tramo": 5,
+      "n": 727,
+      "avisos": 213,
+      "tolerancias": {
+        "0": {
+          "precision": 0.098592,
+          "precision_azar": 0.075117,
+          "ventaja": 0.023474
+        },
+        "1": {
+          "precision": 0.352113,
+          "precision_azar": 0.169014,
+          "ventaja": 0.183099
+        },
+        "2": {
+          "precision": 0.497653,
+          "precision_azar": 0.28169,
+          "ventaja": 0.215962
+        },
+        "3": {
+          "precision": 0.591549,
+          "precision_azar": 0.384977,
+          "ventaja": 0.206573
+        }
+      }
+    },
+    {
+      "tramo": 6,
+      "n": 727,
+      "avisos": 225,
+      "tolerancias": {
+        "0": {
+          "precision": 0.08,
+          "precision_azar": 0.044444,
+          "ventaja": 0.035556
+        },
+        "1": {
+          "precision": 0.36,
+          "precision_azar": 0.115556,
+          "ventaja": 0.244444
+        },
+        "2": {
+          "precision": 0.457778,
+          "precision_azar": 0.208889,
+          "ventaja": 0.248889
+        },
+        "3": {
+          "precision": 0.537778,
+          "precision_azar": 0.293333,
+          "ventaja": 0.244444
+        }
+      }
+    },
+    {
+      "tramo": 7,
+      "n": 727,
+      "avisos": 192,
+      "tolerancias": {
+        "0": {
+          "precision": 0.088542,
+          "precision_azar": 0.046875,
+          "ventaja": 0.041667
+        },
+        "1": {
+          "precision": 0.354167,
+          "precision_azar": 0.192708,
+          "ventaja": 0.161458
+        },
+        "2": {
+          "precision": 0.473958,
+          "precision_azar": 0.307292,
+          "ventaja": 0.166667
+        },
+        "3": {
+          "precision": 0.557292,
+          "precision_azar": 0.421875,
+          "ventaja": 0.135417
+        }
+      }
+    },
+    {
+      "tramo": 8,
+      "n": 734,
+      "avisos": 196,
+      "tolerancias": {
+        "0": {
+          "precision": 0.142857,
+          "precision_azar": 0.05102,
+          "ventaja": 0.091837
+        },
+        "1": {
+          "precision": 0.403061,
+          "precision_azar": 0.112245,
+          "ventaja": 0.290816
+        },
+        "2": {
+          "precision": 0.47449,
+          "precision_azar": 0.19898,
+          "ventaja": 0.27551
+        },
+        "3": {
+          "precision": 0.55102,
+          "precision_azar": 0.316327,
+          "ventaja": 0.234694
+        }
+      }
+    }
+  ],
+  "tolerancias_que_cumplen": [
+    "1",
+    "2",
+    "3"
+  ],
+  "veredicto": "La ventaja sobre el azar CRECE con la tolerancia: los fallos no son al azar."
+}
