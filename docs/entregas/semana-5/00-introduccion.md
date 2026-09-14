@@ -120,8 +120,12 @@ Esta es la parte incómoda del informe, y va al principio a propósito.
 
 **No se puede afirmar:**
 
-- Que el sistema sirva para operar. La precisión direccional del mejor modelo sobre validación es
-  **0,103627**. Es mejor que el azar y sigue siendo baja.
+- Que el sistema sirva para operar. **Ni lo contrario:** operar exige entradas, salidas y costos, y
+  **ninguna de las tres se ha simulado aquí**. No hay una sola cifra sobre rentabilidad, así que
+  tanto afirmarlo como negarlo sería afirmar algo no medido. Lo que sí está medido: con el umbral
+  0,40 el sistema avisa en una de cada cuatro velas y **más de un tercio de esos avisos cae a menos
+  de cuatro horas de un giro real** — 0,364100, casi el triple que avisar al azar con la misma
+  frecuencia (conclusiones).
 - **Que detecte mejor que el azar sobre el bloque de prueba.** Es la única medición limpia del
   informe, se hizo una sola vez, y cumple **dos de las tres** condiciones que el equipo fijó de
   antemano (sección 5). Que con más datos la misma ventaja sí se distinga **no cambia esa cifra**:

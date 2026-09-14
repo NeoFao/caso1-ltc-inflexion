@@ -28,9 +28,14 @@ con LTC, y la redundancia no informa.
 
 ## Lo que no se sostiene
 
-**Que el sistema sirva para operar.** La precisión direccional del mejor modelo sobre validación es
-**0,103627**. Es mejor que el azar y sigue siendo baja. El informe no afirma utilidad práctica y no
-hay medición que la respalde.
+**Que el sistema sirva para operar — y tampoco lo contrario.** Operar exige entradas, salidas y
+costos, y **ninguna de las tres se ha simulado en este proyecto**: no hay una sola cifra sobre
+rentabilidad. Por eso el informe no afirma utilidad práctica, y por la misma razón **no afirma que
+no la tenga**: negarlo estaría igual de infundado que afirmarlo, solo que en la dirección cómoda.
+
+Lo que sí se puede sostener es lo que se midió: la precisión direccional del mejor modelo sobre
+validación es **0,103627**, mejor que el azar y baja; y con el umbral 0,40, **más de un tercio de los
+avisos cae a menos de cuatro horas de un giro real**.
 
 **Que el modelo avanzado sea distinguiblemente peor que el bosque.** Lo decía un intervalo que **no
 se reproduce**. Lo que sostiene esa afirmación es el signo estable en cinco semillas, que es una
@@ -520,6 +525,73 @@ acertar poco, o poco y acertar algo más.
 contradice, lo que las otras siete dijeron: el límite sigue estando en los datos. Lo que se ganó no
 salió de modelar mejor, sino de **admitir que el sistema no tiene nada que decir en tres de cada
 cuatro velas**.
+
+#### Los avisos que fallan, ¿fallan por mucho o por una vela?
+
+Hasta aquí todo se midió con la definición **exacta**: un aviso acierta solo si **esa vela** era el
+giro. Errar por una vela cuenta igual que errar por diez.
+
+Para medir el modelo eso es lo correcto y no se toca. Pero **no es la pregunta de quien mira el
+gráfico**: un aviso una vela antes del giro real no se lee como un fallo, se lee como un aviso a
+tiempo. Son cuatro horas. Y esa pregunta no estaba medida.
+
+**Tabla C.13.** Precisión del aviso en el umbral 0,40, admitiendo una tolerancia de `k` velas.
+
+| Tolerancia | Horas | Precisión | Azar, misma tolerancia | Ventaja | Veces el azar | Tramos |
+|---|---|---|---|---|---|---|
+| 0 velas | 0 | 0,099660 | 0,048697 | +0,050963 | 2,05 | 9 de 9 |
+| **1 vela** | **4** | **0,364100** | 0,135334 | **+0,228766** | **2,69** | 9 de 9 |
+| 2 velas | 8 | 0,472254 | 0,236693 | +0,235561 | 2,00 | 9 de 9 |
+| 3 velas | 12 | 0,553794 | 0,344281 | +0,209513 | 1,61 | 9 de 9 |
+
+#### Dónde estaba la trampa, y por qué el piso se mueve con la ventana
+
+Ampliar la tolerancia sube la precisión **de cualquiera**, incluido el azar: con tres velas de
+margen cada aviso tiene siete oportunidades de acertar en vez de una. Reportar la precisión con
+tolerancia **sin mover el piso** habría sido inflar el número — y se ve en la tabla: el azar pasa de
+0,048697 a 0,344281.
+
+Por eso el `baseline_aleatorio` se mide con **la misma tolerancia y la misma cobertura**, y el
+criterio escrito de antemano no pedía que el número subiera, sino que **la ventaja sobre el azar
+creciera**.
+
+#### Lo que dice el resultado
+
+**La ventaja crece, y mucho.** De **+0,050963** con la vela exacta a **+0,228766** admitiendo una
+vela: **cuatro veces y media más**, con el signo estable en los nueve tramos.
+
+**Los fallos del modelo no son aleatorios: están concentrados alrededor del giro real.** Si el
+modelo se equivocara al azar, ensanchar la ventana habría ayudado igual a los dos y la ventaja se
+habría quedado quieta. No es lo que pasa.
+
+**Y la ventaja tiene un máximo.** En veces-el-azar el mejor punto es **1 vela** (2,69×); a partir de
+ahí la tolerancia beneficia más al azar que al modelo, y a 3 velas la ventaja relativa ya bajó a
+1,61×. Ensanchar la ventana más allá de eso no mide mejor el modelo: **mide peor el azar**.
+
+#### Qué frase queda, y cuál hay que dejar de decir
+
+**Hay que dejar de decir «nueve de cada diez avisos están mal».** Es cierto solo bajo la exigencia de
+la vela exacta, y esa exigencia es del instrumento de medición, no del usuario.
+
+Lo que se sostiene, medido:
+
+> Con el umbral 0,40 el sistema avisa en **una de cada cuatro velas**. De esos avisos, **más de un
+> tercio cae a menos de cuatro horas de un giro real de ese tipo** —0,364100—, casi **tres veces**
+> lo que consigue avisar al azar con la misma frecuencia y el mismo margen.
+
+#### Y lo que sigue sin poder afirmarse
+
+**Nada de esto dice que el sistema sirva para operar**, y conviene ser explícito porque es la
+conclusión que la tabla invita a sacar.
+
+Operar exige entradas, salidas y costos, y **en este proyecto no se ha simulado ninguna de las
+tres**. No hay una sola cifra sobre rentabilidad. Medir detección con tolerancia sigue siendo medir
+**detección**.
+
+Decir «sirve para operar» sería afirmar algo no medido. Y decir «no sirve para operar» —como este
+informe llegó a insinuar— **también lo sería**: es igual de infundado, solo que en la dirección
+cómoda. Lo que se puede sostener es lo único que se midió: **detecta, con un margen pequeño pero
+estable, y sus errores caen cerca.**
 
 ### El balance de los siete intentos
 
