@@ -174,6 +174,10 @@ def main() -> None:
             "velas_de_margen": k,
             "horas_de_margen": k * 4,
             "por_ciento_giros": round(float((yv != CONTINUIDAD).mean()), 6),
+            # Tambien en por ciento: es como se lee en el documento, y el
+            # verificador exige que el numero citado exista aqui y no sea una
+            # conversion hecha a mano al escribir la tabla.
+            "por_ciento_giros_pc": round(float(100 * (yv != CONTINUIDAD).mean()), 2),
             "n_clase_maximo": int((yv == MAXIMO).sum()),
             "n_clase_minimo": int((yv == MINIMO).sum()),
             "f1_macro_modelo": round(float(np.mean(f1_modelo)), 6),

@@ -1,0 +1,94 @@
+{
+  "ejecutado_utc": "2026-09-14T21:26:13+00:00",
+  "que_mide": "Entrenar el modelo en 'hay un giro a k velas o menos' en vez de 'esta vela exacta es el giro'. Con k=0 es la etiqueta de siempre y sirve de control.",
+  "no_es_una_mejora_del_modelo": "Es un problema DISTINTO y mas facil: el F1 sube solo sin que el modelo sea mejor. Por eso la unica comparacion que significa algo es contra el baseline_aleatorio entrenado y medido sobre la MISMA etiqueta. Si el F1 sube pero la ventaja no, la tarea se hizo mas facil para todos.",
+  "criterio_preregistrado": "Para algun k>=1: (1) la ventaja sobre el azar en F1 macro es MAYOR que la de k=0, (2) la ventaja es positiva en las dos clases extremas, y (3) el signo es estable en los nueve tramos.",
+  "expectativa_declarada_antes": "Se espera que el F1 absoluto suba con k en los dos. No se sabe si la ventaja crece: la medicion de tolerancia lo sugiere, pero aquella media un modelo entrenado en la etiqueta exacta y evaluado con margen, y aqui el modelo se entrena en la etiqueta nueva, que es otra cosa y puede salir peor. Si la ventaja no crece, no aporta.",
+  "regla_de_empate": "A la misma distancia gana Maximo. Fijada antes de correr.",
+  "no_reemplaza_nada": "El objetivo del informe sigue siendo el exacto, que es el que pide el enunciado. Esto se reporta al lado, como un problema distinto.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "parametros": {
+    "intervalo": "4h",
+    "w": 7,
+    "h": 1,
+    "cercanias": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_tramos": 9
+  },
+  "resultados": {
+    "0": {
+      "velas_de_margen": 0,
+      "horas_de_margen": 0,
+      "por_ciento_giros": 0.092901,
+      "n_clase_maximo": 606,
+      "n_clase_minimo": 611,
+      "f1_macro_modelo": 0.381008,
+      "f1_macro_azar": 0.336389,
+      "ventaja_f1_macro": 0.044619,
+      "ventaja_f1_maximo": 0.025262,
+      "ventaja_f1_minimo": 0.087971,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "por_ciento_giros_pc": 9.29
+    },
+    "1": {
+      "velas_de_margen": 1,
+      "horas_de_margen": 4,
+      "por_ciento_giros": 0.274733,
+      "n_clase_maximo": 1809,
+      "n_clase_minimo": 1790,
+      "f1_macro_modelo": 0.567778,
+      "f1_macro_azar": 0.337697,
+      "ventaja_f1_macro": 0.230081,
+      "ventaja_f1_maximo": 0.321138,
+      "ventaja_f1_minimo": 0.359874,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "por_ciento_giros_pc": 27.47
+    },
+    "2": {
+      "velas_de_margen": 2,
+      "horas_de_margen": 8,
+      "por_ciento_giros": 0.441298,
+      "n_clase_maximo": 2930,
+      "n_clase_minimo": 2851,
+      "f1_macro_modelo": 0.553873,
+      "f1_macro_azar": 0.338043,
+      "ventaja_f1_macro": 0.215829,
+      "ventaja_f1_maximo": 0.293782,
+      "ventaja_f1_minimo": 0.341131,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "por_ciento_giros_pc": 44.13
+    },
+    "3": {
+      "velas_de_margen": 3,
+      "horas_de_margen": 12,
+      "por_ciento_giros": 0.581298,
+      "n_clase_maximo": 3886,
+      "n_clase_minimo": 3729,
+      "f1_macro_modelo": 0.538214,
+      "f1_macro_azar": 0.338467,
+      "ventaja_f1_macro": 0.199747,
+      "ventaja_f1_maximo": 0.269381,
+      "ventaja_f1_minimo": 0.308805,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true,
+      "por_ciento_giros_pc": 58.13
+    }
+  },
+  "cercanias_que_cumplen": [
+    "1",
+    "2",
+    "3"
+  ],
+  "veredicto": "El objetivo de proximidad SI aporta: la ventaja sobre el azar crece."
+}
