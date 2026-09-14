@@ -659,6 +659,37 @@ recuperar.
 > Cambian qué se le pregunta y cuándo se le hace caso. El límite nunca estuvo en el modelado, y las
 > primeras siete intervenciones lo estaban buscando en el sitio equivocado — incluidas las mías.
 
+#### El décimo eje: el volumen, que estaba ahí sin usar
+
+Revisando qué no se había probado apareció un hueco de los que dan vergüenza: **el panel trae el
+volumen de los seis activos y ninguna de las 63 columnas lo usa.** Todas derivan del precio.
+
+Y el volumen es la señal de manual para giros: **agotamiento** en techos —el precio sigue subiendo
+con volumen cada vez menor— y **capitulación** en suelos —la caída termina con un pico—.
+
+Se probaron **seis columnas**, solo sobre LTC: volumen sobre su media a 7 y a 24 velas, su
+`z`-score, su variación, su posición dentro del rango reciente, y la correlación entre retorno y
+volumen. Seis y no sesenta por la razón que el propio módulo de características documenta: con
+**420 ejemplos** de la clase minoritaria, cien columnas nuevas garantizan el sobreajuste.
+
+**Tabla C.15.** El bosque con y sin las seis columnas de volumen, nueve tramos.
+
+| Objetivo | Sin volumen | Con volumen | Diferencia | Tramos a favor |
+|---|---|---|---|---|
+| Exacto | 0,381008 | 0,371025 | **−0,009983** | 3 de 9 |
+| Proximidad a 1 vela | 0,567778 | 0,567984 | +0,000206 | 5 de 9 |
+
+**No aporta, y en el objetivo exacto empeora.** Con la etiqueta de proximidad la diferencia es de
+dos diezmilésimas y gana en cinco tramos de nueve, que es una moneda.
+
+**La expectativa estaba escrita antes y era esta**, por dos razones que ya estaban medidas: los dos
+únicos ejes que funcionaron no tocaban las características, y la importancia por permutación ya
+había medido que **17 de las 63 columnas actuales no superan el piso de ruido**. El problema nunca
+pareció ser falta de columnas, y el volumen lo confirma.
+
+Sirve para cerrar la pregunta. Deja de ser «algo que no probamos» y pasa a ser **algo que probamos y
+no está**.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -674,8 +705,9 @@ recuperar.
 | 7 | Pesar por margen | la confianza por ejemplo | no se establece |
 | **8** | **Dejar que se calle** | **el punto de operación** | **se sostiene, 9 de 9** |
 | **9** | **Preguntarle «hay giro cerca»** | **la pregunta** | **se sostiene, y da 5× más** |
+| 10 | Añadir el volumen | las características | **no aporta**, y empeora el exacto |
 
-**Siete de las nueve intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
+**Ocho de las diez intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
 algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
 **cuándo contesta** y la otra **qué se le pregunta**.
 
