@@ -1,0 +1,106 @@
+{
+  "ejecutado_utc": "2026-09-14T23:20:47+00:00",
+  "que_mide": "Si apilar las filas de mas activos mejora la deteccion sobre LTC. Sale de que granularidad_1h midio que el limite no es el numero de observaciones sino el de eventos: cada activo nuevo aporta sus propios giros.",
+  "como_se_eligieron_los_nuevos": "Criterio unico y declarado: cotizar en Binance contra USDT desde antes de agosto de 2020, que es donde empieza el panel. No se eligieron por rendimiento, que seria elegir la respuesta.",
+  "por_que_se_realinean_y_no_se_consolidan": "Consolidar recorta a la ventana comun de todos los activos, y eso habria cambiado las filas sobre las que se evalua LTC. Realineando al indice del panel, la evaluacion es identica en los tres tamanos y lo unico que cambia es de donde salen las filas de entrenamiento.",
+  "criterio_preregistrado": "La ventaja sobre el azar al apilar 12 es mayor que al apilar 6, y la de 6 mayor que la de 1; y el signo del apilado de 12 es estable en los nueve tramos. Sin esa gradacion, lo medido seria el ruido de un tamano concreto.",
+  "expectativa_declarada_antes": "Que ayude, y poco. El apilado de seis dio 6 de 9. Pero hay razon medida para dudar: los seis del panel se mueven juntos, con correlaciones de +0,517489 a +0,829963 y ningun par inversamente proporcional. Si los nuevos tambien son cripto grandes, sus giros caen en los mismos sitios, y mil doscientos giros repetidos no son dos mil cuatrocientos distintos. Si no ayuda, el limite no es el numero de eventos sino el de eventos INDEPENDIENTES.",
+  "no_toca_nada_publicado": "No modifica contracts/config.py, que esta congelado: los simbolos nuevos se anaden en memoria. No toca el panel del informe ni la reserva.",
+  "cobertura_de_los_nuevos": {
+    "DOGE": {
+      "velas_descargadas": 13415,
+      "velas_alineadas_al_panel": 13114,
+      "por_ciento_del_panel": 100.0,
+      "desde": "2020-08-01 00:00:00+00:00"
+    },
+    "LINK": {
+      "velas_descargadas": 13415,
+      "velas_alineadas_al_panel": 13114,
+      "por_ciento_del_panel": 100.0,
+      "desde": "2020-08-01 00:00:00+00:00"
+    },
+    "TRX": {
+      "velas_descargadas": 13415,
+      "velas_alineadas_al_panel": 13114,
+      "por_ciento_del_panel": 100.0,
+      "desde": "2020-08-01 00:00:00+00:00"
+    },
+    "BCH": {
+      "velas_descargadas": 13415,
+      "velas_alineadas_al_panel": 13114,
+      "por_ciento_del_panel": 100.0,
+      "desde": "2020-08-01 00:00:00+00:00"
+    },
+    "XLM": {
+      "velas_descargadas": 13415,
+      "velas_alineadas_al_panel": 13114,
+      "por_ciento_del_panel": 100.0,
+      "desde": "2020-08-01 00:00:00+00:00"
+    },
+    "ATOM": {
+      "velas_descargadas": 13415,
+      "velas_alineadas_al_panel": 13114,
+      "por_ciento_del_panel": 100.0,
+      "desde": "2020-08-01 00:00:00+00:00"
+    }
+  },
+  "resultados": {
+    "1_solo_LTC": {
+      "activos": [
+        "LTC"
+      ],
+      "n_activos": 1,
+      "filas_de_entrenamiento_ultimo_tramo": 12358,
+      "f1_macro": 0.383911,
+      "f1_macro_azar": 0.336389,
+      "ventaja_sobre_azar": 0.047522,
+      "tramos_a_favor": 8,
+      "tramos_medidos": 9,
+      "signo_estable": false
+    },
+    "6_los_del_panel": {
+      "activos": [
+        "LTC",
+        "BTC",
+        "ETH",
+        "SOL",
+        "XRP",
+        "ADA"
+      ],
+      "n_activos": 6,
+      "filas_de_entrenamiento_ultimo_tramo": 74148,
+      "f1_macro": 0.388672,
+      "f1_macro_azar": 0.336282,
+      "ventaja_sobre_azar": 0.052391,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "12_con_los_nuevos": {
+      "activos": [
+        "LTC",
+        "BTC",
+        "ETH",
+        "SOL",
+        "XRP",
+        "ADA",
+        "DOGE",
+        "LINK",
+        "TRX",
+        "BCH",
+        "XLM",
+        "ATOM"
+      ],
+      "n_activos": 12,
+      "filas_de_entrenamiento_ultimo_tramo": 148296,
+      "f1_macro": 0.38069,
+      "f1_macro_azar": 0.335295,
+      "ventaja_sobre_azar": 0.045396,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    }
+  },
+  "ayuda": false,
+  "veredicto": "Mas activos NO producen la gradacion esperada: el limite no es el numero de eventos sino el de eventos independientes."
+}
