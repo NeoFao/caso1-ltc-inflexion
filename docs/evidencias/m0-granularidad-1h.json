@@ -1,0 +1,43 @@
+{
+  "ejecutado_utc": "2026-09-14T21:42:11+00:00",
+  "que_mide": "Si bajar la granularidad a 1 hora -- cuatro veces mas velas -- mejora la ventaja sobre el azar. El informe concluye que el limite esta en los datos sin haber probado esto: estudio-w-h comparo solo 1d y 4h.",
+  "por_que_w_28_y_no_w_7": "A 1h con w=7 un giro se define mirando +-7 horas; a 4h con w=7 se miran +-28. No son el mismo fenomeno. Para preguntar si ayuda tener mas datos del MISMO fenomeno hay que fijar la ventana en tiempo de reloj: w=28 a 1h son las mismas +-28 horas.",
+  "por_que_se_compara_la_ventaja_y_no_el_F1": "El F1 absoluto depende del balance de clases, que cambia con la granularidad. Compararlo directamente seria comparar dos problemas.",
+  "criterio_preregistrado": "La ventaja sobre el azar a 1h con w=28 es MAYOR que la ventaja a 4h con w=7, y el signo es estable en los nueve tramos.",
+  "expectativa_declarada_antes": "Se esperaba que ayude, porque es la carencia que el informe declara. Si NO ayuda, el resultado es mas fuerte que el actual: querria decir que el limite no es la cantidad de ejemplos sino la senal, y eso convierte una conjetura del informe en algo medido.",
+  "no_toca_el_panel_del_informe": "panel_4h_v1.parquet es intocable: de el salen todas las cifras publicadas. Este guion escribe panel_1h_v1.parquet aparte.",
+  "a_4_horas": {
+    "velas": 13114,
+    "w": 7,
+    "horas_de_ventana": 28,
+    "columnas": 63,
+    "n_clase_maximo": 606,
+    "n_clase_minimo": 611,
+    "por_ciento_velas_con_giro": 9.29,
+    "f1_macro": 0.381008,
+    "f1_macro_azar": 0.336389,
+    "ventaja_sobre_azar": 0.044619,
+    "tramos_a_favor": 9,
+    "tramos_medidos": 9,
+    "signo_estable": true
+  },
+  "a_1_hora": {
+    "velas": 53395,
+    "w": 28,
+    "horas_de_ventana": 28,
+    "columnas": 63,
+    "n_clase_maximo": 620,
+    "n_clase_minimo": 623,
+    "por_ciento_velas_con_giro": 2.33,
+    "f1_macro": 0.346692,
+    "f1_macro_azar": 0.332961,
+    "ventaja_sobre_azar": 0.013731,
+    "tramos_a_favor": 7,
+    "tramos_medidos": 9,
+    "signo_estable": false
+  },
+  "veces_mas_velas": 4.07,
+  "veces_mas_ejemplos_raros": 1.02,
+  "ayuda": false,
+  "veredicto": "Bajar a 1 hora NO mejora la ventaja sobre el azar: el limite no es la cantidad de ejemplos."
+}

@@ -690,6 +690,57 @@ pareció ser falta de columnas, y el volumen lo confirma.
 Sirve para cerrar la pregunta. Deja de ser «algo que no probamos» y pasa a ser **algo que probamos y
 no está**.
 
+#### El undécimo eje: cuatro veces más velas, y por qué no sirvieron de nada
+
+El informe concluye que **el límite está en los datos**. Esa conclusión se sacó sin probar la forma
+más obvia de tener más datos: **bajar la granularidad**. El estudio de parámetros comparó **solo 1
+día y 4 horas**; 1 hora nunca se descargó.
+
+Se descargó. Y para que la comparación signifique algo, la ventana se fijó **en tiempo de reloj**:
+`w = 28` a una hora son las mismas **±28 horas** que `w = 7` a cuatro. El mismo fenómeno, cuatro
+veces más resolución.
+
+**Tabla C.16.** El mismo fenómeno, muestreado a 4 horas y a 1 hora.
+
+| Granularidad | Velas | Giros reales | F1 macro | F1 del azar | Ventaja | Tramos |
+|---|---|---|---|---|---|---|
+| **4 horas**, w=7 | 13 114 | **1 217** | 0,381008 | 0,336389 | **+0,044619** | 9 de 9 |
+| **1 hora**, w=28 | 53 395 | **1 243** | 0,346692 | 0,332961 | +0,013731 | 7 de 9 |
+
+#### La cifra que lo explica todo está en la tercera columna
+
+**Cuatro veces más velas produjeron 26 giros más.** 1 217 contra 1 243.
+
+Y tiene que ser así, aunque no lo habíamos pensado: **los puntos de inflexión que ocurrieron en seis
+años son los que ocurrieron.** Muestrear el eje del tiempo más fino no crea eventos nuevos — crea
+más filas de **continuidad** entre los mismos eventos.
+
+El desbalance, que ya era el problema, **empeora**: de **9,29 %** de velas con giro a **2,33 %**. Se
+cuadruplicó el pajar y el número de agujas quedó igual.
+
+#### Por eso la ventaja no sube: baja
+
+De **+0,044619** a **+0,013731**, y el signo deja de ser estable —de **9 de 9** a **7 de 9**—. No es
+que 1 hora no ayude: **perjudica.**
+
+#### Lo que esto convierte de conjetura en medición
+
+El informe venía diciendo que «el límite está en los datos» apoyándose en que siete intentos de
+modelado no dieron nada. Era un argumento por eliminación.
+
+**Ahora está medido, y es más preciso que la frase original:** el límite no es el número de
+observaciones, es **el número de eventos**. Son unos **1 220 giros en seis años**, y de esos seis
+años **no se pueden extraer más** por mucho que se afine el muestreo.
+
+> **Y eso dice dónde habría que buscar si hubiera más tiempo**, que es más útil que la frase vieja.
+> No en más resolución sobre el mismo período —eso está medido y no está—, sino en **más período** o
+> en **más activos**: las dos únicas formas de que ocurran más giros. Es coherente con que el
+> apilado multiactivo fuera el único de los siete primeros intentos que mostró algo, con 6 de 9.
+
+**Se esperaba que 1 hora ayudara** —está escrito antes de correrlo— precisamente porque era la
+carencia que el informe declaraba. Salió al revés, y el resultado es **más fuerte** que si hubiera
+salido como esperábamos.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -706,8 +757,9 @@ no está**.
 | **8** | **Dejar que se calle** | **el punto de operación** | **se sostiene, 9 de 9** |
 | **9** | **Preguntarle «hay giro cerca»** | **la pregunta** | **se sostiene, y da 5× más** |
 | 10 | Añadir el volumen | las características | **no aporta**, y empeora el exacto |
+| 11 | Bajar a velas de 1 hora | el volumen de datos | **perjudica**: +0,013731 contra +0,044619 |
 
-**Ocho de las diez intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
+**Nueve de las once intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
 algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
 **cuándo contesta** y la otra **qué se le pregunta**.
 

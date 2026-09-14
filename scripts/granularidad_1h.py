@@ -135,6 +135,10 @@ def medir(panel: pd.DataFrame, w: int, h: int, etiqueta: str) -> dict:
         "columnas": int(X.shape[1]),
         "n_clase_maximo": int((yv == 1).sum()),
         "n_clase_minimo": int((yv == 2).sum()),
+        # El desbalance en por ciento: es la cifra que explica el resultado y se
+        # cita en el documento, asi que vive aqui y no como una division hecha a
+        # mano al escribir la tabla.
+        "por_ciento_velas_con_giro": round(float(100 * (yv != 3).mean()), 2),
         "f1_macro": round(float(np.mean(f1)), 6),
         "f1_macro_azar": round(float(np.mean(f1_azar)), 6),
         "ventaja_sobre_azar": round(float(v.mean()), 6),
