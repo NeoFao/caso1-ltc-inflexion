@@ -1,0 +1,52 @@
+{
+  "ejecutado_utc": "2026-09-15T00:55:25+00:00",
+  "que_mide": "Si darle al iTransformer indicadores ademas de los cierres mejora su deteccion. Hoy recibe seis series de cierre y nada mas, mientras el bosque recibe 63 columnas: el informe concluye que los profundos no mejoran al clasico con los profundos atados.",
+  "por_que_chronos_no_entra": "Es zero-shot y pronostica una serie a partir de su propio pasado: no hay donde inyectarle caracteristicas sin reentrenarlo, y reentrenar un modelo fundacional es otro proyecto. Su handicap es estructural y se declara.",
+  "como_se_eligieron_los_indicadores": "Uno por familia de la RF-F1, en orden fijo, y no por importancia medida: elegir por importancia seria elegir la respuesta, y ademas esa importancia se midio sobre validacion, que es donde esto se evalua.",
+  "riesgo_declarado_antes": "El iTransformer se entrena a pronosticar TODAS las series con un error cuadratico comun. Con seis series mas, buena parte de la perdida pasa a ser pronosticar RSI y MACD, que no es lo que interesa. Si empeora, es por eso y no porque las caracteristicas no sirvan.",
+  "criterio_preregistrado": "La ventaja sobre el azar con 12 series es mayor que con 6, y el signo es estable en los nueve tramos.",
+  "expectativa_declarada_antes": "Que no ayude, por el riesgo de arriba y porque de los doce ejes probados los dos que funcionan no tocan lo que el modelo ve. Pero es el ultimo hueco declarado: mientras no se mida, 'los profundos no mejoran al clasico' arrastra la objecion de que nunca les dimos lo mismo. Se publique lo que se publique, la objecion queda cerrada.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "con_6_series": {
+    "series_de_entrada": 6,
+    "nombres": [
+      "LTC_cierre",
+      "BTC_cierre",
+      "ETH_cierre",
+      "SOL_cierre",
+      "XRP_cierre",
+      "ADA_cierre"
+    ],
+    "f1_macro": 0.340066,
+    "f1_macro_azar": 0.336389,
+    "ventaja_sobre_azar": 0.003678,
+    "tramos_a_favor": 5,
+    "tramos_medidos": 9,
+    "signo_estable": false
+  },
+  "con_12_series": {
+    "series_de_entrada": 12,
+    "nombres": [
+      "LTC_cierre",
+      "BTC_cierre",
+      "ETH_cierre",
+      "SOL_cierre",
+      "XRP_cierre",
+      "ADA_cierre",
+      "LTC_volatilidad_7",
+      "LTC_rsi_14",
+      "LTC_macd",
+      "LTC_posicion_rango_7",
+      "LTC_dist_sma_7",
+      "LTC_bollinger_pctb_20"
+    ],
+    "f1_macro": 0.316936,
+    "f1_macro_azar": 0.336389,
+    "ventaja_sobre_azar": -0.019453,
+    "tramos_a_favor": 0,
+    "tramos_medidos": 9,
+    "signo_estable": false
+  },
+  "ayuda": false,
+  "veredicto": "Darle indicadores al avanzado NO mejora su ventaja: el handicap no explicaba su resultado."
+}

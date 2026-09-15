@@ -797,6 +797,92 @@ dice que para mejorar esto no hacen falta ni mejores modelos, ni más resolució
 criptoactivos. Hacen falta **más años**, o activos que **giren en momentos distintos** — y esos, por
 definición, no son cripto.
 
+#### El decimotercer eje: quitarle el handicap al modelo avanzado
+
+Queda una objeción que el informe arrastraba sin responder, y es razonable: **el iTransformer recibe
+seis series de cierre y nada más**, mientras el bosque recibe las **63 columnas** que construyó M2.
+Concluir que «ningún modelo profundo mejora al clásico» comparando eso con aquello deja la sospecha
+de que los profundos nunca jugaron con las mismas cartas.
+
+Se le dieron. Seis indicadores de LTC además de los seis cierres —volatilidad, RSI, MACD, posición en
+el rango, distancia a la media móvil y %B de Bollinger—, **uno por familia de las que exige la
+RF-F1** y elegidos por familia, no por importancia medida: lo segundo habría sido elegir la
+respuesta.
+
+**Tabla C.18.** El mismo iTransformer con seis series y con doce.
+
+| Entrada | Series | F1 macro | F1 del azar | Ventaja | Tramos |
+|---|---|---|---|---|---|
+| Seis cierres *(lo de hoy)* | 6 | 0,340066 | 0,336389 | +0,003678 | 5 de 9 |
+| **Seis cierres + seis indicadores** | 12 | 0,316936 | 0,336389 | **−0,019453** | **0 de 9** |
+
+#### Empeora, y cae por debajo del azar en los nueve tramos
+
+No es un empate ni un resultado ambiguo: con los indicadores dentro, el modelo avanzado **pierde
+contra el azar en los nueve tramos**.
+
+**Y la razón estaba escrita antes de correrlo.** El iTransformer no clasifica: se entrena a
+**pronosticar todas sus series de entrada** minimizando un error cuadrático común. Con seis series
+más, buena parte de ese error pasa a ser **pronosticar RSI y MACD** — que no es lo que nos interesa y
+consume la capacidad del modelo.
+
+Por eso la conclusión correcta no es «las características no sirven». Es más estrecha: **no se le
+pueden dar a este modelo por esta vía**, porque su función de pérdida las convierte en objetivos y no
+en información.
+
+#### Lo que esto cierra
+
+La objeción de que los profundos jugaban atados era legítima y ahora está respondida: **desatarlo lo
+empeora**. La conclusión del informe no dependía del handicap.
+
+**Y queda dicho lo que no se probó**, porque también era parte de la objeción. **Chronos-Bolt no
+entra en esta medición**: es *zero-shot* y pronostica una serie a partir de su propio pasado, así que
+no hay dónde inyectarle características sin reentrenarlo, y reentrenar un modelo fundacional es otro
+proyecto. Su handicap es **estructural**, se declara y no se corrige.
+
+#### El decimotercero, y el último hueco declarado: el avanzado también estaba atado
+
+Quedaba una objeción legítima contra la conclusión de que **ningún modelo profundo mejora al
+clásico**: nunca les dimos lo mismo. El bosque recibe **63 columnas**; el iTransformer recibe **seis
+series de cierre** y nada más.
+
+Se le dieron seis indicadores de LTC además de los cierres —volatilidad, RSI, MACD, posición en el
+rango, distancia a la media y %B de Bollinger—, **uno por familia de las que exige la RF-F1 y
+elegidos por familia, no por importancia medida**, que sería elegir la respuesta.
+
+**Tabla C.18.** El iTransformer con seis series y con doce.
+
+| Entrada | Series | F1 macro | F1 del azar | Ventaja | Tramos |
+|---|---|---|---|---|---|
+| Seis cierres *(lo de siempre)* | 6 | 0,340066 | 0,336389 | +0,003678 | 5 de 9 |
+| **Más seis indicadores** | 12 | 0,316936 | 0,336389 | **-0,019453** | **0 de 9** |
+
+**Empeora, y lo deja por debajo del azar en los nueve tramos.**
+
+#### Y el porqué estaba escrito antes de correrlo
+
+El iTransformer no es un clasificador al que se le añaden columnas: es un **pronosticador**, y se
+entrena a predecir **todas las series de entrada** con un error cuadrático común.
+
+Con seis series más, buena parte de esa pérdida pasa a ser **pronosticar RSI y MACD** —que no es lo
+que interesa— en vez de pronosticar el precio, que es lo único de lo que sale la etiqueta. Darle más
+información por esa puerta **le cambia el objetivo**, no se la añade.
+
+Esto se declaró como riesgo en el propio guion antes de medir, precisamente para no poder leer el
+resultado como «las características no sirven». **No es eso: es que esa arquitectura no las recibe
+por ahí.**
+
+#### Qué cierra
+
+**La objeción del handicap, que era razonable.** Se podía decir que la comparación era injusta porque
+el clásico veía más. Ahora está medido: **quitarle el handicap al avanzado lo empeora**, y la
+conclusión del informe —que ningún modelo profundo mejora al bosque— **no dependía de esa
+desventaja**.
+
+**Chronos-Bolt queda fuera de esta prueba y hay que decirlo.** Es *zero-shot*: pronostica una serie a
+partir de su propio pasado y **no hay dónde inyectarle características** sin reentrenarlo, que es
+otro proyecto. Su handicap es **estructural**, se declara, y no se corrige.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -815,8 +901,10 @@ definición, no son cripto.
 | 10 | Añadir el volumen | las características | **no aporta**, y empeora el exacto |
 | 11 | Bajar a velas de 1 hora | el volumen de datos | **perjudica**: +0,013731 contra +0,044619 |
 | 12 | Apilar doce activos en vez de seis | el número de eventos | **perjudica**: +0,045396 contra +0,052391 |
+| 13 | Dar indicadores al avanzado | lo que el modelo ve | **perjudica**: -0,019453, 0 de 9 |
+| 13 | Darle indicadores al avanzado | lo que el modelo ve | **perjudica**: −0,019453, pierde 0 de 9 |
 
-**Diez de las doce intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
+**Once de las trece intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
 algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
 **cuándo contesta** y la otra **qué se le pregunta**.
 
