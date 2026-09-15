@@ -895,6 +895,73 @@ desventaja**.
 partir de su propio pasado y **no hay dónde inyectarle características** sin reentrenarlo, que es
 otro proyecto. Su handicap es **estructural**, se declara, y no se corrige.
 
+#### Las dos que funcionan, juntas: el mejor resultado del trabajo
+
+De trece ejes probados, dos se sostienen —**dejar que el sistema se calle** y **preguntarle si hay un
+giro cerca**— y se habían medido **por separado**. La abstención, sobre el objetivo exacto; la
+proximidad, con el modelo respondiendo en todas las velas. **Componerlas era lo obvio y estaba sin
+hacer.**
+
+**Tabla C.19.** El umbral de confianza aplicado sobre el objetivo de proximidad a una vela.
+
+| Umbral | Avisos | Cobertura | Precisión del aviso | Azar a esa cobertura | Veces el azar | Tramos |
+|---|---|---|---|---|---|---|
+| 0,00 | 6 550 | 100,00 % | 0,244885 | 0,137710 | 1,78 | 9 de 9 |
+| 0,30 | 4 673 | 71,34 % | 0,302803 | 0,135673 | 2,23 | 9 de 9 |
+| 0,40 | 3 334 | 50,90 % | 0,368326 | 0,139172 | 2,65 | 9 de 9 |
+| 0,50 | 2 571 | 39,25 % | 0,414625 | 0,130299 | 3,18 | 9 de 9 |
+| **0,60** | **1 827** | **27,89 %** | **0,440066** | 0,133005 | **3,31** | **9 de 9** |
+| 0,70 | 772 | 11,79 % | 0,462435 | 0,137306 | **3,37** | 9 de 9 |
+
+*Nota.* Frecuencia base de este objetivo: **0,277557**. El mejor cociente que consigue el objetivo
+exacto con el mismo barrido es **2,18**.
+
+#### La comparación que importa no es la precisión
+
+**El 0,440066 no se puede presentar a secas**, y conviene decirlo antes de que alguien lo señale:
+acertar «hay un giro en ±1 vela» es más fácil que acertar la vela exacta, y la frecuencia base de
+este objetivo es **0,277557** en vez de 0,093740. Una parte del número viene de que la pregunta es
+más blanda.
+
+**Por eso el criterio, escrito antes de correrlo, no mira la precisión sino cuánto le gana al azar** —
+medido sobre esa misma etiqueta y a esa misma cobertura. Eso es inmune a que un objetivo sea más
+fácil que el otro.
+
+Y ahí el resultado no admite discusión: **3,31 veces el azar** contra **2,18** del mejor punto del
+objetivo exacto.
+
+#### Lo que hace este resultado más sólido que todos los anteriores
+
+**Nueve de nueve tramos en todos los umbrales.** El objetivo exacto solo alcanzaba su 2,18 en el
+umbral 0,50, con **285 avisos** y **6 de 9** tramos. Aquí el mismo cociente se supera con **1 827
+avisos** y el signo aguanta en los nueve.
+
+**Y la curva del azar es plana**: se queda entre 0,130 y 0,143 en todos los umbrales, como debe ser
+—un aviso al azar no sabe nada, así que filtrar por confianza no lo mejora—. **Todo el ascenso de
+0,245 a 0,462 es información del modelo.**
+
+#### A igual cobertura, cuatro veces mejor
+
+La comparación más limpia es a **cobertura comparable**. El mejor punto que reportaba el objetivo
+exacto avisaba en el **26,96 %** de las velas acertando **0,099660**. Aquí, avisando en el
+**27,89 %** —prácticamente lo mismo— se acierta **0,440066**.
+
+> **La frase medida que el sistema puede sostener hoy:** avisa en **una de cada cuatro velas**, y de
+> esos avisos **cuatro de cada diez caen a menos de cuatro horas de un giro real de ese tipo** —
+> contra **algo más de uno** de avisar al azar con la misma frecuencia. En los nueve tramos.
+
+#### Y una cautela sobre los decimales
+
+El piso del azar es **un sorteo**: se anuncia en tantas velas al azar como anunció el modelo. Eso
+significa que los cocientes cargan algo de ruido propio del sorteo —unas centésimas entre corridas—,
+y por eso la comparación se hace sobre la **diferencia grande** (3,31 contra 2,18) y no sobre
+hundredths. La misma medición anterior daba 2,02 en el umbral 0,40 donde esta da 2,65: **la
+diferencia entre objetivos es del orden de una unidad, y el ruido del sorteo de unas centésimas.**
+
+**Sigue sin poder afirmarse que sirva para operar**, por lo mismo de siempre: eso exige entradas,
+salidas y costos, y no se ha simulado. Lo que cambia es que el sistema ya tiene una descripción
+honesta y útil de lo que hace.
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
@@ -915,8 +982,9 @@ otro proyecto. Su handicap es **estructural**, se declara, y no se corrige.
 | 12 | Apilar doce activos en vez de seis | el número de eventos | **perjudica**: +0,045396 contra +0,052391 |
 | 13 | Dar indicadores al avanzado | lo que el modelo ve | **perjudica**: -0,019453, 0 de 9 |
 | 13 | Darle indicadores al avanzado | lo que el modelo ve | **perjudica**: −0,019453, pierde 0 de 9 |
+| **14** | **Las dos que funcionan, juntas** | **pregunta + punto de operación** | **el mejor resultado: 3,31× el azar, 9 de 9** |
 
-**Once de las trece intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
+**Once de las catorce intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
 algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
 **cuándo contesta** y la otra **qué se le pregunta**.
 
