@@ -962,6 +962,71 @@ diferencia entre objetivos es del orden de una unidad, y el ruido del sorteo de 
 salidas y costos, y no se ha simulado. Lo que cambia es que el sistema ya tiene una descripción
 honesta y útil de lo que hace.
 
+#### La última pregunta: ¿y sobre el objetivo bueno, quién gana?
+
+El veredicto central de este informe —**ningún modelo profundo mejora al bosque clásico**— se midió
+siempre sobre el objetivo **exacto**. Y ese objetivo resultó ser el que peor le sienta al sistema.
+
+Quedaba una objeción legítima: **los dos profundos pronostican una trayectoria y después se
+etiqueta.** Si lo que el puente estropea es clavar la vela, una etiqueta con margen debería
+perdonarles justamente eso. Era la comparación con más posibilidades de dar vuelta una conclusión del
+informe, y estaba sin hacer.
+
+**Tabla C.20.** Los tres modelos y el azar, sobre los dos objetivos, nueve tramos.
+
+| Objetivo | Modelo | F1 macro | Contra el azar | Contra el bosque | Tramos por encima |
+|---|---|---|---|---|---|
+| **Exacto** | `bosque_aleatorio` | 0,381008 | +0,044619 | — | — |
+| *(control)* | `chronos_bolt` | 0,355260 | +0,018871 | −0,025748 | 1 de 9 |
+| | `itransformer` | 0,343580 | +0,007191 | −0,037428 | 0 de 9 |
+| | `baseline_aleatorio` | 0,336389 | — | −0,044619 | — |
+| **Proximidad** | **`bosque_aleatorio`** | **0,567778** | **+0,230081** | — | — |
+| **a 1 vela** | `chronos_bolt` | 0,375980 | +0,038282 | **−0,191798** | **0 de 9** |
+| | `itransformer` | 0,328497 | **−0,009200** | −0,239280 | **0 de 9** |
+| | `baseline_aleatorio` | 0,337697 | — | −0,230081 | — |
+
+*Nota.* El objetivo exacto va como **control del experimento**: reproduce el orden conocido —bosque,
+Chronos, iTransformer, azar— así que el instrumento es el mismo y lo que cambia son los modelos.
+
+#### Se esperaba que la distancia se acortara. Se multiplica por siete y medio.
+
+**La expectativa escrita antes de correrlo decía** que el bosque seguiría ganando pero que la
+distancia se acortaría, porque el margen debía perdonar el defecto del puente.
+
+**Salió al revés y por mucho.** La desventaja de Chronos frente al bosque pasa de **−0,025748** a
+**−0,191798**. Y el iTransformer, que sobre el objetivo exacto al menos le ganaba al azar por
++0,007191, **sobre el de proximidad cae por debajo: −0,009200**.
+
+#### Por qué, y es la explicación que el informe necesitaba
+
+Porque **la etiqueta con margen premia exactamente la información que el bosque tiene y los
+profundos no**.
+
+Entre las 63 columnas del bosque están **la posición dentro del rango reciente** y **la distancia a
+la media móvil**: eso *es*, literalmente, «estamos cerca de un extremo». Al relajar la etiqueta, esa
+información pasa de ser un indicio débil a ser casi la respuesta.
+
+Los dos profundos solo ven **series de cierre**. Tienen que pronosticar una trayectoria y etiquetarla,
+y ensanchar la ventana no les arregla eso: **su problema no era la precisión de la vela, era el
+puente.** Un margen más ancho no repara un pronóstico que apunta al sitio equivocado — y la medición
+de M3 ya lo había mostrado por otro lado: de 29 máximos que anuncia el iTransformer, **solo 1 cae a
+una vela o menos** de uno real, frente a 38 de 54 del bosque.
+
+#### Lo que esto hace con la conclusión central
+
+**La refuerza, y le quita la última objeción que le quedaba.**
+
+Antes se podía decir: «los profundos pierden porque los midieron con la definición más dura». Ahora
+está medido que **con la definición blanda pierden más**. No era el objetivo.
+
+> **El resumen de las tres objeciones a esa conclusión, todas cerradas midiendo:**
+>
+> | «Perdían porque…» | Medido |
+> |---|---|
+> | …solo veían precios, sin las 63 columnas | Se le dieron al avanzado: **empeora**, pierde 0 de 9 |
+> | …se les exigía la vela exacta | Con margen: la distancia se multiplica por **7,5** |
+> | …no se les ajustó bien | La rejilla mide ruido: dispersión entre semillas > entre celdas |
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.

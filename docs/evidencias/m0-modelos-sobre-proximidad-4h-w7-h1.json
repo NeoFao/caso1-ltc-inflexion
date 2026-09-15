@@ -1,0 +1,81 @@
+{
+  "ejecutado_utc": "2026-09-15T01:56:07+00:00",
+  "que_mide": "Quien gana entre los tres modelos sobre el objetivo de proximidad a una vela. La comparacion que sostiene el veredicto del proyecto se ha hecho siempre sobre el objetivo exacto, que resulto ser el que peor le sienta al sistema.",
+  "por_que_podria_cambiar": "Los dos profundos pronostican una trayectoria y despues se etiqueta. Si lo que el puente estropea es la precision de la vela exacta -- que es lo que midio M3, con el iTransformer marcando giros pero lejos -- una etiqueta con margen deberia perdonarles justamente eso.",
+  "criterio_preregistrado": "Para decir que el veredicto cambia: algun profundo supera al bosque en F1 macro sobre el objetivo de proximidad, con el signo estable en los NUEVE tramos. Una media a favor con cuatro tramos en contra no da vuelta nada: es la leccion de la limitacion 2. Y sobre el iTransformer manda la D25, su intervalo no decide.",
+  "expectativa_declarada_antes": "Que el bosque siga ganando pero que la distancia se acorte. El puente perjudica la vela exacta y el margen deberia perdonar parte, pero el bosque tambien mejora con el margen y parte de sus 63 columnas -- posicion en el rango, distancia a la media -- son justamente informacion de 'estamos cerca de un extremo', que es lo que la etiqueta nueva premia. Si algun profundo ganara en los nueve, seria el resultado mas importante del trabajo.",
+  "el_exacto_es_el_control": "Si el objetivo exacto no reprodujera el orden conocido, el defecto estaria en este guion y no en los modelos.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "resultados": {
+    "exacto": {
+      "bosque_aleatorio": {
+        "f1_macro": 0.381008,
+        "ventaja_sobre_azar": 0.044619,
+        "contra_el_bosque": 0.0,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      },
+      "chronos_bolt": {
+        "f1_macro": 0.35526,
+        "ventaja_sobre_azar": 0.018871,
+        "contra_el_bosque": -0.025748,
+        "tramos_por_encima_del_bosque": 1,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      },
+      "itransformer": {
+        "f1_macro": 0.34358,
+        "ventaja_sobre_azar": 0.007191,
+        "contra_el_bosque": -0.037428,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      },
+      "baseline_aleatorio": {
+        "f1_macro": 0.336389,
+        "ventaja_sobre_azar": 0.0,
+        "contra_el_bosque": -0.044619,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      }
+    },
+    "proximidad_1_vela": {
+      "bosque_aleatorio": {
+        "f1_macro": 0.567778,
+        "ventaja_sobre_azar": 0.230081,
+        "contra_el_bosque": 0.0,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      },
+      "chronos_bolt": {
+        "f1_macro": 0.37598,
+        "ventaja_sobre_azar": 0.038282,
+        "contra_el_bosque": -0.191798,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      },
+      "itransformer": {
+        "f1_macro": 0.328497,
+        "ventaja_sobre_azar": -0.0092,
+        "contra_el_bosque": -0.23928,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      },
+      "baseline_aleatorio": {
+        "f1_macro": 0.337697,
+        "ventaja_sobre_azar": 0.0,
+        "contra_el_bosque": -0.230081,
+        "tramos_por_encima_del_bosque": 0,
+        "tramos_medidos": 9,
+        "gana_al_bosque_en_los_nueve": false
+      }
+    }
+  },
+  "modelos_que_dan_vuelta_el_veredicto": [],
+  "veredicto": "El veredicto NO cambia: ningun modelo profundo supera al bosque en los nueve tramos, tampoco sobre el objetivo de proximidad."
+}
