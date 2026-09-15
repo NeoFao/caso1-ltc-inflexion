@@ -14,6 +14,17 @@ const REJILLA = "#e3e8ef";
 interface Props {
   puntos: Punto[];
   mostrarPredichas?: boolean;
+  /**
+   * Umbral de confianza para dibujar un aviso (issue #150).
+   *
+   * Cuando el punto trae `confianza`, por debajo de este valor el sistema **se
+   * calla**: no se dibuja la flecha. Hasta hoy una prediccion con 12 % de
+   * probabilidad se veia identica a una con 45 %, y no son lo mismo.
+   *
+   * `undefined` mantiene el comportamiento de siempre --dibujar lo que diga
+   * `predicha`-- que es lo que usan los paneles que no traen confianza.
+   */
+  umbral?: number;
 }
 
 /**
@@ -24,7 +35,7 @@ interface Props {
  * de un vistazo donde el modelo acierta y donde inventa; en una matriz de
  * confusion esa informacion existe pero no se ve.
  */
-export default function Grafico({ puntos, mostrarPredichas = true }: Props) {
+export default function Grafico({ puntos, mostrarPredichas = true, umbral }: Props) {
   const contenedor = useRef<HTMLDivElement>(null);
   const grafico = useRef<IChartApi | null>(null);
   const serie = useRef<ISeriesApi<"Line"> | null>(null);
@@ -80,14 +91,26 @@ export default function Grafico({ puntos, mostrarPredichas = true }: Props) {
           position: esMaximo ? ("aboveBar" as const) : ("belowBar" as const),
           color: esMaximo ? MAXIMO : MINIMO,
           shape: "circle" as const,
-          text: esMaximo ? "max" : "min",
+          // Sin texto a proposito. Con 1 200 velas y cientos de giros, un "max" o un
+          // "min" sobre cada marcador tapaba la serie entera: se veia una pared de
+          // letras y no se distinguia donde el modelo acierta, que es justo lo que
+          // esta vista existe para mostrar. Los colores los explica la leyenda.
         });
       }
-      if (
-        mostrarPredichas &&
-        (p.predicha === CLASE.MAXIMO || p.predicha === CLASE.MINIMO)
-      ) {
-        const esMaximo = p.predicha === CLASE.MAXIMO;
+      // Que anuncia el sistema en esta vela.
+      //
+      // Con umbral: se anuncia la clase rara mas probable si su confianza llega al
+      // umbral, y si no, silencio. Sin umbral: lo que diga `predicha`, que es el
+      // comportamiento de los paneles que no traen confianza.
+      const anuncio =
+        umbral !== undefined && p.confianza !== undefined
+          ? p.confianza >= umbral
+            ? p.aviso
+            : undefined
+          : p.predicha ?? undefined;
+
+      if (mostrarPredichas && (anuncio === CLASE.MAXIMO || anuncio === CLASE.MINIMO)) {
+        const esMaximo = anuncio === CLASE.MAXIMO;
         salida.push({
           time: (Date.parse(p.fecha) / 1000) as UTCTimestamp,
           position: esMaximo ? ("aboveBar" as const) : ("belowBar" as const),
@@ -115,8 +138,11 @@ export default function Grafico({ puntos, mostrarPredichas = true }: Props) {
       giroReales: sinRepetidos.filter(
         (p) => p.etiqueta === CLASE.MAXIMO || p.etiqueta === CLASE.MINIMO,
       ).length,
+      // Cuantos avisos sobreviven al umbral. Un E2E puede comprobar que subirlo
+      // dibuja menos flechas, que es el comportamiento entero del #150.
+      umbral: umbral ?? null,
     };
-  }, [puntos, mostrarPredichas]);
+  }, [puntos, mostrarPredichas, umbral]);
 
   return <div ref={contenedor} className="h-[420px] w-full" />;
 }

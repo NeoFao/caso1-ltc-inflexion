@@ -5,13 +5,17 @@ import {
   type Comparacion,
   type Configuracion,
   type Origen,
+  type PuntoDeOperacion,
   type Respuesta,
+  type Umbral,
   antiguedad,
   obtenerComparacion,
   obtenerConfiguracion,
   obtenerHistorico,
   obtenerHistoricoFundacional,
+  obtenerPuntoDeOperacion,
   obtenerSintetico,
+  obtenerTiempoReal,
 } from "./api";
 
 type Modelo = "baseline" | "fundacional";
@@ -47,8 +51,11 @@ const MODOS: { id: Modo; etiqueta: string; descripcion: string }[] = [
   {
     id: "tiempo-real",
     etiqueta: "Tiempo real",
+    // Issue #149: decia "LTC al día" sobre un panel que termina el 05/08/2026. La
+    // fecha real se muestra abajo, calculada del propio dato; aqui se describe el
+    // comportamiento, que es lo que el modo demuestra y sí es cierto siempre.
     descripcion:
-      "LTC al día. El modelo anuncia cada vela en el momento, con la información disponible hasta ese instante; la confirmación —si de verdad fue un giro— tarda lo que el sistema tarda en verla venir.",
+      "El modelo anuncia cada vela en el momento, con la información disponible hasta ese instante y nada más. La confirmación —si de verdad fue un giro— tarda lo que el sistema tarda en verla venir.",
   },
 ];
 
@@ -64,6 +71,10 @@ export default function App() {
   const [hasta, setHasta] = useState("");
   const [comparacion, setComparacion] = useState<Comparacion | null>(null);
   const [modeloElegido, setModeloElegido] = useState<Modelo>("baseline");
+  const [operacion, setOperacion] = useState<PuntoDeOperacion | null>(null);
+  // Issue #150. Arranca en 0,40 porque es el punto que la medicion respalda: acierta
+  // el doble que el azar y gana en los nueve tramos. No es un default estetico.
+  const [umbral, setUmbral] = useState(0.4);
 
   useEffect(() => {
     obtenerConfiguracion()
@@ -73,6 +84,7 @@ export default function App() {
 
   useEffect(() => {
     obtenerComparacion().catch(() => null).then((c) => c && setComparacion(c));
+    obtenerPuntoDeOperacion().catch(() => null).then((o) => o && setOperacion(o));
   }, []);
 
   useEffect(() => {
@@ -112,7 +124,14 @@ export default function App() {
       modo === "sintetico"
         ? obtenerSintetico(300)
         : modo === "tiempo-real"
-          ? obtenerHistorico("LTC")
+          ? // Issue #149: este modo servia el panel del baseline trivial, que
+            // responde siempre Continuidad -- la vista no dibujaba una sola flecha
+            // mientras la pantalla decia que el modelo anuncia cada vela. Ahora
+            // sirve las predicciones del clasico, con su confianza por vela.
+            obtenerTiempoReal().then((datos) => ({
+              datos,
+              origen: "precalculado" as Origen,
+            }))
           : modeloElegido === "fundacional"
             ? obtenerHistoricoFundacional().then((datos) => ({
                 datos,
@@ -138,6 +157,20 @@ export default function App() {
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
   const edad = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
+  // El piso obligatorio (D7). Va debajo de cada metrica porque un numero suelto no
+  // se puede leer: 0,390 no es bueno ni malo hasta saber que el azar da 0,337.
+  const azar = comparacion?.modelos.find((m) => m.clave === "baseline_aleatorio");
+  const clasico = comparacion?.modelos.find(
+    (m) => m.clave === "bosque_aleatorio_rezagos_relativos",
+  );
+  const elegido: Umbral | undefined = operacion?.umbrales.reduce((mejor, u) =>
+    Math.abs(u.umbral - umbral) < Math.abs(mejor.umbral - umbral) ? u : mejor,
+  );
+  // La ultima vela que el panel realmente trae, sacada del dato y no escrita a mano.
+  const ultimaVela = datos?.ultima_vela ?? datos?.serie[datos.serie.length - 1]?.fecha;
+  const diasDeAtraso = ultimaVela
+    ? Math.floor((Date.now() - Date.parse(ultimaVela)) / 86_400_000)
+    : null;
   const horasAnticipacion = configuracion
     ? configuracion.latencia_real * horasPorVela(configuracion.granularidad)
     : null;
@@ -156,7 +189,18 @@ export default function App() {
             Avisa cuándo el precio está por dar la vuelta —de subir a bajar, o al revés—
             {horasAnticipacion ? ` con ${horasAnticipacion} horas de anticipación.` : "."}
           </p>
-          <p className="mt-1 text-sm text-slate-500">
+          {clasico && azar && (
+            <p
+              className="mt-3 max-w-2xl rounded-lg bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-700"
+              data-testid="titular"
+            >
+              De cada vela dice si el precio está por girar o va a seguir como está. Acierta{" "}
+              <strong className="text-[#1b2a4a]">{clasico.f1_macro.toFixed(3)}</strong> de F1 macro
+              contra <strong>{azar.f1_macro.toFixed(3)}</strong> del azar — mejor que el azar, y
+              lejos de ser resuelto.
+            </p>
+          )}
+          <p className="mt-2 text-sm text-slate-500">
             Alejandro Zamora · Jose Pablo Monestel · Isaac Morun · Fabrizio Espinoza Arce
           </p>
           {configuracion && (
@@ -178,7 +222,14 @@ export default function App() {
                 </Chip>
               )}
               {!cargando && origen === "backend" && <Chip tono="verde">backend en vivo</Chip>}
-              {!cargando && origen === "precalculado" && (
+              {/* El texto depende del modo porque los dos paneles precalculados no son
+                  lo mismo: el fundacional es una ventana fija de validacion, y tiempo
+                  real son las ultimas velas. Decir "ventana fija" en tiempo real seria
+                  otra etiqueta que no describe lo que hay debajo. */}
+              {!cargando && origen === "precalculado" && modo === "tiempo-real" && (
+                <Chip>predicciones del clásico · sin backend</Chip>
+              )}
+              {!cargando && origen === "precalculado" && modo !== "tiempo-real" && (
                 <Chip>ventana fija · precalculado sin backend</Chip>
               )}
             </div>
@@ -345,8 +396,28 @@ export default function App() {
             El modelo ya anunció qué cree que va a pasar —son las flechas del gráfico—, pero saber si
             de verdad hubo un giro exige ver las {configuracion.w} velas posteriores, y esas todavía
             no ocurrieron. No es una limitación técnica: es lo que tarda el problema en verificarse
-            solo. Última vela disponible:{" "}
-            {new Date(datos.serie[datos.serie.length - 1]?.fecha ?? "").toLocaleString("es-CR")}.
+            solo.
+          </div>
+        )}
+
+        {/* Issue #149: la app decia "al día" sobre un panel congelado. La fecha sale del
+            propio dato, y si tiene mas de un dia se dice cuanto, en ambar y sin adornos. */}
+        {modo === "tiempo-real" && !cargando && ultimaVela && (
+          <div
+            className={`mb-4 rounded-lg border px-4 py-3 text-sm ${
+              (diasDeAtraso ?? 0) > 1
+                ? "border-amber-200 bg-amber-50 text-amber-900"
+                : "border-slate-200 bg-slate-50 text-slate-700"
+            }`}
+            data-testid="ultima-vela"
+          >
+            <strong>
+              La última vela de este panel es del{" "}
+              {new Date(ultimaVela).toLocaleString("es-CR")}
+            </strong>
+            {(diasDeAtraso ?? 0) > 1 && <> — hace {diasDeAtraso} días.</>} Los datos son un
+            snapshot congelado: <strong>esto no es el mercado de ahora mismo</strong>, es el
+            comportamiento del sistema sobre las últimas velas que tiene.
           </div>
         )}
 
@@ -356,31 +427,58 @@ export default function App() {
               Cargando…
             </p>
           ) : datos ? (
-            <Grafico puntos={datos.serie} />
+            <Grafico
+              puntos={datos.serie}
+              umbral={modo === "tiempo-real" ? umbral : undefined}
+            />
           ) : null}
         </section>
 
-        {datos && modo !== "tiempo-real" && <Leyenda />}
+        {modo === "tiempo-real" && operacion && elegido && (
+          <ControlDeUmbral
+            operacion={operacion}
+            umbral={umbral}
+            elegido={elegido}
+            onCambio={setUmbral}
+          />
+        )}
+
+        {datos && <Leyenda balance={datos.balance} />}
 
         {datos && (
           <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" data-testid="metricas">
             <Metrica
               titulo="F1 macro"
               valor={datos.metricas.f1_macro}
-              nota="El número principal: pesa igual las tres clases, así que si el modelo ignora los giros (la clase rara), esto baja"
+              piso={azar?.f1_macro}
+              principal
+              nota="El número que decide: pesa igual las tres clases, así que si el modelo ignora los giros (la clase rara), esto baja"
               testId="f1-macro"
             />
             <Metrica
               titulo="Precisión direccional"
               valor={datos.metricas.precision_direccional}
+              piso={azar?.precision_direccional}
               nota="De los giros reales, cuántos se anunciaron bien"
               testId="precision-direccional"
             />
             <Metrica
-              titulo="Exactitud"
-              valor={datos.metricas.exactitud}
-              nota="No es el número principal: como la Continuidad domina los datos, hasta un modelo que nunca avisa un giro saca exactitud alta"
-              testId="exactitud"
+              titulo="F1 Máximo"
+              valor={datos.metricas.f1_maximo}
+              piso={azar?.f1_maximo}
+              nota="Clase minoritaria: giros al alza"
+            />
+            <Metrica
+              titulo="F1 Mínimo"
+              valor={datos.metricas.f1_minimo}
+              piso={azar?.f1_minimo}
+              nota="Clase minoritaria: giros a la baja"
+            />
+            <Metrica
+              titulo="F1 Continuidad"
+              valor={datos.metricas.f1_continuidad}
+              piso={azar?.f1_continuidad}
+              nota="Clase mayoritaria: sin giro"
             />
             <Metrica
               titulo="Observaciones"
@@ -389,20 +487,16 @@ export default function App() {
               nota="Velas evaluadas"
               testId="observaciones"
             />
+            {/* Issue #151.3: la exactitud salia con el mismo peso visual que el F1
+                macro y no decide nada. Va atenuada y al final, con su piso al lado,
+                que es lo que hace visible el problema: el azar ya saca 0,822. */}
             <Metrica
-              titulo="F1 Máximo"
-              valor={datos.metricas.f1_maximo}
-              nota="Clase minoritaria: giros al alza"
-            />
-            <Metrica
-              titulo="F1 Mínimo"
-              valor={datos.metricas.f1_minimo}
-              nota="Clase minoritaria: giros a la baja"
-            />
-            <Metrica
-              titulo="F1 Continuidad"
-              valor={datos.metricas.f1_continuidad}
-              nota="Clase mayoritaria: sin giro"
+              titulo="Exactitud"
+              valor={datos.metricas.exactitud}
+              piso={azar?.exactitud}
+              atenuada
+              nota="No decide nada. Como la Continuidad domina los datos, un modelo que nunca avisa un giro ya saca exactitud alta"
+              testId="exactitud"
             />
           </section>
         )}
@@ -537,7 +631,8 @@ function Chip({
  * ningun lado de la pagina. Usa los mismos colores que Grafico.tsx (importados
  * de ahi, no copiados) para que nunca puedan desincronizarse.
  */
-function Leyenda() {
+function Leyenda({ balance }: { balance?: Respuesta["balance"] }) {
+  const continuidad = balance?.find((b) => b.codigo === 3);
   return (
     <div
       className="mt-3 flex flex-wrap gap-x-5 gap-y-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-xs text-slate-600"
@@ -567,6 +662,149 @@ function Leyenda() {
       <span className="flex items-center gap-1.5 text-slate-400">
         <span>●</span> relleno = ocurrió de verdad · <span>➜</span> flecha = lo que anunció el modelo
       </span>
+      {/* Issue #151.4: la leyenda explicaba los colores pero no el problema. Esta es
+          la razon de que esto sea dificil, y de que la metrica sea el F1 y no la
+          exactitud. Sale del dato, no escrita a mano. */}
+      {continuidad && (
+        <span className="w-full border-t border-slate-100 pt-2 text-slate-500">
+          <strong className="font-medium text-slate-700">
+            El {continuidad.porcentaje.toFixed(1)} % de las velas son continuidad.
+          </strong>{" "}
+          Por eso esto es difícil: los giros son raros, y un modelo que no avisara ninguno
+          acertaría igual ese {continuidad.porcentaje.toFixed(1)} % de las veces.
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
+ * El punto de operación: hasta dónde tiene que estar seguro el sistema para avisar.
+ *
+ * Issue #150. Hoy el sistema **avisa en todas las velas** y nunca se calla; con ese
+ * comportamiento acierta 8,1 de cada 100 avisos, y la frecuencia base de giros es
+ * 9,4 % — o sea que como alarma es peor que reaccionar al azar con la misma
+ * frecuencia. Dejándolo callarse cuando no está seguro, sí mejora.
+ *
+ * Las cifras **no se calculan aquí**: salen medidas sobre nueve tramos y llegan en
+ * `punto-de-operacion.json`. Y la del azar va siempre al lado, porque «acierta el
+ * 10 %» a secas no significa nada.
+ */
+function ControlDeUmbral({
+  operacion,
+  umbral,
+  elegido,
+  onCambio,
+}: {
+  operacion: PuntoDeOperacion;
+  umbral: number;
+  elegido: Umbral;
+  onCambio: (v: number) => void;
+}) {
+  const veces = elegido.precision_azar > 0 ? elegido.precision / elegido.precision_azar : NaN;
+  const gana = elegido.tramos_a_favor === elegido.tramos_medidos;
+  return (
+    <section
+      className="mt-3 rounded-xl border border-slate-200 bg-white p-4"
+      data-testid="control-umbral"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-sm font-semibold text-[#1b2a4a]">
+          Cuánto tiene que estar seguro para avisar
+        </h2>
+        <span className="text-xs text-slate-400">
+          medido sobre {operacion.n_observaciones.toLocaleString("es-CR")} observaciones fuera de
+          muestra, en {operacion.tramos} tramos
+        </span>
+      </div>
+
+      <label className="mt-3 flex items-center gap-3 text-sm">
+        <span className="w-20 shrink-0 text-slate-500">umbral</span>
+        <input
+          type="range"
+          min={0}
+          max={operacion.umbrales.length - 1}
+          step={1}
+          value={operacion.umbrales.findIndex((u) => u.umbral === elegido.umbral)}
+          onChange={(e) => onCambio(operacion.umbrales[Number(e.target.value)].umbral)}
+          className="h-1 w-full max-w-sm cursor-pointer accent-[#345d9d]"
+          aria-label="Umbral de confianza para avisar"
+        />
+        <span className="w-12 shrink-0 text-right font-semibold text-[#1b2a4a]">
+          {elegido.umbral.toFixed(2)}
+        </span>
+      </label>
+
+      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Dato
+          titulo="Avisa en"
+          valor={`${(elegido.cobertura * 100).toFixed(1)} %`}
+          nota="de las velas"
+        />
+        <Dato
+          titulo="Acierta"
+          valor={elegido.precision.toFixed(3)}
+          nota="de los avisos que da"
+          destacado
+        />
+        <Dato
+          titulo="El azar, igual de hablador"
+          valor={elegido.precision_azar.toFixed(3)}
+          nota="avisando en el mismo % de velas"
+        />
+        <Dato
+          titulo="Veces el azar"
+          valor={Number.isNaN(veces) ? "—" : `${veces.toFixed(2)}×`}
+          nota={`${elegido.tramos_a_favor} de ${elegido.tramos_medidos} tramos a favor`}
+          destacado={gana}
+        />
+      </div>
+
+      <p className="mt-3 text-xs leading-relaxed text-slate-500">
+        {umbral === 0 ? (
+          <>
+            <strong className="text-amber-700">En 0,00 el sistema no se calla nunca.</strong> Avisa
+            en todas las velas, y acierta menos que la frecuencia base de giros —{" "}
+            {(operacion.frecuencia_base_de_giros * 100).toFixed(1)} %. Como alarma, avisar siempre
+            es peor que reaccionar al azar con la misma frecuencia. Subí el umbral.
+          </>
+        ) : (
+          <>
+            Mover esto <strong>no cambia el modelo ni reentrena nada</strong>: es el punto donde se
+            decide que un aviso vale la pena darlo. Las cifras del informe se miden con cobertura
+            del 100 % y se quedan así.
+          </>
+        )}
+      </p>
+    </section>
+  );
+}
+
+/** Una cifra del punto de operación, con su nota debajo. */
+function Dato({
+  titulo,
+  valor,
+  nota,
+  destacado,
+}: {
+  titulo: string;
+  valor: string;
+  nota: string;
+  destacado?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-lg border px-3 py-2 ${
+        destacado ? "border-[#345d9d]/30 bg-[#345d9d]/5" : "border-slate-200 bg-white"
+      }`}
+    >
+      <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">{titulo}</p>
+      <p
+        className={`mt-0.5 text-xl font-bold ${destacado ? "text-[#345d9d]" : "text-[#1b2a4a]"}`}
+      >
+        {valor}
+      </p>
+      <p className="mt-0.5 text-[11px] leading-snug text-slate-400">{nota}</p>
     </div>
   );
 }
@@ -590,24 +828,71 @@ function Metrica({
   entero,
   nota,
   testId,
+  piso,
+  principal,
+  atenuada,
 }: {
   titulo: string;
   valor: number;
   entero?: boolean;
   nota?: string;
   testId?: string;
+  /** El baseline aleatorio en esta misma métrica (D7). Issue #151.2. */
+  piso?: number;
+  principal?: boolean;
+  atenuada?: boolean;
 }) {
   const texto = Number.isNaN(valor)
     ? "—"
     : entero
       ? valor.toLocaleString("es-CR")
       : valor.toFixed(3);
+  const supera = piso !== undefined && !Number.isNaN(valor) && valor > piso;
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4" data-testid={testId}>
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-400">{titulo}</p>
-      <p className="mt-1 text-2xl font-bold text-[#1b2a4a]" data-testid={testId && `${testId}-valor`}>
+    <div
+      className={`rounded-xl border p-4 ${
+        principal
+          ? "border-[#345d9d]/40 bg-[#345d9d]/5"
+          : atenuada
+            ? "border-slate-200 bg-slate-50/60"
+            : "border-slate-200 bg-white"
+      }`}
+      data-testid={testId}
+    >
+      <p
+        className={`text-xs font-medium uppercase tracking-wide ${
+          atenuada ? "text-slate-400" : "text-slate-500"
+        }`}
+      >
+        {titulo}
+        {principal && (
+          <span className="ml-1.5 rounded bg-[#345d9d] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-normal text-white">
+            decide
+          </span>
+        )}
+        {atenuada && (
+          <span className="ml-1.5 rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-normal text-slate-500">
+            no decide
+          </span>
+        )}
+      </p>
+      <p
+        className={`mt-1 font-bold ${
+          atenuada ? "text-xl text-slate-500" : principal ? "text-3xl text-[#1b2a4a]" : "text-2xl text-[#1b2a4a]"
+        }`}
+        data-testid={testId && `${testId}-valor`}
+      >
         {texto}
       </p>
+      {/* El piso obligatorio. Sin el, el numero de arriba no se puede leer. */}
+      {piso !== undefined && !Number.isNaN(piso) && (
+        <p className="mt-1 flex items-center gap-1 text-xs">
+          <span className="text-slate-400">azar {piso.toFixed(3)}</span>
+          <span className={supera ? "text-emerald-700" : "text-amber-700"}>
+            {supera ? "· lo supera" : "· no lo supera"}
+          </span>
+        </p>
+      )}
       {nota && <p className="mt-1 text-xs leading-snug text-slate-400">{nota}</p>}
     </div>
   );

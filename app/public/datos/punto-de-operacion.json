@@ -1,0 +1,98 @@
+{
+ "fuente": "docs/evidencias/m0-aviso-con-abstencion-4h-w7-h1.json",
+ "generado_utc": "2026-09-15T04:38:14+00:00",
+ "que_mide": "De las veces que el sistema AVISA, cuantas acierta. El informe reporta el complemento -- de los giros reales, a cuantos les acerto -- y esta cifra faltaba. Se obtiene dejando que el sistema se calle cuando no esta seguro.",
+ "n_observaciones": 6550,
+ "frecuencia_base_de_giros": 0.09374,
+ "tramos": 9,
+ "umbrales": [
+  {
+   "umbral": 0.0,
+   "cobertura": 1.0,
+   "precision": 0.081374,
+   "precision_azar": 0.048244,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.1,
+   "cobertura": 0.996489,
+   "precision": 0.081661,
+   "precision_azar": 0.047189,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.15,
+   "cobertura": 0.974962,
+   "precision": 0.082837,
+   "precision_azar": 0.045568,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.2,
+   "cobertura": 0.898168,
+   "precision": 0.08737,
+   "precision_azar": 0.047595,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.25,
+   "cobertura": 0.765649,
+   "precision": 0.094317,
+   "precision_azar": 0.049452,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.3,
+   "cobertura": 0.623359,
+   "precision": 0.095518,
+   "precision_azar": 0.044575,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.35,
+   "cobertura": 0.445038,
+   "precision": 0.098456,
+   "precision_azar": 0.046998,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.4,
+   "cobertura": 0.269618,
+   "precision": 0.09966,
+   "precision_azar": 0.04983,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.45,
+   "cobertura": 0.12687,
+   "precision": 0.115523,
+   "precision_azar": 0.050542,
+   "tramos_a_favor": 8,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.5,
+   "cobertura": 0.043511,
+   "precision": 0.129825,
+   "precision_azar": 0.059649,
+   "tramos_a_favor": 9,
+   "tramos_medidos": 9
+  },
+  {
+   "umbral": 0.6,
+   "cobertura": 0.002443,
+   "precision": 0.125,
+   "precision_azar": 0.1875,
+   "tramos_a_favor": 0,
+   "tramos_medidos": 6
+  }
+ ]
+}
