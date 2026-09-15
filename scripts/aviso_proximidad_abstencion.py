@@ -88,6 +88,7 @@ from src.modelos.clasico import HIPERPARAMETROS, BosqueAleatorio  # noqa: E402
 sys.path.insert(0, str(RAIZ / "scripts"))
 from aviso_con_abstencion import avisos, precision_del_aviso  # noqa: E402
 from objetivo_proximidad import objetivo_cercano  # noqa: E402
+from proximidad_solo_adelante import objetivo_solo_adelante  # noqa: E402
 
 SALIDA = RAIZ / "docs" / "evidencias" / "m0-aviso-proximidad-abstencion-4h-w7-h1.json"
 
@@ -193,10 +194,19 @@ def main() -> None:
     X = construir(panel, rezagos_relativos=True)
     exacto = objetivo(etiquetar(cierre(panel, ACTIVO_OBJETIVO), VENTANA_W), HORIZONTE_H)
 
+    # El de solo adelante entra despues de medir que la etiqueta simetrica incluia el
+    # pasado. Con 2 velas hacia adelante el balance de clases es el mismo que el del
+    # simetrico a 1 vela -- 27,48 % contra 27,47 % -- asi que es la comparacion limpia,
+    # y es la que decide.
+    objetivos = {
+        "objetivo_exacto": objetivo_cercano(exacto, 0),
+        "objetivo_simetrico_1_vela": objetivo_cercano(exacto, 1),
+        "objetivo_solo_adelante_2_velas": objetivo_solo_adelante(exacto, 2),
+    }
     resultados = {}
-    for k, nombre in ((0, "objetivo_exacto"), (1, "objetivo_proximidad_1_vela")):
+    for nombre, y_obj in objetivos.items():
         print(f"\n=== {nombre} ===", flush=True)
-        resultados[nombre] = barrido(X, objetivo_cercano(exacto, k))
+        resultados[nombre] = barrido(X, y_obj)
         r = resultados[nombre]
         print(f"frecuencia base {r['frecuencia_base']:.6f}  ({r['n']} observaciones)")
         print(
@@ -214,7 +224,7 @@ def main() -> None:
                 f"{d['tramos_a_favor']:>3}/{d['tramos_medidos']:<3}"
             )
 
-    prox = resultados["objetivo_proximidad_1_vela"]["umbrales"]
+    prox = resultados["objetivo_solo_adelante_2_velas"]["umbrales"]
     cumplen = [
         clave
         for clave, d in prox.items()
@@ -259,7 +269,7 @@ def main() -> None:
         ),
         "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
         "mejor_cociente_del_objetivo_exacto": MEJOR_COCIENTE_EXACTO,
-        "mejor_cociente_medido_en_proximidad": mejor,
+        "mejor_cociente_medido_en_solo_adelante": mejor,
         "resultados": resultados,
         "umbrales_que_cumplen": cumplen,
         "veredicto": (

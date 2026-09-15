@@ -1,0 +1,57 @@
+{
+  "ejecutado_utc": "2026-09-15T02:55:39+00:00",
+  "que_comprueba": "Si el mejor resultado del trabajo predice o reconoce. El objetivo de proximidad que dio F1 0,567778 es SIMETRICO: cuenta como giro cercano si hay uno en [i-k, i+k], y esa ventana incluye el pasado. Si el modelo reconociera un giro recien ocurrido en vez de anticipar uno, la cifra estaria inflada.",
+  "el_argumento_de_por_que_no_deberia_estar_inflado": "Con h=1 la etiqueta de la fila i es la del instante i+1, y la ventana simetrica con k=1 abarca los instantes i a i+2. Confirmar que el instante i fue un maximo exige las w=7 velas posteriores, o sea precios hasta i+7: estando parado en i eso no se conoce. Ni el extremo mas 'pasado' de la ventana es observable al predecir. La latencia de confirmacion es 8 velas. Pero eso es un argumento, no una medicion, y este proyecto ya se equivoco con argumentos elegantes.",
+  "criterio_preregistrado": "El hallazgo se sostiene si la ventaja con la etiqueta de solo adelante supera el punto medio entre la del exacto (0.044619) y la del simetrico (0.230081) -- es decir 0.137350 -- y el signo aguanta en los nueve tramos. Si quedara mas cerca del exacto que del simetrico, buena parte del hallazgo era reconocer y no anticipar.",
+  "expectativa_declarada_antes": "Que se sostenga, por el argumento de la latencia. Pero que baje algo, porque la etiqueta de solo adelante es mas exigente: cubre menos instantes para el mismo k, asi que hay menos velas positivas y menos margen para acertar.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "referencias": {
+    "ventaja_objetivo_exacto": 0.044619,
+    "ventaja_objetivo_simetrico": 0.230081,
+    "punto_medio_del_criterio": 0.13735
+  },
+  "resultados": {
+    "exacto": {
+      "n_evaluables": 13100,
+      "por_ciento_velas_con_giro": 9.29,
+      "f1_macro": 0.381008,
+      "f1_macro_azar": 0.336389,
+      "ventaja_sobre_azar": 0.044619,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "simetrico_1_vela": {
+      "n_evaluables": 13100,
+      "por_ciento_velas_con_giro": 27.47,
+      "f1_macro": 0.567778,
+      "f1_macro_azar": 0.337697,
+      "ventaja_sobre_azar": 0.230081,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "solo_adelante_1_vela": {
+      "n_evaluables": 13099,
+      "por_ciento_velas_con_giro": 18.51,
+      "f1_macro": 0.405349,
+      "f1_macro_azar": 0.323943,
+      "ventaja_sobre_azar": 0.081406,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    },
+    "solo_adelante_2_velas": {
+      "n_evaluables": 13098,
+      "por_ciento_velas_con_giro": 27.48,
+      "f1_macro": 0.420387,
+      "f1_macro_azar": 0.341568,
+      "ventaja_sobre_azar": 0.078819,
+      "tramos_a_favor": 9,
+      "tramos_medidos": 9,
+      "signo_estable": true
+    }
+  },
+  "el_hallazgo_se_sostiene": false,
+  "veredicto": "El hallazgo NO se sostiene con la etiqueta de solo adelante: buena parte de la mejora venia de reconocer un giro reciente, no de anticiparlo."
+}
