@@ -43,7 +43,13 @@ velas a unas 18 000. Cerca de **un 37 % mas de periodo y de giros** -- y "mas pe
 es una de las dos unicas salidas que la medicion de granularidad identifico.
 
 Mantener seis activos y ganar la historia es compatible: basta sustituir SOL por uno
-con historia larga. Se usa **BCH**, que ya esta descargado y empieza antes.
+con historia larga. Se usa **NEO**, que empieza el 20/11/2017 -- antes incluso que LTC
+--, asi que el panel queda limitado por XRP (mayo de 2018) y se recuperan los 27 meses
+completos.
+
+**Primero se probo con BCH y fue un test parcial**, porque BCH en Binance empieza en
+noviembre de 2019: solo anadia ocho meses. Queda registrado en la evidencia como
+`largo_con_BCH` porque medirlo y descartarlo por insuficiente es parte del expediente.
 
 Que se mide
 -----------
@@ -180,21 +186,21 @@ def medir(X: pd.DataFrame, y: pd.Series, w: int) -> dict:
     }
 
 
-def panel_sin_sol() -> pd.DataFrame:
-    """El panel con BCH en lugar de SOL, para recuperar el periodo que SOL recorta."""
+def panel_sin_sol(sustituto: str = "NEO", simbolo: str = "NEOUSDT") -> pd.DataFrame:
+    """El panel con otro activo en lugar de SOL, para recuperar el periodo."""
     from src.panel.consolidacion import consolidar
     from src.panel.descarga import descargar_activo
 
-    archivo = CRUDOS / "BCH_4h_largo.parquet"
+    archivo = CRUDOS / f"{sustituto}_4h_largo.parquet"
     if archivo.exists():
-        bch = pd.read_parquet(archivo)
+        extra = pd.read_parquet(archivo)
     else:
         from contracts.config import SIMBOLOS
 
-        SIMBOLOS.setdefault("BCH", "BCHUSDT")
-        bch = descargar_activo("BCH", "4h", desde="2017-01-01")
+        SIMBOLOS.setdefault(sustituto, simbolo)
+        extra = descargar_activo(sustituto, "4h", desde="2017-01-01")
         CRUDOS.mkdir(parents=True, exist_ok=True)
-        bch.to_parquet(archivo)
+        extra.to_parquet(archivo)
 
     series = {}
     for a in ("LTC", "BTC", "ETH", "XRP", "ADA"):
@@ -204,7 +210,7 @@ def panel_sin_sol() -> pd.DataFrame:
     # que entra con la etiqueta de SOL. No cambia ningun calculo -- las
     # caracteristicas de apoyo solo usan sus propias columnas -- y evita parchear un
     # contrato congelado.
-    series["SOL"] = bch
+    series["SOL"] = extra
     return consolidar(series)
 
 
@@ -234,16 +240,26 @@ def main() -> None:
         )
 
     print("\n=== decision 2: incluir SOL recorta 27 meses ===", flush=True)
-    largo = panel_sin_sol()
+    largo = panel_sin_sol("NEO", "NEOUSDT")
+    parcial = panel_sin_sol("BCH", "BCHUSDT")
     Xl = construir(largo, rezagos_relativos=True)
     yl = objetivo(etiquetar(cierre(largo, ACTIVO_OBJETIVO), VENTANA_W), HORIZONTE_H)
     d_largo = medir(Xl, yl, VENTANA_W)
     d_largo["velas"] = int(len(largo))
     d_largo["desde"] = str(largo.index.min())
+    Xp = construir(parcial, rezagos_relativos=True)
+    yp = objetivo(etiquetar(cierre(parcial, ACTIVO_OBJETIVO), VENTANA_W), HORIZONTE_H)
+    d_parcial = medir(Xp, yp, VENTANA_W)
+    d_parcial["velas"] = int(len(parcial))
+    d_parcial["desde"] = str(parcial.index.min())
     d_corto = dict(por_w[str(VENTANA_W)])
     d_corto["velas"] = int(len(panel))
     d_corto["desde"] = str(panel.index.min())
-    for etq, d in (("con SOL (el del informe)", d_corto), ("con BCH en su lugar", d_largo)):
+    for etq, d in (
+        ("con SOL (el del informe)", d_corto),
+        ("con BCH (test parcial)", d_parcial),
+        ("con NEO (27 meses mas)", d_largo),
+    ):
         print(
             f"  {etq:26} {d['velas']:>6} velas desde {d['desde'][:10]}  "
             f"minoria {d['n_clase_minoritaria']:>4}  ventaja {d['ventaja_sobre_azar']:+.6f}  "
@@ -300,7 +316,11 @@ def main() -> None:
             "18/08. Esto mide el COSTO de esa decision, no la reemplaza."
         ),
         "por_w": por_w,
-        "periodo": {"corto_con_SOL": d_corto, "largo_con_BCH": d_largo},
+        "periodo": {
+            "corto_con_SOL": d_corto,
+            "largo_con_BCH_parcial": d_parcial,
+            "largo_con_NEO": d_largo,
+        },
         "w_que_mejoran": mejores_w,
         "el_periodo_ayuda": periodo_ayuda,
     }
