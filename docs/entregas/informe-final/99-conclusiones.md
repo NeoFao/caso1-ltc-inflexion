@@ -593,6 +593,79 @@ informe llegó a insinuar— **también lo sería**: es igual de infundado, solo
 cómoda. Lo que se puede sostener es lo único que se midió: **detecta, con un margen pequeño pero
 estable, y sus errores caen cerca.**
 
+### La corrección que hay que leer antes de las tres subsecciones que siguen
+
+Las tres subsecciones siguientes se midieron con una etiqueta de proximidad **simétrica**: una vela
+cuenta como «giro cerca» si hay uno en `[i−1, i+1]`. **Esa ventana incluye el pasado**, y eso estaba
+sin comprobar cuando se escribieron.
+
+Se comprobó después, y **no aguanta**.
+
+**Tabla C.13 bis.** La misma comparación con una etiqueta que **solo mira hacia adelante**.
+
+| Objetivo | Velas con giro | F1 macro | F1 del azar | Ventaja | Tramos |
+|---|---|---|---|---|---|
+| Exacto | 9,29 % | 0,381008 | 0,336389 | +0,044619 | 9 de 9 |
+| **Simétrico, ±1 vela** | 27,47 % | 0,567778 | 0,337697 | **+0,230081** | 9 de 9 |
+| **Solo adelante, 2 velas** | **27,48 %** | 0,420387 | 0,341568 | **+0,078819** | 9 de 9 |
+
+La tercera fila es la comparación limpia: **exactamente el mismo porcentaje de velas con giro** que la
+segunda —27,48 % contra 27,47 %—, así que la dificultad por balance de clases es idéntica y lo único
+que cambia es si la ventana mira hacia atrás.
+
+**Y la ventaja cae a un tercio.**
+
+#### Qué significa, sin adornos
+
+**Unos dos tercios de la mejora que estas subsecciones celebran venían de que la etiqueta premiaba
+reconocer un giro que acababa de formarse**, no anticipar uno que viene. El criterio escrito de
+antemano exigía superar **0,137350** con la etiqueta de solo adelante; salió **0,081406**.
+
+No es fuga de información en sentido técnico: las características del modelo solo ven el pasado, y la
+latencia de confirmación hace que ni la vela más antigua de la ventana simétrica sea *confirmable* al
+predecir. **Pero sí es visible**: un techo que acaba de formarse se ve en el precio aunque no se pueda
+confirmar todavía, y el modelo lo aprovecha.
+
+**Lo que queda, y es real:** preguntar «¿habrá un giro en las próximas ocho horas?» da **+0,078819**
+contra **+0,044619** del objetivo exacto — casi el doble, con el signo estable en los nueve tramos.
+Es una mejora medida y es la que el informe sostiene.
+
+#### Y el punto de operación honesto
+
+El umbral de confianza, aplicado sobre la etiqueta que de verdad predice:
+
+**Tabla C.19 bis.** Precisión del aviso con la etiqueta de solo adelante a dos velas.
+
+| Umbral | Avisos | Cobertura | Precisión | Azar a esa cobertura | Veces el azar | Tramos |
+|---|---|---|---|---|---|---|
+| 0,00 | 6 549 | 100,00 % | 0,216064 | 0,138189 | 1,56 | 9 de 9 |
+| 0,40 | 3 602 | 55,00 % | 0,253193 | 0,141033 | 1,80 | 9 de 9 |
+| **0,50** | **1 203** | **18,37 %** | **0,284289** | 0,145470 | **1,95** | **9 de 9** |
+| 0,60 | 154 | 2,35 % | 0,337662 | 0,058442 | 5,78 | **8 de 9** |
+
+**El 5,78 del umbral 0,60 no se reporta como resultado**, y conviene decir por qué: son **154
+avisos**, y su piso del azar —0,058442 contra el 0,14 estable de todas las demás filas— es ruido de
+muestra pequeña, no una propiedad del modelo. Con 8 de 9 tramos, además, no cumple el criterio.
+
+> **La frase que el sistema puede sostener, corregida:** avisa en **una de cada cinco velas** y
+> acierta **cerca de tres de cada diez** avisos, contra **algo más de uno** de avisar al azar con la
+> misma frecuencia. **1,95 veces el azar**, en los nueve tramos, sobre 1 203 avisos.
+>
+> La versión anterior de esta frase decía «cuatro de cada diez» y «3,31 veces». **Salía de la
+> etiqueta simétrica y no era una predicción.**
+
+#### Por qué esto se cuenta y no se borra
+
+Porque el error es **nuestro, reciente y del lado cómodo**: la etiqueta simétrica daba el mejor número
+de todo el trabajo, y la duda sobre si predecía o reconocía **no se nos ocurrió hasta después de
+haberlo escrito**. Nadie de fuera lo señaló.
+
+Es el cuarto caso del mismo patrón que la sección 6 documenta, y el más caro: **una medición propia
+que desmonta una conclusión propia**. Las subsecciones siguientes se dejan tal como se escribieron,
+con esta corrección delante, porque borrarlas escondería que el proyecto se equivocó aquí.
+
+---
+
 #### El noveno eje, y el que más mueve: preguntarle otra cosa
 
 La medición de tolerancia dejó una consecuencia que había que probar. Si los errores del modelo caen
@@ -895,7 +968,7 @@ desventaja**.
 partir de su propio pasado y **no hay dónde inyectarle características** sin reentrenarlo, que es
 otro proyecto. Su handicap es **estructural**, se declara, y no se corrige.
 
-#### Las dos que funcionan, juntas: el mejor resultado del trabajo
+#### Las dos que funcionan, juntas (medido sobre la etiqueta simétrica)
 
 De trece ejes probados, dos se sostienen —**dejar que el sistema se calle** y **preguntarle si hay un
 giro cerca**— y se habían medido **por separado**. La abstención, sobre el objetivo exacto; la
@@ -930,7 +1003,7 @@ fácil que el otro.
 Y ahí el resultado no admite discusión: **3,31 veces el azar** contra **2,18** del mejor punto del
 objetivo exacto.
 
-#### Lo que hace este resultado más sólido que todos los anteriores
+#### Lo que parecía hacer este resultado el más sólido de todos
 
 **Nueve de nueve tramos en todos los umbrales.** El objetivo exacto solo alcanzaba su 2,18 en el
 umbral 0,50, con **285 avisos** y **6 de 9** tramos. Aquí el mismo cociente se supera con **1 827
@@ -1041,13 +1114,13 @@ está medido que **con la definición blanda pierden más**. No era el objetivo.
 | 6 | Gradient boosting | la familia de modelo | no se establece |
 | 7 | Pesar por margen | la confianza por ejemplo | no se establece |
 | **8** | **Dejar que se calle** | **el punto de operación** | **se sostiene, 9 de 9** |
-| **9** | **Preguntarle «hay giro cerca»** | **la pregunta** | **se sostiene, y da 5× más** |
+| **9** | **Preguntarle «hay giro pronto»** | **la pregunta** | **se sostiene, pero da 1,8× y no 5×: ver C.13 bis** |
 | 10 | Añadir el volumen | las características | **no aporta**, y empeora el exacto |
 | 11 | Bajar a velas de 1 hora | el volumen de datos | **perjudica**: +0,013731 contra +0,044619 |
 | 12 | Apilar doce activos en vez de seis | el número de eventos | **perjudica**: +0,045396 contra +0,052391 |
 | 13 | Dar indicadores al avanzado | lo que el modelo ve | **perjudica**: -0,019453, 0 de 9 |
 | 13 | Darle indicadores al avanzado | lo que el modelo ve | **perjudica**: −0,019453, pierde 0 de 9 |
-| **14** | **Las dos que funcionan, juntas** | **pregunta + punto de operación** | **el mejor resultado: 3,31× el azar, 9 de 9** |
+| **14** | **Las dos que funcionan, juntas** | **pregunta + punto de operación** | **1,95× el azar, 9 de 9, con la etiqueta que predice** |
 
 **Once de las catorce intervenciones no producen una mejora que se sostenga.** Las dos que sí tienen
 algo en común, y es lo que más dice de todo el proyecto: **ninguna toca el modelo.** Una cambia
