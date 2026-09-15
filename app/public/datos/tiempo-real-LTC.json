@@ -1,0 +1,9644 @@
+{
+ "fuente": "app/scripts/generar_tiempo_real.py",
+ "activo": "LTC",
+ "modelo": "bosque_aleatorio_rezagos_relativos",
+ "generado_utc": "2026-09-15T04:38:14+00:00",
+ "ultima_vela": "2026-08-05T16:00:00Z",
+ "control": {
+  "descripcion": "El bosque reproduce sobre validacion la cifra publicada antes de exportar. Si no la reproduce, este archivo no se escribe.",
+  "esperado": 0.390497720487045,
+  "obtenido": 0.390497720487045,
+  "reproduce": true
+ },
+ "serie": [
+  {
+   "fecha": "2026-01-17T20:00:00Z",
+   "cierre": 74.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.196263
+  },
+  {
+   "fecha": "2026-01-18T00:00:00Z",
+   "cierre": 74.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.28621
+  },
+  {
+   "fecha": "2026-01-18T04:00:00Z",
+   "cierre": 74.96,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.292578
+  },
+  {
+   "fecha": "2026-01-18T08:00:00Z",
+   "cierre": 75.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.398389
+  },
+  {
+   "fecha": "2026-01-18T12:00:00Z",
+   "cierre": 74.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.435105
+  },
+  {
+   "fecha": "2026-01-18T16:00:00Z",
+   "cierre": 75.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.200195
+  },
+  {
+   "fecha": "2026-01-18T20:00:00Z",
+   "cierre": 72.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.423999
+  },
+  {
+   "fecha": "2026-01-19T00:00:00Z",
+   "cierre": 70.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.225246
+  },
+  {
+   "fecha": "2026-01-19T04:00:00Z",
+   "cierre": 70.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.411795
+  },
+  {
+   "fecha": "2026-01-19T08:00:00Z",
+   "cierre": 70.21,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.51129
+  },
+  {
+   "fecha": "2026-01-19T12:00:00Z",
+   "cierre": 70.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.431706
+  },
+  {
+   "fecha": "2026-01-19T16:00:00Z",
+   "cierre": 71.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.119395
+  },
+  {
+   "fecha": "2026-01-19T20:00:00Z",
+   "cierre": 70.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.217934
+  },
+  {
+   "fecha": "2026-01-20T00:00:00Z",
+   "cierre": 70.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.449244
+  },
+  {
+   "fecha": "2026-01-20T04:00:00Z",
+   "cierre": 69.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.327699
+  },
+  {
+   "fecha": "2026-01-20T08:00:00Z",
+   "cierre": 69.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.352697
+  },
+  {
+   "fecha": "2026-01-20T12:00:00Z",
+   "cierre": 68.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.392164
+  },
+  {
+   "fecha": "2026-01-20T16:00:00Z",
+   "cierre": 67.55,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.440997
+  },
+  {
+   "fecha": "2026-01-20T20:00:00Z",
+   "cierre": 67.12,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.389063
+  },
+  {
+   "fecha": "2026-01-21T00:00:00Z",
+   "cierre": 68.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.119643
+  },
+  {
+   "fecha": "2026-01-21T04:00:00Z",
+   "cierre": 68.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.132271
+  },
+  {
+   "fecha": "2026-01-21T08:00:00Z",
+   "cierre": 68.04,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.245105
+  },
+  {
+   "fecha": "2026-01-21T12:00:00Z",
+   "cierre": 69.14,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.275095
+  },
+  {
+   "fecha": "2026-01-21T16:00:00Z",
+   "cierre": 69.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.255215
+  },
+  {
+   "fecha": "2026-01-21T20:00:00Z",
+   "cierre": 68.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.226352
+  },
+  {
+   "fecha": "2026-01-22T00:00:00Z",
+   "cierre": 68.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.212335
+  },
+  {
+   "fecha": "2026-01-22T04:00:00Z",
+   "cierre": 68.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.329674
+  },
+  {
+   "fecha": "2026-01-22T08:00:00Z",
+   "cierre": 68.44,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.263821
+  },
+  {
+   "fecha": "2026-01-22T12:00:00Z",
+   "cierre": 68.04,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.514138
+  },
+  {
+   "fecha": "2026-01-22T16:00:00Z",
+   "cierre": 68.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.294186
+  },
+  {
+   "fecha": "2026-01-22T20:00:00Z",
+   "cierre": 68.19,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.387617
+  },
+  {
+   "fecha": "2026-01-23T00:00:00Z",
+   "cierre": 69.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.406014
+  },
+  {
+   "fecha": "2026-01-23T04:00:00Z",
+   "cierre": 68.83,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.241142
+  },
+  {
+   "fecha": "2026-01-23T08:00:00Z",
+   "cierre": 68.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.263475
+  },
+  {
+   "fecha": "2026-01-23T12:00:00Z",
+   "cierre": 68.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.338317
+  },
+  {
+   "fecha": "2026-01-23T16:00:00Z",
+   "cierre": 67.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.37919
+  },
+  {
+   "fecha": "2026-01-23T20:00:00Z",
+   "cierre": 68.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.311795
+  },
+  {
+   "fecha": "2026-01-24T00:00:00Z",
+   "cierre": 68.62,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.231412
+  },
+  {
+   "fecha": "2026-01-24T04:00:00Z",
+   "cierre": 68.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.221174
+  },
+  {
+   "fecha": "2026-01-24T08:00:00Z",
+   "cierre": 68.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.29538
+  },
+  {
+   "fecha": "2026-01-24T12:00:00Z",
+   "cierre": 68.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.256057
+  },
+  {
+   "fecha": "2026-01-24T16:00:00Z",
+   "cierre": 67.84,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.504746
+  },
+  {
+   "fecha": "2026-01-24T20:00:00Z",
+   "cierre": 68.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.215333
+  },
+  {
+   "fecha": "2026-01-25T00:00:00Z",
+   "cierre": 68.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.312786
+  },
+  {
+   "fecha": "2026-01-25T04:00:00Z",
+   "cierre": 68.67,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.377133
+  },
+  {
+   "fecha": "2026-01-25T08:00:00Z",
+   "cierre": 70.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.35431
+  },
+  {
+   "fecha": "2026-01-25T12:00:00Z",
+   "cierre": 69.51,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.275727
+  },
+  {
+   "fecha": "2026-01-25T16:00:00Z",
+   "cierre": 66.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.356993
+  },
+  {
+   "fecha": "2026-01-25T20:00:00Z",
+   "cierre": 67.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.336995
+  },
+  {
+   "fecha": "2026-01-26T00:00:00Z",
+   "cierre": 67.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.394168
+  },
+  {
+   "fecha": "2026-01-26T04:00:00Z",
+   "cierre": 68.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.188453
+  },
+  {
+   "fecha": "2026-01-26T08:00:00Z",
+   "cierre": 68.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.132371
+  },
+  {
+   "fecha": "2026-01-26T12:00:00Z",
+   "cierre": 69.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.231279
+  },
+  {
+   "fecha": "2026-01-26T16:00:00Z",
+   "cierre": 69.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.259459
+  },
+  {
+   "fecha": "2026-01-26T20:00:00Z",
+   "cierre": 69.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.443277
+  },
+  {
+   "fecha": "2026-01-27T00:00:00Z",
+   "cierre": 69.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.373072
+  },
+  {
+   "fecha": "2026-01-27T04:00:00Z",
+   "cierre": 69.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.222037
+  },
+  {
+   "fecha": "2026-01-27T08:00:00Z",
+   "cierre": 69.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.274493
+  },
+  {
+   "fecha": "2026-01-27T12:00:00Z",
+   "cierre": 69.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.430728
+  },
+  {
+   "fecha": "2026-01-27T16:00:00Z",
+   "cierre": 69.67,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.249309
+  },
+  {
+   "fecha": "2026-01-27T20:00:00Z",
+   "cierre": 70.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.447365
+  },
+  {
+   "fecha": "2026-01-28T00:00:00Z",
+   "cierre": 69.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.192995
+  },
+  {
+   "fecha": "2026-01-28T04:00:00Z",
+   "cierre": 69.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.332546
+  },
+  {
+   "fecha": "2026-01-28T08:00:00Z",
+   "cierre": 69.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.380928
+  },
+  {
+   "fecha": "2026-01-28T12:00:00Z",
+   "cierre": 69.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.359184
+  },
+  {
+   "fecha": "2026-01-28T16:00:00Z",
+   "cierre": 69.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.201511
+  },
+  {
+   "fecha": "2026-01-28T20:00:00Z",
+   "cierre": 69.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.294586
+  },
+  {
+   "fecha": "2026-01-29T00:00:00Z",
+   "cierre": 68.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.298703
+  },
+  {
+   "fecha": "2026-01-29T04:00:00Z",
+   "cierre": 68.18,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.56174
+  },
+  {
+   "fecha": "2026-01-29T08:00:00Z",
+   "cierre": 67.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.465286
+  },
+  {
+   "fecha": "2026-01-29T12:00:00Z",
+   "cierre": 65.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.202511
+  },
+  {
+   "fecha": "2026-01-29T16:00:00Z",
+   "cierre": 65.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.413184
+  },
+  {
+   "fecha": "2026-01-29T20:00:00Z",
+   "cierre": 66.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.307312
+  },
+  {
+   "fecha": "2026-01-30T00:00:00Z",
+   "cierre": 63.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.252858
+  },
+  {
+   "fecha": "2026-01-30T04:00:00Z",
+   "cierre": 64.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.488875
+  },
+  {
+   "fecha": "2026-01-30T08:00:00Z",
+   "cierre": 64.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.262689
+  },
+  {
+   "fecha": "2026-01-30T12:00:00Z",
+   "cierre": 64.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.314263
+  },
+  {
+   "fecha": "2026-01-30T16:00:00Z",
+   "cierre": 65.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.249022
+  },
+  {
+   "fecha": "2026-01-30T20:00:00Z",
+   "cierre": 65.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.205779
+  },
+  {
+   "fecha": "2026-01-31T00:00:00Z",
+   "cierre": 64.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.188775
+  },
+  {
+   "fecha": "2026-01-31T04:00:00Z",
+   "cierre": 63.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.468348
+  },
+  {
+   "fecha": "2026-01-31T08:00:00Z",
+   "cierre": 63.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.459171
+  },
+  {
+   "fecha": "2026-01-31T12:00:00Z",
+   "cierre": 60.18,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.516478
+  },
+  {
+   "fecha": "2026-01-31T16:00:00Z",
+   "cierre": 58.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.348062
+  },
+  {
+   "fecha": "2026-01-31T20:00:00Z",
+   "cierre": 59.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.2964
+  },
+  {
+   "fecha": "2026-02-01T00:00:00Z",
+   "cierre": 59.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.359907
+  },
+  {
+   "fecha": "2026-02-01T04:00:00Z",
+   "cierre": 59.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.256648
+  },
+  {
+   "fecha": "2026-02-01T08:00:00Z",
+   "cierre": 59.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.319339
+  },
+  {
+   "fecha": "2026-02-01T12:00:00Z",
+   "cierre": 58.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.235588
+  },
+  {
+   "fecha": "2026-02-01T16:00:00Z",
+   "cierre": 58.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.296892
+  },
+  {
+   "fecha": "2026-02-01T20:00:00Z",
+   "cierre": 58.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.444006
+  },
+  {
+   "fecha": "2026-02-02T00:00:00Z",
+   "cierre": 58.33,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.431268
+  },
+  {
+   "fecha": "2026-02-02T04:00:00Z",
+   "cierre": 58.25,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.566043
+  },
+  {
+   "fecha": "2026-02-02T08:00:00Z",
+   "cierre": 59.12,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.154515
+  },
+  {
+   "fecha": "2026-02-02T12:00:00Z",
+   "cierre": 61.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.315535
+  },
+  {
+   "fecha": "2026-02-02T16:00:00Z",
+   "cierre": 59.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.275419
+  },
+  {
+   "fecha": "2026-02-02T20:00:00Z",
+   "cierre": 60.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.219785
+  },
+  {
+   "fecha": "2026-02-03T00:00:00Z",
+   "cierre": 59.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.220342
+  },
+  {
+   "fecha": "2026-02-03T04:00:00Z",
+   "cierre": 60.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.29184
+  },
+  {
+   "fecha": "2026-02-03T08:00:00Z",
+   "cierre": 59.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.278055
+  },
+  {
+   "fecha": "2026-02-03T12:00:00Z",
+   "cierre": 60.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.215095
+  },
+  {
+   "fecha": "2026-02-03T16:00:00Z",
+   "cierre": 59.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.30347
+  },
+  {
+   "fecha": "2026-02-03T20:00:00Z",
+   "cierre": 59.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.424136
+  },
+  {
+   "fecha": "2026-02-04T00:00:00Z",
+   "cierre": 60.74,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.23175
+  },
+  {
+   "fecha": "2026-02-04T04:00:00Z",
+   "cierre": 60.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.280289
+  },
+  {
+   "fecha": "2026-02-04T08:00:00Z",
+   "cierre": 60.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.218165
+  },
+  {
+   "fecha": "2026-02-04T12:00:00Z",
+   "cierre": 58.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.391209
+  },
+  {
+   "fecha": "2026-02-04T16:00:00Z",
+   "cierre": 59.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.175626
+  },
+  {
+   "fecha": "2026-02-04T20:00:00Z",
+   "cierre": 58.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.420791
+  },
+  {
+   "fecha": "2026-02-05T00:00:00Z",
+   "cierre": 58.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.380121
+  },
+  {
+   "fecha": "2026-02-05T04:00:00Z",
+   "cierre": 57.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.448435
+  },
+  {
+   "fecha": "2026-02-05T08:00:00Z",
+   "cierre": 56.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.429026
+  },
+  {
+   "fecha": "2026-02-05T12:00:00Z",
+   "cierre": 53.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.330669
+  },
+  {
+   "fecha": "2026-02-05T16:00:00Z",
+   "cierre": 52.43,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.529184
+  },
+  {
+   "fecha": "2026-02-05T20:00:00Z",
+   "cierre": 50.79,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.490954
+  },
+  {
+   "fecha": "2026-02-06T00:00:00Z",
+   "cierre": 50.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.443317
+  },
+  {
+   "fecha": "2026-02-06T04:00:00Z",
+   "cierre": 50.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.326029
+  },
+  {
+   "fecha": "2026-02-06T08:00:00Z",
+   "cierre": 52.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.07586
+  },
+  {
+   "fecha": "2026-02-06T12:00:00Z",
+   "cierre": 54.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.197782
+  },
+  {
+   "fecha": "2026-02-06T16:00:00Z",
+   "cierre": 55.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.225266
+  },
+  {
+   "fecha": "2026-02-06T20:00:00Z",
+   "cierre": 55.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.20775
+  },
+  {
+   "fecha": "2026-02-07T00:00:00Z",
+   "cierre": 54.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.165199
+  },
+  {
+   "fecha": "2026-02-07T04:00:00Z",
+   "cierre": 53.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.117997
+  },
+  {
+   "fecha": "2026-02-07T08:00:00Z",
+   "cierre": 53.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.272889
+  },
+  {
+   "fecha": "2026-02-07T12:00:00Z",
+   "cierre": 54.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.176887
+  },
+  {
+   "fecha": "2026-02-07T16:00:00Z",
+   "cierre": 55.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.314139
+  },
+  {
+   "fecha": "2026-02-07T20:00:00Z",
+   "cierre": 55.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.235238
+  },
+  {
+   "fecha": "2026-02-08T00:00:00Z",
+   "cierre": 55.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.204159
+  },
+  {
+   "fecha": "2026-02-08T04:00:00Z",
+   "cierre": 55.02,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.196965
+  },
+  {
+   "fecha": "2026-02-08T08:00:00Z",
+   "cierre": 55.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.449511
+  },
+  {
+   "fecha": "2026-02-08T12:00:00Z",
+   "cierre": 54.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.174995
+  },
+  {
+   "fecha": "2026-02-08T16:00:00Z",
+   "cierre": 54.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.23611
+  },
+  {
+   "fecha": "2026-02-08T20:00:00Z",
+   "cierre": 54.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.414235
+  },
+  {
+   "fecha": "2026-02-09T00:00:00Z",
+   "cierre": 54.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.214769
+  },
+  {
+   "fecha": "2026-02-09T04:00:00Z",
+   "cierre": 54.07,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.410541
+  },
+  {
+   "fecha": "2026-02-09T08:00:00Z",
+   "cierre": 53.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.319397
+  },
+  {
+   "fecha": "2026-02-09T12:00:00Z",
+   "cierre": 54.4,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.154382
+  },
+  {
+   "fecha": "2026-02-09T16:00:00Z",
+   "cierre": 54.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.277593
+  },
+  {
+   "fecha": "2026-02-09T20:00:00Z",
+   "cierre": 54.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.198581
+  },
+  {
+   "fecha": "2026-02-10T00:00:00Z",
+   "cierre": 53.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.208476
+  },
+  {
+   "fecha": "2026-02-10T04:00:00Z",
+   "cierre": 53.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.251416
+  },
+  {
+   "fecha": "2026-02-10T08:00:00Z",
+   "cierre": 53.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.344956
+  },
+  {
+   "fecha": "2026-02-10T12:00:00Z",
+   "cierre": 53.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.472861
+  },
+  {
+   "fecha": "2026-02-10T16:00:00Z",
+   "cierre": 53.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.335892
+  },
+  {
+   "fecha": "2026-02-10T20:00:00Z",
+   "cierre": 53.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.258621
+  },
+  {
+   "fecha": "2026-02-11T00:00:00Z",
+   "cierre": 53.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.34741
+  },
+  {
+   "fecha": "2026-02-11T04:00:00Z",
+   "cierre": 52.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.246842
+  },
+  {
+   "fecha": "2026-02-11T08:00:00Z",
+   "cierre": 52.14,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.397843
+  },
+  {
+   "fecha": "2026-02-11T12:00:00Z",
+   "cierre": 51.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.39883
+  },
+  {
+   "fecha": "2026-02-11T16:00:00Z",
+   "cierre": 52.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.122945
+  },
+  {
+   "fecha": "2026-02-11T20:00:00Z",
+   "cierre": 52.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.144387
+  },
+  {
+   "fecha": "2026-02-12T00:00:00Z",
+   "cierre": 52.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.15913
+  },
+  {
+   "fecha": "2026-02-12T04:00:00Z",
+   "cierre": 53.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.282324
+  },
+  {
+   "fecha": "2026-02-12T08:00:00Z",
+   "cierre": 53.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.330996
+  },
+  {
+   "fecha": "2026-02-12T12:00:00Z",
+   "cierre": 52.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.314765
+  },
+  {
+   "fecha": "2026-02-12T16:00:00Z",
+   "cierre": 52.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.389615
+  },
+  {
+   "fecha": "2026-02-12T20:00:00Z",
+   "cierre": 53.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.284393
+  },
+  {
+   "fecha": "2026-02-13T00:00:00Z",
+   "cierre": 53.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.250055
+  },
+  {
+   "fecha": "2026-02-13T04:00:00Z",
+   "cierre": 52.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.191076
+  },
+  {
+   "fecha": "2026-02-13T08:00:00Z",
+   "cierre": 53.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.263298
+  },
+  {
+   "fecha": "2026-02-13T12:00:00Z",
+   "cierre": 54.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.265345
+  },
+  {
+   "fecha": "2026-02-13T16:00:00Z",
+   "cierre": 55.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.42244
+  },
+  {
+   "fecha": "2026-02-13T20:00:00Z",
+   "cierre": 55.03,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.519746
+  },
+  {
+   "fecha": "2026-02-14T00:00:00Z",
+   "cierre": 55.34,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.495506
+  },
+  {
+   "fecha": "2026-02-14T04:00:00Z",
+   "cierre": 55.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.36996
+  },
+  {
+   "fecha": "2026-02-14T08:00:00Z",
+   "cierre": 55.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.314618
+  },
+  {
+   "fecha": "2026-02-14T12:00:00Z",
+   "cierre": 56.11,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.500444
+  },
+  {
+   "fecha": "2026-02-14T16:00:00Z",
+   "cierre": 56.36,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.497499
+  },
+  {
+   "fecha": "2026-02-14T20:00:00Z",
+   "cierre": 55.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.290833
+  },
+  {
+   "fecha": "2026-02-15T00:00:00Z",
+   "cierre": 55.86,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.329784
+  },
+  {
+   "fecha": "2026-02-15T04:00:00Z",
+   "cierre": 56.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.32396
+  },
+  {
+   "fecha": "2026-02-15T08:00:00Z",
+   "cierre": 55.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.277858
+  },
+  {
+   "fecha": "2026-02-15T12:00:00Z",
+   "cierre": 55.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.401787
+  },
+  {
+   "fecha": "2026-02-15T16:00:00Z",
+   "cierre": 54.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.374001
+  },
+  {
+   "fecha": "2026-02-15T20:00:00Z",
+   "cierre": 55.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.261265
+  },
+  {
+   "fecha": "2026-02-16T00:00:00Z",
+   "cierre": 54.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.473983
+  },
+  {
+   "fecha": "2026-02-16T04:00:00Z",
+   "cierre": 54.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.420672
+  },
+  {
+   "fecha": "2026-02-16T08:00:00Z",
+   "cierre": 53.9,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.371673
+  },
+  {
+   "fecha": "2026-02-16T12:00:00Z",
+   "cierre": 53.61,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.313725
+  },
+  {
+   "fecha": "2026-02-16T16:00:00Z",
+   "cierre": 54.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.216398
+  },
+  {
+   "fecha": "2026-02-16T20:00:00Z",
+   "cierre": 55.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.356302
+  },
+  {
+   "fecha": "2026-02-17T00:00:00Z",
+   "cierre": 55.13,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.296369
+  },
+  {
+   "fecha": "2026-02-17T04:00:00Z",
+   "cierre": 55.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.400359
+  },
+  {
+   "fecha": "2026-02-17T08:00:00Z",
+   "cierre": 55.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.342467
+  },
+  {
+   "fecha": "2026-02-17T12:00:00Z",
+   "cierre": 53.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.38296
+  },
+  {
+   "fecha": "2026-02-17T16:00:00Z",
+   "cierre": 54.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362313
+  },
+  {
+   "fecha": "2026-02-17T20:00:00Z",
+   "cierre": 53.96,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.497669
+  },
+  {
+   "fecha": "2026-02-18T00:00:00Z",
+   "cierre": 54.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.26189
+  },
+  {
+   "fecha": "2026-02-18T04:00:00Z",
+   "cierre": 54.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.208477
+  },
+  {
+   "fecha": "2026-02-18T08:00:00Z",
+   "cierre": 53.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.311698
+  },
+  {
+   "fecha": "2026-02-18T12:00:00Z",
+   "cierre": 54.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.320625
+  },
+  {
+   "fecha": "2026-02-18T16:00:00Z",
+   "cierre": 53.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.359671
+  },
+  {
+   "fecha": "2026-02-18T20:00:00Z",
+   "cierre": 53.32,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.54902
+  },
+  {
+   "fecha": "2026-02-19T00:00:00Z",
+   "cierre": 53.58,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.542096
+  },
+  {
+   "fecha": "2026-02-19T04:00:00Z",
+   "cierre": 53.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362313
+  },
+  {
+   "fecha": "2026-02-19T08:00:00Z",
+   "cierre": 52.57,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.382149
+  },
+  {
+   "fecha": "2026-02-19T12:00:00Z",
+   "cierre": 51.83,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.420785
+  },
+  {
+   "fecha": "2026-02-19T16:00:00Z",
+   "cierre": 52.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.144618
+  },
+  {
+   "fecha": "2026-02-19T20:00:00Z",
+   "cierre": 52.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.242864
+  },
+  {
+   "fecha": "2026-02-20T00:00:00Z",
+   "cierre": 53.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.216726
+  },
+  {
+   "fecha": "2026-02-20T04:00:00Z",
+   "cierre": 53.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.346164
+  },
+  {
+   "fecha": "2026-02-20T08:00:00Z",
+   "cierre": 53.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.322293
+  },
+  {
+   "fecha": "2026-02-20T12:00:00Z",
+   "cierre": 54.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.361576
+  },
+  {
+   "fecha": "2026-02-20T16:00:00Z",
+   "cierre": 54.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.475033
+  },
+  {
+   "fecha": "2026-02-20T20:00:00Z",
+   "cierre": 55.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.407165
+  },
+  {
+   "fecha": "2026-02-21T00:00:00Z",
+   "cierre": 55.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.328387
+  },
+  {
+   "fecha": "2026-02-21T04:00:00Z",
+   "cierre": 55.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.339755
+  },
+  {
+   "fecha": "2026-02-21T08:00:00Z",
+   "cierre": 55.08,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.355195
+  },
+  {
+   "fecha": "2026-02-21T12:00:00Z",
+   "cierre": 55.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.426593
+  },
+  {
+   "fecha": "2026-02-21T16:00:00Z",
+   "cierre": 55.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.179096
+  },
+  {
+   "fecha": "2026-02-21T20:00:00Z",
+   "cierre": 54.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.401076
+  },
+  {
+   "fecha": "2026-02-22T00:00:00Z",
+   "cierre": 54.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.388777
+  },
+  {
+   "fecha": "2026-02-22T04:00:00Z",
+   "cierre": 54.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.397105
+  },
+  {
+   "fecha": "2026-02-22T08:00:00Z",
+   "cierre": 54.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.383096
+  },
+  {
+   "fecha": "2026-02-22T12:00:00Z",
+   "cierre": 53.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.398196
+  },
+  {
+   "fecha": "2026-02-22T16:00:00Z",
+   "cierre": 53.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.396896
+  },
+  {
+   "fecha": "2026-02-22T20:00:00Z",
+   "cierre": 53.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.438089
+  },
+  {
+   "fecha": "2026-02-23T00:00:00Z",
+   "cierre": 51.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.195674
+  },
+  {
+   "fecha": "2026-02-23T04:00:00Z",
+   "cierre": 52.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.260909
+  },
+  {
+   "fecha": "2026-02-23T08:00:00Z",
+   "cierre": 52.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.169627
+  },
+  {
+   "fecha": "2026-02-23T12:00:00Z",
+   "cierre": 52.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.233834
+  },
+  {
+   "fecha": "2026-02-23T16:00:00Z",
+   "cierre": 51.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.280497
+  },
+  {
+   "fecha": "2026-02-23T20:00:00Z",
+   "cierre": 51.35,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.32435
+  },
+  {
+   "fecha": "2026-02-24T00:00:00Z",
+   "cierre": 50.98,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.364552
+  },
+  {
+   "fecha": "2026-02-24T04:00:00Z",
+   "cierre": 50.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.434391
+  },
+  {
+   "fecha": "2026-02-24T08:00:00Z",
+   "cierre": 50.8,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.513514
+  },
+  {
+   "fecha": "2026-02-24T12:00:00Z",
+   "cierre": 51.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.177658
+  },
+  {
+   "fecha": "2026-02-24T16:00:00Z",
+   "cierre": 51.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.31064
+  },
+  {
+   "fecha": "2026-02-24T20:00:00Z",
+   "cierre": 51.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.174034
+  },
+  {
+   "fecha": "2026-02-25T00:00:00Z",
+   "cierre": 52.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.390125
+  },
+  {
+   "fecha": "2026-02-25T04:00:00Z",
+   "cierre": 52.73,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.49327
+  },
+  {
+   "fecha": "2026-02-25T08:00:00Z",
+   "cierre": 53.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.466808
+  },
+  {
+   "fecha": "2026-02-25T12:00:00Z",
+   "cierre": 57.79,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.392656
+  },
+  {
+   "fecha": "2026-02-25T16:00:00Z",
+   "cierre": 58.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.317066
+  },
+  {
+   "fecha": "2026-02-25T20:00:00Z",
+   "cierre": 56.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.261696
+  },
+  {
+   "fecha": "2026-02-26T00:00:00Z",
+   "cierre": 56.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.278599
+  },
+  {
+   "fecha": "2026-02-26T04:00:00Z",
+   "cierre": 56.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.258531
+  },
+  {
+   "fecha": "2026-02-26T08:00:00Z",
+   "cierre": 55.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.123959
+  },
+  {
+   "fecha": "2026-02-26T12:00:00Z",
+   "cierre": 55.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.330001
+  },
+  {
+   "fecha": "2026-02-26T16:00:00Z",
+   "cierre": 55.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.394492
+  },
+  {
+   "fecha": "2026-02-26T20:00:00Z",
+   "cierre": 55.62,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.265227
+  },
+  {
+   "fecha": "2026-02-27T00:00:00Z",
+   "cierre": 55.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.18364
+  },
+  {
+   "fecha": "2026-02-27T04:00:00Z",
+   "cierre": 55.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.165956
+  },
+  {
+   "fecha": "2026-02-27T08:00:00Z",
+   "cierre": 54.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.329274
+  },
+  {
+   "fecha": "2026-02-27T12:00:00Z",
+   "cierre": 54.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.288798
+  },
+  {
+   "fecha": "2026-02-27T16:00:00Z",
+   "cierre": 54.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.377296
+  },
+  {
+   "fecha": "2026-02-27T20:00:00Z",
+   "cierre": 54.56,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.320898
+  },
+  {
+   "fecha": "2026-02-28T00:00:00Z",
+   "cierre": 54.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.307012
+  },
+  {
+   "fecha": "2026-02-28T04:00:00Z",
+   "cierre": 52.41,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.297873
+  },
+  {
+   "fecha": "2026-02-28T08:00:00Z",
+   "cierre": 51.67,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.50483
+  },
+  {
+   "fecha": "2026-02-28T12:00:00Z",
+   "cierre": 52.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.241222
+  },
+  {
+   "fecha": "2026-02-28T16:00:00Z",
+   "cierre": 54.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.166275
+  },
+  {
+   "fecha": "2026-02-28T20:00:00Z",
+   "cierre": 54.4,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.265665
+  },
+  {
+   "fecha": "2026-03-01T00:00:00Z",
+   "cierre": 54.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.187432
+  },
+  {
+   "fecha": "2026-03-01T04:00:00Z",
+   "cierre": 54.62,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.174734
+  },
+  {
+   "fecha": "2026-03-01T08:00:00Z",
+   "cierre": 53.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.173223
+  },
+  {
+   "fecha": "2026-03-01T12:00:00Z",
+   "cierre": 54.26,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.233708
+  },
+  {
+   "fecha": "2026-03-01T16:00:00Z",
+   "cierre": 53.25,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.392736
+  },
+  {
+   "fecha": "2026-03-01T20:00:00Z",
+   "cierre": 53.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.465381
+  },
+  {
+   "fecha": "2026-03-02T00:00:00Z",
+   "cierre": 54.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.146184
+  },
+  {
+   "fecha": "2026-03-02T04:00:00Z",
+   "cierre": 53.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.228587
+  },
+  {
+   "fecha": "2026-03-02T08:00:00Z",
+   "cierre": 53.34,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.353954
+  },
+  {
+   "fecha": "2026-03-02T12:00:00Z",
+   "cierre": 55.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.258833
+  },
+  {
+   "fecha": "2026-03-02T16:00:00Z",
+   "cierre": 54.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.290277
+  },
+  {
+   "fecha": "2026-03-02T20:00:00Z",
+   "cierre": 54.61,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.243592
+  },
+  {
+   "fecha": "2026-03-03T00:00:00Z",
+   "cierre": 54.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.187144
+  },
+  {
+   "fecha": "2026-03-03T04:00:00Z",
+   "cierre": 54.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.19101
+  },
+  {
+   "fecha": "2026-03-03T08:00:00Z",
+   "cierre": 53.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.411563
+  },
+  {
+   "fecha": "2026-03-03T12:00:00Z",
+   "cierre": 54.04,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.261096
+  },
+  {
+   "fecha": "2026-03-03T16:00:00Z",
+   "cierre": 54.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.191675
+  },
+  {
+   "fecha": "2026-03-03T20:00:00Z",
+   "cierre": 54.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.301172
+  },
+  {
+   "fecha": "2026-03-04T00:00:00Z",
+   "cierre": 54.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.375754
+  },
+  {
+   "fecha": "2026-03-04T04:00:00Z",
+   "cierre": 55.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.356042
+  },
+  {
+   "fecha": "2026-03-04T08:00:00Z",
+   "cierre": 55.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.407311
+  },
+  {
+   "fecha": "2026-03-04T12:00:00Z",
+   "cierre": 56.95,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.307375
+  },
+  {
+   "fecha": "2026-03-04T16:00:00Z",
+   "cierre": 57.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.392446
+  },
+  {
+   "fecha": "2026-03-04T20:00:00Z",
+   "cierre": 56.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.203349
+  },
+  {
+   "fecha": "2026-03-05T00:00:00Z",
+   "cierre": 56.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.261141
+  },
+  {
+   "fecha": "2026-03-05T04:00:00Z",
+   "cierre": 55.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.247123
+  },
+  {
+   "fecha": "2026-03-05T08:00:00Z",
+   "cierre": 56.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.360198
+  },
+  {
+   "fecha": "2026-03-05T12:00:00Z",
+   "cierre": 55.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.43116
+  },
+  {
+   "fecha": "2026-03-05T16:00:00Z",
+   "cierre": 55.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.366597
+  },
+  {
+   "fecha": "2026-03-05T20:00:00Z",
+   "cierre": 55.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.242732
+  },
+  {
+   "fecha": "2026-03-06T00:00:00Z",
+   "cierre": 55.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.197836
+  },
+  {
+   "fecha": "2026-03-06T04:00:00Z",
+   "cierre": 55.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.183585
+  },
+  {
+   "fecha": "2026-03-06T08:00:00Z",
+   "cierre": 54.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.377877
+  },
+  {
+   "fecha": "2026-03-06T12:00:00Z",
+   "cierre": 53.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.230201
+  },
+  {
+   "fecha": "2026-03-06T16:00:00Z",
+   "cierre": 53.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.345731
+  },
+  {
+   "fecha": "2026-03-06T20:00:00Z",
+   "cierre": 53.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.395214
+  },
+  {
+   "fecha": "2026-03-07T00:00:00Z",
+   "cierre": 53.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.478987
+  },
+  {
+   "fecha": "2026-03-07T04:00:00Z",
+   "cierre": 53.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.440961
+  },
+  {
+   "fecha": "2026-03-07T08:00:00Z",
+   "cierre": 54.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.215176
+  },
+  {
+   "fecha": "2026-03-07T12:00:00Z",
+   "cierre": 53.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.209067
+  },
+  {
+   "fecha": "2026-03-07T16:00:00Z",
+   "cierre": 53.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.423495
+  },
+  {
+   "fecha": "2026-03-07T20:00:00Z",
+   "cierre": 53.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.3943
+  },
+  {
+   "fecha": "2026-03-08T00:00:00Z",
+   "cierre": 53.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.353162
+  },
+  {
+   "fecha": "2026-03-08T04:00:00Z",
+   "cierre": 53.12,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.367301
+  },
+  {
+   "fecha": "2026-03-08T08:00:00Z",
+   "cierre": 53.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.173536
+  },
+  {
+   "fecha": "2026-03-08T12:00:00Z",
+   "cierre": 52.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.391936
+  },
+  {
+   "fecha": "2026-03-08T16:00:00Z",
+   "cierre": 53.11,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.159945
+  },
+  {
+   "fecha": "2026-03-08T20:00:00Z",
+   "cierre": 52.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.356249
+  },
+  {
+   "fecha": "2026-03-09T00:00:00Z",
+   "cierre": 53.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.203078
+  },
+  {
+   "fecha": "2026-03-09T04:00:00Z",
+   "cierre": 53.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.203084
+  },
+  {
+   "fecha": "2026-03-09T08:00:00Z",
+   "cierre": 53.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.251658
+  },
+  {
+   "fecha": "2026-03-09T12:00:00Z",
+   "cierre": 53.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.404489
+  },
+  {
+   "fecha": "2026-03-09T16:00:00Z",
+   "cierre": 54.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.409902
+  },
+  {
+   "fecha": "2026-03-09T20:00:00Z",
+   "cierre": 53.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.190253
+  },
+  {
+   "fecha": "2026-03-10T00:00:00Z",
+   "cierre": 54.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.424679
+  },
+  {
+   "fecha": "2026-03-10T04:00:00Z",
+   "cierre": 54.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.31428
+  },
+  {
+   "fecha": "2026-03-10T08:00:00Z",
+   "cierre": 54.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.325682
+  },
+  {
+   "fecha": "2026-03-10T12:00:00Z",
+   "cierre": 54.77,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.498674
+  },
+  {
+   "fecha": "2026-03-10T16:00:00Z",
+   "cierre": 53.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.349722
+  },
+  {
+   "fecha": "2026-03-10T20:00:00Z",
+   "cierre": 53.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.361498
+  },
+  {
+   "fecha": "2026-03-11T00:00:00Z",
+   "cierre": 53.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.353777
+  },
+  {
+   "fecha": "2026-03-11T04:00:00Z",
+   "cierre": 53.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.342862
+  },
+  {
+   "fecha": "2026-03-11T08:00:00Z",
+   "cierre": 53.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.346585
+  },
+  {
+   "fecha": "2026-03-11T12:00:00Z",
+   "cierre": 54.56,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.253506
+  },
+  {
+   "fecha": "2026-03-11T16:00:00Z",
+   "cierre": 55.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.358673
+  },
+  {
+   "fecha": "2026-03-11T20:00:00Z",
+   "cierre": 54.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.242354
+  },
+  {
+   "fecha": "2026-03-12T00:00:00Z",
+   "cierre": 54.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.271242
+  },
+  {
+   "fecha": "2026-03-12T04:00:00Z",
+   "cierre": 54.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.196768
+  },
+  {
+   "fecha": "2026-03-12T08:00:00Z",
+   "cierre": 54.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.260933
+  },
+  {
+   "fecha": "2026-03-12T12:00:00Z",
+   "cierre": 54.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.315086
+  },
+  {
+   "fecha": "2026-03-12T16:00:00Z",
+   "cierre": 54.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.275153
+  },
+  {
+   "fecha": "2026-03-12T20:00:00Z",
+   "cierre": 54.56,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.229873
+  },
+  {
+   "fecha": "2026-03-13T00:00:00Z",
+   "cierre": 55.26,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.364877
+  },
+  {
+   "fecha": "2026-03-13T04:00:00Z",
+   "cierre": 55.05,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.309799
+  },
+  {
+   "fecha": "2026-03-13T08:00:00Z",
+   "cierre": 55.92,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.555007
+  },
+  {
+   "fecha": "2026-03-13T12:00:00Z",
+   "cierre": 55.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.197438
+  },
+  {
+   "fecha": "2026-03-13T16:00:00Z",
+   "cierre": 55.62,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.338757
+  },
+  {
+   "fecha": "2026-03-13T20:00:00Z",
+   "cierre": 55.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.184017
+  },
+  {
+   "fecha": "2026-03-14T00:00:00Z",
+   "cierre": 55.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.377682
+  },
+  {
+   "fecha": "2026-03-14T04:00:00Z",
+   "cierre": 54.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.417059
+  },
+  {
+   "fecha": "2026-03-14T08:00:00Z",
+   "cierre": 54.71,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.478568
+  },
+  {
+   "fecha": "2026-03-14T12:00:00Z",
+   "cierre": 54.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.424621
+  },
+  {
+   "fecha": "2026-03-14T16:00:00Z",
+   "cierre": 54.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.316041
+  },
+  {
+   "fecha": "2026-03-14T20:00:00Z",
+   "cierre": 54.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.200497
+  },
+  {
+   "fecha": "2026-03-15T00:00:00Z",
+   "cierre": 55.16,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.241271
+  },
+  {
+   "fecha": "2026-03-15T04:00:00Z",
+   "cierre": 55.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.373259
+  },
+  {
+   "fecha": "2026-03-15T08:00:00Z",
+   "cierre": 55.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.442649
+  },
+  {
+   "fecha": "2026-03-15T12:00:00Z",
+   "cierre": 55.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.194671
+  },
+  {
+   "fecha": "2026-03-15T16:00:00Z",
+   "cierre": 55.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.375527
+  },
+  {
+   "fecha": "2026-03-15T20:00:00Z",
+   "cierre": 56.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.392992
+  },
+  {
+   "fecha": "2026-03-16T00:00:00Z",
+   "cierre": 56.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.349017
+  },
+  {
+   "fecha": "2026-03-16T04:00:00Z",
+   "cierre": 57.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.409056
+  },
+  {
+   "fecha": "2026-03-16T08:00:00Z",
+   "cierre": 57.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.394223
+  },
+  {
+   "fecha": "2026-03-16T12:00:00Z",
+   "cierre": 57.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.413158
+  },
+  {
+   "fecha": "2026-03-16T16:00:00Z",
+   "cierre": 58.43,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.316644
+  },
+  {
+   "fecha": "2026-03-16T20:00:00Z",
+   "cierre": 58.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.372446
+  },
+  {
+   "fecha": "2026-03-17T00:00:00Z",
+   "cierre": 58.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.221613
+  },
+  {
+   "fecha": "2026-03-17T04:00:00Z",
+   "cierre": 57.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.190874
+  },
+  {
+   "fecha": "2026-03-17T08:00:00Z",
+   "cierre": 57.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.330953
+  },
+  {
+   "fecha": "2026-03-17T12:00:00Z",
+   "cierre": 58.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.247649
+  },
+  {
+   "fecha": "2026-03-17T16:00:00Z",
+   "cierre": 58.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.278305
+  },
+  {
+   "fecha": "2026-03-17T20:00:00Z",
+   "cierre": 58.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.275702
+  },
+  {
+   "fecha": "2026-03-18T00:00:00Z",
+   "cierre": 58.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.281047
+  },
+  {
+   "fecha": "2026-03-18T04:00:00Z",
+   "cierre": 57.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.37203
+  },
+  {
+   "fecha": "2026-03-18T08:00:00Z",
+   "cierre": 56.56,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.323796
+  },
+  {
+   "fecha": "2026-03-18T12:00:00Z",
+   "cierre": 55.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.270536
+  },
+  {
+   "fecha": "2026-03-18T16:00:00Z",
+   "cierre": 55.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.379045
+  },
+  {
+   "fecha": "2026-03-18T20:00:00Z",
+   "cierre": 56.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.459506
+  },
+  {
+   "fecha": "2026-03-19T00:00:00Z",
+   "cierre": 55.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.315676
+  },
+  {
+   "fecha": "2026-03-19T04:00:00Z",
+   "cierre": 55.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.34527
+  },
+  {
+   "fecha": "2026-03-19T08:00:00Z",
+   "cierre": 55.38,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.297783
+  },
+  {
+   "fecha": "2026-03-19T12:00:00Z",
+   "cierre": 55.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.311256
+  },
+  {
+   "fecha": "2026-03-19T16:00:00Z",
+   "cierre": 55.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.232652
+  },
+  {
+   "fecha": "2026-03-19T20:00:00Z",
+   "cierre": 55.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.176349
+  },
+  {
+   "fecha": "2026-03-20T00:00:00Z",
+   "cierre": 55.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.239792
+  },
+  {
+   "fecha": "2026-03-20T04:00:00Z",
+   "cierre": 56.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.382832
+  },
+  {
+   "fecha": "2026-03-20T08:00:00Z",
+   "cierre": 55.44,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.16629
+  },
+  {
+   "fecha": "2026-03-20T12:00:00Z",
+   "cierre": 55.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.269984
+  },
+  {
+   "fecha": "2026-03-20T16:00:00Z",
+   "cierre": 55.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.314811
+  },
+  {
+   "fecha": "2026-03-20T20:00:00Z",
+   "cierre": 56.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.444899
+  },
+  {
+   "fecha": "2026-03-21T00:00:00Z",
+   "cierre": 56.19,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.448126
+  },
+  {
+   "fecha": "2026-03-21T04:00:00Z",
+   "cierre": 56.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.322203
+  },
+  {
+   "fecha": "2026-03-21T08:00:00Z",
+   "cierre": 56.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.199012
+  },
+  {
+   "fecha": "2026-03-21T12:00:00Z",
+   "cierre": 55.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.241845
+  },
+  {
+   "fecha": "2026-03-21T16:00:00Z",
+   "cierre": 55.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.237309
+  },
+  {
+   "fecha": "2026-03-21T20:00:00Z",
+   "cierre": 54.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.382523
+  },
+  {
+   "fecha": "2026-03-22T00:00:00Z",
+   "cierre": 54.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.483687
+  },
+  {
+   "fecha": "2026-03-22T04:00:00Z",
+   "cierre": 54.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.439293
+  },
+  {
+   "fecha": "2026-03-22T08:00:00Z",
+   "cierre": 53.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.476238
+  },
+  {
+   "fecha": "2026-03-22T12:00:00Z",
+   "cierre": 54.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.359348
+  },
+  {
+   "fecha": "2026-03-22T16:00:00Z",
+   "cierre": 53.76,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.51836
+  },
+  {
+   "fecha": "2026-03-22T20:00:00Z",
+   "cierre": 53.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.473552
+  },
+  {
+   "fecha": "2026-03-23T00:00:00Z",
+   "cierre": 53.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.301079
+  },
+  {
+   "fecha": "2026-03-23T04:00:00Z",
+   "cierre": 53.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.276481
+  },
+  {
+   "fecha": "2026-03-23T08:00:00Z",
+   "cierre": 54.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.319292
+  },
+  {
+   "fecha": "2026-03-23T12:00:00Z",
+   "cierre": 55.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.290995
+  },
+  {
+   "fecha": "2026-03-23T16:00:00Z",
+   "cierre": 55.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.308981
+  },
+  {
+   "fecha": "2026-03-23T20:00:00Z",
+   "cierre": 55.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.450645
+  },
+  {
+   "fecha": "2026-03-24T00:00:00Z",
+   "cierre": 55.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.338754
+  },
+  {
+   "fecha": "2026-03-24T04:00:00Z",
+   "cierre": 55.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.391091
+  },
+  {
+   "fecha": "2026-03-24T08:00:00Z",
+   "cierre": 55.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.232053
+  },
+  {
+   "fecha": "2026-03-24T12:00:00Z",
+   "cierre": 55.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.319889
+  },
+  {
+   "fecha": "2026-03-24T16:00:00Z",
+   "cierre": 55.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.25446
+  },
+  {
+   "fecha": "2026-03-24T20:00:00Z",
+   "cierre": 56.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.357269
+  },
+  {
+   "fecha": "2026-03-25T00:00:00Z",
+   "cierre": 56.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.401757
+  },
+  {
+   "fecha": "2026-03-25T04:00:00Z",
+   "cierre": 56.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.417551
+  },
+  {
+   "fecha": "2026-03-25T08:00:00Z",
+   "cierre": 56.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.417045
+  },
+  {
+   "fecha": "2026-03-25T12:00:00Z",
+   "cierre": 56.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.162256
+  },
+  {
+   "fecha": "2026-03-25T16:00:00Z",
+   "cierre": 56.32,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.310815
+  },
+  {
+   "fecha": "2026-03-25T20:00:00Z",
+   "cierre": 56.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.344428
+  },
+  {
+   "fecha": "2026-03-26T00:00:00Z",
+   "cierre": 55.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.405957
+  },
+  {
+   "fecha": "2026-03-26T04:00:00Z",
+   "cierre": 55.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.356364
+  },
+  {
+   "fecha": "2026-03-26T08:00:00Z",
+   "cierre": 54.61,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.35845
+  },
+  {
+   "fecha": "2026-03-26T12:00:00Z",
+   "cierre": 54.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.452622
+  },
+  {
+   "fecha": "2026-03-26T16:00:00Z",
+   "cierre": 54.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.413197
+  },
+  {
+   "fecha": "2026-03-26T20:00:00Z",
+   "cierre": 54.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.480137
+  },
+  {
+   "fecha": "2026-03-27T00:00:00Z",
+   "cierre": 54.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.219282
+  },
+  {
+   "fecha": "2026-03-27T04:00:00Z",
+   "cierre": 54.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.157218
+  },
+  {
+   "fecha": "2026-03-27T08:00:00Z",
+   "cierre": 53.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.319655
+  },
+  {
+   "fecha": "2026-03-27T12:00:00Z",
+   "cierre": 54.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.246017
+  },
+  {
+   "fecha": "2026-03-27T16:00:00Z",
+   "cierre": 53.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.418767
+  },
+  {
+   "fecha": "2026-03-27T20:00:00Z",
+   "cierre": 53.72,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.421161
+  },
+  {
+   "fecha": "2026-03-28T00:00:00Z",
+   "cierre": 53.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.45365
+  },
+  {
+   "fecha": "2026-03-28T04:00:00Z",
+   "cierre": 53.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.2664
+  },
+  {
+   "fecha": "2026-03-28T08:00:00Z",
+   "cierre": 54.05,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.19766
+  },
+  {
+   "fecha": "2026-03-28T12:00:00Z",
+   "cierre": 54.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.379917
+  },
+  {
+   "fecha": "2026-03-28T16:00:00Z",
+   "cierre": 54.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.194635
+  },
+  {
+   "fecha": "2026-03-28T20:00:00Z",
+   "cierre": 53.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.237758
+  },
+  {
+   "fecha": "2026-03-29T00:00:00Z",
+   "cierre": 54.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.348951
+  },
+  {
+   "fecha": "2026-03-29T04:00:00Z",
+   "cierre": 54.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.26619
+  },
+  {
+   "fecha": "2026-03-29T08:00:00Z",
+   "cierre": 53.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.333084
+  },
+  {
+   "fecha": "2026-03-29T12:00:00Z",
+   "cierre": 53.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.484895
+  },
+  {
+   "fecha": "2026-03-29T16:00:00Z",
+   "cierre": 53.35,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.525809
+  },
+  {
+   "fecha": "2026-03-29T20:00:00Z",
+   "cierre": 53.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.400553
+  },
+  {
+   "fecha": "2026-03-30T00:00:00Z",
+   "cierre": 54.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.227959
+  },
+  {
+   "fecha": "2026-03-30T04:00:00Z",
+   "cierre": 54.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.314015
+  },
+  {
+   "fecha": "2026-03-30T08:00:00Z",
+   "cierre": 53.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.167192
+  },
+  {
+   "fecha": "2026-03-30T12:00:00Z",
+   "cierre": 53.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.288575
+  },
+  {
+   "fecha": "2026-03-30T16:00:00Z",
+   "cierre": 53.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.406041
+  },
+  {
+   "fecha": "2026-03-30T20:00:00Z",
+   "cierre": 53.34,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.529229
+  },
+  {
+   "fecha": "2026-03-31T00:00:00Z",
+   "cierre": 53.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.293278
+  },
+  {
+   "fecha": "2026-03-31T04:00:00Z",
+   "cierre": 53.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.19152
+  },
+  {
+   "fecha": "2026-03-31T08:00:00Z",
+   "cierre": 53.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.259151
+  },
+  {
+   "fecha": "2026-03-31T12:00:00Z",
+   "cierre": 53.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.423888
+  },
+  {
+   "fecha": "2026-03-31T16:00:00Z",
+   "cierre": 54.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.267874
+  },
+  {
+   "fecha": "2026-03-31T20:00:00Z",
+   "cierre": 53.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.325465
+  },
+  {
+   "fecha": "2026-04-01T00:00:00Z",
+   "cierre": 54.11,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.382769
+  },
+  {
+   "fecha": "2026-04-01T04:00:00Z",
+   "cierre": 54.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.355659
+  },
+  {
+   "fecha": "2026-04-01T08:00:00Z",
+   "cierre": 54.04,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.186412
+  },
+  {
+   "fecha": "2026-04-01T12:00:00Z",
+   "cierre": 54.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.336782
+  },
+  {
+   "fecha": "2026-04-01T16:00:00Z",
+   "cierre": 54.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.26361
+  },
+  {
+   "fecha": "2026-04-01T20:00:00Z",
+   "cierre": 53.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.37101
+  },
+  {
+   "fecha": "2026-04-02T00:00:00Z",
+   "cierre": 52.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.365734
+  },
+  {
+   "fecha": "2026-04-02T04:00:00Z",
+   "cierre": 52.45,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.621846
+  },
+  {
+   "fecha": "2026-04-02T08:00:00Z",
+   "cierre": 51.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.452178
+  },
+  {
+   "fecha": "2026-04-02T12:00:00Z",
+   "cierre": 51.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.424207
+  },
+  {
+   "fecha": "2026-04-02T16:00:00Z",
+   "cierre": 52.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362838
+  },
+  {
+   "fecha": "2026-04-02T20:00:00Z",
+   "cierre": 52.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.214561
+  },
+  {
+   "fecha": "2026-04-03T00:00:00Z",
+   "cierre": 52.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.276833
+  },
+  {
+   "fecha": "2026-04-03T04:00:00Z",
+   "cierre": 52.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.269297
+  },
+  {
+   "fecha": "2026-04-03T08:00:00Z",
+   "cierre": 52.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.356977
+  },
+  {
+   "fecha": "2026-04-03T12:00:00Z",
+   "cierre": 52.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.368431
+  },
+  {
+   "fecha": "2026-04-03T16:00:00Z",
+   "cierre": 53.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.388789
+  },
+  {
+   "fecha": "2026-04-03T20:00:00Z",
+   "cierre": 53.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.424558
+  },
+  {
+   "fecha": "2026-04-04T00:00:00Z",
+   "cierre": 53.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.362185
+  },
+  {
+   "fecha": "2026-04-04T04:00:00Z",
+   "cierre": 53.2,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.456364
+  },
+  {
+   "fecha": "2026-04-04T08:00:00Z",
+   "cierre": 53.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.417036
+  },
+  {
+   "fecha": "2026-04-04T12:00:00Z",
+   "cierre": 53.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.358882
+  },
+  {
+   "fecha": "2026-04-04T16:00:00Z",
+   "cierre": 53.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.417699
+  },
+  {
+   "fecha": "2026-04-04T20:00:00Z",
+   "cierre": 53.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.412767
+  },
+  {
+   "fecha": "2026-04-05T00:00:00Z",
+   "cierre": 53.36,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.161778
+  },
+  {
+   "fecha": "2026-04-05T04:00:00Z",
+   "cierre": 52.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.418647
+  },
+  {
+   "fecha": "2026-04-05T08:00:00Z",
+   "cierre": 52.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.358466
+  },
+  {
+   "fecha": "2026-04-05T12:00:00Z",
+   "cierre": 53.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.272513
+  },
+  {
+   "fecha": "2026-04-05T16:00:00Z",
+   "cierre": 53.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.355619
+  },
+  {
+   "fecha": "2026-04-05T20:00:00Z",
+   "cierre": 54.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.328516
+  },
+  {
+   "fecha": "2026-04-06T00:00:00Z",
+   "cierre": 54.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.334197
+  },
+  {
+   "fecha": "2026-04-06T04:00:00Z",
+   "cierre": 54.07,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.211542
+  },
+  {
+   "fecha": "2026-04-06T08:00:00Z",
+   "cierre": 54.35,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.504432
+  },
+  {
+   "fecha": "2026-04-06T12:00:00Z",
+   "cierre": 54.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.411027
+  },
+  {
+   "fecha": "2026-04-06T16:00:00Z",
+   "cierre": 54.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.165856
+  },
+  {
+   "fecha": "2026-04-06T20:00:00Z",
+   "cierre": 53.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.405239
+  },
+  {
+   "fecha": "2026-04-07T00:00:00Z",
+   "cierre": 53.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.433902
+  },
+  {
+   "fecha": "2026-04-07T04:00:00Z",
+   "cierre": 53.32,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.517294
+  },
+  {
+   "fecha": "2026-04-07T08:00:00Z",
+   "cierre": 53.22,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.511352
+  },
+  {
+   "fecha": "2026-04-07T12:00:00Z",
+   "cierre": 53.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.275104
+  },
+  {
+   "fecha": "2026-04-07T16:00:00Z",
+   "cierre": 53.76,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.163757
+  },
+  {
+   "fecha": "2026-04-07T20:00:00Z",
+   "cierre": 55.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.343265
+  },
+  {
+   "fecha": "2026-04-08T00:00:00Z",
+   "cierre": 55.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.310958
+  },
+  {
+   "fecha": "2026-04-08T04:00:00Z",
+   "cierre": 55.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.333076
+  },
+  {
+   "fecha": "2026-04-08T08:00:00Z",
+   "cierre": 55.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.313248
+  },
+  {
+   "fecha": "2026-04-08T12:00:00Z",
+   "cierre": 54.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.239741
+  },
+  {
+   "fecha": "2026-04-08T16:00:00Z",
+   "cierre": 54.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.190256
+  },
+  {
+   "fecha": "2026-04-08T20:00:00Z",
+   "cierre": 53.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.400364
+  },
+  {
+   "fecha": "2026-04-09T00:00:00Z",
+   "cierre": 53.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.37551
+  },
+  {
+   "fecha": "2026-04-09T04:00:00Z",
+   "cierre": 53.98,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.272636
+  },
+  {
+   "fecha": "2026-04-09T08:00:00Z",
+   "cierre": 53.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.294074
+  },
+  {
+   "fecha": "2026-04-09T12:00:00Z",
+   "cierre": 54.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.331711
+  },
+  {
+   "fecha": "2026-04-09T16:00:00Z",
+   "cierre": 54.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.408107
+  },
+  {
+   "fecha": "2026-04-09T20:00:00Z",
+   "cierre": 54.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.338835
+  },
+  {
+   "fecha": "2026-04-10T00:00:00Z",
+   "cierre": 54.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.299089
+  },
+  {
+   "fecha": "2026-04-10T04:00:00Z",
+   "cierre": 54.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.27896
+  },
+  {
+   "fecha": "2026-04-10T08:00:00Z",
+   "cierre": 54.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.38509
+  },
+  {
+   "fecha": "2026-04-10T12:00:00Z",
+   "cierre": 54.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.411195
+  },
+  {
+   "fecha": "2026-04-10T16:00:00Z",
+   "cierre": 55.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.425686
+  },
+  {
+   "fecha": "2026-04-10T20:00:00Z",
+   "cierre": 54.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.275557
+  },
+  {
+   "fecha": "2026-04-11T00:00:00Z",
+   "cierre": 54.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.171001
+  },
+  {
+   "fecha": "2026-04-11T04:00:00Z",
+   "cierre": 54.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.256052
+  },
+  {
+   "fecha": "2026-04-11T08:00:00Z",
+   "cierre": 54.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.337356
+  },
+  {
+   "fecha": "2026-04-11T12:00:00Z",
+   "cierre": 54.58,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.262462
+  },
+  {
+   "fecha": "2026-04-11T16:00:00Z",
+   "cierre": 55.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.305269
+  },
+  {
+   "fecha": "2026-04-11T20:00:00Z",
+   "cierre": 55.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.238635
+  },
+  {
+   "fecha": "2026-04-12T00:00:00Z",
+   "cierre": 54.04,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.341549
+  },
+  {
+   "fecha": "2026-04-12T04:00:00Z",
+   "cierre": 53.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.451545
+  },
+  {
+   "fecha": "2026-04-12T08:00:00Z",
+   "cierre": 53.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.406352
+  },
+  {
+   "fecha": "2026-04-12T12:00:00Z",
+   "cierre": 53.54,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.530585
+  },
+  {
+   "fecha": "2026-04-12T16:00:00Z",
+   "cierre": 53.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.444133
+  },
+  {
+   "fecha": "2026-04-12T20:00:00Z",
+   "cierre": 53.48,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.53044
+  },
+  {
+   "fecha": "2026-04-13T00:00:00Z",
+   "cierre": 53.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.20978
+  },
+  {
+   "fecha": "2026-04-13T04:00:00Z",
+   "cierre": 53.18,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.448744
+  },
+  {
+   "fecha": "2026-04-13T08:00:00Z",
+   "cierre": 52.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.357119
+  },
+  {
+   "fecha": "2026-04-13T12:00:00Z",
+   "cierre": 52.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.271713
+  },
+  {
+   "fecha": "2026-04-13T16:00:00Z",
+   "cierre": 53.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.340488
+  },
+  {
+   "fecha": "2026-04-13T20:00:00Z",
+   "cierre": 54.62,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.248325
+  },
+  {
+   "fecha": "2026-04-14T00:00:00Z",
+   "cierre": 54.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.162689
+  },
+  {
+   "fecha": "2026-04-14T04:00:00Z",
+   "cierre": 54.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.183774
+  },
+  {
+   "fecha": "2026-04-14T08:00:00Z",
+   "cierre": 54.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.268186
+  },
+  {
+   "fecha": "2026-04-14T12:00:00Z",
+   "cierre": 54.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.32323
+  },
+  {
+   "fecha": "2026-04-14T16:00:00Z",
+   "cierre": 54.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.344039
+  },
+  {
+   "fecha": "2026-04-14T20:00:00Z",
+   "cierre": 54.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.380941
+  },
+  {
+   "fecha": "2026-04-15T00:00:00Z",
+   "cierre": 54.08,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.317823
+  },
+  {
+   "fecha": "2026-04-15T04:00:00Z",
+   "cierre": 54.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.37444
+  },
+  {
+   "fecha": "2026-04-15T08:00:00Z",
+   "cierre": 54.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.268788
+  },
+  {
+   "fecha": "2026-04-15T12:00:00Z",
+   "cierre": 55.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.367565
+  },
+  {
+   "fecha": "2026-04-15T16:00:00Z",
+   "cierre": 55.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.302419
+  },
+  {
+   "fecha": "2026-04-15T20:00:00Z",
+   "cierre": 55.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.204938
+  },
+  {
+   "fecha": "2026-04-16T00:00:00Z",
+   "cierre": 55.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.376787
+  },
+  {
+   "fecha": "2026-04-16T04:00:00Z",
+   "cierre": 55.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.353227
+  },
+  {
+   "fecha": "2026-04-16T08:00:00Z",
+   "cierre": 55.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.276417
+  },
+  {
+   "fecha": "2026-04-16T12:00:00Z",
+   "cierre": 55.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.418818
+  },
+  {
+   "fecha": "2026-04-16T16:00:00Z",
+   "cierre": 56.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.394687
+  },
+  {
+   "fecha": "2026-04-16T20:00:00Z",
+   "cierre": 56.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.31356
+  },
+  {
+   "fecha": "2026-04-17T00:00:00Z",
+   "cierre": 55.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.263866
+  },
+  {
+   "fecha": "2026-04-17T04:00:00Z",
+   "cierre": 55.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.306602
+  },
+  {
+   "fecha": "2026-04-17T08:00:00Z",
+   "cierre": 56.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.350114
+  },
+  {
+   "fecha": "2026-04-17T12:00:00Z",
+   "cierre": 56.54,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.387052
+  },
+  {
+   "fecha": "2026-04-17T16:00:00Z",
+   "cierre": 56.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.373738
+  },
+  {
+   "fecha": "2026-04-17T20:00:00Z",
+   "cierre": 56.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.16364
+  },
+  {
+   "fecha": "2026-04-18T00:00:00Z",
+   "cierre": 56.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.190093
+  },
+  {
+   "fecha": "2026-04-18T04:00:00Z",
+   "cierre": 56.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.399559
+  },
+  {
+   "fecha": "2026-04-18T08:00:00Z",
+   "cierre": 56.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.430421
+  },
+  {
+   "fecha": "2026-04-18T12:00:00Z",
+   "cierre": 55.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.442617
+  },
+  {
+   "fecha": "2026-04-18T16:00:00Z",
+   "cierre": 55.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.439363
+  },
+  {
+   "fecha": "2026-04-18T20:00:00Z",
+   "cierre": 55.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.2559
+  },
+  {
+   "fecha": "2026-04-19T00:00:00Z",
+   "cierre": 55.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.326527
+  },
+  {
+   "fecha": "2026-04-19T04:00:00Z",
+   "cierre": 55.11,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.541771
+  },
+  {
+   "fecha": "2026-04-19T08:00:00Z",
+   "cierre": 55.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362927
+  },
+  {
+   "fecha": "2026-04-19T12:00:00Z",
+   "cierre": 55.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.193094
+  },
+  {
+   "fecha": "2026-04-19T16:00:00Z",
+   "cierre": 54.72,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.456646
+  },
+  {
+   "fecha": "2026-04-19T20:00:00Z",
+   "cierre": 54.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.369868
+  },
+  {
+   "fecha": "2026-04-20T00:00:00Z",
+   "cierre": 54.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.152678
+  },
+  {
+   "fecha": "2026-04-20T04:00:00Z",
+   "cierre": 54.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.21533
+  },
+  {
+   "fecha": "2026-04-20T08:00:00Z",
+   "cierre": 54.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.170565
+  },
+  {
+   "fecha": "2026-04-20T12:00:00Z",
+   "cierre": 55.16,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.263397
+  },
+  {
+   "fecha": "2026-04-20T16:00:00Z",
+   "cierre": 55.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.262464
+  },
+  {
+   "fecha": "2026-04-20T20:00:00Z",
+   "cierre": 55.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.239121
+  },
+  {
+   "fecha": "2026-04-21T00:00:00Z",
+   "cierre": 54.79,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.324536
+  },
+  {
+   "fecha": "2026-04-21T04:00:00Z",
+   "cierre": 55.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.452326
+  },
+  {
+   "fecha": "2026-04-21T08:00:00Z",
+   "cierre": 55.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.425551
+  },
+  {
+   "fecha": "2026-04-21T12:00:00Z",
+   "cierre": 55.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.378338
+  },
+  {
+   "fecha": "2026-04-21T16:00:00Z",
+   "cierre": 54.85,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.486731
+  },
+  {
+   "fecha": "2026-04-21T20:00:00Z",
+   "cierre": 55.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.363238
+  },
+  {
+   "fecha": "2026-04-22T00:00:00Z",
+   "cierre": 55.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.408748
+  },
+  {
+   "fecha": "2026-04-22T04:00:00Z",
+   "cierre": 56.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.404992
+  },
+  {
+   "fecha": "2026-04-22T08:00:00Z",
+   "cierre": 56.24,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.400284
+  },
+  {
+   "fecha": "2026-04-22T12:00:00Z",
+   "cierre": 56.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.319436
+  },
+  {
+   "fecha": "2026-04-22T16:00:00Z",
+   "cierre": 55.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.18852
+  },
+  {
+   "fecha": "2026-04-22T20:00:00Z",
+   "cierre": 55.49,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.367864
+  },
+  {
+   "fecha": "2026-04-23T00:00:00Z",
+   "cierre": 55.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.433457
+  },
+  {
+   "fecha": "2026-04-23T04:00:00Z",
+   "cierre": 55.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.353393
+  },
+  {
+   "fecha": "2026-04-23T08:00:00Z",
+   "cierre": 55.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.237739
+  },
+  {
+   "fecha": "2026-04-23T12:00:00Z",
+   "cierre": 55.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.17127
+  },
+  {
+   "fecha": "2026-04-23T16:00:00Z",
+   "cierre": 55.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.151231
+  },
+  {
+   "fecha": "2026-04-23T20:00:00Z",
+   "cierre": 56.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.325418
+  },
+  {
+   "fecha": "2026-04-24T00:00:00Z",
+   "cierre": 55.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.312026
+  },
+  {
+   "fecha": "2026-04-24T04:00:00Z",
+   "cierre": 56.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.406842
+  },
+  {
+   "fecha": "2026-04-24T08:00:00Z",
+   "cierre": 56.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.428441
+  },
+  {
+   "fecha": "2026-04-24T12:00:00Z",
+   "cierre": 56.59,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.389636
+  },
+  {
+   "fecha": "2026-04-24T16:00:00Z",
+   "cierre": 56.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.42025
+  },
+  {
+   "fecha": "2026-04-24T20:00:00Z",
+   "cierre": 56.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.335208
+  },
+  {
+   "fecha": "2026-04-25T00:00:00Z",
+   "cierre": 56.69,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.551279
+  },
+  {
+   "fecha": "2026-04-25T04:00:00Z",
+   "cierre": 56.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.20559
+  },
+  {
+   "fecha": "2026-04-25T08:00:00Z",
+   "cierre": 56.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.319758
+  },
+  {
+   "fecha": "2026-04-25T12:00:00Z",
+   "cierre": 56.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.281783
+  },
+  {
+   "fecha": "2026-04-25T16:00:00Z",
+   "cierre": 56.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.363012
+  },
+  {
+   "fecha": "2026-04-25T20:00:00Z",
+   "cierre": 56.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.297531
+  },
+  {
+   "fecha": "2026-04-26T00:00:00Z",
+   "cierre": 55.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.414499
+  },
+  {
+   "fecha": "2026-04-26T04:00:00Z",
+   "cierre": 56.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.220079
+  },
+  {
+   "fecha": "2026-04-26T08:00:00Z",
+   "cierre": 56.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.235752
+  },
+  {
+   "fecha": "2026-04-26T12:00:00Z",
+   "cierre": 56.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.266729
+  },
+  {
+   "fecha": "2026-04-26T16:00:00Z",
+   "cierre": 56.31,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.498877
+  },
+  {
+   "fecha": "2026-04-26T20:00:00Z",
+   "cierre": 56.28,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.332653
+  },
+  {
+   "fecha": "2026-04-27T00:00:00Z",
+   "cierre": 56.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.433921
+  },
+  {
+   "fecha": "2026-04-27T04:00:00Z",
+   "cierre": 55.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.26001
+  },
+  {
+   "fecha": "2026-04-27T08:00:00Z",
+   "cierre": 55.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.391459
+  },
+  {
+   "fecha": "2026-04-27T12:00:00Z",
+   "cierre": 55.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.370354
+  },
+  {
+   "fecha": "2026-04-27T16:00:00Z",
+   "cierre": 55.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.288018
+  },
+  {
+   "fecha": "2026-04-27T20:00:00Z",
+   "cierre": 55.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.237622
+  },
+  {
+   "fecha": "2026-04-28T00:00:00Z",
+   "cierre": 55.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.214109
+  },
+  {
+   "fecha": "2026-04-28T04:00:00Z",
+   "cierre": 55.23,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.298536
+  },
+  {
+   "fecha": "2026-04-28T08:00:00Z",
+   "cierre": 54.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.374253
+  },
+  {
+   "fecha": "2026-04-28T12:00:00Z",
+   "cierre": 55.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.318398
+  },
+  {
+   "fecha": "2026-04-28T16:00:00Z",
+   "cierre": 55.44,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.255774
+  },
+  {
+   "fecha": "2026-04-28T20:00:00Z",
+   "cierre": 55.71,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.545504
+  },
+  {
+   "fecha": "2026-04-29T00:00:00Z",
+   "cierre": 55.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.341881
+  },
+  {
+   "fecha": "2026-04-29T04:00:00Z",
+   "cierre": 56.02,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.301057
+  },
+  {
+   "fecha": "2026-04-29T08:00:00Z",
+   "cierre": 56.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.397356
+  },
+  {
+   "fecha": "2026-04-29T12:00:00Z",
+   "cierre": 55.21,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.312221
+  },
+  {
+   "fecha": "2026-04-29T16:00:00Z",
+   "cierre": 54.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.37694
+  },
+  {
+   "fecha": "2026-04-29T20:00:00Z",
+   "cierre": 55.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.213552
+  },
+  {
+   "fecha": "2026-04-30T00:00:00Z",
+   "cierre": 55.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.234201
+  },
+  {
+   "fecha": "2026-04-30T04:00:00Z",
+   "cierre": 55.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.150984
+  },
+  {
+   "fecha": "2026-04-30T08:00:00Z",
+   "cierre": 55.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.144471
+  },
+  {
+   "fecha": "2026-04-30T12:00:00Z",
+   "cierre": 55.61,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.215452
+  },
+  {
+   "fecha": "2026-04-30T16:00:00Z",
+   "cierre": 55.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.223337
+  },
+  {
+   "fecha": "2026-04-30T20:00:00Z",
+   "cierre": 55.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.278988
+  },
+  {
+   "fecha": "2026-05-01T00:00:00Z",
+   "cierre": 55.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.217924
+  },
+  {
+   "fecha": "2026-05-01T04:00:00Z",
+   "cierre": 55.3,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.240088
+  },
+  {
+   "fecha": "2026-05-01T08:00:00Z",
+   "cierre": 55.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.27329
+  },
+  {
+   "fecha": "2026-05-01T12:00:00Z",
+   "cierre": 55.65,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.400475
+  },
+  {
+   "fecha": "2026-05-01T16:00:00Z",
+   "cierre": 55.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.306826
+  },
+  {
+   "fecha": "2026-05-01T20:00:00Z",
+   "cierre": 55.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.172717
+  },
+  {
+   "fecha": "2026-05-02T00:00:00Z",
+   "cierre": 55.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.415345
+  },
+  {
+   "fecha": "2026-05-02T04:00:00Z",
+   "cierre": 55.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.220312
+  },
+  {
+   "fecha": "2026-05-02T08:00:00Z",
+   "cierre": 55.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.338115
+  },
+  {
+   "fecha": "2026-05-02T12:00:00Z",
+   "cierre": 55.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.274544
+  },
+  {
+   "fecha": "2026-05-02T16:00:00Z",
+   "cierre": 55.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.250022
+  },
+  {
+   "fecha": "2026-05-02T20:00:00Z",
+   "cierre": 55.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.20468
+  },
+  {
+   "fecha": "2026-05-03T00:00:00Z",
+   "cierre": 55.06,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.434657
+  },
+  {
+   "fecha": "2026-05-03T04:00:00Z",
+   "cierre": 55.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362987
+  },
+  {
+   "fecha": "2026-05-03T08:00:00Z",
+   "cierre": 55.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.22717
+  },
+  {
+   "fecha": "2026-05-03T12:00:00Z",
+   "cierre": 55.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.331704
+  },
+  {
+   "fecha": "2026-05-03T16:00:00Z",
+   "cierre": 55.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.399986
+  },
+  {
+   "fecha": "2026-05-03T20:00:00Z",
+   "cierre": 55.29,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.258893
+  },
+  {
+   "fecha": "2026-05-04T00:00:00Z",
+   "cierre": 56.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.331681
+  },
+  {
+   "fecha": "2026-05-04T04:00:00Z",
+   "cierre": 55.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.177042
+  },
+  {
+   "fecha": "2026-05-04T08:00:00Z",
+   "cierre": 55.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.276475
+  },
+  {
+   "fecha": "2026-05-04T12:00:00Z",
+   "cierre": 55.26,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.372499
+  },
+  {
+   "fecha": "2026-05-04T16:00:00Z",
+   "cierre": 55.2,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.360554
+  },
+  {
+   "fecha": "2026-05-04T20:00:00Z",
+   "cierre": 54.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.364541
+  },
+  {
+   "fecha": "2026-05-05T00:00:00Z",
+   "cierre": 55.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.23649
+  },
+  {
+   "fecha": "2026-05-05T04:00:00Z",
+   "cierre": 55.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.19947
+  },
+  {
+   "fecha": "2026-05-05T08:00:00Z",
+   "cierre": 55.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.291059
+  },
+  {
+   "fecha": "2026-05-05T12:00:00Z",
+   "cierre": 55.61,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.305277
+  },
+  {
+   "fecha": "2026-05-05T16:00:00Z",
+   "cierre": 56.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.352852
+  },
+  {
+   "fecha": "2026-05-05T20:00:00Z",
+   "cierre": 56.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.37853
+  },
+  {
+   "fecha": "2026-05-06T00:00:00Z",
+   "cierre": 56.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.44118
+  },
+  {
+   "fecha": "2026-05-06T04:00:00Z",
+   "cierre": 57.16,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.400741
+  },
+  {
+   "fecha": "2026-05-06T08:00:00Z",
+   "cierre": 57.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.425803
+  },
+  {
+   "fecha": "2026-05-06T12:00:00Z",
+   "cierre": 57.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.271522
+  },
+  {
+   "fecha": "2026-05-06T16:00:00Z",
+   "cierre": 56.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.290721
+  },
+  {
+   "fecha": "2026-05-06T20:00:00Z",
+   "cierre": 56.73,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.30494
+  },
+  {
+   "fecha": "2026-05-07T00:00:00Z",
+   "cierre": 56.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.418298
+  },
+  {
+   "fecha": "2026-05-07T04:00:00Z",
+   "cierre": 57.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.241406
+  },
+  {
+   "fecha": "2026-05-07T08:00:00Z",
+   "cierre": 57.12,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.210192
+  },
+  {
+   "fecha": "2026-05-07T12:00:00Z",
+   "cierre": 56.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.239587
+  },
+  {
+   "fecha": "2026-05-07T16:00:00Z",
+   "cierre": 56.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.253207
+  },
+  {
+   "fecha": "2026-05-07T20:00:00Z",
+   "cierre": 56.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.279695
+  },
+  {
+   "fecha": "2026-05-08T00:00:00Z",
+   "cierre": 56.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.304974
+  },
+  {
+   "fecha": "2026-05-08T04:00:00Z",
+   "cierre": 56.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.306127
+  },
+  {
+   "fecha": "2026-05-08T08:00:00Z",
+   "cierre": 56.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.132564
+  },
+  {
+   "fecha": "2026-05-08T12:00:00Z",
+   "cierre": 57.83,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.377327
+  },
+  {
+   "fecha": "2026-05-08T16:00:00Z",
+   "cierre": 58.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.371775
+  },
+  {
+   "fecha": "2026-05-08T20:00:00Z",
+   "cierre": 58.32,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.347125
+  },
+  {
+   "fecha": "2026-05-09T00:00:00Z",
+   "cierre": 58.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.48566
+  },
+  {
+   "fecha": "2026-05-09T04:00:00Z",
+   "cierre": 58.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.363368
+  },
+  {
+   "fecha": "2026-05-09T08:00:00Z",
+   "cierre": 58.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.230907
+  },
+  {
+   "fecha": "2026-05-09T12:00:00Z",
+   "cierre": 57.77,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.452605
+  },
+  {
+   "fecha": "2026-05-09T16:00:00Z",
+   "cierre": 58.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.250007
+  },
+  {
+   "fecha": "2026-05-09T20:00:00Z",
+   "cierre": 58.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.340552
+  },
+  {
+   "fecha": "2026-05-10T00:00:00Z",
+   "cierre": 57.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.286178
+  },
+  {
+   "fecha": "2026-05-10T04:00:00Z",
+   "cierre": 58.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.194683
+  },
+  {
+   "fecha": "2026-05-10T08:00:00Z",
+   "cierre": 58.41,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.482517
+  },
+  {
+   "fecha": "2026-05-10T12:00:00Z",
+   "cierre": 59.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.345397
+  },
+  {
+   "fecha": "2026-05-10T16:00:00Z",
+   "cierre": 59.74,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.422528
+  },
+  {
+   "fecha": "2026-05-10T20:00:00Z",
+   "cierre": 60.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.439267
+  },
+  {
+   "fecha": "2026-05-11T00:00:00Z",
+   "cierre": 58.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.168154
+  },
+  {
+   "fecha": "2026-05-11T04:00:00Z",
+   "cierre": 58.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.201566
+  },
+  {
+   "fecha": "2026-05-11T08:00:00Z",
+   "cierre": 58.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.277451
+  },
+  {
+   "fecha": "2026-05-11T12:00:00Z",
+   "cierre": 59.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.241217
+  },
+  {
+   "fecha": "2026-05-11T16:00:00Z",
+   "cierre": 58.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.27205
+  },
+  {
+   "fecha": "2026-05-11T20:00:00Z",
+   "cierre": 58.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.235746
+  },
+  {
+   "fecha": "2026-05-12T00:00:00Z",
+   "cierre": 58.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.361242
+  },
+  {
+   "fecha": "2026-05-12T04:00:00Z",
+   "cierre": 58.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.231601
+  },
+  {
+   "fecha": "2026-05-12T08:00:00Z",
+   "cierre": 57.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.431697
+  },
+  {
+   "fecha": "2026-05-12T12:00:00Z",
+   "cierre": 57.28,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.61012
+  },
+  {
+   "fecha": "2026-05-12T16:00:00Z",
+   "cierre": 57.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.3175
+  },
+  {
+   "fecha": "2026-05-12T20:00:00Z",
+   "cierre": 58.12,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.181261
+  },
+  {
+   "fecha": "2026-05-13T00:00:00Z",
+   "cierre": 58.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.448763
+  },
+  {
+   "fecha": "2026-05-13T04:00:00Z",
+   "cierre": 58.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.31432
+  },
+  {
+   "fecha": "2026-05-13T08:00:00Z",
+   "cierre": 58.14,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.206157
+  },
+  {
+   "fecha": "2026-05-13T12:00:00Z",
+   "cierre": 56.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.343695
+  },
+  {
+   "fecha": "2026-05-13T16:00:00Z",
+   "cierre": 56.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.433572
+  },
+  {
+   "fecha": "2026-05-13T20:00:00Z",
+   "cierre": 57.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.422511
+  },
+  {
+   "fecha": "2026-05-14T00:00:00Z",
+   "cierre": 56.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.338585
+  },
+  {
+   "fecha": "2026-05-14T04:00:00Z",
+   "cierre": 57.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.254919
+  },
+  {
+   "fecha": "2026-05-14T08:00:00Z",
+   "cierre": 56.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.187184
+  },
+  {
+   "fecha": "2026-05-14T12:00:00Z",
+   "cierre": 58.11,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.281493
+  },
+  {
+   "fecha": "2026-05-14T16:00:00Z",
+   "cierre": 58.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.385454
+  },
+  {
+   "fecha": "2026-05-14T20:00:00Z",
+   "cierre": 58.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.22093
+  },
+  {
+   "fecha": "2026-05-15T00:00:00Z",
+   "cierre": 58.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.237361
+  },
+  {
+   "fecha": "2026-05-15T04:00:00Z",
+   "cierre": 58.26,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.304021
+  },
+  {
+   "fecha": "2026-05-15T08:00:00Z",
+   "cierre": 58.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.19345
+  },
+  {
+   "fecha": "2026-05-15T12:00:00Z",
+   "cierre": 56.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.410677
+  },
+  {
+   "fecha": "2026-05-15T16:00:00Z",
+   "cierre": 57.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.436356
+  },
+  {
+   "fecha": "2026-05-15T20:00:00Z",
+   "cierre": 57.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.232846
+  },
+  {
+   "fecha": "2026-05-16T00:00:00Z",
+   "cierre": 57.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.324051
+  },
+  {
+   "fecha": "2026-05-16T04:00:00Z",
+   "cierre": 56.13,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.398882
+  },
+  {
+   "fecha": "2026-05-16T08:00:00Z",
+   "cierre": 55.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.494839
+  },
+  {
+   "fecha": "2026-05-16T12:00:00Z",
+   "cierre": 56.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.330043
+  },
+  {
+   "fecha": "2026-05-16T16:00:00Z",
+   "cierre": 56.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.333406
+  },
+  {
+   "fecha": "2026-05-16T20:00:00Z",
+   "cierre": 56.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.312039
+  },
+  {
+   "fecha": "2026-05-17T00:00:00Z",
+   "cierre": 56.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.302701
+  },
+  {
+   "fecha": "2026-05-17T04:00:00Z",
+   "cierre": 56.35,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.277711
+  },
+  {
+   "fecha": "2026-05-17T08:00:00Z",
+   "cierre": 56.35,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.371954
+  },
+  {
+   "fecha": "2026-05-17T12:00:00Z",
+   "cierre": 55.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.38507
+  },
+  {
+   "fecha": "2026-05-17T16:00:00Z",
+   "cierre": 56.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.245672
+  },
+  {
+   "fecha": "2026-05-17T20:00:00Z",
+   "cierre": 54.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.323442
+  },
+  {
+   "fecha": "2026-05-18T00:00:00Z",
+   "cierre": 54.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.375024
+  },
+  {
+   "fecha": "2026-05-18T04:00:00Z",
+   "cierre": 53.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362883
+  },
+  {
+   "fecha": "2026-05-18T08:00:00Z",
+   "cierre": 53.83,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.356254
+  },
+  {
+   "fecha": "2026-05-18T12:00:00Z",
+   "cierre": 53.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.489589
+  },
+  {
+   "fecha": "2026-05-18T16:00:00Z",
+   "cierre": 54.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.203793
+  },
+  {
+   "fecha": "2026-05-18T20:00:00Z",
+   "cierre": 54.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.234642
+  },
+  {
+   "fecha": "2026-05-19T00:00:00Z",
+   "cierre": 54.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.295332
+  },
+  {
+   "fecha": "2026-05-19T04:00:00Z",
+   "cierre": 54.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.374435
+  },
+  {
+   "fecha": "2026-05-19T08:00:00Z",
+   "cierre": 53.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.21644
+  },
+  {
+   "fecha": "2026-05-19T12:00:00Z",
+   "cierre": 53.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.341822
+  },
+  {
+   "fecha": "2026-05-19T16:00:00Z",
+   "cierre": 54.07,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.35508
+  },
+  {
+   "fecha": "2026-05-19T20:00:00Z",
+   "cierre": 54.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.323561
+  },
+  {
+   "fecha": "2026-05-20T00:00:00Z",
+   "cierre": 53.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.391837
+  },
+  {
+   "fecha": "2026-05-20T04:00:00Z",
+   "cierre": 54.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.173145
+  },
+  {
+   "fecha": "2026-05-20T08:00:00Z",
+   "cierre": 53.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.349312
+  },
+  {
+   "fecha": "2026-05-20T12:00:00Z",
+   "cierre": 54.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.322909
+  },
+  {
+   "fecha": "2026-05-20T16:00:00Z",
+   "cierre": 54.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.169861
+  },
+  {
+   "fecha": "2026-05-20T20:00:00Z",
+   "cierre": 53.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.2383
+  },
+  {
+   "fecha": "2026-05-21T00:00:00Z",
+   "cierre": 54.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.438781
+  },
+  {
+   "fecha": "2026-05-21T04:00:00Z",
+   "cierre": 54.46,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.340342
+  },
+  {
+   "fecha": "2026-05-21T08:00:00Z",
+   "cierre": 53.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.491837
+  },
+  {
+   "fecha": "2026-05-21T12:00:00Z",
+   "cierre": 53.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.268473
+  },
+  {
+   "fecha": "2026-05-21T16:00:00Z",
+   "cierre": 54.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.22029
+  },
+  {
+   "fecha": "2026-05-21T20:00:00Z",
+   "cierre": 54.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.257855
+  },
+  {
+   "fecha": "2026-05-22T00:00:00Z",
+   "cierre": 54.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.231232
+  },
+  {
+   "fecha": "2026-05-22T04:00:00Z",
+   "cierre": 54.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.326305
+  },
+  {
+   "fecha": "2026-05-22T08:00:00Z",
+   "cierre": 54.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.262856
+  },
+  {
+   "fecha": "2026-05-22T12:00:00Z",
+   "cierre": 54.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.350114
+  },
+  {
+   "fecha": "2026-05-22T16:00:00Z",
+   "cierre": 53.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.362948
+  },
+  {
+   "fecha": "2026-05-22T20:00:00Z",
+   "cierre": 52.65,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.536098
+  },
+  {
+   "fecha": "2026-05-23T00:00:00Z",
+   "cierre": 52.94,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.354588
+  },
+  {
+   "fecha": "2026-05-23T04:00:00Z",
+   "cierre": 51.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.291248
+  },
+  {
+   "fecha": "2026-05-23T08:00:00Z",
+   "cierre": 51.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.458094
+  },
+  {
+   "fecha": "2026-05-23T12:00:00Z",
+   "cierre": 52.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.115284
+  },
+  {
+   "fecha": "2026-05-23T16:00:00Z",
+   "cierre": 53.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.224401
+  },
+  {
+   "fecha": "2026-05-23T20:00:00Z",
+   "cierre": 53.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.318436
+  },
+  {
+   "fecha": "2026-05-24T00:00:00Z",
+   "cierre": 53.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.189631
+  },
+  {
+   "fecha": "2026-05-24T04:00:00Z",
+   "cierre": 53.39,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.275343
+  },
+  {
+   "fecha": "2026-05-24T08:00:00Z",
+   "cierre": 53.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.423406
+  },
+  {
+   "fecha": "2026-05-24T12:00:00Z",
+   "cierre": 52.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.414956
+  },
+  {
+   "fecha": "2026-05-24T16:00:00Z",
+   "cierre": 52.83,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.451637
+  },
+  {
+   "fecha": "2026-05-24T20:00:00Z",
+   "cierre": 52.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.474271
+  },
+  {
+   "fecha": "2026-05-25T00:00:00Z",
+   "cierre": 52.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.401446
+  },
+  {
+   "fecha": "2026-05-25T04:00:00Z",
+   "cierre": 52.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.170941
+  },
+  {
+   "fecha": "2026-05-25T08:00:00Z",
+   "cierre": 52.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.278231
+  },
+  {
+   "fecha": "2026-05-25T12:00:00Z",
+   "cierre": 52.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.196557
+  },
+  {
+   "fecha": "2026-05-25T16:00:00Z",
+   "cierre": 52.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.278545
+  },
+  {
+   "fecha": "2026-05-25T20:00:00Z",
+   "cierre": 52.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.223961
+  },
+  {
+   "fecha": "2026-05-26T00:00:00Z",
+   "cierre": 52.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.459066
+  },
+  {
+   "fecha": "2026-05-26T04:00:00Z",
+   "cierre": 52.35,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.43671
+  },
+  {
+   "fecha": "2026-05-26T08:00:00Z",
+   "cierre": 52.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.255871
+  },
+  {
+   "fecha": "2026-05-26T12:00:00Z",
+   "cierre": 52.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.227454
+  },
+  {
+   "fecha": "2026-05-26T16:00:00Z",
+   "cierre": 51.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.436053
+  },
+  {
+   "fecha": "2026-05-26T20:00:00Z",
+   "cierre": 51.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.359851
+  },
+  {
+   "fecha": "2026-05-27T00:00:00Z",
+   "cierre": 52.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.3296
+  },
+  {
+   "fecha": "2026-05-27T04:00:00Z",
+   "cierre": 52.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.220465
+  },
+  {
+   "fecha": "2026-05-27T08:00:00Z",
+   "cierre": 52.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.230984
+  },
+  {
+   "fecha": "2026-05-27T12:00:00Z",
+   "cierre": 52.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.37202
+  },
+  {
+   "fecha": "2026-05-27T16:00:00Z",
+   "cierre": 52.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.286333
+  },
+  {
+   "fecha": "2026-05-27T20:00:00Z",
+   "cierre": 51.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.340812
+  },
+  {
+   "fecha": "2026-05-28T00:00:00Z",
+   "cierre": 51.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.426521
+  },
+  {
+   "fecha": "2026-05-28T04:00:00Z",
+   "cierre": 50.85,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.498561
+  },
+  {
+   "fecha": "2026-05-28T08:00:00Z",
+   "cierre": 50.74,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.567717
+  },
+  {
+   "fecha": "2026-05-28T12:00:00Z",
+   "cierre": 51.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.140974
+  },
+  {
+   "fecha": "2026-05-28T16:00:00Z",
+   "cierre": 51.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.130235
+  },
+  {
+   "fecha": "2026-05-28T20:00:00Z",
+   "cierre": 51.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.23641
+  },
+  {
+   "fecha": "2026-05-29T00:00:00Z",
+   "cierre": 51.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.22384
+  },
+  {
+   "fecha": "2026-05-29T04:00:00Z",
+   "cierre": 51.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.322927
+  },
+  {
+   "fecha": "2026-05-29T08:00:00Z",
+   "cierre": 51.67,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.317497
+  },
+  {
+   "fecha": "2026-05-29T12:00:00Z",
+   "cierre": 52.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.377264
+  },
+  {
+   "fecha": "2026-05-29T16:00:00Z",
+   "cierre": 51.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.208478
+  },
+  {
+   "fecha": "2026-05-29T20:00:00Z",
+   "cierre": 51.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.29771
+  },
+  {
+   "fecha": "2026-05-30T00:00:00Z",
+   "cierre": 52.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.332178
+  },
+  {
+   "fecha": "2026-05-30T04:00:00Z",
+   "cierre": 52.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.374955
+  },
+  {
+   "fecha": "2026-05-30T08:00:00Z",
+   "cierre": 52.51,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.483989
+  },
+  {
+   "fecha": "2026-05-30T12:00:00Z",
+   "cierre": 52.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.358736
+  },
+  {
+   "fecha": "2026-05-30T16:00:00Z",
+   "cierre": 52.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.42765
+  },
+  {
+   "fecha": "2026-05-30T20:00:00Z",
+   "cierre": 52.45,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.34729
+  },
+  {
+   "fecha": "2026-05-31T00:00:00Z",
+   "cierre": 52.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.415931
+  },
+  {
+   "fecha": "2026-05-31T04:00:00Z",
+   "cierre": 52.33,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.455627
+  },
+  {
+   "fecha": "2026-05-31T08:00:00Z",
+   "cierre": 52.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.327732
+  },
+  {
+   "fecha": "2026-05-31T12:00:00Z",
+   "cierre": 51.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.381716
+  },
+  {
+   "fecha": "2026-05-31T16:00:00Z",
+   "cierre": 51.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.347316
+  },
+  {
+   "fecha": "2026-05-31T20:00:00Z",
+   "cierre": 52.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.180971
+  },
+  {
+   "fecha": "2026-06-01T00:00:00Z",
+   "cierre": 51.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.26589
+  },
+  {
+   "fecha": "2026-06-01T04:00:00Z",
+   "cierre": 51.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.383991
+  },
+  {
+   "fecha": "2026-06-01T08:00:00Z",
+   "cierre": 51.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.450152
+  },
+  {
+   "fecha": "2026-06-01T12:00:00Z",
+   "cierre": 50.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.472158
+  },
+  {
+   "fecha": "2026-06-01T16:00:00Z",
+   "cierre": 50.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.269157
+  },
+  {
+   "fecha": "2026-06-01T20:00:00Z",
+   "cierre": 50.79,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.343395
+  },
+  {
+   "fecha": "2026-06-02T00:00:00Z",
+   "cierre": 50.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.391012
+  },
+  {
+   "fecha": "2026-06-02T04:00:00Z",
+   "cierre": 49.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.368881
+  },
+  {
+   "fecha": "2026-06-02T08:00:00Z",
+   "cierre": 49.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.417137
+  },
+  {
+   "fecha": "2026-06-02T12:00:00Z",
+   "cierre": 47.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.257882
+  },
+  {
+   "fecha": "2026-06-02T16:00:00Z",
+   "cierre": 48.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.39501
+  },
+  {
+   "fecha": "2026-06-02T20:00:00Z",
+   "cierre": 46.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.334232
+  },
+  {
+   "fecha": "2026-06-03T00:00:00Z",
+   "cierre": 47.04,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.29188
+  },
+  {
+   "fecha": "2026-06-03T04:00:00Z",
+   "cierre": 48.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.097819
+  },
+  {
+   "fecha": "2026-06-03T08:00:00Z",
+   "cierre": 48.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.145572
+  },
+  {
+   "fecha": "2026-06-03T12:00:00Z",
+   "cierre": 47.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.163125
+  },
+  {
+   "fecha": "2026-06-03T16:00:00Z",
+   "cierre": 47.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.309065
+  },
+  {
+   "fecha": "2026-06-03T20:00:00Z",
+   "cierre": 47.14,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.340427
+  },
+  {
+   "fecha": "2026-06-04T00:00:00Z",
+   "cierre": 46.82,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.526023
+  },
+  {
+   "fecha": "2026-06-04T04:00:00Z",
+   "cierre": 46.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.46623
+  },
+  {
+   "fecha": "2026-06-04T08:00:00Z",
+   "cierre": 45.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.440411
+  },
+  {
+   "fecha": "2026-06-04T12:00:00Z",
+   "cierre": 46.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.359774
+  },
+  {
+   "fecha": "2026-06-04T16:00:00Z",
+   "cierre": 46.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.325581
+  },
+  {
+   "fecha": "2026-06-04T20:00:00Z",
+   "cierre": 45.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.457011
+  },
+  {
+   "fecha": "2026-06-05T00:00:00Z",
+   "cierre": 44.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.394449
+  },
+  {
+   "fecha": "2026-06-05T04:00:00Z",
+   "cierre": 44.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.445337
+  },
+  {
+   "fecha": "2026-06-05T08:00:00Z",
+   "cierre": 44.06,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.503939
+  },
+  {
+   "fecha": "2026-06-05T12:00:00Z",
+   "cierre": 43.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.384017
+  },
+  {
+   "fecha": "2026-06-05T16:00:00Z",
+   "cierre": 43.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.402955
+  },
+  {
+   "fecha": "2026-06-05T20:00:00Z",
+   "cierre": 43.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.372838
+  },
+  {
+   "fecha": "2026-06-06T00:00:00Z",
+   "cierre": 42.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.364667
+  },
+  {
+   "fecha": "2026-06-06T04:00:00Z",
+   "cierre": 42.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.428676
+  },
+  {
+   "fecha": "2026-06-06T08:00:00Z",
+   "cierre": 42.79,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.392487
+  },
+  {
+   "fecha": "2026-06-06T12:00:00Z",
+   "cierre": 42.35,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.466747
+  },
+  {
+   "fecha": "2026-06-06T16:00:00Z",
+   "cierre": 41.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.415445
+  },
+  {
+   "fecha": "2026-06-06T20:00:00Z",
+   "cierre": 41.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.387466
+  },
+  {
+   "fecha": "2026-06-07T00:00:00Z",
+   "cierre": 41.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.206574
+  },
+  {
+   "fecha": "2026-06-07T04:00:00Z",
+   "cierre": 41.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.187053
+  },
+  {
+   "fecha": "2026-06-07T08:00:00Z",
+   "cierre": 42.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.192307
+  },
+  {
+   "fecha": "2026-06-07T12:00:00Z",
+   "cierre": 42.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.204573
+  },
+  {
+   "fecha": "2026-06-07T16:00:00Z",
+   "cierre": 41.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.303938
+  },
+  {
+   "fecha": "2026-06-07T20:00:00Z",
+   "cierre": 42.83,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.31071
+  },
+  {
+   "fecha": "2026-06-08T00:00:00Z",
+   "cierre": 42.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.328535
+  },
+  {
+   "fecha": "2026-06-08T04:00:00Z",
+   "cierre": 42.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.289275
+  },
+  {
+   "fecha": "2026-06-08T08:00:00Z",
+   "cierre": 43.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.374601
+  },
+  {
+   "fecha": "2026-06-08T12:00:00Z",
+   "cierre": 43.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.215168
+  },
+  {
+   "fecha": "2026-06-08T16:00:00Z",
+   "cierre": 43.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.420899
+  },
+  {
+   "fecha": "2026-06-08T20:00:00Z",
+   "cierre": 43.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.158939
+  },
+  {
+   "fecha": "2026-06-09T00:00:00Z",
+   "cierre": 42.51,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.426486
+  },
+  {
+   "fecha": "2026-06-09T04:00:00Z",
+   "cierre": 42.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.22784
+  },
+  {
+   "fecha": "2026-06-09T08:00:00Z",
+   "cierre": 42.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.43899
+  },
+  {
+   "fecha": "2026-06-09T12:00:00Z",
+   "cierre": 41.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.392133
+  },
+  {
+   "fecha": "2026-06-09T16:00:00Z",
+   "cierre": 43.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.234696
+  },
+  {
+   "fecha": "2026-06-09T20:00:00Z",
+   "cierre": 43.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.217899
+  },
+  {
+   "fecha": "2026-06-10T00:00:00Z",
+   "cierre": 42.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.164721
+  },
+  {
+   "fecha": "2026-06-10T04:00:00Z",
+   "cierre": 42.56,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.351546
+  },
+  {
+   "fecha": "2026-06-10T08:00:00Z",
+   "cierre": 42.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.414286
+  },
+  {
+   "fecha": "2026-06-10T12:00:00Z",
+   "cierre": 42.86,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.225235
+  },
+  {
+   "fecha": "2026-06-10T16:00:00Z",
+   "cierre": 41.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.390079
+  },
+  {
+   "fecha": "2026-06-10T20:00:00Z",
+   "cierre": 41.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.330465
+  },
+  {
+   "fecha": "2026-06-11T00:00:00Z",
+   "cierre": 42.79,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.292377
+  },
+  {
+   "fecha": "2026-06-11T04:00:00Z",
+   "cierre": 42.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.134984
+  },
+  {
+   "fecha": "2026-06-11T08:00:00Z",
+   "cierre": 42.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.220514
+  },
+  {
+   "fecha": "2026-06-11T12:00:00Z",
+   "cierre": 42.11,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.247285
+  },
+  {
+   "fecha": "2026-06-11T16:00:00Z",
+   "cierre": 42.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.259404
+  },
+  {
+   "fecha": "2026-06-11T20:00:00Z",
+   "cierre": 42.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.228013
+  },
+  {
+   "fecha": "2026-06-12T00:00:00Z",
+   "cierre": 42.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.355408
+  },
+  {
+   "fecha": "2026-06-12T04:00:00Z",
+   "cierre": 42.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.244581
+  },
+  {
+   "fecha": "2026-06-12T08:00:00Z",
+   "cierre": 43.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.338305
+  },
+  {
+   "fecha": "2026-06-12T12:00:00Z",
+   "cierre": 42.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.303691
+  },
+  {
+   "fecha": "2026-06-12T16:00:00Z",
+   "cierre": 42.99,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.410314
+  },
+  {
+   "fecha": "2026-06-12T20:00:00Z",
+   "cierre": 43.07,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.481231
+  },
+  {
+   "fecha": "2026-06-13T00:00:00Z",
+   "cierre": 43.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.472057
+  },
+  {
+   "fecha": "2026-06-13T04:00:00Z",
+   "cierre": 43.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.445009
+  },
+  {
+   "fecha": "2026-06-13T08:00:00Z",
+   "cierre": 43.78,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.514759
+  },
+  {
+   "fecha": "2026-06-13T12:00:00Z",
+   "cierre": 44.06,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.416532
+  },
+  {
+   "fecha": "2026-06-13T16:00:00Z",
+   "cierre": 43.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.273287
+  },
+  {
+   "fecha": "2026-06-13T20:00:00Z",
+   "cierre": 44.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.407207
+  },
+  {
+   "fecha": "2026-06-14T00:00:00Z",
+   "cierre": 44.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.405775
+  },
+  {
+   "fecha": "2026-06-14T04:00:00Z",
+   "cierre": 44.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.196436
+  },
+  {
+   "fecha": "2026-06-14T08:00:00Z",
+   "cierre": 44.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.246024
+  },
+  {
+   "fecha": "2026-06-14T12:00:00Z",
+   "cierre": 44.03,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.329674
+  },
+  {
+   "fecha": "2026-06-14T16:00:00Z",
+   "cierre": 44.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.288863
+  },
+  {
+   "fecha": "2026-06-14T20:00:00Z",
+   "cierre": 45.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.365431
+  },
+  {
+   "fecha": "2026-06-15T00:00:00Z",
+   "cierre": 45.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.419542
+  },
+  {
+   "fecha": "2026-06-15T04:00:00Z",
+   "cierre": 45.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.21017
+  },
+  {
+   "fecha": "2026-06-15T08:00:00Z",
+   "cierre": 45.81,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.455264
+  },
+  {
+   "fecha": "2026-06-15T12:00:00Z",
+   "cierre": 46.09,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.323559
+  },
+  {
+   "fecha": "2026-06-15T16:00:00Z",
+   "cierre": 45.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.211321
+  },
+  {
+   "fecha": "2026-06-15T20:00:00Z",
+   "cierre": 45.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.371934
+  },
+  {
+   "fecha": "2026-06-16T00:00:00Z",
+   "cierre": 45.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.338601
+  },
+  {
+   "fecha": "2026-06-16T04:00:00Z",
+   "cierre": 45.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.250974
+  },
+  {
+   "fecha": "2026-06-16T08:00:00Z",
+   "cierre": 45.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.300608
+  },
+  {
+   "fecha": "2026-06-16T12:00:00Z",
+   "cierre": 44.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.434843
+  },
+  {
+   "fecha": "2026-06-16T16:00:00Z",
+   "cierre": 45.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.175544
+  },
+  {
+   "fecha": "2026-06-16T20:00:00Z",
+   "cierre": 45.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.263194
+  },
+  {
+   "fecha": "2026-06-17T00:00:00Z",
+   "cierre": 45.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.264665
+  },
+  {
+   "fecha": "2026-06-17T04:00:00Z",
+   "cierre": 45.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.215822
+  },
+  {
+   "fecha": "2026-06-17T08:00:00Z",
+   "cierre": 45.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.36377
+  },
+  {
+   "fecha": "2026-06-17T12:00:00Z",
+   "cierre": 45.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.347868
+  },
+  {
+   "fecha": "2026-06-17T16:00:00Z",
+   "cierre": 44.81,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.354103
+  },
+  {
+   "fecha": "2026-06-17T20:00:00Z",
+   "cierre": 44.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.414988
+  },
+  {
+   "fecha": "2026-06-18T00:00:00Z",
+   "cierre": 44.49,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.497504
+  },
+  {
+   "fecha": "2026-06-18T04:00:00Z",
+   "cierre": 44.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.44906
+  },
+  {
+   "fecha": "2026-06-18T08:00:00Z",
+   "cierre": 44.02,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.423451
+  },
+  {
+   "fecha": "2026-06-18T12:00:00Z",
+   "cierre": 43.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.239957
+  },
+  {
+   "fecha": "2026-06-18T16:00:00Z",
+   "cierre": 43.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.312334
+  },
+  {
+   "fecha": "2026-06-18T20:00:00Z",
+   "cierre": 43.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.235796
+  },
+  {
+   "fecha": "2026-06-19T00:00:00Z",
+   "cierre": 43.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.269011
+  },
+  {
+   "fecha": "2026-06-19T04:00:00Z",
+   "cierre": 43.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.337455
+  },
+  {
+   "fecha": "2026-06-19T08:00:00Z",
+   "cierre": 43.49,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.209218
+  },
+  {
+   "fecha": "2026-06-19T12:00:00Z",
+   "cierre": 44.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.351558
+  },
+  {
+   "fecha": "2026-06-19T16:00:00Z",
+   "cierre": 43.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.21644
+  },
+  {
+   "fecha": "2026-06-19T20:00:00Z",
+   "cierre": 44.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.247707
+  },
+  {
+   "fecha": "2026-06-20T00:00:00Z",
+   "cierre": 43.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.191213
+  },
+  {
+   "fecha": "2026-06-20T04:00:00Z",
+   "cierre": 44.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.364367
+  },
+  {
+   "fecha": "2026-06-20T08:00:00Z",
+   "cierre": 44.26,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.303296
+  },
+  {
+   "fecha": "2026-06-20T12:00:00Z",
+   "cierre": 44.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.317322
+  },
+  {
+   "fecha": "2026-06-20T16:00:00Z",
+   "cierre": 44.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.154558
+  },
+  {
+   "fecha": "2026-06-20T20:00:00Z",
+   "cierre": 44.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.422631
+  },
+  {
+   "fecha": "2026-06-21T00:00:00Z",
+   "cierre": 44.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.344377
+  },
+  {
+   "fecha": "2026-06-21T04:00:00Z",
+   "cierre": 44.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.378402
+  },
+  {
+   "fecha": "2026-06-21T08:00:00Z",
+   "cierre": 45.01,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.459891
+  },
+  {
+   "fecha": "2026-06-21T12:00:00Z",
+   "cierre": 45.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.376657
+  },
+  {
+   "fecha": "2026-06-21T16:00:00Z",
+   "cierre": 45.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.191788
+  },
+  {
+   "fecha": "2026-06-21T20:00:00Z",
+   "cierre": 44.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.347197
+  },
+  {
+   "fecha": "2026-06-22T00:00:00Z",
+   "cierre": 44.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.262166
+  },
+  {
+   "fecha": "2026-06-22T04:00:00Z",
+   "cierre": 45.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.240948
+  },
+  {
+   "fecha": "2026-06-22T08:00:00Z",
+   "cierre": 45.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.234191
+  },
+  {
+   "fecha": "2026-06-22T12:00:00Z",
+   "cierre": 45.15,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.227387
+  },
+  {
+   "fecha": "2026-06-22T16:00:00Z",
+   "cierre": 44.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.252283
+  },
+  {
+   "fecha": "2026-06-22T20:00:00Z",
+   "cierre": 44.56,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.392434
+  },
+  {
+   "fecha": "2026-06-23T00:00:00Z",
+   "cierre": 44.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.414271
+  },
+  {
+   "fecha": "2026-06-23T04:00:00Z",
+   "cierre": 43.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.412126
+  },
+  {
+   "fecha": "2026-06-23T08:00:00Z",
+   "cierre": 43.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.408104
+  },
+  {
+   "fecha": "2026-06-23T12:00:00Z",
+   "cierre": 41.95,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.343954
+  },
+  {
+   "fecha": "2026-06-23T16:00:00Z",
+   "cierre": 41.91,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.498971
+  },
+  {
+   "fecha": "2026-06-23T20:00:00Z",
+   "cierre": 42.17,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.614877
+  },
+  {
+   "fecha": "2026-06-24T00:00:00Z",
+   "cierre": 41.77,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.544015
+  },
+  {
+   "fecha": "2026-06-24T04:00:00Z",
+   "cierre": 42.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.358648
+  },
+  {
+   "fecha": "2026-06-24T08:00:00Z",
+   "cierre": 42.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.275386
+  },
+  {
+   "fecha": "2026-06-24T12:00:00Z",
+   "cierre": 40.71,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.290415
+  },
+  {
+   "fecha": "2026-06-24T16:00:00Z",
+   "cierre": 40.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.375714
+  },
+  {
+   "fecha": "2026-06-24T20:00:00Z",
+   "cierre": 41.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.138462
+  },
+  {
+   "fecha": "2026-06-25T00:00:00Z",
+   "cierre": 41.29,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.115915
+  },
+  {
+   "fecha": "2026-06-25T04:00:00Z",
+   "cierre": 41.76,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.163192
+  },
+  {
+   "fecha": "2026-06-25T08:00:00Z",
+   "cierre": 41.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.148391
+  },
+  {
+   "fecha": "2026-06-25T12:00:00Z",
+   "cierre": 40.44,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.232002
+  },
+  {
+   "fecha": "2026-06-25T16:00:00Z",
+   "cierre": 40.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.348029
+  },
+  {
+   "fecha": "2026-06-25T20:00:00Z",
+   "cierre": 40.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.452689
+  },
+  {
+   "fecha": "2026-06-26T00:00:00Z",
+   "cierre": 41.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.184084
+  },
+  {
+   "fecha": "2026-06-26T04:00:00Z",
+   "cierre": 41.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.210814
+  },
+  {
+   "fecha": "2026-06-26T08:00:00Z",
+   "cierre": 40.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.186454
+  },
+  {
+   "fecha": "2026-06-26T12:00:00Z",
+   "cierre": 41.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.22239
+  },
+  {
+   "fecha": "2026-06-26T16:00:00Z",
+   "cierre": 41.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.274226
+  },
+  {
+   "fecha": "2026-06-26T20:00:00Z",
+   "cierre": 41.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.342274
+  },
+  {
+   "fecha": "2026-06-27T00:00:00Z",
+   "cierre": 42.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.398248
+  },
+  {
+   "fecha": "2026-06-27T04:00:00Z",
+   "cierre": 42.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.328632
+  },
+  {
+   "fecha": "2026-06-27T08:00:00Z",
+   "cierre": 42.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.347413
+  },
+  {
+   "fecha": "2026-06-27T12:00:00Z",
+   "cierre": 43.12,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.527309
+  },
+  {
+   "fecha": "2026-06-27T16:00:00Z",
+   "cierre": 42.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.153894
+  },
+  {
+   "fecha": "2026-06-27T20:00:00Z",
+   "cierre": 42.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.402481
+  },
+  {
+   "fecha": "2026-06-28T00:00:00Z",
+   "cierre": 42.25,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.471782
+  },
+  {
+   "fecha": "2026-06-28T04:00:00Z",
+   "cierre": 42.52,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.219913
+  },
+  {
+   "fecha": "2026-06-28T08:00:00Z",
+   "cierre": 43.33,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.542249
+  },
+  {
+   "fecha": "2026-06-28T12:00:00Z",
+   "cierre": 42.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.249366
+  },
+  {
+   "fecha": "2026-06-28T16:00:00Z",
+   "cierre": 42.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.251801
+  },
+  {
+   "fecha": "2026-06-28T20:00:00Z",
+   "cierre": 42.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.252468
+  },
+  {
+   "fecha": "2026-06-29T00:00:00Z",
+   "cierre": 43.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.448673
+  },
+  {
+   "fecha": "2026-06-29T04:00:00Z",
+   "cierre": 42.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.227021
+  },
+  {
+   "fecha": "2026-06-29T08:00:00Z",
+   "cierre": 42.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.329453
+  },
+  {
+   "fecha": "2026-06-29T12:00:00Z",
+   "cierre": 42.51,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.346842
+  },
+  {
+   "fecha": "2026-06-29T16:00:00Z",
+   "cierre": 43.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.413123
+  },
+  {
+   "fecha": "2026-06-29T20:00:00Z",
+   "cierre": 43.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.280817
+  },
+  {
+   "fecha": "2026-06-30T00:00:00Z",
+   "cierre": 42.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.327664
+  },
+  {
+   "fecha": "2026-06-30T04:00:00Z",
+   "cierre": 42.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.301589
+  },
+  {
+   "fecha": "2026-06-30T08:00:00Z",
+   "cierre": 42.41,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.43768
+  },
+  {
+   "fecha": "2026-06-30T12:00:00Z",
+   "cierre": 41.72,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.334339
+  },
+  {
+   "fecha": "2026-06-30T16:00:00Z",
+   "cierre": 41.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.412564
+  },
+  {
+   "fecha": "2026-06-30T20:00:00Z",
+   "cierre": 41.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.380877
+  },
+  {
+   "fecha": "2026-07-01T00:00:00Z",
+   "cierre": 42.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.344648
+  },
+  {
+   "fecha": "2026-07-01T04:00:00Z",
+   "cierre": 42.22,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.163909
+  },
+  {
+   "fecha": "2026-07-01T08:00:00Z",
+   "cierre": 41.79,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.400839
+  },
+  {
+   "fecha": "2026-07-01T12:00:00Z",
+   "cierre": 42.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.241862
+  },
+  {
+   "fecha": "2026-07-01T16:00:00Z",
+   "cierre": 42.47,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.258962
+  },
+  {
+   "fecha": "2026-07-01T20:00:00Z",
+   "cierre": 42.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.305624
+  },
+  {
+   "fecha": "2026-07-02T00:00:00Z",
+   "cierre": 43.27,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.45291
+  },
+  {
+   "fecha": "2026-07-02T04:00:00Z",
+   "cierre": 42.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.135491
+  },
+  {
+   "fecha": "2026-07-02T08:00:00Z",
+   "cierre": 43.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.319436
+  },
+  {
+   "fecha": "2026-07-02T12:00:00Z",
+   "cierre": 43.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.393648
+  },
+  {
+   "fecha": "2026-07-02T16:00:00Z",
+   "cierre": 43.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.314566
+  },
+  {
+   "fecha": "2026-07-02T20:00:00Z",
+   "cierre": 43.54,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.413348
+  },
+  {
+   "fecha": "2026-07-03T00:00:00Z",
+   "cierre": 43.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.150184
+  },
+  {
+   "fecha": "2026-07-03T04:00:00Z",
+   "cierre": 43.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.248863
+  },
+  {
+   "fecha": "2026-07-03T08:00:00Z",
+   "cierre": 43.63,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.454155
+  },
+  {
+   "fecha": "2026-07-03T12:00:00Z",
+   "cierre": 43.61,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.370938
+  },
+  {
+   "fecha": "2026-07-03T16:00:00Z",
+   "cierre": 44.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.379685
+  },
+  {
+   "fecha": "2026-07-03T20:00:00Z",
+   "cierre": 44.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.410692
+  },
+  {
+   "fecha": "2026-07-04T00:00:00Z",
+   "cierre": 44.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.232039
+  },
+  {
+   "fecha": "2026-07-04T04:00:00Z",
+   "cierre": 44.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.299467
+  },
+  {
+   "fecha": "2026-07-04T08:00:00Z",
+   "cierre": 44.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.402015
+  },
+  {
+   "fecha": "2026-07-04T12:00:00Z",
+   "cierre": 45.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.380117
+  },
+  {
+   "fecha": "2026-07-04T16:00:00Z",
+   "cierre": 45.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.413587
+  },
+  {
+   "fecha": "2026-07-04T20:00:00Z",
+   "cierre": 44.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.250573
+  },
+  {
+   "fecha": "2026-07-05T00:00:00Z",
+   "cierre": 44.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.444645
+  },
+  {
+   "fecha": "2026-07-05T04:00:00Z",
+   "cierre": 44.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.350279
+  },
+  {
+   "fecha": "2026-07-05T08:00:00Z",
+   "cierre": 44.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.250196
+  },
+  {
+   "fecha": "2026-07-05T12:00:00Z",
+   "cierre": 45.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.367445
+  },
+  {
+   "fecha": "2026-07-05T16:00:00Z",
+   "cierre": 45.66,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.437969
+  },
+  {
+   "fecha": "2026-07-05T20:00:00Z",
+   "cierre": 45.82,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.347763
+  },
+  {
+   "fecha": "2026-07-06T00:00:00Z",
+   "cierre": 45.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.195426
+  },
+  {
+   "fecha": "2026-07-06T04:00:00Z",
+   "cierre": 44.9,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.291489
+  },
+  {
+   "fecha": "2026-07-06T08:00:00Z",
+   "cierre": 44.44,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.396254
+  },
+  {
+   "fecha": "2026-07-06T12:00:00Z",
+   "cierre": 45.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.207516
+  },
+  {
+   "fecha": "2026-07-06T16:00:00Z",
+   "cierre": 45.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.18684
+  },
+  {
+   "fecha": "2026-07-06T20:00:00Z",
+   "cierre": 44.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.241778
+  },
+  {
+   "fecha": "2026-07-07T00:00:00Z",
+   "cierre": 44.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.354475
+  },
+  {
+   "fecha": "2026-07-07T04:00:00Z",
+   "cierre": 44.04,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.468128
+  },
+  {
+   "fecha": "2026-07-07T08:00:00Z",
+   "cierre": 44.16,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.534677
+  },
+  {
+   "fecha": "2026-07-07T12:00:00Z",
+   "cierre": 44.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.256344
+  },
+  {
+   "fecha": "2026-07-07T16:00:00Z",
+   "cierre": 44.01,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.498219
+  },
+  {
+   "fecha": "2026-07-07T20:00:00Z",
+   "cierre": 43.91,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.53203
+  },
+  {
+   "fecha": "2026-07-08T00:00:00Z",
+   "cierre": 43.46,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.384093
+  },
+  {
+   "fecha": "2026-07-08T04:00:00Z",
+   "cierre": 43.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.407597
+  },
+  {
+   "fecha": "2026-07-08T08:00:00Z",
+   "cierre": 43.68,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.502796
+  },
+  {
+   "fecha": "2026-07-08T12:00:00Z",
+   "cierre": 43.36,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.494995
+  },
+  {
+   "fecha": "2026-07-08T16:00:00Z",
+   "cierre": 43.43,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.451121
+  },
+  {
+   "fecha": "2026-07-08T20:00:00Z",
+   "cierre": 43.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.158187
+  },
+  {
+   "fecha": "2026-07-09T00:00:00Z",
+   "cierre": 43.71,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.292635
+  },
+  {
+   "fecha": "2026-07-09T04:00:00Z",
+   "cierre": 44.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.408459
+  },
+  {
+   "fecha": "2026-07-09T08:00:00Z",
+   "cierre": 43.86,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.264262
+  },
+  {
+   "fecha": "2026-07-09T12:00:00Z",
+   "cierre": 43.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.41264
+  },
+  {
+   "fecha": "2026-07-09T16:00:00Z",
+   "cierre": 43.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.37161
+  },
+  {
+   "fecha": "2026-07-09T20:00:00Z",
+   "cierre": 43.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.248416
+  },
+  {
+   "fecha": "2026-07-10T00:00:00Z",
+   "cierre": 44.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.434646
+  },
+  {
+   "fecha": "2026-07-10T04:00:00Z",
+   "cierre": 44.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.344416
+  },
+  {
+   "fecha": "2026-07-10T08:00:00Z",
+   "cierre": 44.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.422148
+  },
+  {
+   "fecha": "2026-07-10T12:00:00Z",
+   "cierre": 44.74,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.333065
+  },
+  {
+   "fecha": "2026-07-10T16:00:00Z",
+   "cierre": 44.62,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.317505
+  },
+  {
+   "fecha": "2026-07-10T20:00:00Z",
+   "cierre": 44.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.402918
+  },
+  {
+   "fecha": "2026-07-11T00:00:00Z",
+   "cierre": 44.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.406254
+  },
+  {
+   "fecha": "2026-07-11T04:00:00Z",
+   "cierre": 45.01,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.50069
+  },
+  {
+   "fecha": "2026-07-11T08:00:00Z",
+   "cierre": 45.13,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.434602
+  },
+  {
+   "fecha": "2026-07-11T12:00:00Z",
+   "cierre": 45.15,
+   "etiqueta": 1,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.482923
+  },
+  {
+   "fecha": "2026-07-11T16:00:00Z",
+   "cierre": 45.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.407145
+  },
+  {
+   "fecha": "2026-07-11T20:00:00Z",
+   "cierre": 44.65,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.353253
+  },
+  {
+   "fecha": "2026-07-12T00:00:00Z",
+   "cierre": 44.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.374205
+  },
+  {
+   "fecha": "2026-07-12T04:00:00Z",
+   "cierre": 44.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.461496
+  },
+  {
+   "fecha": "2026-07-12T08:00:00Z",
+   "cierre": 44.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.336808
+  },
+  {
+   "fecha": "2026-07-12T12:00:00Z",
+   "cierre": 44.8,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.316296
+  },
+  {
+   "fecha": "2026-07-12T16:00:00Z",
+   "cierre": 44.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.27174
+  },
+  {
+   "fecha": "2026-07-12T20:00:00Z",
+   "cierre": 44.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.47593
+  },
+  {
+   "fecha": "2026-07-13T00:00:00Z",
+   "cierre": 43.53,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.518568
+  },
+  {
+   "fecha": "2026-07-13T04:00:00Z",
+   "cierre": 43.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.380017
+  },
+  {
+   "fecha": "2026-07-13T08:00:00Z",
+   "cierre": 43.39,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.497429
+  },
+  {
+   "fecha": "2026-07-13T12:00:00Z",
+   "cierre": 43.48,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.43383
+  },
+  {
+   "fecha": "2026-07-13T16:00:00Z",
+   "cierre": 43.33,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.468144
+  },
+  {
+   "fecha": "2026-07-13T20:00:00Z",
+   "cierre": 43.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.306021
+  },
+  {
+   "fecha": "2026-07-14T00:00:00Z",
+   "cierre": 43.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.215366
+  },
+  {
+   "fecha": "2026-07-14T04:00:00Z",
+   "cierre": 43.6,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.188518
+  },
+  {
+   "fecha": "2026-07-14T08:00:00Z",
+   "cierre": 43.7,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.40433
+  },
+  {
+   "fecha": "2026-07-14T12:00:00Z",
+   "cierre": 44.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.376522
+  },
+  {
+   "fecha": "2026-07-14T16:00:00Z",
+   "cierre": 44.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.336814
+  },
+  {
+   "fecha": "2026-07-14T20:00:00Z",
+   "cierre": 45.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.361235
+  },
+  {
+   "fecha": "2026-07-15T00:00:00Z",
+   "cierre": 44.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.171157
+  },
+  {
+   "fecha": "2026-07-15T04:00:00Z",
+   "cierre": 45.16,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.319011
+  },
+  {
+   "fecha": "2026-07-15T08:00:00Z",
+   "cierre": 45.41,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.358274
+  },
+  {
+   "fecha": "2026-07-15T12:00:00Z",
+   "cierre": 45.73,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.46069
+  },
+  {
+   "fecha": "2026-07-15T16:00:00Z",
+   "cierre": 44.93,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.355484
+  },
+  {
+   "fecha": "2026-07-15T20:00:00Z",
+   "cierre": 45.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.240116
+  },
+  {
+   "fecha": "2026-07-16T00:00:00Z",
+   "cierre": 45.2,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.291972
+  },
+  {
+   "fecha": "2026-07-16T04:00:00Z",
+   "cierre": 44.88,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.481262
+  },
+  {
+   "fecha": "2026-07-16T08:00:00Z",
+   "cierre": 44.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.344872
+  },
+  {
+   "fecha": "2026-07-16T12:00:00Z",
+   "cierre": 45.23,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.171552
+  },
+  {
+   "fecha": "2026-07-16T16:00:00Z",
+   "cierre": 45.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.236874
+  },
+  {
+   "fecha": "2026-07-16T20:00:00Z",
+   "cierre": 44.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.247423
+  },
+  {
+   "fecha": "2026-07-17T00:00:00Z",
+   "cierre": 45.56,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.351086
+  },
+  {
+   "fecha": "2026-07-17T04:00:00Z",
+   "cierre": 44.77,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.293893
+  },
+  {
+   "fecha": "2026-07-17T08:00:00Z",
+   "cierre": 44.4,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.41569
+  },
+  {
+   "fecha": "2026-07-17T12:00:00Z",
+   "cierre": 44.75,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.215021
+  },
+  {
+   "fecha": "2026-07-17T16:00:00Z",
+   "cierre": 45.12,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.214144
+  },
+  {
+   "fecha": "2026-07-17T20:00:00Z",
+   "cierre": 45.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.257041
+  },
+  {
+   "fecha": "2026-07-18T00:00:00Z",
+   "cierre": 45.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.4252
+  },
+  {
+   "fecha": "2026-07-18T04:00:00Z",
+   "cierre": 45.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.296667
+  },
+  {
+   "fecha": "2026-07-18T08:00:00Z",
+   "cierre": 45.53,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.382042
+  },
+  {
+   "fecha": "2026-07-18T12:00:00Z",
+   "cierre": 46.24,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.435893
+  },
+  {
+   "fecha": "2026-07-18T16:00:00Z",
+   "cierre": 46.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.371185
+  },
+  {
+   "fecha": "2026-07-18T20:00:00Z",
+   "cierre": 47.01,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.364805
+  },
+  {
+   "fecha": "2026-07-19T00:00:00Z",
+   "cierre": 46.91,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.312921
+  },
+  {
+   "fecha": "2026-07-19T04:00:00Z",
+   "cierre": 47.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.430492
+  },
+  {
+   "fecha": "2026-07-19T08:00:00Z",
+   "cierre": 46.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.375171
+  },
+  {
+   "fecha": "2026-07-19T12:00:00Z",
+   "cierre": 47.2,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.475518
+  },
+  {
+   "fecha": "2026-07-19T16:00:00Z",
+   "cierre": 47.68,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.44855
+  },
+  {
+   "fecha": "2026-07-19T20:00:00Z",
+   "cierre": 47.07,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.249822
+  },
+  {
+   "fecha": "2026-07-20T00:00:00Z",
+   "cierre": 47.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.289463
+  },
+  {
+   "fecha": "2026-07-20T04:00:00Z",
+   "cierre": 47.0,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.437482
+  },
+  {
+   "fecha": "2026-07-20T08:00:00Z",
+   "cierre": 47.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.396647
+  },
+  {
+   "fecha": "2026-07-20T12:00:00Z",
+   "cierre": 47.49,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.376494
+  },
+  {
+   "fecha": "2026-07-20T16:00:00Z",
+   "cierre": 47.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.339158
+  },
+  {
+   "fecha": "2026-07-20T20:00:00Z",
+   "cierre": 47.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.291553
+  },
+  {
+   "fecha": "2026-07-21T00:00:00Z",
+   "cierre": 47.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.363661
+  },
+  {
+   "fecha": "2026-07-21T04:00:00Z",
+   "cierre": 47.55,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.472525
+  },
+  {
+   "fecha": "2026-07-21T08:00:00Z",
+   "cierre": 47.4,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.392766
+  },
+  {
+   "fecha": "2026-07-21T12:00:00Z",
+   "cierre": 47.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.42627
+  },
+  {
+   "fecha": "2026-07-21T16:00:00Z",
+   "cierre": 47.18,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.430521
+  },
+  {
+   "fecha": "2026-07-21T20:00:00Z",
+   "cierre": 46.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.445496
+  },
+  {
+   "fecha": "2026-07-22T00:00:00Z",
+   "cierre": 46.6,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.50531
+  },
+  {
+   "fecha": "2026-07-22T04:00:00Z",
+   "cierre": 46.42,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.487185
+  },
+  {
+   "fecha": "2026-07-22T08:00:00Z",
+   "cierre": 46.55,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.404496
+  },
+  {
+   "fecha": "2026-07-22T12:00:00Z",
+   "cierre": 46.85,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.235104
+  },
+  {
+   "fecha": "2026-07-22T16:00:00Z",
+   "cierre": 47.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.305624
+  },
+  {
+   "fecha": "2026-07-22T20:00:00Z",
+   "cierre": 47.14,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.473769
+  },
+  {
+   "fecha": "2026-07-23T00:00:00Z",
+   "cierre": 47.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.408294
+  },
+  {
+   "fecha": "2026-07-23T04:00:00Z",
+   "cierre": 46.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.203062
+  },
+  {
+   "fecha": "2026-07-23T08:00:00Z",
+   "cierre": 46.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.265685
+  },
+  {
+   "fecha": "2026-07-23T12:00:00Z",
+   "cierre": 46.39,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.459213
+  },
+  {
+   "fecha": "2026-07-23T16:00:00Z",
+   "cierre": 46.94,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.171349
+  },
+  {
+   "fecha": "2026-07-23T20:00:00Z",
+   "cierre": 46.96,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.230077
+  },
+  {
+   "fecha": "2026-07-24T00:00:00Z",
+   "cierre": 46.78,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.208104
+  },
+  {
+   "fecha": "2026-07-24T04:00:00Z",
+   "cierre": 46.98,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.277385
+  },
+  {
+   "fecha": "2026-07-24T08:00:00Z",
+   "cierre": 46.35,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.545338
+  },
+  {
+   "fecha": "2026-07-24T12:00:00Z",
+   "cierre": 46.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.396162
+  },
+  {
+   "fecha": "2026-07-24T16:00:00Z",
+   "cierre": 46.21,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.499358
+  },
+  {
+   "fecha": "2026-07-24T20:00:00Z",
+   "cierre": 46.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.306544
+  },
+  {
+   "fecha": "2026-07-25T00:00:00Z",
+   "cierre": 46.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.346508
+  },
+  {
+   "fecha": "2026-07-25T04:00:00Z",
+   "cierre": 46.08,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.530955
+  },
+  {
+   "fecha": "2026-07-25T08:00:00Z",
+   "cierre": 45.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.463209
+  },
+  {
+   "fecha": "2026-07-25T12:00:00Z",
+   "cierre": 46.08,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.267085
+  },
+  {
+   "fecha": "2026-07-25T16:00:00Z",
+   "cierre": 46.48,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.511034
+  },
+  {
+   "fecha": "2026-07-25T20:00:00Z",
+   "cierre": 46.56,
+   "etiqueta": 3,
+   "predicha": 1,
+   "aviso": 1,
+   "confianza": 0.491748
+  },
+  {
+   "fecha": "2026-07-26T00:00:00Z",
+   "cierre": 46.77,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.410934
+  },
+  {
+   "fecha": "2026-07-26T04:00:00Z",
+   "cierre": 46.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.377572
+  },
+  {
+   "fecha": "2026-07-26T08:00:00Z",
+   "cierre": 47.19,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.446269
+  },
+  {
+   "fecha": "2026-07-26T12:00:00Z",
+   "cierre": 47.76,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.489828
+  },
+  {
+   "fecha": "2026-07-26T16:00:00Z",
+   "cierre": 47.87,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.462372
+  },
+  {
+   "fecha": "2026-07-26T20:00:00Z",
+   "cierre": 47.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.449291
+  },
+  {
+   "fecha": "2026-07-27T00:00:00Z",
+   "cierre": 47.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.133017
+  },
+  {
+   "fecha": "2026-07-27T04:00:00Z",
+   "cierre": 47.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.189318
+  },
+  {
+   "fecha": "2026-07-27T08:00:00Z",
+   "cierre": 47.04,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.485453
+  },
+  {
+   "fecha": "2026-07-27T12:00:00Z",
+   "cierre": 46.36,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.562907
+  },
+  {
+   "fecha": "2026-07-27T16:00:00Z",
+   "cierre": 46.57,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.416055
+  },
+  {
+   "fecha": "2026-07-27T20:00:00Z",
+   "cierre": 46.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.403311
+  },
+  {
+   "fecha": "2026-07-28T00:00:00Z",
+   "cierre": 46.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.365781
+  },
+  {
+   "fecha": "2026-07-28T04:00:00Z",
+   "cierre": 46.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.322315
+  },
+  {
+   "fecha": "2026-07-28T08:00:00Z",
+   "cierre": 46.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.164945
+  },
+  {
+   "fecha": "2026-07-28T12:00:00Z",
+   "cierre": 46.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.221358
+  },
+  {
+   "fecha": "2026-07-28T16:00:00Z",
+   "cierre": 46.5,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.384415
+  },
+  {
+   "fecha": "2026-07-28T20:00:00Z",
+   "cierre": 46.21,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.30398
+  },
+  {
+   "fecha": "2026-07-29T00:00:00Z",
+   "cierre": 45.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.431866
+  },
+  {
+   "fecha": "2026-07-29T04:00:00Z",
+   "cierre": 45.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.315263
+  },
+  {
+   "fecha": "2026-07-29T08:00:00Z",
+   "cierre": 45.34,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.427307
+  },
+  {
+   "fecha": "2026-07-29T12:00:00Z",
+   "cierre": 44.99,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.417394
+  },
+  {
+   "fecha": "2026-07-29T16:00:00Z",
+   "cierre": 44.97,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.424939
+  },
+  {
+   "fecha": "2026-07-29T20:00:00Z",
+   "cierre": 45.45,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.215773
+  },
+  {
+   "fecha": "2026-07-30T00:00:00Z",
+   "cierre": 45.44,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.28928
+  },
+  {
+   "fecha": "2026-07-30T04:00:00Z",
+   "cierre": 45.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.35033
+  },
+  {
+   "fecha": "2026-07-30T08:00:00Z",
+   "cierre": 45.48,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.367354
+  },
+  {
+   "fecha": "2026-07-30T12:00:00Z",
+   "cierre": 45.17,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.257743
+  },
+  {
+   "fecha": "2026-07-30T16:00:00Z",
+   "cierre": 45.43,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.315935
+  },
+  {
+   "fecha": "2026-07-30T20:00:00Z",
+   "cierre": 45.58,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.270384
+  },
+  {
+   "fecha": "2026-07-31T00:00:00Z",
+   "cierre": 45.41,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.196157
+  },
+  {
+   "fecha": "2026-07-31T04:00:00Z",
+   "cierre": 45.38,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.198496
+  },
+  {
+   "fecha": "2026-07-31T08:00:00Z",
+   "cierre": 44.88,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.426685
+  },
+  {
+   "fecha": "2026-07-31T12:00:00Z",
+   "cierre": 44.92,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.383183
+  },
+  {
+   "fecha": "2026-07-31T16:00:00Z",
+   "cierre": 44.89,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.431161
+  },
+  {
+   "fecha": "2026-07-31T20:00:00Z",
+   "cierre": 44.31,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.472006
+  },
+  {
+   "fecha": "2026-08-01T00:00:00Z",
+   "cierre": 44.59,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.282634
+  },
+  {
+   "fecha": "2026-08-01T04:00:00Z",
+   "cierre": 44.52,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.336149
+  },
+  {
+   "fecha": "2026-08-01T08:00:00Z",
+   "cierre": 44.35,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.332539
+  },
+  {
+   "fecha": "2026-08-01T12:00:00Z",
+   "cierre": 44.1,
+   "etiqueta": 2,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.486528
+  },
+  {
+   "fecha": "2026-08-01T16:00:00Z",
+   "cierre": 44.02,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.409803
+  },
+  {
+   "fecha": "2026-08-01T20:00:00Z",
+   "cierre": 44.25,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.248399
+  },
+  {
+   "fecha": "2026-08-02T00:00:00Z",
+   "cierre": 44.66,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.331038
+  },
+  {
+   "fecha": "2026-08-02T04:00:00Z",
+   "cierre": 44.84,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.393726
+  },
+  {
+   "fecha": "2026-08-02T08:00:00Z",
+   "cierre": 44.64,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.275202
+  },
+  {
+   "fecha": "2026-08-02T12:00:00Z",
+   "cierre": 44.75,
+   "etiqueta": 1,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.318775
+  },
+  {
+   "fecha": "2026-08-02T16:00:00Z",
+   "cierre": 45.05,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.289019
+  },
+  {
+   "fecha": "2026-08-02T20:00:00Z",
+   "cierre": 44.69,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.195315
+  },
+  {
+   "fecha": "2026-08-03T00:00:00Z",
+   "cierre": 44.45,
+   "etiqueta": 3,
+   "predicha": 2,
+   "aviso": 2,
+   "confianza": 0.461471
+  },
+  {
+   "fecha": "2026-08-03T04:00:00Z",
+   "cierre": 44.16,
+   "etiqueta": 2,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.356408
+  },
+  {
+   "fecha": "2026-08-03T08:00:00Z",
+   "cierre": 44.1,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.43316
+  },
+  {
+   "fecha": "2026-08-03T12:00:00Z",
+   "cierre": 44.28,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.293883
+  },
+  {
+   "fecha": "2026-08-03T16:00:00Z",
+   "cierre": 44.32,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.295783
+  },
+  {
+   "fecha": "2026-08-03T20:00:00Z",
+   "cierre": 44.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 2,
+   "confianza": 0.24579
+  },
+  {
+   "fecha": "2026-08-04T00:00:00Z",
+   "cierre": 44.37,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.272701
+  },
+  {
+   "fecha": "2026-08-04T04:00:00Z",
+   "cierre": 44.3,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.253955
+  },
+  {
+   "fecha": "2026-08-04T08:00:00Z",
+   "cierre": 44.36,
+   "etiqueta": 3,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.405533
+  },
+  {
+   "fecha": "2026-08-04T12:00:00Z",
+   "cierre": 44.38,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.363457
+  },
+  {
+   "fecha": "2026-08-04T16:00:00Z",
+   "cierre": 44.71,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.344253
+  },
+  {
+   "fecha": "2026-08-04T20:00:00Z",
+   "cierre": 44.85,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.302767
+  },
+  {
+   "fecha": "2026-08-05T00:00:00Z",
+   "cierre": 44.83,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.340212
+  },
+  {
+   "fecha": "2026-08-05T04:00:00Z",
+   "cierre": 44.9,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.347028
+  },
+  {
+   "fecha": "2026-08-05T08:00:00Z",
+   "cierre": 44.76,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.317857
+  },
+  {
+   "fecha": "2026-08-05T12:00:00Z",
+   "cierre": 45.01,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.427972
+  },
+  {
+   "fecha": "2026-08-05T16:00:00Z",
+   "cierre": 45.27,
+   "etiqueta": null,
+   "predicha": 3,
+   "aviso": 1,
+   "confianza": 0.372243
+  }
+ ],
+ "metricas": {
+  "n": 1192,
+  "f1_macro": 0.38334387224106453,
+  "precision_direccional": 0.10377358490566038,
+  "exactitud": 0.8674496644295302,
+  "f1_maximo": 0.02564102564102564,
+  "f1_minimo": 0.19607843137254902,
+  "f1_continuidad": 0.9283121597096189
+ },
+ "balance": [
+  {
+   "clase": "Maximo",
+   "codigo": 1,
+   "n": 55,
+   "porcentaje": 4.614
+  },
+  {
+   "clase": "Minimo",
+   "codigo": 2,
+   "n": 51,
+   "porcentaje": 4.279
+  },
+  {
+   "clase": "Continuidad",
+   "codigo": 3,
+   "n": 1086,
+   "porcentaje": 91.107
+  }
+ ]
+}

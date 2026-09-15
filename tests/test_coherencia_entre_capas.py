@@ -211,6 +211,7 @@ DATOS_APP = RAIZ / "app" / "public" / "datos"
 ARTEFACTOS_VIGILADOS = {
     "comparacion-modelos.json",
     "historico-fundacional-LTC.json",
+    "tiempo-real-LTC.json",
 }
 
 #: Respaldos sin conexion. Publican metricas pero NO copian evidencia: las calculan
@@ -280,3 +281,98 @@ def test_todo_artefacto_que_publica_metricas_tiene_su_prueba():
         f"la lista vigila artefactos que ya no publican metricas: {sorted(desaparecidos)}. "
         "Si se quitaron a proposito, sacalos de la lista; si no, alguien rompio su formato."
     )
+
+
+# ------------------------------------------------------ tiempo real (issues #149, #150)
+# El modo servia el panel del baseline trivial, que responde siempre Continuidad: la
+# vista no dibujaba una sola flecha mientras la pantalla decia que el modelo anuncia
+# cada vela. Nada lo detectaba porque cada capa, vista sola, estaba bien: el panel era
+# un panel valido y la vista dibujaba lo que le daban.
+TIEMPO_REAL = RAIZ / "app" / "public" / "datos" / "tiempo-real-LTC.json"
+OPERACION = RAIZ / "app" / "public" / "datos" / "punto-de-operacion.json"
+EVIDENCIA_OPERACION = RAIZ / "docs" / "evidencias" / "m0-aviso-con-abstencion-4h-w7-h1.json"
+
+necesita_tiempo_real = pytest.mark.skipif(
+    not TIEMPO_REAL.exists(), reason="la aplicacion todavia no publica el panel de tiempo real"
+)
+
+
+@necesita_tiempo_real
+def test_el_panel_de_tiempo_real_no_es_un_modelo_que_nunca_avisa():
+    """El defecto del #149, convertido en control.
+
+    Si alguien vuelve a apuntar este modo al baseline trivial, la vista deja de
+    dibujar flechas y la pantalla sigue diciendo que el modelo anuncia cada vela. No
+    falla nada: simplemente no se ve nada, que es la forma exacta del defecto que este
+    archivo existe para impedir.
+    """
+    panel = json.loads(TIEMPO_REAL.read_text(encoding="utf-8"))
+    assert panel["modelo"] != "baseline_trivial", (
+        "el panel de tiempo real volvio al baseline trivial, que responde siempre "
+        "Continuidad. La vista no dibujaria ni un aviso mientras la pantalla dice que "
+        "el modelo anuncia cada vela."
+    )
+    avisos = [p for p in panel["serie"] if p["predicha"] in (1, 2)]
+    assert avisos, (
+        "el panel de tiempo real no anuncia un solo giro en toda la serie. Con la "
+        "pantalla diciendo que el modelo anuncia cada vela, eso es una afirmacion que "
+        "el dato no sostiene."
+    )
+
+
+@necesita_tiempo_real
+def test_el_panel_de_tiempo_real_declara_que_reprodujo_su_control():
+    """Sin el control, el panel podria venir de un bosque distinto y nadie lo sabria."""
+    panel = json.loads(TIEMPO_REAL.read_text(encoding="utf-8"))
+    control = panel["control"]
+    assert control["reproduce"] is True
+    assert control["obtenido"] == control["esperado"], (
+        "el panel dice haber reproducido su control y los dos numeros no coinciden"
+    )
+    # La misma cifra que exigen los modulos de M2 y la evidencia de M3.
+    assert control["esperado"] == 0.390497720487045
+
+
+@necesita_tiempo_real
+def test_la_confianza_de_cada_vela_es_utilizable_como_umbral():
+    """El control deslizante del #150 depende de que estos dos campos sean coherentes.
+
+    `aviso` tiene que ser siempre una clase rara --Continuidad no es un aviso, es el
+    silencio-- y `confianza` una probabilidad. Y donde el modelo ya anuncia un giro,
+    el aviso tiene que ser ese mismo giro: si no, subir el umbral podria cambiar la
+    clase anunciada en vez de solo callarla.
+    """
+    panel = json.loads(TIEMPO_REAL.read_text(encoding="utf-8"))
+    for punto in panel["serie"]:
+        assert punto["aviso"] in (1, 2), f"{punto['fecha']}: aviso {punto['aviso']!r}"
+        assert 0.0 <= punto["confianza"] <= 1.0, f"{punto['fecha']}: {punto['confianza']!r}"
+        if punto["predicha"] in (1, 2):
+            assert punto["aviso"] == punto["predicha"], (
+                f"{punto['fecha']}: el modelo predice {punto['predicha']} y el aviso "
+                f"dice {punto['aviso']}. Subir el umbral cambiaria la clase anunciada."
+            )
+
+
+@pytest.mark.skipif(
+    not (OPERACION.exists() and EVIDENCIA_OPERACION.exists()),
+    reason="falta la curva del punto de operacion o su evidencia",
+)
+def test_la_curva_del_punto_de_operacion_es_la_medida():
+    """La app no calcula esa curva: la copia. Esto exige que la copia siga siendo fiel.
+
+    Es el mismo riesgo que el panel de comparacion --un artefacto precalculado que se
+    regenera a mano-- y se comprueba igual: contra la evidencia que dice citar.
+    """
+    publicada = json.loads(OPERACION.read_text(encoding="utf-8"))
+    medida = json.loads(EVIDENCIA_OPERACION.read_text(encoding="utf-8"))
+
+    assert publicada["n_observaciones"] == medida["n_observaciones"]
+    assert publicada["frecuencia_base_de_giros"] == medida["frecuencia_base_de_giros"]
+    assert len(publicada["umbrales"]) == len(medida["agregado"])
+
+    for fila in publicada["umbrales"]:
+        bloque = medida["agregado"][f"{fila['umbral']:.2f}"]
+        assert fila["cobertura"] == bloque["cobertura"]
+        assert fila["precision"] == bloque["precision"]
+        assert fila["precision_azar"] == bloque["precision_azar_misma_cobertura"]
+        assert fila["tramos_a_favor"] == bloque["tramos_a_favor"]

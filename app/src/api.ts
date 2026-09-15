@@ -25,6 +25,11 @@ export interface Punto {
   cierre: number;
   etiqueta: number | null;
   predicha: number | null;
+  // Solo en el panel de Tiempo real (issue #150). `aviso` es la clase rara mas
+  // probable y `confianza` su probabilidad: con eso la vista puede callarse por
+  // debajo de un umbral sin calcular nada. Ausentes en los demas paneles.
+  aviso?: number;
+  confianza?: number;
 }
 
 export interface Metricas {
@@ -55,12 +60,14 @@ export interface Configuracion {
 
 export interface Respuesta {
   fuente: string;
+  ultima_vela?: string;
   activo?: string;
   modelo?: string;
   generado_utc?: string;
   serie: Punto[];
   metricas: Metricas;
   ventana?: { desde: string; hasta: string; conjunto: string; nota: string };
+  balance?: { clase: string; codigo: number; n: number; porcentaje: number }[];
 }
 
 export interface ConOrigen<T> {
@@ -188,6 +195,45 @@ export const obtenerHistoricoFundacional = () =>
  * medida de M3, y por eso no pasa por conRespaldo como los demas modos.
  */
 export const obtenerComparacion = () => traer<Comparacion>(`${BASE}datos/comparacion-modelos.json`);
+
+/**
+ * La curva del punto de operacion (issue #150), **copiada** de la evidencia medida.
+ *
+ * No se calcula aqui ni en el navegador: la produce
+ * `app/scripts/generar_tiempo_real.py` desde
+ * `docs/evidencias/m0-aviso-con-abstencion-4h-w7-h1.json`. Si la app la recalculara,
+ * tarde o temprano daria distinto que el informe.
+ */
+export interface Umbral {
+  umbral: number;
+  cobertura: number;
+  precision: number;
+  precision_azar: number;
+  tramos_a_favor: number;
+  tramos_medidos: number;
+}
+
+export interface PuntoDeOperacion {
+  fuente: string;
+  que_mide: string;
+  n_observaciones: number;
+  frecuencia_base_de_giros: number;
+  tramos: number;
+  umbrales: Umbral[];
+}
+
+/**
+ * Tiempo real con el bosque de verdad y su confianza por vela.
+ *
+ * Hasta el #149 este modo servia el panel del baseline trivial, que responde siempre
+ * Continuidad: la vista no dibujaba una sola flecha mientras la pantalla decia que el
+ * modelo anuncia cada vela. Ahora sirve las predicciones del clasico.
+ */
+export const obtenerTiempoReal = () =>
+  traer<Respuesta>(`${BASE}datos/tiempo-real-LTC.json`);
+
+export const obtenerPuntoDeOperacion = () =>
+  traer<PuntoDeOperacion>(`${BASE}datos/punto-de-operacion.json`);
 
 /** Antiguedad legible de un snapshot, para no presentar datos viejos como frescos. */
 export function antiguedad(iso?: string): string | null {
