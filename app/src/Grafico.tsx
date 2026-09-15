@@ -44,8 +44,17 @@ export default function Grafico({ puntos, mostrarPredichas = true, umbral }: Pro
     if (!contenedor.current) return;
 
     grafico.current = createChart(contenedor.current, {
-      layout: { background: { color: "#ffffff" }, textColor: GRIS, fontSize: 12 },
-      grid: { vertLines: { color: REJILLA }, horzLines: { color: REJILLA } },
+      layout: {
+        background: { color: "#ffffff" },
+        textColor: GRIS,
+        fontSize: 12,
+        // La misma familia que el resto de la pagina. Con la de la libreria por
+        // omision, los ejes del grafico se leian de otro documento.
+        fontFamily: '"IBM Plex Sans", "Segoe UI", system-ui, sans-serif',
+      },
+      // Solo las horizontales. Las verticales no marcan nada que se lea --el eje de
+      // tiempo ya trae sus rotulos-- y con 1 200 velas convertian el fondo en trama.
+      grid: { vertLines: { visible: false }, horzLines: { color: REJILLA } },
       rightPriceScale: { borderColor: REJILLA },
       timeScale: { borderColor: REJILLA, timeVisible: false },
       crosshair: { mode: 1 },

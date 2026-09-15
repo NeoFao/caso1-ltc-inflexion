@@ -1,21 +1,27 @@
 /* Las fuentes van EMPAQUETADAS, no traidas de un CDN.
    RF-U5 exige que la aplicacion arranque y sea usable sin conexion; una fuente
-   remota rompe eso justo el dia que falle el wifi del aula. @fontsource las
-   resuelve a woff2 locales que Vite mete en el build. */
+   remota rompe eso justo el dia que falle el wifi del aula.
+
+   Tres familias con un trabajo cada una:
+   - Source Serif 4 en los titulos. En una pantalla que es toda dato, la voz
+     editorial es lo que separa un encabezado de una fila mas de la tabla.
+   - IBM Plex Sans en la interfaz.
+   - IBM Plex Mono en TODA cifra, con tabular-nums: en una columna de numeros que
+     cambia al mover el umbral, las proporcionales bailan. */
 @import "@fontsource/source-serif-4/400.css";
 @import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/source-serif-4/400-italic.css";
 @import "@fontsource/ibm-plex-sans/400.css";
 @import "@fontsource/ibm-plex-sans/500.css";
 @import "@fontsource/ibm-plex-sans/600.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
-@import "@fontsource/ibm-plex-mono/600.css";
 
 @import "tailwindcss";
 
-/* Misma paleta que src/visual/estilo.py y que el PRD. El demo y el documento
-   tienen que parecer el mismo proyecto. Los seis tokens no se tocan. */
 @theme {
+  /* Misma paleta que src/visual/estilo.py y que el PRD. El demo y el documento
+     tienen que parecer el mismo proyecto. Los seis tokens no se tocan. */
   --color-navy: #1b2a4a;
   --color-acento: #345d9d;
   --color-maximo: #c0392b;
@@ -23,19 +29,36 @@
   --color-gris: #5a6675;
   --color-rejilla: #e3e8ef;
 
-  /* Neutros de superficie. No estan en la paleta del informe porque el informe
-     no tiene superficies: son papel. Aqui hacen falta y se eligen calidos, para
-     que el navy y el rojo/verde del dato no compitan con un gris azulado. */
-  --color-papel: #fbfaf8;
-  --color-papel-hundido: #f4f2ee;
-  --color-tinta: #1c1a17;
-  --color-tinta-media: #55504a;
-  --color-tinta-suave: #7d766d;
-  --color-linea: #e7e3dc;
+  /* Superficies. El informe no las necesita --es papel--, la pantalla si.
+     Van en dos registros: el claro, donde se lee, y el oscuro, donde se opera. */
+  --color-papel: #f7f6f3;
+  --color-blanco: #ffffff;
+  --color-tinta: #14181f;
+  --color-tinta-2: #4b525e;   /* 7,7:1 sobre blanco */
+  --color-tinta-3: #656d7c;   /* 5,0:1 sobre blanco, 4,7:1 sobre papel */
+  --color-linea: #e4e2dc;
+  --color-linea-fuerte: #c9c6bd;
+
+  --color-noche: #0f1b2d;
+  --color-noche-2: #16253c;
+  --color-noche-3: #1d3049;
+  --color-claro: #e9f0fa;
+  --color-claro-2: #aabdd6;
+  --color-claro-3: #8fa2bd;   /* medido: 6,6:1 sobre noche y 5,1:1 sobre la placa
+                                 destacada del punto de operacion, donde el tono
+                                 anterior se quedaba en 4,43:1 y no pasaba AA. */
+  --color-azul-claro: #8fb6f0;
+  --color-oro: #8a5a12;
 
   --font-display: "Source Serif 4", Georgia, serif;
   --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-cifra: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Profundidad real, en dos pasos: un pelo de contacto y una caida larga y
+     suave. Una sola sombra gris igual bajo cada tarjeta es lo que hacia que
+     todas las tarjetas se vieran iguales. */
+  --shadow-placa: 0 1px 2px rgb(20 24 31 / 0.04), 0 10px 28px -14px rgb(20 24 31 / 0.20);
+  --shadow-alta: 0 2px 4px rgb(20 24 31 / 0.05), 0 28px 56px -24px rgb(15 27 45 / 0.45);
 }
 
 body {
@@ -46,50 +69,62 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Toda cifra del proyecto va en la mono, con cifras de ancho fijo: en una
-   columna de numeros que cambia al mover el umbral, las proporcionales bailan. */
 .cifra {
   font-family: var(--font-cifra);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
-/* El deslizador del punto de operacion. El nativo es el unico control de la
-   pagina y se veia prestado de otro sitio. */
+/* Una placa: cara blanca, esquina de 12 px y profundidad de verdad. */
+.placa {
+  background: var(--color-blanco);
+  border-radius: 12px;
+  box-shadow: var(--shadow-placa);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* El mando del punto de operacion, sobre la placa oscura. */
 .umbral {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
-  cursor: pointer;
+  cursor: ew-resize;
 }
 .umbral::-webkit-slider-runnable-track {
   height: 2px;
-  background: var(--color-linea);
+  background: rgb(233 240 250 / 0.22);
 }
 .umbral::-moz-range-track {
   height: 2px;
-  background: var(--color-linea);
+  background: rgb(233 240 250 / 0.22);
 }
 .umbral::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: -7px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--color-navy);
-  border: 3px solid var(--color-papel);
-  box-shadow: 0 1px 3px rgb(28 26 23 / 0.35);
+  margin-top: -9px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #e9f0fa;
+  border: 5px solid #16253c;
+  box-shadow: 0 0 0 1px rgb(233 240 250 / 0.5), 0 6px 18px -6px rgb(0 0 0 / 0.8);
 }
 .umbral::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--color-navy);
-  border: 3px solid var(--color-papel);
-  box-shadow: 0 1px 3px rgb(28 26 23 / 0.35);
+  width: 20px;
+  height: 20px;
+  border: 5px solid #16253c;
+  border-radius: 999px;
+  background: #e9f0fa;
 }
 .umbral:focus-visible::-webkit-slider-thumb {
-  outline: 2px solid var(--color-acento);
-  outline-offset: 2px;
+  outline: 2px solid var(--color-azul-claro);
+  outline-offset: 3px;
 }
