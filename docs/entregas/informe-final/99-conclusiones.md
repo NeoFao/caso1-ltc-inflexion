@@ -1100,6 +1100,96 @@ está medido que **con la definición blanda pierden más**. No era el objetivo.
 > | …se les exigía la vela exacta | Con margen: la distancia se multiplica por **7,5** |
 > | …no se les ajustó bien | La rejilla mide ruido: dispersión entre semillas > entre celdas |
 
+### Las dos decisiones nuestras que parecían estar limitando, y no lo estaban
+
+La medición de granularidad dejó una conclusión —**el límite es el número de eventos**— y dos
+salidas: **más período** o **más activos**. Y al revisar el propio expediente aparecieron **dos
+decisiones nuestras** que reducen el número de eventos. Ninguna la tomó el enunciado.
+
+**Vale la pena decir lo incómodo primero:** las dos parecían errores nuestros, y la hipótesis al
+empezar a medir era que lo eran.
+
+#### Decisión 1: elegimos la definición que produce menos giros
+
+`estudio-w-h.json` fijó `w = 7` con esta regla, textual: *«es el **mayor** `w` que deja al menos 300
+ejemplos de la clase minoritaria en entrenamiento»*.
+
+**Elegir el mayor `w` admisible es elegir el que produce menos eventos.** Y el propio estudio medía
+cuántos deja cada uno — sin medir nunca el rendimiento de ninguno:
+
+**Tabla C.21.** El costo de `w`, con su contrapartida.
+
+| `w` | Ventana | Clase minoritaria | Margen del extremo | Ventaja sobre el azar | Tramos |
+|---|---|---|---|---|---|
+| 3 | 12 h | **1 280** | 0,8898 % | +0,023720 | 7 de 9 |
+| 5 | 20 h | 806 | 0,9617 % | +0,020207 | 6 de 9 |
+| **7** *(el congelado)* | 28 h | 606 | **1,0090 %** | **+0,044619** | **9 de 9** |
+
+**Doblar los eventos empeora el resultado, y además desestabiliza el signo.** Con `w = 3` hay más del
+doble de ejemplos y la ventaja cae a la mitad, con dos tramos en contra.
+
+**Y la contrapartida se midió en vez de suponerse:** el margen del extremo sobre su vecino baja de
+**1,0090 %** a **0,8898 %**. Los giros de `w = 3` son más numerosos **y más superficiales**, y
+detectar más cosas menos marcadas no es detectar mejor.
+
+> **Lo que esto le hace a la decisión.** `w = 7` se eligió por un piso de muestra y **nunca se había
+> validado contra la detección**. Ahora está validado: es la mejor de las tres ventanas medidas, en
+> ventaja y en estabilidad. La decisión era correcta **por una razón distinta de la que se dio**, y
+> eso es información, no una formalidad.
+
+#### Decisión 2: incluir Solana costó veintisiete meses de historia
+
+El panel empieza el **11/08/2020**, y lo fija **SOL**. Los otros cinco activos empiezan entre agosto
+de 2017 y mayo de 2018.
+
+Eso no es un detalle: **«más período» era una de las dos únicas salidas** que la medición de
+granularidad había identificado, y nuestra propia elección de activos la estaba cerrando.
+
+Se probó sustituyendo SOL por un activo con historia larga, **manteniendo seis activos**:
+
+**Tabla C.22.** El panel del informe contra el panel largo.
+
+| Panel | Velas | Empieza | Clase minoritaria | Ventaja sobre el azar | Tramos |
+|---|---|---|---|---|---|
+| **Con SOL** *(el del informe)* | 13 114 | 11/08/2020 | 606 | **+0,044619** | **9 de 9** |
+| Con BCH *(test parcial)* | 14 654 | 28/11/2019 | 681 | +0,012511 | 6 de 9 |
+| **Con NEO** *(+27 meses)* | **18 084** | **04/05/2018** | **828** | +0,030900 | 9 de 9 |
+
+*Nota.* **El primer intento fue insuficiente y queda registrado como tal:** BCH en Binance empieza en
+noviembre de 2019, así que solo añadía ocho meses. NEO empieza el 20/11/2017 —antes incluso que
+LTC—, de modo que el panel queda limitado por XRP y se recuperan los veintisiete meses completos.
+
+**Un 38 % más de velas, un 37 % más de giros, y la ventaja baja.** De +0,044619 a +0,030900.
+
+#### Lo que las dos juntas hacen con el diagnóstico del informe
+
+Y aquí está lo que de verdad importa de esta sección. **Se han probado cuatro formas independientes
+de conseguir más eventos:**
+
+| Cómo | Eventos | Resultado |
+|---|---|---|
+| Muestrear más fino (1 hora) | +26 | La ventaja **baja** |
+| Más activos (doce) | ×2 filas | La ventaja **baja** |
+| Más período (+27 meses) | **+37 %** | La ventaja **baja** |
+| Definición más blanda (`w = 3`) | **+111 %** | La ventaja **baja** |
+
+**Las cuatro bajan.** Y eso obliga a afinar la conclusión por cuarta vez, en la dirección menos
+cómoda:
+
+> **El límite no es el número de eventos.** Eso era la lectura anterior y no sobrevive: se consiguió
+> más del doble de eventos por dos vías distintas y el resultado empeoró en las dos.
+>
+> **El límite es que la relación entre lo que el modelo ve y el giro que viene es débil y no se
+> mantiene entre períodos.** Es lo único compatible con las cuatro mediciones: más historia
+> **perjudica** porque el mercado de 2018 no enseña sobre el de 2025, y una definición más laxa
+> **perjudica** porque añade giros que no son distinguibles del ruido.
+
+**Y responde la pregunta que abrió esta sección:** no, no había ninguna decisión nuestra bloqueando
+una mejora. Las dos que lo parecían eran las correctas. **La diferencia es que antes eran defendibles
+y ahora están medidas.**
+
+---
+
 ### El balance de los siete intentos
 
 **Tabla C.11.** Todo lo que se probó, y en qué eje.
