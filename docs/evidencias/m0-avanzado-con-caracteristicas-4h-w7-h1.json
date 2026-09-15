@@ -48,5 +48,27 @@
     "signo_estable": false
   },
   "ayuda": false,
-  "veredicto": "Darle indicadores al avanzado NO mejora su ventaja: el handicap no explicaba su resultado."
+  "veredicto": "Darle indicadores al avanzado NO mejora su ventaja: el handicap no explicaba su resultado.",
+  "segunda_corrida": {
+    "que_es": "El mismo guion, mismo codigo y mismos datos, corrido una segunda vez en otro proceso. No se buscaba: la corrida se relanzo porque la primera se corto, y cuando termino ya habia una publicada con la que comparar.",
+    "resultado": {
+      "con_6_series": {
+        "f1_macro": 0.341238,
+        "f1_macro_azar": 0.336389,
+        "ventaja_sobre_azar": 0.004849,
+        "tramos_a_favor": 6,
+        "tramos_medidos": 9
+      },
+      "con_12_series": {
+        "f1_macro": 0.316936,
+        "f1_macro_azar": 0.336389,
+        "ventaja_sobre_azar": -0.019453,
+        "tramos_a_favor": 0,
+        "tramos_medidos": 9
+      }
+    },
+    "lo_que_muestra": "La fila de 12 series reproduce BIT A BIT. La de 6 se mueve: +0,003678 y 5 de 9 en la primera corrida, +0,004849 y 6 de 9 en la segunda. Es la D25 otra vez: el iTransformer no reproduce entre procesos, asi que una cifra suya de una sola corrida es un sorteo, no una medicion.",
+    "el_veredicto_no_cambia": "En las dos corridas la fila de 12 series queda por debajo del azar en 0 de 9 tramos, con la misma cifra exacta. La conclusion -- quitarle el handicap al avanzado lo empeora -- no depende de cual de las dos corridas se mire.",
+    "por_que_se_publica_la_primera": "Porque es la que se midio primero y la que el informe cita. Cambiarla por la segunda, que sale un poco mejor, seria elegir la corrida mas favorable despues de verla, que es exactamente lo que este proyecto no hace."
+  }
 }

@@ -859,6 +859,18 @@ elegidos por familia, no por importancia medida**, que sería elegir la respuest
 
 **Empeora, y lo deja por debajo del azar en los nueve tramos.**
 
+> **Y aquí apareció, sin buscarla, una segunda confirmación de la limitación 3.** La corrida se
+> relanzó porque la primera se cortó, y al terminar había dos resultados que comparar.
+>
+> **La fila de doce series reproduce bit a bit:** −0,019453 y 0 de 9 en las dos. **La de seis se
+> mueve:** +0,003678 y 5 de 9 en la primera, **+0,004849 y 6 de 9** en la segunda.
+>
+> Es exactamente lo que la sección 5 documenta del iTransformer: **no reproduce entre procesos**, así
+> que una cifra suya de una sola corrida es un sorteo y no una medición. Aquí no cambia nada —el
+> veredicto es el mismo en las dos— pero **se publica la primera, que es la que se midió antes**.
+> Sustituirla por la segunda, que sale algo mejor, sería elegir la corrida más favorable después de
+> verla.
+
 #### Y el porqué estaba escrito antes de correrlo
 
 El iTransformer no es un clasificador al que se le añaden columnas: es un **pronosticador**, y se
