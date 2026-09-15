@@ -1,0 +1,189 @@
+{
+  "ejecutado_utc": "2026-09-15T01:37:29+00:00",
+  "que_mide": "Las dos unicas intervenciones que funcionan, combinadas: el objetivo de proximidad a una vela Y el umbral de confianza. Se habian medido por separado y nunca juntas.",
+  "donde_esta_la_trampa": "La precision sobre el objetivo de proximidad es mas alta por construccion, porque acertar 'hay giro en +-1 vela' es mas facil y la frecuencia base sube del 9,29 % al 27,47 %. Por eso el criterio no mira la precision sino el COCIENTE sobre el azar a la misma cobertura, que es inmune a que un objetivo sea mas facil que el otro.",
+  "criterio_preregistrado": "Tiene que existir un umbral donde la precision supere la frecuencia base del objetivo de proximidad, el cociente precision/azar supere el mejor cociente del objetivo exacto (2.18x) y el signo sea estable en los nueve tramos.",
+  "expectativa_declarada_antes": "Que aporte, porque las dos partes actuan sobre cosas distintas -- una sobre que se pregunta, otra sobre cuando se contesta -- y no hay razon para que se estorben. La duda es de cuanto: si el modelo esta seguro justo cuando hay un giro cerca, filtrar por confianza y ensanchar la ventana serian dos formas de lo mismo y combinarlas no sumaria. Si el cociente no mejora el 2,18x, eso es lo que habra pasado.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "mejor_cociente_del_objetivo_exacto": 2.18,
+  "mejor_cociente_medido_en_proximidad": 3.3679,
+  "resultados": {
+    "objetivo_exacto": {
+      "frecuencia_base": 0.09374,
+      "n": 6550,
+      "umbrales": {
+        "0.00": {
+          "avisos": 6550,
+          "cobertura": 1.0,
+          "cobertura_por_ciento": 100.0,
+          "precision": 0.081374,
+          "precision_azar": 0.048244,
+          "cociente_sobre_azar": 1.6867,
+          "supera_frecuencia_base": false,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.20": {
+          "avisos": 5883,
+          "cobertura": 0.898168,
+          "cobertura_por_ciento": 89.82,
+          "precision": 0.08737,
+          "precision_azar": 0.049465,
+          "cociente_sobre_azar": 1.7663,
+          "supera_frecuencia_base": false,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.30": {
+          "avisos": 4083,
+          "cobertura": 0.623359,
+          "cobertura_por_ciento": 62.34,
+          "precision": 0.095518,
+          "precision_azar": 0.04384,
+          "cociente_sobre_azar": 2.1788,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.40": {
+          "avisos": 1766,
+          "cobertura": 0.269618,
+          "cobertura_por_ciento": 26.96,
+          "precision": 0.09966,
+          "precision_azar": 0.049264,
+          "cociente_sobre_azar": 2.023,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.50": {
+          "avisos": 285,
+          "cobertura": 0.043511,
+          "cobertura_por_ciento": 4.35,
+          "precision": 0.129825,
+          "precision_azar": 0.059649,
+          "cociente_sobre_azar": 2.1765,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 6,
+          "tramos_medidos": 9,
+          "signo_estable": false
+        },
+        "0.60": {
+          "avisos": 16,
+          "cobertura": 0.002443,
+          "cobertura_por_ciento": 0.24,
+          "precision": 0.125,
+          "precision_azar": 0.0625,
+          "cociente_sobre_azar": 2.0,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 1,
+          "tramos_medidos": 6,
+          "signo_estable": false
+        },
+        "0.70": null
+      }
+    },
+    "objetivo_proximidad_1_vela": {
+      "frecuencia_base": 0.277557,
+      "n": 6550,
+      "umbrales": {
+        "0.00": {
+          "avisos": 6550,
+          "cobertura": 1.0,
+          "cobertura_por_ciento": 100.0,
+          "precision": 0.244885,
+          "precision_azar": 0.13771,
+          "cociente_sobre_azar": 1.7783,
+          "supera_frecuencia_base": false,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.20": {
+          "avisos": 6222,
+          "cobertura": 0.949924,
+          "cobertura_por_ciento": 94.99,
+          "precision": 0.255063,
+          "precision_azar": 0.143041,
+          "cociente_sobre_azar": 1.7831,
+          "supera_frecuencia_base": false,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.30": {
+          "avisos": 4673,
+          "cobertura": 0.713435,
+          "cobertura_por_ciento": 71.34,
+          "precision": 0.302803,
+          "precision_azar": 0.135673,
+          "cociente_sobre_azar": 2.2319,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.40": {
+          "avisos": 3334,
+          "cobertura": 0.509008,
+          "cobertura_por_ciento": 50.9,
+          "precision": 0.368326,
+          "precision_azar": 0.139172,
+          "cociente_sobre_azar": 2.6466,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.50": {
+          "avisos": 2571,
+          "cobertura": 0.392519,
+          "cobertura_por_ciento": 39.25,
+          "precision": 0.414625,
+          "precision_azar": 0.130299,
+          "cociente_sobre_azar": 3.1821,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.60": {
+          "avisos": 1827,
+          "cobertura": 0.278931,
+          "cobertura_por_ciento": 27.89,
+          "precision": 0.440066,
+          "precision_azar": 0.133005,
+          "cociente_sobre_azar": 3.3086,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        },
+        "0.70": {
+          "avisos": 772,
+          "cobertura": 0.117863,
+          "cobertura_por_ciento": 11.79,
+          "precision": 0.462435,
+          "precision_azar": 0.137306,
+          "cociente_sobre_azar": 3.3679,
+          "supera_frecuencia_base": true,
+          "tramos_a_favor": 9,
+          "tramos_medidos": 9,
+          "signo_estable": true
+        }
+      }
+    }
+  },
+  "umbrales_que_cumplen": [
+    "0.30",
+    "0.40",
+    "0.50",
+    "0.60",
+    "0.70"
+  ],
+  "veredicto": "Combinarlas SI aporta: el cociente sobre el azar supera al del objetivo exacto."
+}
