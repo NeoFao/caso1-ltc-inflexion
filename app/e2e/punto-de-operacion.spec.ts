@@ -78,5 +78,8 @@ test("la primera pantalla dice que hace el sistema, con la cifra del azar", asyn
   // Issue #151.1.
   const titular = page.getByTestId("titular");
   await expect(titular).toContainText(/si el precio está por girar/i);
-  await expect(titular).toContainText(/del azar/i);
+  // Las dos cifras juntas: sin la del azar, la del modelo no se puede leer.
+  await expect(titular).toContainText(/F1 macro/i);
+  await expect(titular).toContainText(/el azar/i);
+  await expect(titular).toContainText(/0\.\d{3}/);
 });

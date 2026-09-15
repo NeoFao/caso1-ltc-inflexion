@@ -177,30 +177,56 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-5">
-          <p className="text-xs font-semibold tracking-[0.2em] text-[#345d9d]">
+      {/* La cabecera es una SUPERFICIE navy, no texto navy sobre blanco. Con el resto
+          de la pagina en tarjetas blancas del mismo peso no habia nada que anclara la
+          vista: lo primero que se veia era la primera tarjeta, no el titulo. */}
+      <header className="bg-[#1b2a4a] text-white">
+        <div className="mx-auto max-w-6xl px-6 py-7">
+          <p className="text-xs font-semibold tracking-[0.2em] text-[#9db8e0]">
             CASO N.º 1 · SEÑALES Y SISTEMAS · 3.<sup>ER</sup> TRIMESTRE 2026
           </p>
-          <h1 className="mt-1 text-2xl font-bold text-[#1b2a4a]">
+          <h1 className="mt-1.5 text-3xl font-bold tracking-tight">
             Puntos de inflexión en el precio de Litecoin
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+          <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-slate-300">
             Avisa cuándo el precio está por dar la vuelta —de subir a bajar, o al revés—
             {horasAnticipacion ? ` con ${horasAnticipacion} horas de anticipación.` : "."}
           </p>
+          {/* La afirmacion central, con su piso pegado al lado y no en un parrafo.
+              Las dos cifras juntas son la unica forma de que "0,390" signifique algo. */}
           {clasico && azar && (
-            <p
-              className="mt-3 max-w-2xl rounded-lg bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-700"
+            <div
+              className="mt-5 flex flex-wrap items-center gap-x-7 gap-y-4 rounded-xl bg-white/10 px-5 py-4 ring-1 ring-white/15"
               data-testid="titular"
             >
-              De cada vela dice si el precio está por girar o va a seguir como está. Acierta{" "}
-              <strong className="text-[#1b2a4a]">{clasico.f1_macro.toFixed(3)}</strong> de F1 macro
-              contra <strong>{azar.f1_macro.toFixed(3)}</strong> del azar — mejor que el azar, y
-              lejos de ser resuelto.
-            </p>
+              <p className="max-w-xs text-[15px] leading-relaxed text-slate-200">
+                De cada vela dice si el precio está por girar o va a seguir como está.
+              </p>
+              <div className="flex items-end gap-6">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9db8e0]">
+                    F1 macro
+                  </p>
+                  <p className="mt-0.5 text-4xl font-bold leading-none">
+                    {clasico.f1_macro.toFixed(3)}
+                  </p>
+                </div>
+                <div className="pb-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                    el azar
+                  </p>
+                  <p className="mt-0.5 text-2xl font-semibold leading-none text-slate-400">
+                    {azar.f1_macro.toFixed(3)}
+                  </p>
+                </div>
+              </div>
+              <p className="max-w-[15rem] text-sm leading-relaxed text-slate-300">
+                Mejor que el azar,{" "}
+                <strong className="font-semibold text-white">y lejos de ser resuelto</strong>.
+              </p>
+            </div>
           )}
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-5 text-sm text-slate-400">
             Alejandro Zamora · Jose Pablo Monestel · Isaac Morun · Fabrizio Espinoza Arce
           </p>
           {configuracion && (
@@ -384,46 +410,67 @@ export default function App() {
           </div>
         )}
 
+        {/* Los dos avisos de Tiempo real iban como dos recuadros apilados a ancho
+            completo: ocho lineas de prosa antes de ver el grafico, que es lo que la
+            pantalla existe para mostrar. Van juntos, en dos columnas, sin perder una
+            palabra de lo que dicen -- la D21 pide que se digan, no que se griten. */}
         {modo === "tiempo-real" && !cargando && datos && configuracion && (
-          <div
-            className="mb-4 rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900"
-            data-testid="vista-sin-confirmar"
-          >
-            <strong>
-              Las últimas {configuracion.latencia_real} velas ({horasAnticipacion} horas) todavía no
-              tienen confirmación.
-            </strong>{" "}
-            El modelo ya anunció qué cree que va a pasar —son las flechas del gráfico—, pero saber si
-            de verdad hubo un giro exige ver las {configuracion.w} velas posteriores, y esas todavía
-            no ocurrieron. No es una limitación técnica: es lo que tarda el problema en verificarse
-            solo.
+          <div className="mb-4 grid gap-3 sm:grid-cols-2">
+            <div
+              className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm leading-relaxed text-sky-900"
+              data-testid="vista-sin-confirmar"
+            >
+              <strong>
+                Las últimas {configuracion.latencia_real} velas ({horasAnticipacion} horas) todavía
+                no tienen confirmación.
+              </strong>{" "}
+              El modelo ya anunció qué cree que va a pasar —son las flechas—, pero saber si de
+              verdad hubo un giro exige ver las {configuracion.w} velas posteriores, y esas todavía
+              no ocurrieron. No es una limitación técnica: es lo que tarda el problema en
+              verificarse solo.
+            </div>
+
+            {ultimaVela && (
+              <div
+                className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${
+                  (diasDeAtraso ?? 0) > 1
+                    ? "border-amber-200 bg-amber-50 text-amber-900"
+                    : "border-slate-200 bg-slate-50 text-slate-700"
+                }`}
+                data-testid="ultima-vela"
+              >
+                <strong>
+                  La última vela de este panel es del{" "}
+                  {new Date(ultimaVela).toLocaleString("es-CR")}
+                </strong>
+                {(diasDeAtraso ?? 0) > 1 && <> — hace {diasDeAtraso} días.</>} Los datos son un
+                snapshot congelado: <strong>esto no es el mercado de ahora mismo</strong>, es el
+                comportamiento del sistema sobre las últimas velas que tiene.
+              </div>
+            )}
           </div>
         )}
 
-        {/* Issue #149: la app decia "al día" sobre un panel congelado. La fecha sale del
-            propio dato, y si tiene mas de un dia se dice cuanto, en ambar y sin adornos. */}
-        {modo === "tiempo-real" && !cargando && ultimaVela && (
-          <div
-            className={`mb-4 rounded-lg border px-4 py-3 text-sm ${
-              (diasDeAtraso ?? 0) > 1
-                ? "border-amber-200 bg-amber-50 text-amber-900"
-                : "border-slate-200 bg-slate-50 text-slate-700"
-            }`}
-            data-testid="ultima-vela"
-          >
-            <strong>
-              La última vela de este panel es del{" "}
-              {new Date(ultimaVela).toLocaleString("es-CR")}
-            </strong>
-            {(diasDeAtraso ?? 0) > 1 && <> — hace {diasDeAtraso} días.</>} Los datos son un
-            snapshot congelado: <strong>esto no es el mercado de ahora mismo</strong>, es el
-            comportamiento del sistema sobre las últimas velas que tiene.
+        <section
+          className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white"
+          data-testid="vista"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 px-4 py-2.5">
+            <h2 className="text-sm font-semibold text-[#1b2a4a]">
+              {modo === "sintetico"
+                ? "Serie construida, con los giros que plantamos"
+                : modo === "tiempo-real"
+                  ? "LTC, últimas velas del panel"
+                  : `${activo}, precio de cierre`}
+            </h2>
+            <p className="text-xs text-slate-500">
+              {datos ? `${datos.serie.length.toLocaleString("es-CR")} velas` : ""}
+              {datos && modo === "tiempo-real" ? ` · umbral ${umbral.toFixed(2)}` : ""}
+            </p>
           </div>
-        )}
-
-        <section className="mt-4 rounded-xl border border-slate-200 bg-white p-4" data-testid="vista">
+          <div className="p-4">
           {cargando ? (
-            <p className="py-20 text-center text-sm text-slate-400" data-testid="vista-cargando">
+            <p className="py-20 text-center text-sm text-slate-500" data-testid="vista-cargando">
               Cargando…
             </p>
           ) : datos ? (
@@ -432,6 +479,7 @@ export default function App() {
               umbral={modo === "tiempo-real" ? umbral : undefined}
             />
           ) : null}
+          </div>
         </section>
 
         {modo === "tiempo-real" && operacion && elegido && (
@@ -446,12 +494,16 @@ export default function App() {
         {datos && <Leyenda balance={datos.balance} />}
 
         {datos && (
-          <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" data-testid="metricas">
+          <section
+            className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4"
+            data-testid="metricas"
+          >
             <Metrica
               titulo="F1 macro"
               valor={datos.metricas.f1_macro}
               piso={azar?.f1_macro}
               principal
+              ancha
               nota="El número que decide: pesa igual las tres clases, así que si el modelo ignora los giros (la clase rara), esto baja"
               testId="f1-macro"
             />
@@ -504,7 +556,7 @@ export default function App() {
         {comparacion && (
           <section className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
             <h2 className="text-sm font-semibold text-[#1b2a4a]">Comparación de modelos</h2>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-600">
               Los {comparacion.modelos.length} modelos evaluados sobre la misma partición de{" "}
               {/* La evidencia de M3 trae "validacion" sin tilde; se corrige solo en la
                   vista, sin tocar docs/evidencias/, que no es mio y se regenera por script. */}
@@ -518,7 +570,7 @@ export default function App() {
             <div className="mt-3 overflow-x-auto">
               <table className="w-full min-w-[480px] text-left text-sm">
                 <thead>
-                  <tr className="text-xs uppercase tracking-wide text-slate-400">
+                  <tr className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     <th className="py-1 pr-3">Modelo</th>
                     <th className="py-1 pr-3">Papel</th>
                     <th className="py-1 pr-3 text-right">F1 macro</th>
@@ -540,7 +592,7 @@ export default function App() {
                           </span>
                         )}
                       </td>
-                      <td className="py-2 pr-3 text-slate-400">{m.papel}</td>
+                      <td className="py-2 pr-3 text-slate-500">{m.papel}</td>
                       <td className="py-2 pr-3 text-right">
                         <BarraMetrica valor={m.f1_macro} />
                       </td>
@@ -553,7 +605,7 @@ export default function App() {
               </table>
             </div>
             {comparacion.modelos.some((m) => m.corrida_individual) && (
-              <p className="mt-2 text-[11px] leading-snug text-slate-400">
+              <p className="mt-2.5 text-[11px] leading-snug text-slate-500">
                 «Corrida individual»: ese modelo se entrena con una semilla aleatoria, y la cifra de
                 arriba es una sola corrida, no el promedio — puede caer en cualquier punto del rango
                 mostrado. En los dos casos la corrida publicada acá resultó ser la más alta de las
@@ -565,7 +617,7 @@ export default function App() {
           </section>
         )}
 
-        <footer className="mt-8 border-t border-slate-200 pt-4 text-xs leading-relaxed text-slate-400">
+        <footer className="mt-10 border-t border-slate-200 pt-5 text-xs leading-relaxed text-slate-500">
           <p>
             Las métricas provienen de <code>contracts/metrics.py</code>. Esta aplicación no calcula
             ninguna: si lo hiciera, tarde o temprano darían distinto que el informe.
@@ -612,14 +664,19 @@ function Chip({
   tono?: "ambar" | "verde";
   title?: string;
 }) {
+  // Sobre la cabecera navy. El gris claro sobre blanco daba 2,56:1 y no pasaba AA;
+  // aqui el chip es una superficie propia con su texto en blanco o casi.
   const estilos =
     tono === "ambar"
-      ? "bg-amber-100 text-amber-800"
+      ? "bg-amber-400/20 text-amber-100 ring-amber-300/30"
       : tono === "verde"
-        ? "bg-emerald-100 text-emerald-800"
-        : "bg-slate-100 text-slate-600";
+        ? "bg-emerald-400/20 text-emerald-100 ring-emerald-300/30"
+        : "bg-white/10 text-slate-200 ring-white/15";
   return (
-    <span className={`rounded px-2 py-1 font-medium ${estilos}`} title={title}>
+    <span
+      className={`rounded-md px-2.5 py-1 font-medium ring-1 ${estilos}`}
+      title={title}
+    >
       {children}
     </span>
   );
@@ -659,7 +716,7 @@ function Leyenda({ balance }: { balance?: Respuesta["balance"] }) {
         <strong className="font-medium text-slate-700">Continuidad</strong> — sigue como estaba, sin
         giro (sin marcador en el gráfico)
       </span>
-      <span className="flex items-center gap-1.5 text-slate-400">
+      <span className="flex items-center gap-1.5 text-slate-500">
         <span>●</span> relleno = ocurrió de verdad · <span>➜</span> flecha = lo que anunció el modelo
       </span>
       {/* Issue #151.4: la leyenda explicaba los colores pero no el problema. Esta es
@@ -712,7 +769,7 @@ function ControlDeUmbral({
         <h2 className="text-sm font-semibold text-[#1b2a4a]">
           Cuánto tiene que estar seguro para avisar
         </h2>
-        <span className="text-xs text-slate-400">
+        <span className="text-xs text-slate-500">
           medido sobre {operacion.n_observaciones.toLocaleString("es-CR")} observaciones fuera de
           muestra, en {operacion.tramos} tramos
         </span>
@@ -760,7 +817,7 @@ function ControlDeUmbral({
         />
       </div>
 
-      <p className="mt-3 text-xs leading-relaxed text-slate-500">
+      <p className="mt-3 text-xs leading-relaxed text-slate-600">
         {umbral === 0 ? (
           <>
             <strong className="text-amber-700">En 0,00 el sistema no se calla nunca.</strong> Avisa
@@ -798,13 +855,13 @@ function Dato({
         destacado ? "border-[#345d9d]/30 bg-[#345d9d]/5" : "border-slate-200 bg-white"
       }`}
     >
-      <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">{titulo}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{titulo}</p>
       <p
         className={`mt-0.5 text-xl font-bold ${destacado ? "text-[#345d9d]" : "text-[#1b2a4a]"}`}
       >
         {valor}
       </p>
-      <p className="mt-0.5 text-[11px] leading-snug text-slate-400">{nota}</p>
+      <p className="mt-1 text-[11px] leading-snug text-slate-500">{nota}</p>
     </div>
   );
 }
@@ -831,6 +888,7 @@ function Metrica({
   piso,
   principal,
   atenuada,
+  ancha,
 }: {
   titulo: string;
   valor: number;
@@ -841,6 +899,9 @@ function Metrica({
   piso?: number;
   principal?: boolean;
   atenuada?: boolean;
+  /** Ocupa dos columnas. Con siete tarjetas en una rejilla de cuatro, la ultima
+   *  fila quedaba con un hueco; la que decide es la que merece el ancho. */
+  ancha?: boolean;
 }) {
   const texto = Number.isNaN(valor)
     ? "—"
@@ -850,18 +911,18 @@ function Metrica({
   const supera = piso !== undefined && !Number.isNaN(valor) && valor > piso;
   return (
     <div
-      className={`rounded-xl border p-4 ${
+      className={`flex flex-col rounded-xl border p-4 ${ancha ? "sm:col-span-2" : ""} ${
         principal
-          ? "border-[#345d9d]/40 bg-[#345d9d]/5"
+          ? "border-[#345d9d]/40 bg-[#345d9d]/[0.06]"
           : atenuada
-            ? "border-slate-200 bg-slate-50/60"
+            ? "border-slate-200 bg-slate-50"
             : "border-slate-200 bg-white"
       }`}
       data-testid={testId}
     >
       <p
         className={`text-xs font-medium uppercase tracking-wide ${
-          atenuada ? "text-slate-400" : "text-slate-500"
+          atenuada ? "text-slate-500" : "text-slate-600"
         }`}
       >
         {titulo}
@@ -886,14 +947,14 @@ function Metrica({
       </p>
       {/* El piso obligatorio. Sin el, el numero de arriba no se puede leer. */}
       {piso !== undefined && !Number.isNaN(piso) && (
-        <p className="mt-1 flex items-center gap-1 text-xs">
-          <span className="text-slate-400">azar {piso.toFixed(3)}</span>
+        <p className="mt-1.5 flex items-center gap-1.5 text-xs">
+          <span className="font-medium text-slate-500">azar {piso.toFixed(3)}</span>
           <span className={supera ? "text-emerald-700" : "text-amber-700"}>
             {supera ? "· lo supera" : "· no lo supera"}
           </span>
         </p>
       )}
-      {nota && <p className="mt-1 text-xs leading-snug text-slate-400">{nota}</p>}
+      {nota && <p className="mt-auto pt-2 text-xs leading-snug text-slate-500">{nota}</p>}
     </div>
   );
 }
