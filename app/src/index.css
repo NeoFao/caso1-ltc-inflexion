@@ -1,7 +1,20 @@
+/* Las fuentes van EMPAQUETADAS, no traidas de un CDN.
+   RF-U5 exige que la aplicacion arranque y sea usable sin conexion; una fuente
+   remota rompe eso justo el dia que falle el wifi del aula. @fontsource las
+   resuelve a woff2 locales que Vite mete en el build. */
+@import "@fontsource/source-serif-4/400.css";
+@import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
 @import "tailwindcss";
 
 /* Misma paleta que src/visual/estilo.py y que el PRD. El demo y el documento
-   tienen que parecer el mismo proyecto. */
+   tienen que parecer el mismo proyecto. Los seis tokens no se tocan. */
 @theme {
   --color-navy: #1b2a4a;
   --color-acento: #345d9d;
@@ -9,9 +22,74 @@
   --color-minimo: #1e8449;
   --color-gris: #5a6675;
   --color-rejilla: #e3e8ef;
+
+  /* Neutros de superficie. No estan en la paleta del informe porque el informe
+     no tiene superficies: son papel. Aqui hacen falta y se eligen calidos, para
+     que el navy y el rojo/verde del dato no compitan con un gris azulado. */
+  --color-papel: #fbfaf8;
+  --color-papel-hundido: #f4f2ee;
+  --color-tinta: #1c1a17;
+  --color-tinta-media: #55504a;
+  --color-tinta-suave: #7d766d;
+  --color-linea: #e7e3dc;
+
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-cifra: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-sans);
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Toda cifra del proyecto va en la mono, con cifras de ancho fijo: en una
+   columna de numeros que cambia al mover el umbral, las proporcionales bailan. */
+.cifra {
+  font-family: var(--font-cifra);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* El deslizador del punto de operacion. El nativo es el unico control de la
+   pagina y se veia prestado de otro sitio. */
+.umbral {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.umbral::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--color-linea);
+}
+.umbral::-moz-range-track {
+  height: 2px;
+  background: var(--color-linea);
+}
+.umbral::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  border: 3px solid var(--color-papel);
+  box-shadow: 0 1px 3px rgb(28 26 23 / 0.35);
+}
+.umbral::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  border: 3px solid var(--color-papel);
+  box-shadow: 0 1px 3px rgb(28 26 23 / 0.35);
+}
+.umbral:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
 }
