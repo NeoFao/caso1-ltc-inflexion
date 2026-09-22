@@ -150,7 +150,10 @@ export default function App() {
   }, [modo, activo, desde, hasta, modeloElegido]);
 
   const modoActual = MODOS.find((m) => m.id === modo)!;
-  const edad = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
+  // La antiguedad que importa es la del ULTIMO PRECIO, no la del dia en que se
+  // exporto el archivo: el archivo puede ser de ayer y traer datos de hace mes y
+  // medio. Decir lo segundo hace parecer el panel mas fresco de lo que es.
+  const edadDelArchivo = antiguedad(datos?.generado_utc ?? configuracion?.generado_utc);
   // El piso obligatorio (D7). Va junto a cada cifra porque un numero suelto no se
   // puede leer: 0,390 no es bueno ni malo hasta saber que el azar da 0,337.
   const azar = comparacion?.modelos.find((m) => m.clave === "baseline_aleatorio");
@@ -446,7 +449,9 @@ export default function App() {
             )}
             {!cargando && origen === "snapshot" && (
               <Chip tono="ambar">
-                datos congelados{edad ? ` · ${edad}` : ""} · backend no disponible
+                datos congelados · última vela{" "}
+                {diasDeAtraso !== null ? `hace ${diasDeAtraso} días` : edadDelArchivo} · backend
+                no disponible
               </Chip>
             )}
             {!cargando && origen === "backend" && <Chip tono="verde">backend en vivo</Chip>}

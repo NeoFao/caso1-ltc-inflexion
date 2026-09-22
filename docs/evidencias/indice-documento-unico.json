@@ -1,0 +1,687 @@
+[
+ {
+  "titulo": "Punto 1 · Avance N.º 1",
+  "pagina": 1,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin",
+  "pagina": 4,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Marco Teórico: Series de Tiempo",
+  "pagina": 5,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1. Definición de serie temporal",
+  "pagina": 5,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2. Componentes de una serie temporal",
+  "pagina": 6,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "3. Estacionariedad",
+  "pagina": 7,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4. No estacionariedad",
+  "pagina": 8,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "5. Heterocedasticidad",
+  "pagina": 9,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "6. Volatilidad",
+  "pagina": 10,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "7. Autocorrelación",
+  "pagina": 12,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "8. Correlación cruzada",
+  "pagina": 13,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Marco Teórico: Criptoactivos y sus Características",
+  "pagina": 14,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1. Definición de criptoactivo",
+  "pagina": 14,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2. Características principales",
+  "pagina": 15,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "3. Principales tipos",
+  "pagina": 16,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4. Mercado cripto",
+  "pagina": 16,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "5. Factores que afectan el precio",
+  "pagina": 17,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "6. Correlación y dependencia entre activos",
+  "pagina": 18,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "7. Definición de punto de inflexión",
+  "pagina": 20,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "8. Cómo encontrar puntos de inflexión",
+  "pagina": 22,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "8.1 Estructura de mercado (HH, HL, LH, LL)",
+  "pagina": 22,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "8.2 Criterio automático de ventana",
+  "pagina": 22,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "8.3 Validación del detector sobre una serie donde conocemos la respuesta",
+  "pagina": 23,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "8.4 A qué nivel de ruido se rompe el etiquetado",
+  "pagina": 23,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Métricas de Evaluación para Puntos de Inflexión",
+  "pagina": 26,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1. El problema que hay que explicar antes que nada",
+  "pagina": 26,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2. Por qué la exactitud no sirve: medido, no argumentado",
+  "pagina": 28,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.1 Un contraste que lo deja más claro todavía",
+  "pagina": 29,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "3. Las métricas que sí usamos",
+  "pagina": 30,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "3.1 F1-Score por clase",
+  "pagina": 30,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "3.2 F1 macro, y por qué no ponderado",
+  "pagina": 31,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "3.3 Precisión direccional",
+  "pagina": 31,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "3.4 Matriz de confusión",
+  "pagina": 32,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "3.5 Exactitud",
+  "pagina": 32,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "4. Una advertencia sobre cómo leer la matriz de confusión de este problema",
+  "pagina": 32,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "5. El baseline como piso obligatorio",
+  "pagina": 33,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Conclusiones",
+  "pagina": 33,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Limitaciones",
+  "pagina": 34,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Trabajo siguiente",
+  "pagina": 34,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Referencias",
+  "pagina": 35,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Punto 2 · Avance N.º 2",
+  "pagina": 38,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin",
+  "pagina": 41,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Modelos Estadísticos y de Aprendizaje Automático para Series Temporales",
+  "pagina": 41,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1. Modelos fundacionales de series de tiempo (TSFMs)",
+  "pagina": 42,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2. VTA (Verbal Technical Analysis)",
+  "pagina": 43,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "3. FinLSPM (Large Stock Predict Model)",
+  "pagina": 44,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4. CryptoMamba",
+  "pagina": 44,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "5. Transformer",
+  "pagina": 45,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "6. Justificación de la elección de modelo",
+  "pagina": 46,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Procedimiento para Desarrollar el Modelo de Puntos de Inflexión",
+  "pagina": 48,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1. Extracción de datos",
+  "pagina": 48,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2. Limpieza de datos",
+  "pagina": 49,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "3. Análisis exploratorio",
+  "pagina": 49,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4. Ingeniería de características",
+  "pagina": 49,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "5. Partición temporal",
+  "pagina": 51,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "6. Selección del modelo",
+  "pagina": 51,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "7. Entrenamiento y optimización de hiperparámetros",
+  "pagina": 52,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "8. Evaluación y despliegue",
+  "pagina": 52,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que este procedimiento todavía no resuelve",
+  "pagina": 53,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Conclusiones",
+  "pagina": 53,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Limitaciones",
+  "pagina": 55,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Sobre el umbral de decisión",
+  "pagina": 55,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Trabajo siguiente",
+  "pagina": 56,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Referencias",
+  "pagina": 57,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Punto 3 · Modelo fundacional",
+  "pagina": 58,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin",
+  "pagina": 61,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Qué se entrega esta semana",
+  "pagina": 61,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Por qué el diseño va antes que el modelo",
+  "pagina": 61,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que esta entrega permite afirmar, y lo que no",
+  "pagina": 61,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Diseño: Qué se Predice, Sobre Qué Datos y Cómo se Separan",
+  "pagina": 62,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1.1 Qué es un punto de inflexión, exactamente",
+  "pagina": 62,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "1.2 Los tres parámetros, y por qué esos",
+  "pagina": 63,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "1.3 Los datos: qué se descarga",
+  "pagina": 64,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "1.4 De dónde salen, y qué hubo que limpiar",
+  "pagina": 64,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "1.5 La partición, y el embargo",
+  "pagina": 65,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "1.6 El bloque de prueba se toca una vez, y eso es comprobable",
+  "pagina": 67,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "El Modelo Fundacional: Chronos-Bolt",
+  "pagina": 67,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "El puente, que es lo que hace comparables a los dos",
+  "pagina": 67,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Chronos-Bolt",
+  "pagina": 68,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Pruebas de Detección: Sintética, de Entrenamiento y en Tiempo Real",
+  "pagina": 68,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "4.1 Qué demuestra cada una",
+  "pagina": 68,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4.2 Prueba 1 · El etiquetador, sobre una serie construida",
+  "pagina": 69,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4.3 Prueba 2 · El circuito completo, sobre datos sintéticos",
+  "pagina": 70,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4.4 Prueba 3 · Sobre el bloque de entrenamiento",
+  "pagina": 70,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4.5 Prueba 4 · Tiempo real, y por qué es la única que busca fuga",
+  "pagina": 71,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "La cola sin confirmar, y por qué se muestra",
+  "pagina": 71,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "4.6 Lo que las cuatro juntas permiten decir",
+  "pagina": 72,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Conclusiones",
+  "pagina": 72,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Lo que la Semana 3 deja demostrado",
+  "pagina": 72,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que la Semana 3 no demuestra, y conviene decirlo antes de que se lea de más",
+  "pagina": 72,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Una decisión de producto que se toma en esta semana",
+  "pagina": 73,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que sigue",
+  "pagina": 73,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Punto 4 · Modelo avanzado",
+  "pagina": 74,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Sistema de Pronóstico de Puntos de Inflexión en el Precio de Litecoin",
+  "pagina": 78,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Qué se entrega esta semana",
+  "pagina": 78,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que esta semana añade a la anterior, y por qué el orden importa",
+  "pagina": 78,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "El capítulo de características va primero, y no es relleno",
+  "pagina": 79,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que esta entrega permite afirmar, y lo que no",
+  "pagina": 79,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Ingeniería de Características",
+  "pagina": 79,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "2.1 Las seis familias",
+  "pagina": 80,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.2 Cero columnas en nivel de precio, y lo que costó llegar ahí",
+  "pagina": 80,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.3 Qué usa el modelo, medido por permutación",
+  "pagina": 81,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.4 El piso de ruido: qué hace que la tabla signifique algo",
+  "pagina": 82,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.5 Recortar las 17: medido, no opinado",
+  "pagina": 83,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.6 La tensión con el resultado multivariante, y por qué no es una contradicción",
+  "pagina": 84,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2.7 Lo que esta sección no puede afirmar",
+  "pagina": 85,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "El Modelo Avanzado: iTransformer",
+  "pagina": 85,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "iTransformer",
+  "pagina": 85,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Por qué no es Informer",
+  "pagina": 85,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Lo que cuesta",
+  "pagina": 86,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Por qué no se ajustaron hiperparámetros",
+  "pagina": 86,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Rendimiento Comparado y Lo Que No se Puede Afirmar",
+  "pagina": 87,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "Rendimiento sobre validación",
+  "pagina": 87,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Las comparaciones que deciden",
+  "pagina": 87,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Lo que no se puede afirmar, y por qué",
+  "pagina": 88,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Los activos de apoyo: signo estable en las cinco, sin distinguibilidad afirmable",
+  "pagina": 88,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "La dispersión no es pareja, y es peor donde más importa",
+  "pagina": 90,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "El puente amplifica diferencias que no deberían importar",
+  "pagina": 90,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Por clase: lo que el bloque de prueba sugirió y lo que la potencia confirmó",
+  "pagina": 91,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que se vio en el bloque de prueba",
+  "pagina": 91,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Lo que dice la agregación de los nueve tramos",
+  "pagina": 91,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Por qué esto importa más allá de la tabla",
+  "pagina": 92,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Cómo se regenera cada cifra",
+  "pagina": 92,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Pruebas de Detección sobre los Modelos Profundos",
+  "pagina": 93,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "1. Qué se repitió, qué no, y con qué criterio",
+  "pagina": 93,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "2. Los resultados",
+  "pagina": 93,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "3. La prueba 4 es la que más aporta, y es nueva para los profundos",
+  "pagina": 94,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "4. Lo que estas pruebas dicen, incluido lo que nos corrigió",
+  "pagina": 95,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Chronos-Bolt pasa las tres, y no lo esperábamos",
+  "pagina": 95,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "El iTransformer falla la 2, y el modo en que falla señala dónde está el problema",
+  "pagina": 95,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "Lo que no dicen",
+  "pagina": 96,
+  "nivel": "Título 3"
+ },
+ {
+  "titulo": "5. Reproducirlo",
+  "pagina": 96,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Conclusiones",
+  "pagina": 97,
+  "nivel": "Título 1"
+ },
+ {
+  "titulo": "El resultado central de esta semana, sin adornos",
+  "pagina": 97,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Por qué ese resultado se puede creer",
+  "pagina": 97,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Una limitación del instrumento, encontrada midiendo",
+  "pagina": 98,
+  "nivel": "Título 2"
+ },
+ {
+  "titulo": "Lo que sigue",
+  "pagina": 98,
+  "nivel": "Título 2"
+ }
+]
