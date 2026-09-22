@@ -26,8 +26,10 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 
 HOJA = """
+/* Sin margen propio: los margenes los pone Word en PageSetup. Si se ponen en
+   los dos lados, se suman y el texto queda en una columna estrecha. */
 body { font-family: Georgia, 'Times New Roman', serif; font-size: 11pt;
-       line-height: 1.45; color: #111; margin: 2.2cm 2.0cm; }
+       line-height: 1.45; color: #111; margin: 0; }
 h1 { font-size: 20pt; border-bottom: 2px solid #1B2A4A; padding-bottom: 4pt;
      color: #1B2A4A; page-break-before: always; }
 h1:first-of-type { page-break-before: avoid; }
@@ -174,6 +176,10 @@ def a_documentos(ruta_md: Path) -> Path:
     word.Visible = False
     try:
         doc = word.Documents.Open(str(ruta_html.resolve()))
+        # Margenes de 2 cm, en puntos: el texto usa el ancho de la pagina en vez
+        # de quedar en una columna. 1 cm = 28,35 pt.
+        for lado in ("TopMargin", "BottomMargin", "LeftMargin", "RightMargin"):
+            setattr(doc.PageSetup, lado, 2 * 28.35)
         doc.ExportAsFixedFormat(str(ruta_pdf.resolve()), 17)  # 17 = wdExportFormatPDF
         # 16 = wdFormatDocumentDefault, el .docx moderno. SaveAs2 sobre un documento
         # abierto desde HTML lo convierte a formato Word nativo y editable.
