@@ -1308,3 +1308,72 @@ cuando el mejor modelo es el que no se esperaba — y en este proyecto eso pasó
 **Origen:** se descubrió al aplicar la regla de la sección 5 al resultado de la corrida, minutos
 después de correrla. Se declara en vez de calcularlo en silencio porque **cualquier cálculo hecho
 después de ver el bloque de prueba tiene que quedar escrito**, aunque sea determinista.
+
+---
+
+## D29 · La ventana de entrenamiento se queda expansiva: recortar historia no se establece
+
+**Estado:** vigente desde el 22/09/2026 · criterio fechado **antes** de la corrida, en el commit
+del guion `scripts/ventana_de_entrenamiento.py` sin resultados
+
+### El hueco que tenía el trabajo
+
+Los diecinueve ejes de mejora medidos hasta acá tocaron la etiqueta, los datos, el umbral, las
+familias, la regla de decisión y los hiperparámetros. **Ninguno tocó cuánta historia ve el modelo
+al entrenar.** La validación deslizante usa **ventana expansiva** —cada tramo entrena con todo el
+pasado disponible— y eso se heredó con el arnés sin ponerlo a prueba nunca.
+
+No era un hueco cualquiera. El diagnóstico del proyecto lo señala directamente: está medido que la
+relación entre lo que el modelo ve y el giro que viene **no aguanta entre períodos**, y está medido
+que añadir veintisiete meses de historia **empeora**. Si las dos cosas son ciertas, entrenar con
+todo el pasado mete régimen viejo que ya no aplica, y la consecuencia es **recortar la historia**.
+
+### El criterio, fijado antes
+
+Se adoptaría la ventana deslizante solo si se cumplían las tres, sobre los nueve tramos:
+
+1. Media de F1 macro mayor que la de la expansiva.
+2. Diferencia mayor que **0,02**, el umbral de decisión del proyecto.
+3. Signo estable en al menos **8 de los 9** tramos.
+
+Y la expectativa declarada antes de mirar: que las ventanas muy cortas empeoraran por falta de
+giros, y que existiera un punto intermedio donde recortar régimen viejo compensara.
+
+### Lo que salió
+
+| Ventana | Filas al entrenar | F1 macro medio | Diferencia | Tramos a favor |
+|---|---|---|---|---|
+| **Expansiva** (la de hoy) | 9 450 | **0,381008** | — | — |
+| Deslizante 1 500 | 1 500 | 0,361386 | −0,019622 | 3 de 9 |
+| Deslizante 3 000 | 3 000 | 0,385619 | +0,004611 | 6 de 9 |
+| Deslizante 4 500 | 4 500 | 0,371582 | −0,009425 | 4 de 9 |
+| Deslizante 6 000 | 6 000 | 0,388969 | +0,007961 | 7 de 9 |
+
+**Ninguna cumple el criterio.** La mejor, 6 000, mejora la media en **0,007961** — menos de la
+mitad del umbral— y solo gana en **7 de 9** tramos.
+
+Y hay algo que dice más que la media: **la curva no es monótona**. La ventana de 3 000 le gana a la
+de 4 500, y la de 1 500 es la peor de todas. Un efecto real del tamaño de la ventana no se
+comportaría así. Lo que se está midiendo entre esas celdas es **ruido**, y es el mismo patrón que
+ya había aparecido en la rejilla de hiperparámetros del modelo avanzado.
+
+### Qué se decide, y qué se aprende
+
+**Se decide:** la ventana de entrenamiento **se queda expansiva**. Sin evidencia que cumpla el
+criterio, se prefiere no cambiar el arnés.
+
+**Y se aprende algo que afina el diagnóstico.** La expectativa decía que debía existir un punto
+intermedio, y no apareció. Eso significa que **la historia vieja no estorba tanto como para que
+valga la pena recortarla** — que es distinto de lo que veníamos diciendo. La lectura correcta ya no
+es «el pasado lejano confunde al modelo», sino la más incómoda: **el pasado cercano tampoco informa
+mucho más que el lejano.** El límite no está en qué tramo de historia se usa; está en que la señal
+es débil en todos ellos.
+
+**Qué no se hizo, a propósito:** no se añadieron tamaños de ventana intermedios después de ver que
+6 000 era el mejor. Ampliar la rejilla hasta que alguna celda pase el umbral, y reportar esa, es
+exactamente el error que este documento existe para impedir. Si alguien quiere explorar entre 6 000
+y la expansiva, el criterio se fija antes y se declara como una medición nueva.
+
+**No tocó el bloque de reserva:** nueve tramos de validación deslizante.
+
+**Evidencia:** `docs/evidencias/m0-ventana-entrenamiento-4h-w7-h1.json`

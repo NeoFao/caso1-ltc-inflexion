@@ -1,0 +1,199 @@
+{
+  "ejecutado_utc": "2026-09-22T17:16:57+00:00",
+  "que_mide": "Si entrenar solo con lo reciente (ventana deslizante) mejora sobre entrenar con todo el pasado (ventana expansiva), que es lo que usa hoy el arnes del proyecto. Es el unico eje que toca que filas ve el modelo al entrenar.",
+  "por_que_este_eje": "El diagnostico del proyecto dice que la relacion no aguanta entre periodos, y que mas historia empeora. La consecuencia directa de las dos cosas es recortar la historia de entrenamiento, y eso no se habia medido.",
+  "criterio_preregistrado": "Media de F1 macro mayor que la expansiva, diferencia mayor que 0.02, y signo estable en al menos 8 de 9 tramos.",
+  "expectativa_declarada_antes": "Que las ventanas muy cortas empeoren por falta de giros, y que exista un punto intermedio donde recortar regimen viejo compense. Si no aparece, la historia vieja no estorba y el diagnostico hay que decirlo de otra forma.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "umbral_decision": 0.02,
+  "tramos_minimos": 8,
+  "resultados": {
+    "expansiva": {
+      "f1_por_tramo": [
+        0.336645,
+        0.389948,
+        0.372472,
+        0.372711,
+        0.375287,
+        0.404296,
+        0.396294,
+        0.372917,
+        0.408498
+      ],
+      "filas_por_tramo": [
+        6542,
+        7269,
+        7996,
+        8723,
+        9450,
+        10177,
+        10904,
+        11631,
+        12358
+      ],
+      "media": 0.381008,
+      "filas_medianas": 9450
+    },
+    "deslizante_1500": {
+      "f1_por_tramo": [
+        0.347223,
+        0.38339,
+        0.377873,
+        0.406053,
+        0.355864,
+        0.342563,
+        0.313418,
+        0.357827,
+        0.368259
+      ],
+      "filas_por_tramo": [
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ],
+      "media": 0.361386,
+      "filas_medianas": 1500,
+      "diferencia_por_tramo": [
+        0.010578,
+        -0.006558,
+        0.005401,
+        0.033342,
+        -0.019423,
+        -0.061733,
+        -0.082876,
+        -0.01509,
+        -0.040239
+      ],
+      "diferencia_media": -0.019622,
+      "tramos_a_favor": 3,
+      "cumple_criterio": false
+    },
+    "deslizante_3000": {
+      "f1_por_tramo": [
+        0.378774,
+        0.387997,
+        0.351138,
+        0.380183,
+        0.382345,
+        0.416112,
+        0.359072,
+        0.393468,
+        0.421478
+      ],
+      "filas_por_tramo": [
+        3000,
+        3000,
+        3000,
+        3000,
+        3000,
+        3000,
+        3000,
+        3000,
+        3000
+      ],
+      "media": 0.385619,
+      "filas_medianas": 3000,
+      "diferencia_por_tramo": [
+        0.042129,
+        -0.001951,
+        -0.021334,
+        0.007472,
+        0.007058,
+        0.011816,
+        -0.037222,
+        0.020551,
+        0.01298
+      ],
+      "diferencia_media": 0.004611,
+      "tramos_a_favor": 6,
+      "cumple_criterio": false
+    },
+    "deslizante_4500": {
+      "f1_por_tramo": [
+        0.335663,
+        0.346914,
+        0.350515,
+        0.392852,
+        0.380651,
+        0.385212,
+        0.339085,
+        0.393459,
+        0.419889
+      ],
+      "filas_por_tramo": [
+        4500,
+        4500,
+        4500,
+        4500,
+        4500,
+        4500,
+        4500,
+        4500,
+        4500
+      ],
+      "media": 0.371582,
+      "filas_medianas": 4500,
+      "diferencia_por_tramo": [
+        -0.000982,
+        -0.043034,
+        -0.021957,
+        0.020141,
+        0.005364,
+        -0.019084,
+        -0.057209,
+        0.020542,
+        0.011391
+      ],
+      "diferencia_media": -0.009425,
+      "tramos_a_favor": 4,
+      "cumple_criterio": false
+    },
+    "deslizante_6000": {
+      "f1_por_tramo": [
+        0.352755,
+        0.390228,
+        0.38098,
+        0.378963,
+        0.371322,
+        0.427712,
+        0.352673,
+        0.395743,
+        0.450341
+      ],
+      "filas_por_tramo": [
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000
+      ],
+      "media": 0.388969,
+      "filas_medianas": 6000,
+      "diferencia_por_tramo": [
+        0.01611,
+        0.00028,
+        0.008508,
+        0.006252,
+        -0.003965,
+        0.023416,
+        -0.043621,
+        0.022826,
+        0.041843
+      ],
+      "diferencia_media": 0.007961,
+      "tramos_a_favor": 7,
+      "cumple_criterio": false
+    }
+  },
+  "veredicto": "No se adopta ninguna ventana deslizante: ninguna cumple las tres condiciones. La mejor es deslizante_6000, con una diferencia media de 0.007961 y 7 de 9 tramos a favor."
+}
