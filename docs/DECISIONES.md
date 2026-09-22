@@ -1308,3 +1308,195 @@ cuando el mejor modelo es el que no se esperaba — y en este proyecto eso pasó
 **Origen:** se descubrió al aplicar la regla de la sección 5 al resultado de la corrida, minutos
 después de correrla. Se declara en vez de calcularlo en silencio porque **cualquier cálculo hecho
 después de ver el bloque de prueba tiene que quedar escrito**, aunque sea determinista.
+
+---
+
+## D29 · La ventana de entrenamiento se queda expansiva: recortar historia no se establece
+
+**Estado:** vigente desde el 22/09/2026 · criterio fechado **antes** de la corrida, en el commit
+del guion `scripts/ventana_de_entrenamiento.py` sin resultados
+
+### El hueco que tenía el trabajo
+
+Los diecinueve ejes de mejora medidos hasta acá tocaron la etiqueta, los datos, el umbral, las
+familias, la regla de decisión y los hiperparámetros. **Ninguno tocó cuánta historia ve el modelo
+al entrenar.** La validación deslizante usa **ventana expansiva** —cada tramo entrena con todo el
+pasado disponible— y eso se heredó con el arnés sin ponerlo a prueba nunca.
+
+No era un hueco cualquiera. El diagnóstico del proyecto lo señala directamente: está medido que la
+relación entre lo que el modelo ve y el giro que viene **no aguanta entre períodos**, y está medido
+que añadir veintisiete meses de historia **empeora**. Si las dos cosas son ciertas, entrenar con
+todo el pasado mete régimen viejo que ya no aplica, y la consecuencia es **recortar la historia**.
+
+### El criterio, fijado antes
+
+Se adoptaría la ventana deslizante solo si se cumplían las tres, sobre los nueve tramos:
+
+1. Media de F1 macro mayor que la de la expansiva.
+2. Diferencia mayor que **0,02**, el umbral de decisión del proyecto.
+3. Signo estable en al menos **8 de los 9** tramos.
+
+Y la expectativa declarada antes de mirar: que las ventanas muy cortas empeoraran por falta de
+giros, y que existiera un punto intermedio donde recortar régimen viejo compensara.
+
+### Lo que salió
+
+| Ventana | Filas al entrenar | F1 macro medio | Diferencia | Tramos a favor |
+|---|---|---|---|---|
+| **Expansiva** (la de hoy) | 9 450 | **0,381008** | — | — |
+| Deslizante 1 500 | 1 500 | 0,361386 | −0,019622 | 3 de 9 |
+| Deslizante 3 000 | 3 000 | 0,385619 | +0,004611 | 6 de 9 |
+| Deslizante 4 500 | 4 500 | 0,371582 | −0,009425 | 4 de 9 |
+| Deslizante 6 000 | 6 000 | 0,388969 | +0,007961 | 7 de 9 |
+
+**Ninguna cumple el criterio.** La mejor, 6 000, mejora la media en **0,007961** — menos de la
+mitad del umbral— y solo gana en **7 de 9** tramos.
+
+Y hay algo que dice más que la media: **la curva no es monótona**. La ventana de 3 000 le gana a la
+de 4 500, y la de 1 500 es la peor de todas. Un efecto real del tamaño de la ventana no se
+comportaría así. Lo que se está midiendo entre esas celdas es **ruido**, y es el mismo patrón que
+ya había aparecido en la rejilla de hiperparámetros del modelo avanzado.
+
+### Qué se decide, y qué se aprende
+
+**Se decide:** la ventana de entrenamiento **se queda expansiva**. Sin evidencia que cumpla el
+criterio, se prefiere no cambiar el arnés.
+
+**Y se aprende algo que afina el diagnóstico.** La expectativa decía que debía existir un punto
+intermedio, y no apareció. Eso significa que **la historia vieja no estorba tanto como para que
+valga la pena recortarla** — que es distinto de lo que veníamos diciendo. La lectura correcta ya no
+es «el pasado lejano confunde al modelo», sino la más incómoda: **el pasado cercano tampoco informa
+mucho más que el lejano.** El límite no está en qué tramo de historia se usa; está en que la señal
+es débil en todos ellos.
+
+**Qué no se hizo, a propósito:** no se añadieron tamaños de ventana intermedios después de ver que
+6 000 era el mejor. Ampliar la rejilla hasta que alguna celda pase el umbral, y reportar esa, es
+exactamente el error que este documento existe para impedir. Si alguien quiere explorar entre 6 000
+y la expansiva, el criterio se fija antes y se declara como una medición nueva.
+
+**No tocó el bloque de reserva:** nueve tramos de validación deslizante.
+
+**Evidencia:** `docs/evidencias/m0-ventana-entrenamiento-4h-w7-h1.json`
+
+---
+
+## D30 · La regla del aviso se queda como está, y el arnés nuevo reprodujo la curva publicada
+
+**Estado:** vigente desde el 22/09/2026 · criterios fechados **antes** de cada corrida, en
+commits sin resultados
+
+### Tres ejes más, y por qué
+
+Después de la [D29](#d29) quedaban tres preguntas sobre **cómo se convierte la probabilidad del
+modelo en un aviso**, que es la parte del sistema que produce la cifra que el proyecto reporta.
+Ninguna se había tocado.
+
+| Eje | Qué probaba | Resultado |
+|---|---|---|
+| **21** | Separar «¿hablo?» de «¿qué digo?»: elegir por `p_máx + p_mín` en vez de por `max` | **No se adopta** |
+| **22** | Umbral fijado como cuantil sobre una partición de calibración | **No atribuye** — cambiaba dos cosas a la vez |
+| **23** | Umbral por tramo (cuantil del tramo anterior) contra umbral global, **mismo modelo** | **No concluyente** |
+
+El eje 21 pierde en las tres coberturas y el signo solo aguanta en 1 de 9 tramos. La expectativa
+escrita antes decía «mejora pequeña y positiva»; salió pequeña y **negativa**. La lectura es que
+cuando el bosque reparte probabilidad entre máximo y mínimo **no está diciendo que viene un giro**:
+está diciendo que la vela es ambigua para todo.
+
+El eje 23 se declara **no concluyente por una condición de honestidad escrita de antemano**: las
+dos reglas terminaron hablando cantidades distintas —55,00 % contra 58,30 % de cobertura— y
+comparar precisiones a coberturas distintas no dice nada. El número favorecía levemente a la regla
+nueva y **aun así no se reporta como ganador**, porque la condición estaba escrita antes.
+
+### El error propio, y cómo apareció
+
+Los tres guiones nuevos **omitían `objetivo(..., HORIZONTE_H)`**. Sin esa llamada el modelo predice
+la etiqueta de **la vela actual** en vez de la siguiente, y la vela actual está parcialmente
+descrita por las características que el modelo ve. El efecto fue exactamente el esperable de ese
+tipo de error: **todo salía mejor**. En el punto de trabajo la precisión daba **0,4597** en vez de
+**0,2843**, y el cociente sobre el azar **3,19×** en vez de **1,95×**.
+
+**Cómo se detectó:** el número era demasiado bueno y no cuadraba con la evidencia ya publicada. El
+umbral que dejaba 18,37 % de cobertura salía **0,6747** cuando la evidencia del proyecto dice
+**0,50**, y a la misma cobertura las precisiones no coincidían. Dos mediciones del mismo sistema
+que no cuadran significan que una está mal, y había que averiguar cuál **antes** de reportar nada.
+
+**Ninguna de esas cifras llegó a un documento.** Se detectó entre la corrida y el informe.
+
+### El resultado que sí vale, y no se buscaba
+
+Corregido el error, el arnés de los ejes 21 a 23 —escrito desde cero, sin reutilizar el guion del
+barrido original— **reproduce la curva publicada cifra por cifra**:
+
+| Cobertura | Curva publicada | Arnés nuevo |
+|---|---|---|
+| 90,40 % | 0,225169 | **0,225169** |
+| 55,00 % | 0,253193 | **0,253193** |
+| 18,37 % | 0,284289 | **0,284289** |
+
+Eso es una **reproducción independiente** del resultado principal del proyecto, y vale más que
+cualquiera de los tres ejes que se fueron a medir.
+
+### Qué se decide
+
+**La regla del aviso se queda como está:** umbral global sobre la probabilidad de la clase rara más
+probable. Veintitrés ejes medidos, tres se sostienen, y los tres ya están en el sistema que se
+presenta.
+
+**No toca el bloque de reserva:** nueve tramos de validación deslizante.
+
+**Evidencia:** `docs/evidencias/m0-regla-de-aviso-4h-w7-h1.json`,
+`docs/evidencias/m0-umbral-por-cuantil-4h-w7-h1.json`,
+`docs/evidencias/m0-umbral-por-tramo-4h-w7-h1.json`
+
+---
+
+## D31 · El bosque se queda en 300 árboles: el ruido que estorba no es el del promedio
+
+**Estado:** vigente desde el 22/09/2026 · criterio fechado **antes** de la corrida
+
+### El hueco que quedaba de la rejilla
+
+Está medido que el ruido entre semillas (**0,030377**) supera el umbral con el que el proyecto
+decide entre dos configuraciones (**0,02**), y de ahí salió la conclusión de que la rejilla de
+hiperparámetros **mide ruido** y no vale la pena ajustar.
+
+Pero **el número de árboles quedó del lado equivocado de esa conclusión.** Todos los demás
+hiperparámetros controlan la capacidad del modelo y se pueden pasar de rosca; el número de árboles
+**solo promedia**. Un bosque más grande baja su varianza de forma monótona y **no puede
+sobreajustar por crecer**. La rejilla dijo «hay demasiado ruido para distinguir configuraciones», y
+la respuesta a eso no es dejar de ajustar: es **reducir el ruido**. Eso no se había hecho.
+
+### Lo que salió
+
+| Árboles | F1 macro medio | 90 % | 55 % | 18,37 % |
+|---|---|---|---|---|
+| **300** (vigente) | 0,420387 | **1,5698×** | **1,8504×** | **1,9721×** |
+| 900 | 0,421975 | 1,5745× | 1,8179× | 1,9029× |
+| 1 500 | 0,420447 | 1,5781× | 1,8098× | 1,9375× |
+| 3 000 | 0,421803 | 1,5828× | 1,8240× | 1,9663× |
+
+**Ninguno cumple el criterio.** En el punto de trabajo los bosques grandes quedan **por debajo** del
+vigente, y la precisión va 0,2843 → 0,2743 → 0,2793 → 0,2835: **sin orden**. Diez veces más árboles
+mueven la tercera cifra decimal y no en una dirección.
+
+### Lo que eso significa, y estaba declarado antes
+
+La expectativa escrita antes decía: *«si no mejorara nada, la conclusión sería que la varianza que
+estorba no es la del promedio de árboles sino la del problema».* Es lo que pasó.
+
+**Promediar diez veces más árboles no mueve el resultado.** El ruido que separa una corrida de otra
+no viene de que el bosque sea chico: viene de que **la señal es débil**. Es la confirmación más
+directa que tiene el proyecto de su propio diagnóstico, porque ataca la única fuente de varianza
+que se podía eliminar por fuerza bruta — y al eliminarla no cambia nada.
+
+### Y una tercera reproducción independiente
+
+La fila de 300 árboles era el **control**, y lo pasó de forma exacta. Los umbrales que dejan cada
+cobertura salen **0,3000 · 0,4000 · 0,5000** —los tres valores publicados— y las precisiones,
+**0,225169 · 0,253193 · 0,284289**.
+
+Es la tercera vez que un arnés escrito aparte reproduce la curva del titular dígito por dígito.
+
+**No toca el bloque de reserva:** nueve tramos de validación deslizante.
+
+**Evidencia:** `docs/evidencias/m0-mas-arboles-4h-w7-h1.json`

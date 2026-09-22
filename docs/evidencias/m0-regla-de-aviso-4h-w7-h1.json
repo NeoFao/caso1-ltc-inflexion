@@ -1,0 +1,49 @@
+{
+  "ejecutado_utc": "2026-09-22T17:23:28+00:00",
+  "que_mide": "Si separar 'cuando hablar' de 'que decir' mejora la precision del aviso. La regla vigente usa max(p_maximo, p_minimo) para las dos cosas; la alternativa elige a quien hablarle por p_maximo + p_minimo y el tipo por el argmax.",
+  "como_se_comparan": "A la misma cobertura: se toman las k velas de mayor puntaje de cada regla, con la misma k. El tipo anunciado es identico en las dos reglas.",
+  "criterio_preregistrado": "Se adopta solo si la precision de la suma supera a la vigente en las tres coberturas declaradas (90 %, 55 % y 18,37 %) y el signo aguanta en al menos 8 de 9 tramos en el punto de trabajo.",
+  "expectativa_declarada_antes": "Una mejora pequena y positiva. Con 4,6 % de clase rara la masa de las dos raras casi siempre esta en una sola, asi que las dos reglas deberian ordenar parecido. Una mejora grande seria sospechosa de cobertura mal igualada.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "objetivo": "solo_adelante_2_velas: hay un giro de ese tipo en las proximas 2 velas. La ventana no mira al pasado.",
+  "observaciones": 6549,
+  "resultados": {
+    "0.9040": {
+      "cobertura_declarada": 0.904,
+      "avisos": 5919,
+      "precision_regla_vigente": 0.265248,
+      "precision_regla_suma": 0.262038,
+      "precision_azar": 0.143436,
+      "cociente_vigente": 1.849234,
+      "cociente_suma": 1.826855,
+      "diferencia": -0.00321,
+      "tramos_a_favor": 0,
+      "tramos_medidos": 9
+    },
+    "0.5500": {
+      "cobertura_declarada": 0.55,
+      "avisos": 3603,
+      "precision_regla_vigente": 0.357757,
+      "precision_regla_suma": 0.354149,
+      "precision_azar": 0.135998,
+      "cociente_vigente": 2.630612,
+      "cociente_suma": 2.604082,
+      "diferencia": -0.003608,
+      "tramos_a_favor": 2,
+      "tramos_medidos": 9
+    },
+    "0.1837": {
+      "cobertura_declarada": 0.1837,
+      "avisos": 1207,
+      "precision_regla_vigente": 0.46396,
+      "precision_regla_suma": 0.455675,
+      "precision_azar": 0.124275,
+      "cociente_vigente": 3.733333,
+      "cociente_suma": 3.666667,
+      "diferencia": -0.008285,
+      "tramos_a_favor": 1,
+      "tramos_medidos": 9
+    }
+  },
+  "veredicto": "No se adopta la regla de la suma: no gana en las tres coberturas y el signo solo aguanta en 1 de 9 tramos."
+}
