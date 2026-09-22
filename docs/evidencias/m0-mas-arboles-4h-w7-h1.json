@@ -1,0 +1,315 @@
+{
+  "ejecutado_utc": "2026-09-22T17:50:27+00:00",
+  "que_mide": "Si un bosque mas grande mejora, midiendo F1 macro y la precision del aviso en las tres coberturas declaradas. El numero de arboles no controla capacidad: solo promedia, asi que no puede sobreajustar por crecer.",
+  "por_que_este_eje": "La rejilla de hiperparametros concluyo que mide ruido, y el numero de arboles es justamente la operacion que quita ese ruido. Quedo del lado equivocado de esa conclusion.",
+  "criterio_preregistrado": "Gana en las tres coberturas, signo estable en al menos 8 de 9 tramos en el punto de trabajo, y F1 macro medio que no empeora. Entre los que cumplan se elige EL MAS PEQUENO.",
+  "expectativa_declarada_antes": "Mejora pequena y positiva que satura. Si no mejorara nada, la varianza que estorba es la del problema y no la del promedio. Si mejorara mucho, el proyecto venia reportando un modelo innecesariamente ruidoso.",
+  "control": "La fila de 300 arboles reproduce la curva publicada (0,225169 / 0,253193 / 0,284289). Si no lo hiciera, el defecto estaria en este guion.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "objetivo": "solo_adelante_2_velas",
+  "observaciones": 6549,
+  "resultados": {
+    "300": {
+      "f1_por_tramo": [
+        0.362457,
+        0.434464,
+        0.423168,
+        0.421641,
+        0.437017,
+        0.419616,
+        0.404655,
+        0.426403,
+        0.454058
+      ],
+      "f1_medio": 0.420387,
+      "coberturas": {
+        "0.9040": {
+          "umbral": 0.300001,
+          "avisos": 5920,
+          "cobertura_real": 0.903955,
+          "precision": 0.225169,
+          "precision_azar": 0.143436,
+          "cociente_sobre_azar": 1.569817,
+          "precision_por_tramo": [
+            0.203593,
+            0.258982,
+            0.222892,
+            0.207463,
+            0.2512,
+            0.240299,
+            0.214397,
+            0.214838,
+            0.213752
+          ]
+        },
+        "0.5500": {
+          "umbral": 0.399951,
+          "avisos": 3602,
+          "cobertura_real": 0.550008,
+          "precision": 0.253193,
+          "precision_azar": 0.13683,
+          "cociente_sobre_azar": 1.850412,
+          "precision_por_tramo": [
+            0.221932,
+            0.282383,
+            0.264563,
+            0.238979,
+            0.258398,
+            0.253769,
+            0.243437,
+            0.242188,
+            0.273632
+          ]
+        },
+        "0.1837": {
+          "umbral": 0.499988,
+          "avisos": 1203,
+          "cobertura_real": 0.183692,
+          "precision": 0.284289,
+          "precision_azar": 0.144159,
+          "cociente_sobre_azar": 1.972053,
+          "precision_por_tramo": [
+            0.153061,
+            0.392857,
+            0.313043,
+            0.246032,
+            0.284768,
+            0.251748,
+            0.237805,
+            0.317829,
+            0.345455
+          ]
+        }
+      }
+    },
+    "900": {
+      "f1_por_tramo": [
+        0.359681,
+        0.428476,
+        0.429013,
+        0.422631,
+        0.436882,
+        0.41715,
+        0.409249,
+        0.4363,
+        0.458392
+      ],
+      "f1_medio": 0.421975,
+      "coberturas": {
+        "0.9040": {
+          "umbral": 0.298897,
+          "avisos": 5920,
+          "cobertura_real": 0.903955,
+          "precision": 0.225845,
+          "precision_azar": 0.143436,
+          "cociente_sobre_azar": 1.574528,
+          "precision_por_tramo": [
+            0.202363,
+            0.261002,
+            0.223065,
+            0.21194,
+            0.2512,
+            0.245083,
+            0.211747,
+            0.213518,
+            0.214605
+          ]
+        },
+        "0.5500": {
+          "umbral": 0.400449,
+          "avisos": 3602,
+          "cobertura_real": 0.550008,
+          "precision": 0.248751,
+          "precision_azar": 0.13683,
+          "cociente_sobre_azar": 1.817949,
+          "precision_por_tramo": [
+            0.221662,
+            0.285714,
+            0.26699,
+            0.232558,
+            0.242894,
+            0.254408,
+            0.239024,
+            0.238727,
+            0.2575
+          ]
+        },
+        "0.1837": {
+          "umbral": 0.497442,
+          "avisos": 1203,
+          "cobertura_real": 0.183692,
+          "precision": 0.274314,
+          "precision_azar": 0.144159,
+          "cociente_sobre_azar": 1.902858,
+          "precision_por_tramo": [
+            0.171429,
+            0.366667,
+            0.296296,
+            0.198413,
+            0.2875,
+            0.244755,
+            0.242236,
+            0.311475,
+            0.335443
+          ]
+        }
+      },
+      "tramos_a_favor": 3,
+      "f1_no_empeora": true,
+      "cumple_criterio": false
+    },
+    "1500": {
+      "f1_por_tramo": [
+        0.363706,
+        0.437276,
+        0.428332,
+        0.40504,
+        0.432325,
+        0.410854,
+        0.41424,
+        0.429667,
+        0.462584
+      ],
+      "f1_medio": 0.420447,
+      "coberturas": {
+        "0.9040": {
+          "umbral": 0.298502,
+          "avisos": 5920,
+          "cobertura_real": 0.903955,
+          "precision": 0.226351,
+          "precision_azar": 0.143436,
+          "cociente_sobre_azar": 1.578061,
+          "precision_por_tramo": [
+            0.205318,
+            0.263554,
+            0.222054,
+            0.211078,
+            0.252782,
+            0.244344,
+            0.209953,
+            0.212403,
+            0.216741
+          ]
+        },
+        "0.5500": {
+          "umbral": 0.400388,
+          "avisos": 3602,
+          "cobertura_real": 0.550008,
+          "precision": 0.24764,
+          "precision_azar": 0.13683,
+          "cociente_sobre_azar": 1.809833,
+          "precision_por_tramo": [
+            0.219697,
+            0.28392,
+            0.267813,
+            0.232057,
+            0.242268,
+            0.251244,
+            0.23741,
+            0.238095,
+            0.256281
+          ]
+        },
+        "0.1837": {
+          "umbral": 0.497626,
+          "avisos": 1203,
+          "cobertura_real": 0.183692,
+          "precision": 0.279302,
+          "precision_azar": 0.144159,
+          "cociente_sobre_azar": 1.937455,
+          "precision_por_tramo": [
+            0.181818,
+            0.373913,
+            0.293578,
+            0.227273,
+            0.290323,
+            0.237762,
+            0.263804,
+            0.295082,
+            0.333333
+          ]
+        }
+      },
+      "tramos_a_favor": 3,
+      "f1_no_empeora": true,
+      "cumple_criterio": false
+    },
+    "3000": {
+      "f1_por_tramo": [
+        0.362648,
+        0.44351,
+        0.437408,
+        0.404429,
+        0.432107,
+        0.414533,
+        0.41088,
+        0.433357,
+        0.457358
+      ],
+      "f1_medio": 0.421803,
+      "coberturas": {
+        "0.9040": {
+          "umbral": 0.299206,
+          "avisos": 5920,
+          "cobertura_real": 0.903955,
+          "precision": 0.227027,
+          "precision_azar": 0.143436,
+          "cociente_sobre_azar": 1.582771,
+          "precision_por_tramo": [
+            0.202363,
+            0.26015,
+            0.224242,
+            0.214605,
+            0.251185,
+            0.245852,
+            0.2125,
+            0.213953,
+            0.219219
+          ]
+        },
+        "0.5500": {
+          "umbral": 0.399922,
+          "avisos": 3602,
+          "cobertura_real": 0.550008,
+          "precision": 0.249584,
+          "precision_azar": 0.13683,
+          "cociente_sobre_azar": 1.824036,
+          "precision_por_tramo": [
+            0.221649,
+            0.287154,
+            0.269608,
+            0.232227,
+            0.244156,
+            0.249389,
+            0.240964,
+            0.238845,
+            0.261965
+          ]
+        },
+        "0.1837": {
+          "umbral": 0.4971,
+          "avisos": 1203,
+          "cobertura_real": 0.183692,
+          "precision": 0.283458,
+          "precision_azar": 0.144159,
+          "cociente_sobre_azar": 1.966286,
+          "precision_por_tramo": [
+            0.21,
+            0.350427,
+            0.301887,
+            0.228346,
+            0.291925,
+            0.234483,
+            0.259494,
+            0.32,
+            0.341463
+          ]
+        }
+      },
+      "tramos_a_favor": 4,
+      "f1_no_empeora": true,
+      "cumple_criterio": false
+    }
+  },
+  "veredicto": "No se adopta ningun bosque mas grande: ninguno cumple las tres condiciones. La varianza que estorba no es la del promedio de arboles."
+}

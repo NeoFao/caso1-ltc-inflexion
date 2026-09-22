@@ -1447,3 +1447,56 @@ presenta.
 **Evidencia:** `docs/evidencias/m0-regla-de-aviso-4h-w7-h1.json`,
 `docs/evidencias/m0-umbral-por-cuantil-4h-w7-h1.json`,
 `docs/evidencias/m0-umbral-por-tramo-4h-w7-h1.json`
+
+---
+
+## D31 · El bosque se queda en 300 árboles: el ruido que estorba no es el del promedio
+
+**Estado:** vigente desde el 22/09/2026 · criterio fechado **antes** de la corrida
+
+### El hueco que quedaba de la rejilla
+
+Está medido que el ruido entre semillas (**0,030377**) supera el umbral con el que el proyecto
+decide entre dos configuraciones (**0,02**), y de ahí salió la conclusión de que la rejilla de
+hiperparámetros **mide ruido** y no vale la pena ajustar.
+
+Pero **el número de árboles quedó del lado equivocado de esa conclusión.** Todos los demás
+hiperparámetros controlan la capacidad del modelo y se pueden pasar de rosca; el número de árboles
+**solo promedia**. Un bosque más grande baja su varianza de forma monótona y **no puede
+sobreajustar por crecer**. La rejilla dijo «hay demasiado ruido para distinguir configuraciones», y
+la respuesta a eso no es dejar de ajustar: es **reducir el ruido**. Eso no se había hecho.
+
+### Lo que salió
+
+| Árboles | F1 macro medio | 90 % | 55 % | 18,37 % |
+|---|---|---|---|---|
+| **300** (vigente) | 0,420387 | **1,5698×** | **1,8504×** | **1,9721×** |
+| 900 | 0,421975 | 1,5745× | 1,8179× | 1,9029× |
+| 1 500 | 0,420447 | 1,5781× | 1,8098× | 1,9375× |
+| 3 000 | 0,421803 | 1,5828× | 1,8240× | 1,9663× |
+
+**Ninguno cumple el criterio.** En el punto de trabajo los bosques grandes quedan **por debajo** del
+vigente, y la precisión va 0,2843 → 0,2743 → 0,2793 → 0,2835: **sin orden**. Diez veces más árboles
+mueven la tercera cifra decimal y no en una dirección.
+
+### Lo que eso significa, y estaba declarado antes
+
+La expectativa escrita antes decía: *«si no mejorara nada, la conclusión sería que la varianza que
+estorba no es la del promedio de árboles sino la del problema».* Es lo que pasó.
+
+**Promediar diez veces más árboles no mueve el resultado.** El ruido que separa una corrida de otra
+no viene de que el bosque sea chico: viene de que **la señal es débil**. Es la confirmación más
+directa que tiene el proyecto de su propio diagnóstico, porque ataca la única fuente de varianza
+que se podía eliminar por fuerza bruta — y al eliminarla no cambia nada.
+
+### Y una tercera reproducción independiente
+
+La fila de 300 árboles era el **control**, y lo pasó de forma exacta. Los umbrales que dejan cada
+cobertura salen **0,3000 · 0,4000 · 0,5000** —los tres valores publicados— y las precisiones,
+**0,225169 · 0,253193 · 0,284289**.
+
+Es la tercera vez que un arnés escrito aparte reproduce la curva del titular dígito por dígito.
+
+**No toca el bloque de reserva:** nueve tramos de validación deslizante.
+
+**Evidencia:** `docs/evidencias/m0-mas-arboles-4h-w7-h1.json`
