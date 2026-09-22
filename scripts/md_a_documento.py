@@ -157,6 +157,14 @@ def convertir(md: str) -> str:
     return "\n".join(salida)
 
 
+def _corto(ruta: Path) -> str:
+    """Ruta relativa al repositorio si vive dentro; si no, el nombre del archivo."""
+    try:
+        return str(ruta.relative_to(RAIZ))
+    except ValueError:
+        return ruta.name
+
+
 def a_documentos(ruta_md: Path) -> Path:
     md = ruta_md.read_text(encoding="utf-8")
     titulo = next((ln[2:].strip() for ln in md.split("\n") if ln.startswith("# ")), ruta_md.stem)
@@ -190,8 +198,11 @@ def a_documentos(ruta_md: Path) -> Path:
     finally:
         word.Quit()
     ruta_html.unlink()
-    print(f"  {ruta_pdf.relative_to(RAIZ)}")
-    print(f"  {ruta_docx.relative_to(RAIZ)}")
+    # El guion tambien se genera en Descargas, fuera del repositorio: alli
+    # relative_to(RAIZ) revienta, y reventar al *imprimir* hace creer que no se
+    # genero nada cuando los dos archivos ya estan escritos.
+    print(f"  {_corto(ruta_pdf)}")
+    print(f"  {_corto(ruta_docx)}")
     print(f"    {paginas} paginas, {palabras} palabras")
     return ruta_pdf
 
