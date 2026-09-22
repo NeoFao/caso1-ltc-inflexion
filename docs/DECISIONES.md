@@ -1377,3 +1377,73 @@ y la expansiva, el criterio se fija antes y se declara como una medición nueva.
 **No tocó el bloque de reserva:** nueve tramos de validación deslizante.
 
 **Evidencia:** `docs/evidencias/m0-ventana-entrenamiento-4h-w7-h1.json`
+
+---
+
+## D30 · La regla del aviso se queda como está, y el arnés nuevo reprodujo la curva publicada
+
+**Estado:** vigente desde el 22/09/2026 · criterios fechados **antes** de cada corrida, en
+commits sin resultados
+
+### Tres ejes más, y por qué
+
+Después de la [D29](#d29) quedaban tres preguntas sobre **cómo se convierte la probabilidad del
+modelo en un aviso**, que es la parte del sistema que produce la cifra que el proyecto reporta.
+Ninguna se había tocado.
+
+| Eje | Qué probaba | Resultado |
+|---|---|---|
+| **21** | Separar «¿hablo?» de «¿qué digo?»: elegir por `p_máx + p_mín` en vez de por `max` | **No se adopta** |
+| **22** | Umbral fijado como cuantil sobre una partición de calibración | **No atribuye** — cambiaba dos cosas a la vez |
+| **23** | Umbral por tramo (cuantil del tramo anterior) contra umbral global, **mismo modelo** | **No concluyente** |
+
+El eje 21 pierde en las tres coberturas y el signo solo aguanta en 1 de 9 tramos. La expectativa
+escrita antes decía «mejora pequeña y positiva»; salió pequeña y **negativa**. La lectura es que
+cuando el bosque reparte probabilidad entre máximo y mínimo **no está diciendo que viene un giro**:
+está diciendo que la vela es ambigua para todo.
+
+El eje 23 se declara **no concluyente por una condición de honestidad escrita de antemano**: las
+dos reglas terminaron hablando cantidades distintas —55,00 % contra 58,30 % de cobertura— y
+comparar precisiones a coberturas distintas no dice nada. El número favorecía levemente a la regla
+nueva y **aun así no se reporta como ganador**, porque la condición estaba escrita antes.
+
+### El error propio, y cómo apareció
+
+Los tres guiones nuevos **omitían `objetivo(..., HORIZONTE_H)`**. Sin esa llamada el modelo predice
+la etiqueta de **la vela actual** en vez de la siguiente, y la vela actual está parcialmente
+descrita por las características que el modelo ve. El efecto fue exactamente el esperable de ese
+tipo de error: **todo salía mejor**. En el punto de trabajo la precisión daba **0,4597** en vez de
+**0,2843**, y el cociente sobre el azar **3,19×** en vez de **1,95×**.
+
+**Cómo se detectó:** el número era demasiado bueno y no cuadraba con la evidencia ya publicada. El
+umbral que dejaba 18,37 % de cobertura salía **0,6747** cuando la evidencia del proyecto dice
+**0,50**, y a la misma cobertura las precisiones no coincidían. Dos mediciones del mismo sistema
+que no cuadran significan que una está mal, y había que averiguar cuál **antes** de reportar nada.
+
+**Ninguna de esas cifras llegó a un documento.** Se detectó entre la corrida y el informe.
+
+### El resultado que sí vale, y no se buscaba
+
+Corregido el error, el arnés de los ejes 21 a 23 —escrito desde cero, sin reutilizar el guion del
+barrido original— **reproduce la curva publicada cifra por cifra**:
+
+| Cobertura | Curva publicada | Arnés nuevo |
+|---|---|---|
+| 90,40 % | 0,225169 | **0,225169** |
+| 55,00 % | 0,253193 | **0,253193** |
+| 18,37 % | 0,284289 | **0,284289** |
+
+Eso es una **reproducción independiente** del resultado principal del proyecto, y vale más que
+cualquiera de los tres ejes que se fueron a medir.
+
+### Qué se decide
+
+**La regla del aviso se queda como está:** umbral global sobre la probabilidad de la clase rara más
+probable. Veintitrés ejes medidos, tres se sostienen, y los tres ya están en el sistema que se
+presenta.
+
+**No toca el bloque de reserva:** nueve tramos de validación deslizante.
+
+**Evidencia:** `docs/evidencias/m0-regla-de-aviso-4h-w7-h1.json`,
+`docs/evidencias/m0-umbral-por-cuantil-4h-w7-h1.json`,
+`docs/evidencias/m0-umbral-por-tramo-4h-w7-h1.json`

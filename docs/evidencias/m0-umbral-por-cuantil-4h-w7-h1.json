@@ -1,0 +1,92 @@
+{
+  "ejecutado_utc": "2026-09-22T17:26:14+00:00",
+  "que_mide": "Si fijar el umbral del aviso como un CUANTIL calculado sobre datos de entrenamiento mejora sobre el umbral fijo que usa hoy el proyecto, a la misma cobertura declarada.",
+  "la_trampa_que_evita": "Tomar el top k del tramo de evaluacion exige conocer ese tramo entero para calcular su percentil: es mirar hacia adelante. Se publica igual, marcado como NO reportable, para decir cuanto se pierde por ser honesto.",
+  "criterio_preregistrado": "Se adopta solo si el cociente sobre el azar supera al del umbral fijo en las tres coberturas declaradas y el signo aguanta en al menos 8 de 9 tramos en el punto de trabajo.",
+  "expectativa_declarada_antes": "Que quede entre las otras dos: mejor que el umbral fijo por adaptarse a cada tramo, y peor que el top k por calibrar con datos anteriores.",
+  "handicap_de_la_candidata": "Las reglas 1 y 2 entrenan con el 80 % del pasado, no con todo, porque el 20 % mas reciente se reserva para calibrar. Juega en contra de la candidata.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "objetivo": "solo_adelante_2_velas",
+  "observaciones": 6549,
+  "resultados": {
+    "0.9040": {
+      "cobertura_declarada": 0.904,
+      "precision_azar": 0.142254,
+      "reglas": {
+        "umbral_fijo": {
+          "avisos": 5963,
+          "cobertura_real": 0.910521,
+          "precision": 0.262787,
+          "cociente_sobre_azar": 1.847313
+        },
+        "cuantil_de_calibracion": {
+          "avisos": 5934,
+          "cobertura_real": 0.906093,
+          "precision": 0.262555,
+          "cociente_sobre_azar": 1.845679,
+          "tramos_a_favor": 3
+        },
+        "top_k_del_tramo": {
+          "avisos": 5919,
+          "cobertura_real": 0.903802,
+          "precision": 0.263896,
+          "cociente_sobre_azar": 1.855107
+        }
+      },
+      "umbral_fijo_usado": 0.225713
+    },
+    "0.5500": {
+      "cobertura_declarada": 0.55,
+      "precision_azar": 0.135165,
+      "reglas": {
+        "umbral_fijo": {
+          "avisos": 3846,
+          "cobertura_real": 0.587265,
+          "precision": 0.341914,
+          "cociente_sobre_azar": 2.5296
+        },
+        "cuantil_de_calibracion": {
+          "avisos": 3637,
+          "cobertura_real": 0.555352,
+          "precision": 0.353863,
+          "cociente_sobre_azar": 2.618005,
+          "tramos_a_favor": 8
+        },
+        "top_k_del_tramo": {
+          "avisos": 3603,
+          "cobertura_real": 0.55016,
+          "precision": 0.355537,
+          "cociente_sobre_azar": 2.63039
+        }
+      },
+      "umbral_fijo_usado": 0.361467
+    },
+    "0.1837": {
+      "cobertura_declarada": 0.1837,
+      "precision_azar": 0.12179,
+      "reglas": {
+        "umbral_fijo": {
+          "avisos": 1452,
+          "cobertura_real": 0.221713,
+          "precision": 0.449725,
+          "cociente_sobre_azar": 3.692636
+        },
+        "cuantil_de_calibracion": {
+          "avisos": 1257,
+          "cobertura_real": 0.191938,
+          "precision": 0.454256,
+          "cociente_sobre_azar": 3.729845,
+          "tramos_a_favor": 4
+        },
+        "top_k_del_tramo": {
+          "avisos": 1207,
+          "cobertura_real": 0.184303,
+          "precision": 0.455675,
+          "cociente_sobre_azar": 3.741497
+        }
+      },
+      "umbral_fijo_usado": 0.645793
+    }
+  },
+  "veredicto": "No se adopta el cuantil de calibracion: no gana en las tres coberturas y el signo solo aguanta en 4 de 9 tramos."
+}

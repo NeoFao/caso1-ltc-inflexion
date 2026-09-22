@@ -78,7 +78,7 @@ sys.path.insert(0, str(RAIZ / "scripts"))
 from proximidad_solo_adelante import objetivo_solo_adelante  # noqa: E402
 
 from contracts.config import ACTIVO_OBJETIVO, GRANULARIDAD, HORIZONTE_H, VENTANA_W  # noqa: E402
-from contracts.labeling import Clase, etiquetar  # noqa: E402
+from contracts.labeling import Clase, etiquetar, objetivo  # noqa: E402
 from contracts.schema import cierre  # noqa: E402
 from src.features.base import construir  # noqa: E402
 from src.modelos.base import BaselineAleatorio  # noqa: E402
@@ -122,7 +122,7 @@ def main() -> None:
 
     panel = pd.read_parquet(RAIZ / "data" / "processed" / f"panel_{GRANULARIDAD}_v1.parquet")
     X = construir(panel, rezagos_relativos=True)
-    exacto = etiquetar(cierre(panel, ACTIVO_OBJETIVO), VENTANA_W)
+    exacto = objetivo(etiquetar(cierre(panel, ACTIVO_OBJETIVO), VENTANA_W), HORIZONTE_H)
     y = objetivo_solo_adelante(exacto, VELAS_DE_MARGEN)
 
     validos = np.flatnonzero(y.notna().to_numpy())

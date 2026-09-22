@@ -1,0 +1,148 @@
+{
+  "ejecutado_utc": "2026-09-22T17:30:10+00:00",
+  "que_mide": "Si convertir la probabilidad en aviso con un umbral por tramo -- el cuantil del tramo anterior -- mejora sobre el umbral global unico, con el MISMO modelo del proyecto y a cobertura comparable.",
+  "por_que_aisla": "El eje 22 cambio el modelo y la regla a la vez y por eso no atribuye. Aca el modelo es el del proyecto y lo unico que cambia es la regla.",
+  "criterio_preregistrado": "Gana en las tres coberturas declaradas, signo estable en al menos 8 de 9 tramos, y las coberturas agregadas de las dos reglas no difieren en mas de 3%.",
+  "expectativa_declarada_antes": "Que el umbral por tramo gane de forma moderada. Una ganancia enorme seria senal de cobertura mal igualada antes que de una regla mejor.",
+  "no_toca_la_reserva": "Nueve tramos de validacion deslizante.",
+  "objetivo": "solo_adelante_2_velas",
+  "observaciones": 6549,
+  "resultados": {
+    "0.9040": {
+      "cobertura_declarada": 0.904,
+      "umbral_global": 0.300001,
+      "precision_azar": 0.143436,
+      "cobertura_por_tramo_regla_global": [
+        0.9188,
+        0.9188,
+        0.9133,
+        0.9216,
+        0.8597,
+        0.9216,
+        0.879,
+        0.89,
+        0.9127
+      ],
+      "cobertura_por_tramo_regla_por_tramo": [
+        0.989,
+        0.8982,
+        0.8968,
+        0.9175,
+        0.8267,
+        0.9381,
+        0.8652,
+        0.9202,
+        0.9277
+      ],
+      "dispersion_de_cobertura_global": 0.0619,
+      "dispersion_de_cobertura_por_tramo": 0.1623,
+      "tramos_a_favor_del_por_tramo": 4,
+      "reglas": {
+        "global": {
+          "avisos": 5920,
+          "cobertura_real": 0.903955,
+          "precision": 0.225169,
+          "cociente_sobre_azar": 1.569817
+        },
+        "por_tramo": {
+          "avisos": 5952,
+          "cobertura_real": 0.908841,
+          "precision": 0.224294,
+          "cociente_sobre_azar": 1.56372
+        }
+      },
+      "comparacion_valida": true
+    },
+    "0.5500": {
+      "cobertura_declarada": 0.55,
+      "umbral_global": 0.399951,
+      "precision_azar": 0.13683,
+      "cobertura_por_tramo_regla_global": [
+        0.5268,
+        0.5309,
+        0.5667,
+        0.5928,
+        0.5323,
+        0.5475,
+        0.5763,
+        0.5282,
+        0.5484
+      ],
+      "cobertura_por_tramo_regla_por_tramo": [
+        0.8212,
+        0.5502,
+        0.5805,
+        0.5653,
+        0.5048,
+        0.564,
+        0.5763,
+        0.5158,
+        0.5689
+      ],
+      "dispersion_de_cobertura_global": 0.066,
+      "dispersion_de_cobertura_por_tramo": 0.3164,
+      "tramos_a_favor_del_por_tramo": 3,
+      "reglas": {
+        "global": {
+          "avisos": 3602,
+          "cobertura_real": 0.550008,
+          "precision": 0.253193,
+          "cociente_sobre_azar": 1.850412
+        },
+        "por_tramo": {
+          "avisos": 3818,
+          "cobertura_real": 0.58299,
+          "precision": 0.248036,
+          "cociente_sobre_azar": 1.812723
+        }
+      },
+      "comparacion_valida": false
+    },
+    "0.1837": {
+      "cobertura_declarada": 0.1837,
+      "umbral_global": 0.499988,
+      "precision_azar": 0.144159,
+      "cobertura_por_tramo_regla_global": [
+        0.1348,
+        0.1541,
+        0.1582,
+        0.1733,
+        0.2077,
+        0.1967,
+        0.2256,
+        0.1774,
+        0.2251
+      ],
+      "cobertura_por_tramo_regla_por_tramo": [
+        0.0,
+        0.2105,
+        0.1939,
+        0.1898,
+        0.2215,
+        0.1719,
+        0.1981,
+        0.1458,
+        0.2347
+      ],
+      "dispersion_de_cobertura_global": 0.0908,
+      "dispersion_de_cobertura_por_tramo": 0.2347,
+      "tramos_a_favor_del_por_tramo": 3,
+      "reglas": {
+        "global": {
+          "avisos": 1203,
+          "cobertura_real": 0.183692,
+          "precision": 0.284289,
+          "cociente_sobre_azar": 1.972053
+        },
+        "por_tramo": {
+          "avisos": 1140,
+          "cobertura_real": 0.174072,
+          "precision": 0.289474,
+          "cociente_sobre_azar": 2.008016
+        }
+      },
+      "comparacion_valida": true
+    }
+  },
+  "veredicto": "No concluyente: en alguna cobertura las dos reglas terminan hablando cantidades demasiado distintas, y comparar precisiones a coberturas distintas no dice nada."
+}
